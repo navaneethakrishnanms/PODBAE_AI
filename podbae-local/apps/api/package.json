@@ -1,0 +1,39 @@
+{
+  "name": "@podbae/api",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/server.ts",
+    "start": "tsx --env-file=../../.env src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "cross-env NODE_ENV=test vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file=../../.env src/db/migrate.ts",
+    "seed": "tsx --env-file=../../.env src/db/seedCli.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "@podbae/contracts": "*",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.44.0",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/express-session": "^1.18.0",
+    "@types/node": "^22.7.5",
+    "@types/supertest": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "drizzle-kit": "^0.31.0",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.3"
+  }
+}

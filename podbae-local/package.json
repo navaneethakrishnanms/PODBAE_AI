@@ -1,0 +1,35 @@
+{
+  "name": "podbae-local",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "dev": "concurrently -k -n web,api,ai -c magenta,cyan,green \"npm run dev -w @podbae/web\" \"npm run dev -w @podbae/api\" \"npm run dev:ai\"",
+    "dev:ai": "cd services/ai && conda run -n torch_gpu --no-capture-output python -m uvicorn app.main:app --port 8000 --reload",
+    "setup": "npm install && npm run setup:ai && npm run db:migrate && npm run seed",
+    "setup:ai": "conda run -n torch_gpu pip install -r services/ai/requirements.txt",
+    "db:generate": "npm run db:generate -w @podbae/api",
+    "db:migrate": "npm run db:migrate -w @podbae/api",
+    "seed": "npm run seed -w @podbae/api",
+    "reset": "rimraf data && npm run db:migrate && npm run seed",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "build": "npm run build -w @podbae/web",
+    "test": "npm run test -w @podbae/api",
+    "test:ai": "cd services/ai && conda run -n torch_gpu python -m pytest -q",
+    "open": "node scripts/open-browser.mjs",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.12.0",
+    "open": "^10.1.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.8.1"
+  }
+}
