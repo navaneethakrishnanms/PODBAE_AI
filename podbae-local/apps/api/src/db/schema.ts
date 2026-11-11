@@ -255,6 +255,20 @@ export const ingestionJobs = pgTable('ingestion_jobs', {
   updatedAt: ts('updated_at').notNull().defaultNow(),
 });
 
+/** Link between an app podcast and its show in the AI service's intelligence store (the app never reads that store directly).
+ *  `profile` is the last profile fetched over HTTP, kept so the UI can still show it ("may be outdated") if the AI service is down. */
+export const intelLinks = pgTable('intel_links', {
+  id: serial('id').primaryKey(),
+  podcastId: integer('podcast_id').notNull().unique().references(() => podcasts.id, { onDelete: 'cascade' }),
+  intelShowId: text('intel_show_id'),
+  rssUrl: text('rss_url'),
+  lastJobId: text('last_job_id'),
+  profile: jsonb('profile'),
+  profileCachedAt: ts('profile_cached_at'),
+  createdAt: ts('created_at').notNull().defaultNow(),
+  updatedAt: ts('updated_at').notNull().defaultNow(),
+});
+
 /** Provenance: every seeded / submitted / external fact shown to users has a row here. */
 export const dataSources = pgTable('data_sources', {
   id: serial('id').primaryKey(),

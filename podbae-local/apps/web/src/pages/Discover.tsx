@@ -3,8 +3,47 @@ import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { PublicLayout } from '../components/Layout';
-import { Badge, Button, Card, Empty, Input, Spinner } from '../components/ui';
+import { Badge, Button, Card, Dialog, Empty, Input, Spinner } from '../components/ui';
 import { api } from '../lib/api';
+import { FieldRow, GROUPS } from './Intelligence';
+
+/** Real, ingested shows (RSS) from the intelligence service. Demo rows above stay flagged "demo". */
+function IngestedShows({ q, category }: { q: string; category: string }) {
+  const qs = new URLSearchParams({ limit: '12', ...(q && { q }), ...(category && { category }) }).toString();
+  const { data, isLoading } = useQuery({ queryKey: ['intel-shows', qs], queryFn: () => api.get(`/api/intel/shows?${qs}`) });
+  const [open, setOpen] = useState<string | null>(null);
+  const profile = useQuery({ queryKey: ['intel-public', open], enabled: !!open, queryFn: () => api.get(`/api/intel/shows/${open}/profile`) });
+  if (isLoading) return <Spinner />;
+  if (data?.ai_down) return <p className="mt-10 text-sm text-muted-foreground">Real ingested shows are unavailable while the AI service is down.</p>;
+  if (!data?.shows?.length) return null;
+  return (
+    <section className="mt-12">
+      <h2 className="text-2xl font-extrabold">Real shows from RSS <span className="text-sm font-normal text-muted-foreground">({data.total} ingested)</span></h2>
+      <p className="mt-1 text-sm text-muted-foreground">Read from public RSS feeds. Basic facts are <b>verified</b>; everything else on the profile says how we know it.</p>
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {data.shows.map((s: any) => (
+          <Card key={s.id}>
+            <div className="flex items-center gap-2"><h3 className="font-semibold">{s.title}</h3><Badge tone="green">verified · RSS</Badge></div>
+            <p className="mt-1 text-xs text-muted-foreground">{s.language ?? '?'} · {s.episode_count ?? '?'} eps · {s.activity ?? 'activity unknown'}</p>
+            <p className="mt-2 line-clamp-3 text-sm">{s.description}</p>
+            <div className="mt-3 flex flex-wrap gap-1">{s.categories.slice(0, 4).map((t: string) => <Badge key={t}>{t}</Badge>)}</div>
+            <button className="mt-3 text-sm font-medium text-primary" onClick={() => setOpen(s.id)}>View intelligence →</button>
+          </Card>
+        ))}
+      </div>
+      <Dialog open={!!open} onOpenChange={(o) => !o && setOpen(null)} title={profile.data?.title ?? 'Show intelligence'}>
+        {profile.isLoading ? <Spinner /> : profile.data?.fields ? (
+          <div className="max-h-[60vh] overflow-y-auto pr-1">
+            {GROUPS.map(([g, label]) => {
+              const rows = Object.entries(profile.data.fields).filter(([, f]: any) => f.group === g);
+              return rows.length ? <div key={g} className="mb-3"><h4 className="text-sm font-semibold">{label}</h4>{rows.map(([k, f]) => <FieldRow key={k} name={k} f={f} />)}</div> : null;
+            })}
+          </div>
+        ) : <p className="text-sm text-muted-foreground">Profile unavailable.</p>}
+      </Dialog>
+    </section>
+  );
+}
 
 export default function Discover() {
   const [q, setQ] = useState('');
@@ -47,6 +86,7 @@ export default function Discover() {
           <span>Page {page} / {pages}</span>
           <Button variant="outline" size="sm" disabled={page >= pages} onClick={() => setPage(page + 1)}>Next</Button>
         </div>
+        <IngestedShows q={q} category={category} />
       </div>
     </PublicLayout>
   );

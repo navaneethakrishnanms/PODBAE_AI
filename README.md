@@ -60,6 +60,24 @@ foreach ($p in 5173,5000,8000) { Get-NetTCPConnection -LocalPort $p -State Liste
 Other seeded accounts use `*@demo.podbae.local` / `demo123` (7 more podcasters, 4 advertisers, 4 venues, 5 guests).
 Demo accounts "like back" automatically when `DEMO_AUTO_LIKE=true` (set in `.env`), so mutual matches are easy to demo.
 
+## Layer 1: Podcast Intelligence (new)
+Real RSS ingestion + a trust-labelled **Podcast Intelligence Profile**, owned by `services/ai` (its own store, `data/intel.db`: SQLite WAL + sqlite-vec; the
+Node API and web app reach it **only** through the AI service `/v1` HTTP API).
+
+```powershell
+npm run intel:seed             # ingest ~300 real shows (needs internet; see EVAL_LAYER1.md for what this machine could reach)
+npm run dev                    # everything
+npm run intel:connect-demo     # connects podcaster@podbae.local to a real feed, then open http://localhost:5173/intelligence
+npm run test:ai                # pytest: ingestion, trust, LLM-guard and API acceptance tests
+```
+- **Trust rules (enforced in code + tests):** every stored fact has source, data tier (Verified / Creator-provided / Estimated / AI-inferred), timestamp, confidence; stale data is flagged and refreshed;
+  the LLM can never produce ages, genders, incomes, cities or listener counts (schema rejects them); all external text is sanitised and only sent to LLMs inside delimited data blocks; every
+  external/LLM/GPU call is in a cost ledger and subject to a budget.
+- **Zero keys:** mock LLM + local embeddings (`intfloat/multilingual-e5-small` on your GPU). Optional keys in `.env`: `OPENAI_API_KEY` / `ANTHROPIC_API_KEY`, `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET`, `TADDY_USER_ID` + `TADDY_API_KEY` (+ `INTEL_TADDY_ENABLED=true`).
+- **Pages:** `/intelligence` (your profile, tier badges, audience CSV upload), `/discover` (real ingested shows), `/admin` (Ingestion jobs / Coverage / Costs tabs).
+- **Reports:** `LAYER1_REPORT.md` (what works, mocked parts, risks, seams for Layer 2 and 4), `EVAL_LAYER1.md` (measured numbers).
+- **Postgres in production:** set `INTEL_DATABASE_URL=postgresql+psycopg://…` and `INTEL_VECTOR_BACKEND=pgvector` (code path written but not exercised locally).
+
 ## Optional keys
 `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` in `.env` (plus `LLM_PROVIDER=openai|anthropic`) only change Hey Bae replies. Matching never uses an LLM.
 

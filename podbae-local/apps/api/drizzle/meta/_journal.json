@@ -8,6 +8,13 @@
       "when": 1793772809122,
       "tag": "0000_glamorous_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793789144188,
+      "tag": "0001_mature_hex",
+      "breakpoints": true
     }
   ]
 }

@@ -248,3 +248,4 @@ export type MatchCandidate = z.infer<typeof MatchCandidateSchema>;
 export type MatchResponse = z.infer<typeof MatchResponseSchema>;
 export type Tier = z.infer<typeof TierSchema>;
 export type TargetType = z.infer<typeof TargetTypeSchema>;
+export * from './intelligence';

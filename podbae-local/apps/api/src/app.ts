@@ -8,6 +8,7 @@ import { loadUser } from './middleware/auth.js';
 import { adminRouter } from './routes/admin.js';
 import { authRouter } from './routes/auth.js';
 import { intakeRouter } from './routes/intake.js';
+import { intelRouter } from './routes/intel.js';
 import { memberRouter } from './routes/member.js';
 import { podcastsRouter, publicRouter } from './routes/podcasts.js';
 import { socialRouter } from './routes/social.js';
@@ -38,6 +39,7 @@ export function createApp() {
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
   app.use(authRouter); // includes public /api/admin/setup-* — must precede adminRouter
   app.use(intakeRouter);
+  app.use(intelRouter); // before adminRouter: /api/admin/intel/* are admin-guarded inside
   app.use(podcastsRouter);
   app.use(publicRouter);
   app.use(memberRouter);

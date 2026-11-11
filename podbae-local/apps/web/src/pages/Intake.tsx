@@ -1,4 +1,5 @@
 import { CATEGORIES, COLLAB_TYPES, TONE_TAGS, VIBE_TAGS } from '@podbae/contracts';
+import { useQuery } from '@tanstack/react-query';
 import { CheckCircle2, MapPin, Megaphone, Mic, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
@@ -6,6 +7,7 @@ import { AppLayout, PublicLayout } from '../components/Layout';
 import { Button, Card, ChipSelect, Field, Input, Textarea, toast } from '../components/ui';
 import { api } from '../lib/api';
 import { useMe } from '../lib/auth';
+import { JobProgress } from './Intelligence';
 
 export function GetStarted() {
   const roles = [
@@ -167,6 +169,21 @@ export function Onboarding() {
   );
 }
 
+/** Live progress of the RSS ingestion job started by the intake (only shown when an RSS feed was submitted). */
+function IntelProgress() {
+  const { data } = useQuery({
+    queryKey: ['intel-status'], retry: false, queryFn: () => api.get('/api/intel/my/status'),
+    refetchInterval: (q) => { const j = q.state.data?.job; return j && ['queued', 'running'].includes(j.status) ? 1500 : false; },
+  });
+  if (!data?.job) return null;
+  return (
+    <div className="mt-6 text-left">
+      <JobProgress job={data.job} />
+      {data.job.status === 'succeeded' && <Link href="/intelligence" className="mt-2 inline-block text-sm font-medium text-primary">See your Podcast Intelligence profile →</Link>}
+    </div>
+  );
+}
+
 export function Success() {
   const { me } = useMe();
   const next = me?.role === 'advertiser' ? '/dashboard/campaign-builder' : '/dashboard';
@@ -176,6 +193,7 @@ export function Success() {
         <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
         <h1 className="mt-3 text-3xl font-bold">You're in! 🎉</h1>
         <p className="mt-2 text-muted-foreground">Your submission is saved{me?.role === 'podcaster' ? ' and your matches are ready' : ''}.</p>
+        {me?.role === 'podcaster' && <IntelProgress />}
         <Link href={next}><Button size="lg" className="mt-6">Go to dashboard</Button></Link>
       </div>
     </AppLayout>

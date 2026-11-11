@@ -82,7 +82,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
 }
 
 const MEMBER_LINKS = [
-  ['/dashboard', 'Dashboard'], ['/swipe', 'Swipe'], ['/messages', 'Messages'], ['/schedule', 'Schedule'],
+  ['/dashboard', 'Dashboard'], ['/intelligence', 'Intelligence'], ['/swipe', 'Swipe'], ['/messages', 'Messages'], ['/schedule', 'Schedule'],
   ['/analytics', 'Analytics'], ['/partners', 'Partners'], ['/listen', 'Listen'], ['/discover', 'Discover'], ['/profile', 'Profile'],
 ] as const;
 

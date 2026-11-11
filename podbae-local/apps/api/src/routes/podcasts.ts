@@ -35,15 +35,7 @@ podcastsRouter.get('/api/member/podcast-episodes', requireAuth, h(async (req, re
      WHERE p.owner_user_id = $1 ORDER BY e.published_at DESC NULLS LAST LIMIT 100`, [req.user!.id]) });
 }));
 
-// Phase 1 stub: records the RSS URL on the member's podcast. Phase 2 (services/ai) parses the feed.
-podcastsRouter.post('/api/agent/ingest-rss', requireAuth, h(async (req, res) => {
-  const { rssUrl } = parse(z.object({ rssUrl: z.string().url() }), req.body);
-  const p = await q1('SELECT id FROM podcasts WHERE owner_user_id = $1 ORDER BY id LIMIT 1', [req.user!.id]);
-  if (!p) throw new HttpError(404, 'Create your podcast first');
-  await q('UPDATE podcasts SET rss_url = $1, updated_at = now() WHERE id = $2', [rssUrl, p.id]);
-  await q(`INSERT INTO ingestion_jobs (source, params, status) VALUES ('rss',$1,'pending')`, [JSON.stringify({ podcastId: p.id, rssUrl })]);
-  res.status(202).json({ status: 'queued', note: 'RSS parsing arrives in Phase 2; URL saved.', podcastId: p.id });
-}));
+// POST /api/agent/ingest-rss lives in routes/intel.ts (Layer 1: real RSS ingestion via the AI service).
 
 // ================= public + search =================
 export const publicRouter = Router();

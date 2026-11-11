@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -24,7 +25,19 @@ from . import scoring  # noqa: E402
 from .llm import get_llm  # noqa: E402
 from .schemas import ChatRequest, ChatResponse, MatchRequest, MatchResponse  # noqa: E402
 
-app = FastAPI(title="PodBae AI Service (placeholder)", version="0.2.0")
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    from . import intel
+    if os.environ.get("INTEL_DISABLED") != "1":
+        intel.startup()
+    yield
+    intel.shutdown()
+
+
+app = FastAPI(title="PodBae AI Service", version="0.3.0", lifespan=lifespan)
+from .intel.api import router as intel_router  # noqa: E402
+
+app.include_router(intel_router)
 
 
 @app.get("/health")

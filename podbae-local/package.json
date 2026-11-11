@@ -3,11 +3,14 @@
   "private": true,
   "type": "module",
   "version": "0.2.0",
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "dev": "concurrently -k -n web,api,ai -c magenta,cyan,green \"npm run dev -w @podbae/web\" \"npm run dev -w @podbae/api\" \"npm run dev:ai\"",
     "dev:ai": "cd services/ai && conda run -n torch_gpu --no-capture-output python -m uvicorn app.main:app --port 8000 --reload",
-    "setup": "npm install && npm run setup:ai && npm run db:migrate && npm run seed",
+    "setup": "npm install && npm run setup:ai && npm run db:migrate && npm run seed && npm run intel:migrate",
     "setup:ai": "conda run -n torch_gpu pip install -r services/ai/requirements.txt",
     "db:generate": "npm run db:generate -w @podbae/api",
     "db:migrate": "npm run db:migrate -w @podbae/api",
@@ -19,7 +22,10 @@
     "test": "npm run test -w @podbae/api",
     "test:ai": "cd services/ai && conda run -n torch_gpu python -m pytest -q",
     "open": "node scripts/open-browser.mjs",
-    "format": "prettier -w ."
+    "format": "prettier -w .",
+    "intel:migrate": "cd services/ai && conda run -n torch_gpu python -m alembic upgrade head",
+    "intel:seed": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/intel_seed.py",
+    "intel:connect-demo": "node scripts/connect-demo.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

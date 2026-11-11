@@ -109,7 +109,7 @@ adminRouter.get('/api/admin/partnership-invites', h(async (_req, res) => {
   res.json({ invites: await q('SELECT * FROM partnership_invites ORDER BY created_at DESC') });
 }));
 
-// Phase 2 seams: /api/admin/taddy-import/*, /api/admin/taddy-status, /api/admin/trigger-taddy-refresh
+// Taddy/directory controls now map to AI-service jobs: see routes/intel.ts (/api/admin/intel/*).
 adminRouter.get('/api/admin/ingestion-jobs', h(async (_req, res) => {
-  res.json({ jobs: await q('SELECT * FROM ingestion_jobs ORDER BY id DESC LIMIT 50'), note: 'Ingestion arrives in Phase 2.' });
+  res.json({ jobs: await q('SELECT * FROM ingestion_jobs ORDER BY id DESC LIMIT 50'), note: 'Legacy app-side queue. Live ingestion jobs, coverage and costs: /api/admin/intel/jobs|coverage|costs.' });
 }));

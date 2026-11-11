@@ -1,0 +1,529 @@
+# url<TAB>category (discovered 2026-11-04)
+http://feeds.feedburner.com/tdicasts	Business
+http://wordonfire.podbean.com/feed/	Religion & Spirituality
+http://www.manager-tools.com/feeds/mt_podcasts.xml	Business
+http://portal-api.thisisdistorted.com/xml/nora-en-pure-purified-radio	Sports & Hobbies
+http://www.lewrockwell.com/podcast/feed.xml	Business
+http://feeds.feedburner.com/HanselminutesCompleteMP3	Technology
+https://rss.art19.com/lisk	True Crime
+https://palegroove.com/seasons/root-of-evil-the-true-story-of-the-hodel-family-and-the-black-dahlia.xml	Kids & Family
+http://www.japanesepod101.com/wp-feed-audio.php	Education
+http://smlr.us/?feed=smlr-ogg	Arts
+http://distrowatch.com/news/podcast.xml	News & Politics
+http://feeds.feedburner.com/MyHistoryCanBeatUpYourPolitics	Education
+http://feeds.feedburner.com/zencast	Health & Wellness
+http://politicsandguns.libsyn.com/rss	News & Politics
+https://backpackinglightpodcast.libsyn.com/rss	Society & Culture
+http://sidenote.libsyn.com/rss	Education
+http://feeds.feedburner.com/IShouldBeMeditatingPodcast	Health & Wellness
+http://www.katenagroup.org/PODCAST_FEEDS/FLORIDAPSYCH.xml	Kids & Family
+https://mindsetbydesign.libsyn.com/rss	Business
+http://faif.us/feeds/cast-ogg	News & Politics
+http://robbwolf.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/AlbertMohlerPowerline	Religion & Spirituality
+http://feeds.ancientfaith.com/ExLibrisConciliar	Religion & Spirituality
+http://librivox.org/bookfeeds/the-montessori-method-by-maria-montessori.xml	Kids & Family
+https://feeds.megaphone.fm/thenod	Society & Culture
+http://feeds.schlaflosinmuenchen.com/slowsim.xml	Education
+https://themeditationpodcast.com/tmp.xml	Health & Wellness
+http://rss.art19.com/stories-podcast	Kids & Family
+http://feeds.feedburner.com/AcademyIM	Business
+https://feeds.megaphone.fm/HTX4718937196	True Crime
+http://feeds.feedburner.com/cotg	Kids & Family
+http://feeds.feedburner.com/PhandroidPodcast	Arts
+http://feeds.feedburner.com/changelogshow	Technology
+http://feeds.twis.org/twis/science	Technology
+http://www.presentationministries.com/dbread/dbreadpodcast.asp	Religion & Spirituality
+http://www.abc.net.au/radionational/feed/2888650/podcast.xml	Health & Wellness
+http://feeds.feedburner.com/therissingtonpodcast	Sports & Hobbies
+http://isbw.wm.wizzard.tv/rss	Arts
+http://www.thenarrativebreakdown.com/topics/podcast-episodes/feed	Arts
+http://learningenglish.voanews.com/podcast/?count=20&zoneId=986	Society & Culture
+http://mentalpoison.libsyn.com/rss	Comedy
+http://feeds.feedburner.com/EndtimeMinistriesPodcast	Religion & Spirituality
+http://feeds.feedburner.com/boagworldpodcast	Arts
+http://feeds.feedburner.com/gangster-capitalism	Kids & Family
+http://www.lewrockwell.com/lewrockwell-show/feed/	Business
+http://feeds.wsjonline.com/wsj/podcast_wall_street_journal_on_small_business	Business
+https://www.spreaker.com/show/3212066/episodes/feed	True Crime
+https://rss.art19.com/alternate_feeds/user/cold/iflK1omSrLPRbPL7T-z38sBn2XLqJysy	True Crime
+http://feeds.feedburner.com/boagworldpodcast/	Arts
+http://feeds.feedburner.com/twis/science	Technology
+http://shoptalkshow.com/feed/podcast	Arts
+http://www.billburr.com/feed	Comedy
+http://ludology.libsyn.com/rss	Sports & Hobbies
+http://opensourcemusician.libsyn.com/rss	Technology
+http://revolutionspodcast.libsyn.com/rss	News & Politics
+http://selectedshortspri.pri.libsynpro.com/rss	Comedy
+http://feeds.feedburner.com/best-practice-software-engineering-podcast	Technology
+http://feeds.feedburner.com/BenGreenfieldFitness	Health & Wellness
+http://feeds.harvardbusiness.org/harvardbusiness/ideacast	Business
+http://feeds.feedburner.com/RatholeRadio-ogg	News & Politics
+http://thinkingsidewayspodcast.libsyn.com/rss	True Crime
+http://feeds.feedburner.com/Storynory	Kids & Family
+http://worldwariipodcast.net/wordpress/feed/	Education
+https://humanperformanceoutliers.libsyn.com/rss	Health & Wellness
+http://mikenation.net/feed/podcast/	Technology
+http://www.geeknewscentral.com/podcast.xml	Technology
+http://feeds.feedburner.com/menshealth/UCOo	Health & Wellness
+http://www.shutupandsitdown.com/podcast/feed.xml	Sports & Hobbies
+http://feeds.feedburner.com/ProgrammingThrowdown	Technology
+http://rss.art19.com/casefile/	True Crime
+https://rss.art19.com/generation-why-podcast	True Crime
+http://feeds.feedburner.com/TheGameKennel	Sports & Hobbies
+http://www.soulofislamradio.com/blog/feed/podcast/	Society & Culture
+http://www.messyparenting.org/?feed=podcast	Kids & Family
+https://rss.art19.com/sean-carrolls-mindscape	Society & Culture
+http://feeds.feedburner.com/NoPressureToBeFunny	Comedy
+http://feeds.feedburner.com/thetruthapm	Comedy
+http://feeds.feedburner.com/CoralRidgePresbyterianChurchSermons	Religion & Spirituality
+http://www.wallawalla.edu/academics/departments/theology/goodword/podcast.php	Religion & Spirituality
+http://feeds.feedburner.com/PaleoPodcast	Health & Wellness
+https://feeds.buzzsprout.com/1956167.rss	Comedy
+http://feeds.feedburner.com/wow-podcast	Arts
+https://rss.art19.com/review-revue	Comedy
+http://feeds.feedburner.com/Hanselminutes	Technology
+http://feed.desiringgod.org/sermon-of-the-day.rss	Religion & Spirituality
+http://feeds.feedburner.com/glendalecitysda/rvke	Religion & Spirituality
+http://feedpress.me/keylife	Religion & Spirituality
+http://feeds.feedburner.com/dailyboost	Health & Wellness
+http://feeds.feedburner.com/NumeneraTheSignalPodcast	Sports & Hobbies
+http://healthylivingradio.libsyn.com/rss	Health & Wellness
+http://throwingshade.libsyn.com/rss	Comedy
+http://dicetower.libsyn.com/rss	Sports & Hobbies
+http://thefitcast.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/TheBikeShow	Society & Culture
+http://risky.biz/feeds/risky-business	Business
+https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f5d5fac6-77be-47e6-9aee-ae32006cd8c3/b26cbbeb-86eb-4b97-9b34-ae32006cd8d6/podcast.rss	Education
+http://improvstartrek.libsyn.com/rss	Comedy
+http://onsoftwarevid.pearson.libsynpro.com/rss	Technology
+http://feeds.feedburner.com/PulpGamer	Sports & Hobbies
+http://feeds.gty.org/GTYRadioBroadcast	Religion & Spirituality
+http://feeds.feedburner.com/BestOfTheLeftPodcastmp3	News & Politics
+http://foodforfitness.libsyn.com/rss	Health & Wellness
+http://tarabrach.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/CityJournalPodcasts	News & Politics
+http://feeds.feedburner.com/sqeconferences	Technology
+https://happymelly.libsyn.com/rss	Business
+http://www.se-radio.net/feed/	Technology
+http://rss.allaboutsymbian.com/media/podcastfeed.xml	News & Politics
+http://feeds.twit.tv/specials_video_large	News & Politics
+http://feeds.twit.tv/floss_video_large	Technology
+http://mediapub.it.ox.ac.uk/feeds/129288/audio.xml	Education
+http://feeds.podtrac.com/GCZVrOrFIOIY	Health & Wellness
+https://feeds.megaphone.fm/almostheretical	Religion & Spirituality
+https://feeds.megaphone.fm/END8394789342	True Crime
+http://frug.podbean.com/feed/	Education
+http://feeds.feedburner.com/EmbraceRunning	Sports & Hobbies
+https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/2abb18df-01d8-477b-aea7-ab3c017f7754/299e64ef-7490-4140-8769-ab3c017f7767/podcast.rss	True Crime
+http://www.lingq.com/itunes/45051	Kids & Family
+http://feeds.feedburner.com/rfk-tapes	Kids & Family
+http://feeds.feedburner.com/stuartgoldsmith	Comedy
+http://nekkidtech.libsyn.com/rss	Society & Culture
+http://feeds.waywordradio.org/awwwpodcast	Education
+http://www.faif.us/feeds/cast-mp3/	News & Politics
+http://feeds.feedburner.com/MarketingOverCoffee	Business
+http://feeds.feedburner.com/QuietThePowerOfIntrovertsWithSusanCain	Kids & Family
+https://nordictruecrime.podbean.com/feed.xml	True Crime
+http://feeds.feedburner.com/TheAdamCarollaPodcast	News & Politics
+http://quicksurf.com/?feed=mp3&cat=141	News & Politics
+http://feeds.feedburner.com/PappysFlatshareSlamdown	Comedy
+http://boardgamebabylon.libsyn.com/rss	Arts
+http://seemedlikeagoodideaatthetime.libsyn.com/rss	True Crime
+http://rationalsecurity.libsyn.com/rss	News & Politics
+https://feeds.feedburner.com/QueeryWithCameronEsposito	Society & Culture
+http://feeds.feedburner.com/ThePartiallyExaminedLife	Arts
+https://rss.art19.com/the-one-you-feed	Health & Wellness
+http://isc1.sans.org/dailypodcast.xml	Arts
+http://feeds.feedburner.com/webaxe	Arts
+https://alanwattsarchive.podomatic.com/rss2.xml	Religion & Spirituality
+http://vimeo.com/channels/kairossermons/videos/rss	Religion & Spirituality
+http://feeds.feedburner.com/tlf-podcast	News & Politics
+https://feeds.simplecast.com/5lbWOVqN	Kids & Family
+http://imaginaryfriendsshow.libsyn.com/rss	True Crime
+http://feeds.feedburner.com/iinnovatecast	Business
+http://geologicpodcast.com/rss	Comedy
+http://www.sffaudio.com/?feed=podcast	Arts
+http://www.cert.org/podcasts/exec_podcast.rss	Technology
+http://feeds.feedburner.com/kasperhauser	Comedy
+http://violetblue.libsyn.com/rss	Technology
+http://feeds.feedburner.com/TheLongViewPodcast	Sports & Hobbies
+http://goodjobbrain.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/ThisIsMyNextPodcast	Business
+http://mettahour.libsyn.com/rss	Health & Wellness
+http://feed.desiringgod.org/theology-refresh.rss	Religion & Spirituality
+http://5minutesinchurchhistory.ligonier.org/rss	Kids & Family
+http://revision3.com/hak5/feed/MP4-hd30	Technology
+http://feeds.feedburner.com/wiredlivepodcast	Business
+http://files.thisagilelife.com/this-agile-life.xml	Technology
+http://feeds.5minutesinchurchhistory.com/5ChurchHistory	Kids & Family
+http://stoppodcastingyourself.libsyn.com/rss	Comedy
+http://feeds.thedisciplinedinvestor.com/tdicasts	Business
+http://academicearth.org/courses/programming-methodology/video.rss	Technology
+http://feeds.feedburner.com/podnutz	Business
+https://feeds.megaphone.fm/HSW9350285911	Society & Culture
+https://anchor.fm/s/46287364/podcast/rss	Education
+http://feeds.feedburner.com/london/lbs	Business
+http://feeds.podtrac.com/_NlNjRQ4h1_8	True Crime
+http://leoville.tv/podcasts/floss.xml	Technology
+http://www.barnesandnoble.com/rss/mtw.xml	Arts
+http://feeds.feedburner.com/marketingovercoffee	Business
+http://feeds.feedburner.com/SundayMorningLinuxReview-Mp3Feed	Arts
+http://feeds.feedburner.com/Roll2d6	Sports & Hobbies
+http://www.abc.net.au/radio/programs/truecrime/feed/9758336/podcast.xml	True Crime
+http://www.lse.ac.uk/assets/richmedia/webFeeds/publicLecturesAndEvents_iTunesStore.xml	News & Politics
+https://foundmyfitness.libsyn.com/rss	Health & Wellness
+http://feeds.ancientfaith.com/RaisingSaintsAFR	Kids & Family
+http://feeds.feedburner.com/abcradio/10percenthappier	Arts
+http://feeds.feedburner.com/bikeshowfeed	Society & Culture
+https://rss.art19.com/the-school-of-greatness	Business
+http://feeds.feedburner.com/thornmorris	Comedy
+http://www.keithandthegirl.com/rss/	Comedy
+http://genealogygemspodcast.com/rss	Sports & Hobbies
+http://feeds.feedburner.com/2d6Feet	Sports & Hobbies
+http://www.manager-tools.com/podcasts/feed/rss2	Business
+http://feeds.feedburner.com/KidsStoriesAndFairyTales-PalaceOfStoriesPodcast	Kids & Family
+http://bedsiderounds.libsyn.com/rss	Society & Culture
+https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/caa92bb1-73cc-4abc-8b6d-aca8005d0d23/471fc444-1378-4268-86ea-aca8005d0d3b/podcast.rss	Society & Culture
+http://feeds.feedburner.com/TheLinuxActionShowOGG	Technology
+http://chinahistorypodcast.com/feed/podcast/	Education
+http://stardate.org/feeds/podcast.xml	Sports & Hobbies
+http://www.artofstorytellingshow.com/podcast/storycast.xml	Kids & Family
+http://podcast.ft.com/rss/60/	Education
+http://shoptalkshow.com/feed/podcast/	Arts
+http://thefoundation.libsyn.com/rss	Business
+http://feeds.feedburner.com/dancarlin/commonsense	News & Politics
+http://feeds.feedburner.com/RichardHerringEdinburghPodcast	Comedy
+http://feeds.ancientfaith.com/SermonsAtStNicholas	Religion & Spirituality
+http://revision3.com/filmstate/feed/MP4-Large	Arts
+https://feeds.publicradio.org/public_feeds/spectacular-failures/itunes/rss.rss	Comedy
+http://dl.dropbox.com/u/903112/bible.xml	Religion & Spirituality
+http://podcasts.personallifemedia.com/podcasts/225-sex-tantra-and-kama-sutra/feedburner.rss	Health & Wellness
+http://biblestudypodcasts.org/index.php/feed	Religion & Spirituality
+http://feeds.feedburner.com/WeeklyPodcastNorthPoint	Society & Culture
+http://www.sitepoint.com/?feed=podcast	Arts
+http://rss.sciam.com/sciam/60-second-tech	Technology
+http://www.ivoox.com/podcast-conferencias-marketing-directo_fg_f1346_filtro_1.xml	Business
+http://mediapub.it.ox.ac.uk/feeds/129144/audio.xml	Society & Culture
+http://www.guardian.co.uk/stage/series/amnesty-international-comedy-podcast/podcast.xml	Comedy
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A145673510/sounds.rss	Society & Culture
+https://hurryslowly.co/feed/podcast/	Business
+http://2d6feet.com/category/podcast-and-notes/feed	Sports & Hobbies
+https://practicalstoicpodcast.podbean.com/feed/	Sports & Hobbies
+http://zigziglar.libsyn.com/rss	True Crime
+https://rss.art19.com/deconstructing-yourself	Health & Wellness
+http://www.scpr.org/podcasts/loh_down	Education
+http://www.thetvcritic.org/historypodcasts/feed.xml	Education
+http://www.abc.net.au/radionational/feed/5614238/podcast.xml	Society & Culture
+http://www.sfbrp.com/?feed=podcast	Arts
+http://chaosradio.ccc.de/chaos_tv-latest.rss	Arts
+http://bootstrapfarmer.libsyn.com/rss	Sports & Hobbies
+https://reason.com/podcasts/the-reason-interview-with-nick-gillespie/feed/	Business
+http://mindpump.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/comedycentral/standup	Comedy
+http://conversionaid.libsyn.com/rss	Business
+http://feeds.feedburner.com/361Degrees	Arts
+https://s3.us-east-2.amazonaws.com/podcast.intelligence.org/razmedia/razfeed.xml	Education
+https://rss.art19.com/biggerpockets-real-estate-podcast	Business
+http://librivox.org/rss/4108	Kids & Family
+http://podiobooks.com/rss/feeds/episodes/murder-at-avedon-hill/	Kids & Family
+http://feeds.marspatel.com/marspatel	Kids & Family
+http://feeds.feedburner.com/SingularityBlog	Business
+http://feeds.feedburner.com/photohistory	Education
+http://feeds.feedburner.com/linuxfortherestofus	Technology
+http://www.learnitalianpod.com/feed/	Education
+http://www.funagain.com/control/viewblog.xml?contentBlogId=TDT	Sports & Hobbies
+https://rss.art19.com/sword-and-scale	True Crime
+http://billburr.libsyn.com/rss	Society & Culture
+http://podcast.hr-online.de/hrinfo-cybercrime/podcast.xml	True Crime
+http://www.howstuffworks.com/podcasts/brainstuff.rss	Education
+http://www.nowplayingpodcast.com/NPP.xml	Arts
+http://www.littlestoriestinypeople.com/podcast.xml	Kids & Family
+https://feeds.megaphone.fm/awww	Arts
+http://mikenation.net/miketechshow.xml	Technology
+https://feeds.buzzsprout.com/1788738.rss	Society & Culture
+http://feeds.feedburner.com/PhilosophyForOurTimes	Society & Culture
+http://healthylivingradio.libsyn.org/rss/	Health & Wellness
+http://www.guardian.co.uk/politics/series/politicsweekly/podcast.xml	News & Politics
+http://thebobdavispodcasts.com/feed/	News & Politics
+http://seancarroll.libsyn.com/rss	Society & Culture
+http://feeds.feedburner.com/skepticality	News & Politics
+http://www.whchurch.org/podcasts/sermons_hq.xml	Religion & Spirituality
+http://feeds.feedburner.com/TorahClass	Religion & Spirituality
+http://www.podcastgarden.com/podcast/podcast-rss.php?id=452	Sports & Hobbies
+http://shotofjaq.org/feed/	Technology
+http://feeds.feedburner.com/FreedomainRadioVolume5	News & Politics
+http://robbwolf.com/category/podcasts/feed/	Health & Wellness
+http://feeds.feedburner.com/veritas-forum-best-of-audio	Society & Culture
+http://www.radio-dingolstadt.de/podcast-comedyshows.xml	Comedy
+http://feeds.feedburner.com/CatholicunderTheHood	Religion & Spirituality
+https://s3-eu-west-1.amazonaws.com/rhspodcast/thegardenfeed.xml	Sports & Hobbies
+http://feeds.feedburner.com/se-radio	Technology
+http://www.sei.cmu.edu/podcasts/files_podcasts/rssFeedPodcasts.xml	Technology
+https://feeds.megaphone.fm/HSW1226123619	Education
+http://feeds.feedburner.com/sourcetrunk	Technology
+http://feeds.feedburner.com/cnet/buzzreport	Technology
+https://thelovelabpodcast.libsyn.com/rss	Society & Culture
+https://rss.art19.com/how-i-built-this	Business
+https://feeds.soundcloud.com/users/soundcloud:users:264034133/sounds.rss	Society & Culture
+https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/1a15b4e2-ba2a-4bb5-85bf-ac6001880594/73930892-67e0-449f-9731-ac600188059e/podcast.rss	News & Politics
+http://reason.com/podcast/index.xml	Business
+http://feeds.feedburner.com/ThisWeekInPhoto	Sports & Hobbies
+http://www.amyporterfield.com/feed/podcast/?wpmfeedkey=42%3B63e9a7b39200963656f686298e2ab6ba	Business
+http://www.3kingdomspodcast.com/feed/podcast/	Society & Culture
+http://www.radioopensource.org/feed/	Technology
+http://feeds.feedburner.com/TheNewYorkCityCrimeReportWithPatDixon	True Crime
+http://feeds.feedburner.com/DuctTapeMarketingRadio	Business
+http://ftew.libsyn.com/rss	Education
+http://podcasthistoryofourworld.libsyn.com/rss	Education
+https://rss.acast.com/mordaufex	True Crime
+http://www.oneplace.com/ministries/the-alternative/subscribe/podcast.xml	Religion & Spirituality
+http://feeds.feedburner.com/Podcasts-FeralAttraction	Society & Culture
+http://www.wicketgate.co.uk/wicketgate.xml	Religion & Spirituality
+http://feeds.feedburner.com/GNGaming	Sports & Hobbies
+https://rss.acast.com/fucksgiven	Society & Culture
+https://aktenzeichenxy-podcast.podigee.io/feed/mp3	True Crime
+http://feeds.ancientfaith.com/CoffeeCupCommentaries	Religion & Spirituality
+http://feeds.5by5.tv/inbeta	Technology
+https://feeds.megaphone.fm/storypirates	Kids & Family
+http://www.treksf.com/podcast/podcast.xml	Arts
+http://torahclass.com/torahclasspodcasttwo.xml	Religion & Spirituality
+http://uselessinformation.libsyn.com/rss	True Crime
+http://grantbaldwin.libsyn.com/rss	Business
+http://anythingghost.libsyn.com/rss	Society & Culture
+http://feeds.americanpublicmedia.org/MarketplaceMoneyPodcast	Society & Culture
+http://feeds.feedburner.com/AllSoulsChurchSundays	Religion & Spirituality
+http://feeds.feedburner.com/TheCombatJackShow	Society & Culture
+https://s3-eu-west-1.amazonaws.com/rhspodcast/feed.xml	Sports & Hobbies
+https://rss.acast.com/webcrawlers	True Crime
+https://feeds.blubrry.com/feeds/reasonable_faith.xml	Religion & Spirituality
+http://historyzine.com/?feed=podcast	Education
+http://www.thespiel.net/spiel-mp3.xml	Sports & Hobbies
+http://feeds.feedburner.com/meetthegimp	Technology
+http://truecrimegarage.podbean.com/feed/	True Crime
+http://www.abc.net.au/radionational/feed/2887248/podcast.xml	Health & Wellness
+https://sciencein5.libsyn.com/rss	Education
+http://feeds.earhustlesq.com/earhustlesq	Comedy
+http://akamai.paramountcomedy.com/podcast/robin_ince_uttershambles2.xml	Comedy
+http://feeds.schwab.com/podcast/schwab_market_update_audio	Business
+https://smalltowndicks.libsyn.com/rss	True Crime
+http://feeds.megaphone.fm/thetrip	Society & Culture
+http://feeds.feedburner.com/rookiedesigner	Arts
+http://meditation.org.au/learntomeditate.xml	Education
+http://www.geologicpodcast.com/rss	Comedy
+http://feeds.harvest.org/HarvestMBF	Religion & Spirituality
+http://kuandthegang.libsyn.com/rss	Comedy
+http://historyofenglishpodcast.com/feed/podcast/	Education
+http://www.preachtheword.com/preachtheword.xml	Religion & Spirituality
+https://audioboom.com/channels/4996543.rss	True Crime
+http://feeds.harvardbusiness.org/harvardbusiness/cold-call	True Crime
+https://rss.art19.com/metta-hour-with-sharon-salzberg	Health & Wellness
+http://feeds.feedburner.com/ttbook	Technology
+http://feeds.thetruthpodcast.com/thetruthapm	Comedy
+http://rss.sciam.com/sciam/60-second-earth	Technology
+http://feeds.feedburner.com/thelongviewpodcast	Sports & Hobbies
+http://www.gallifreyanembassy.org/podshock/podshock.xml	Sports & Hobbies
+http://rss.acast.com/ft-big-read	Education
+http://revolutionspodcast.libsyn.com/rss/	News & Politics
+https://mordlust.podigee.io/feed/aac	True Crime
+http://thefitcast.com/podcast/podcast.xml	Health & Wellness
+http://bengreenfieldfitness.libsyn.com/rss	Health & Wellness
+http://feeds.feedburner.com/drummertalk	Sports & Hobbies
+http://dietsoap.podomatic.com/rss2.xml	Sports & Hobbies
+http://feeds.feedburner.com/ESV-study-bible	Religion & Spirituality
+http://www.abc.net.au/radio/programs/shortandcurly/feed/7388142/podcast.xml	Kids & Family
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A68891950/sounds.rss	Comedy
+http://www.annerobertson.com/podcast2.xml	Religion & Spirituality
+https://www.omnycontent.com/d/playlist/13ef36f9-b947-4bf3-ba70-a8260147fab8/ce825930-aeff-4eb7-95bd-a86500f9fe84/1ca1cf6e-44c2-451e-89b5-a86500fb24fb/podcast.rss	Society & Culture
+https://feeds.megaphone.fm/unsolved-mysteries	True Crime
+http://feeds.feedburner.com/RealEstateNewsForReal	Business
+http://feeds.feedburner.com/SlatePoliticalGabfest	News & Politics
+https://rhs.podigee.io/feed/mp3	Sports & Hobbies
+http://rss.sciam.com/sciam/60-second-health	Health & Wellness
+http://epiceducationradio.libsyn.com/rss	Society & Culture
+http://feeds.ancientfaith.com/LetUsAttend	Kids & Family
+http://www.abc.net.au/radionational/feed/2890646/podcast.xml	News & Politics
+http://feeds.feedburner.com/stoppodcastingyourself	Comedy
+http://risky.biz/feeds/rb2	Business
+http://feeds.feedburner.com/binaergewitter-podcast	Technology
+http://www.twis.org/feed/	Technology
+http://geo47.libsyn.com/rss	Education
+http://stackingbenjamins.libsyn.com/rss	Society & Culture
+http://shaffir1.libsyn.com/rss	Comedy
+https://feeds.transistor.fm/indie-bites	Technology
+http://www.thewalkingeye.com/?feed=rss2	Arts
+http://learn.thoughtbot.com/podcast.xml	Arts
+http://feeds.feedburner.com/ReasonableFaithPodcast	Religion & Spirituality
+http://podcast.pcpro.co.uk/?feed=rss2	Technology
+http://feeds.feedburner.com/Cyberspeak	True Crime
+http://feeds.sciencepodcastforkids.com/tumblepodcast	Kids & Family
+https://feeds.transistor.fm/the-indie-hackers-podcast	Technology
+http://www.abc.net.au/rn/podcast/feeds/health.xml	Health & Wellness
+http://www.thebiblefrom30k.org/podcast/	Religion & Spirituality
+http://speakingofwealth.hartmannetwork.libsynpro.com/rss	Business
+https://mikhailapeterson.libsyn.com/rss	Health & Wellness
+http://podcasts.thoughtbot.com/giantrobots.xml	Arts
+http://feeds.conversationsnetwork.org/channel/itc	Sports & Hobbies
+http://feeds.feedburner.com/rubyshow	Sports & Hobbies
+http://www.sleepwithmepodcast.com/feed/podcast	Health & Wellness
+https://cryptonaut.libsyn.com/rss	True Crime
+http://feeds.feedburner.com/podnutzpro	Business
+http://feeds.feedburner.com/LearnFrenchWithDailyfrenchpod	Education
+http://www.bengreenfieldfitness.com/feed/	Health & Wellness
+http://feeds.feedburner.com/WelcomeToNightVale	News & Politics
+https://feeds.megaphone.fm/bearbrook	True Crime
+http://feeds.feedburner.com/desiringgod/spLH	Religion & Spirituality
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A91056977/sounds.rss	Kids & Family
+http://thepaleoview.podbean.com/feed/	Health & Wellness
+http://feeds.feedburner.com/WmexpertsPodcast	News & Politics
+http://blog.radiotux.de/radiotux/podcast/feed/	Technology
+http://feeds.feedburner.com/IndiCast	Sports & Hobbies
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A224506341/sounds.rss	True Crime
+https://bedtime.fm/storytime/feed	Kids & Family
+http://feeds.feedburner.com/TTBOOK	Technology
+http://www.wordonfire.org/wof-site/xml/word-on-fire-sermon-podcast.xml	Religion & Spirituality
+http://www.abc.net.au/radio/programs/ladies-we-need-to-talk/feed/8804158/podcast.xml	Society & Culture
+http://feeds.feedburner.com/skepticalitypodcast	News & Politics
+http://russianrulers.podhoster.com/rss/2742/	Education
+https://rss.art19.com/up-and-vanished	True Crime
+http://feeds.feedburner.com/sixpixelsofseparation	Business
+http://feeds.feedburner.com/thebikeshow	Society & Culture
+http://theflophouse.libsyn.com/rss	Comedy
+http://www.lewrockwell.com/podcast/feed/	Business
+http://storynory.com/category/bible-stories/feed/	Kids & Family
+http://www.quickanddirtytips.com/itunes/5472	Health & Wellness
+http://feeds.feedburner.com/deloitteinsights	Arts
+http://www.cert.org/podcast/exec_podcast.rss	Business
+http://www.lisadalemiller.com/MindfulnessofBreathMeditationforBeginners.xml	Health & Wellness
+http://feeds2.feedburner.com/AlistairBeggPodcast	Religion & Spirituality
+http://feeds.feedburner.com/thechangelog	News & Politics
+http://www.abc.net.au/rn/podcast/feeds/ln1.xml	News & Politics
+https://theprepared.squarespace.com/podcast-feed?format=rss	Business
+http://www.wizards.com/drivetoworkpodcast.xml	Arts
+http://theadamcarollashow.libsyn.com/rss	News & Politics
+http://faif.us/feeds/cast-mp3/	News & Politics
+https://feeds.feedburner.com/MaeveInAmerica	Comedy
+http://feeds.feedburner.com/sffaudiopodcast	Arts
+http://isc.sans.edu/dailypodcast.xml	Arts
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A43958371/sounds.rss	Society & Culture
+http://feeds.feedburner.com/spipodcast	Business
+http://swordandscale.com/feed/podcast	True Crime
+https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/536aa0a2-f92f-4f36-a763-aac601822678/dca7b2ef-6bb7-41a1-9c6b-aac601822682/podcast.rss	Comedy
+http://feeds.feedburner.com/iTunesPodcastTTSocietyCulture	Society & Culture
+http://feeds.feedburner.com/focus-on-the-family/focus-on-parenting	Kids & Family
+http://feeds.feedburner.com/HistoryExtraPodcast.xml	Education
+http://feeds.thevillagechurch.net/sermons	Religion & Spirituality
+http://feeds.feedburner.com/TheBritishHistoryPodcast	Education
+http://feeds.feedburner.com/theangryteddy	Business
+http://feeds.feedburner.com/IShouldBeWriting	Arts
+http://feeds.feedburner.com/SelfPublishingPodcast	Business
+http://feeds.feedburner.com/AllSoulsChurchMidweek	Religion & Spirituality
+http://workingpeople.libsyn.com/rss	Kids & Family
+http://www.arrl.org/arrlletter/audio/aan.rss	News & Politics
+http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss	Education
+http://skepticality.libsyn.com/rss/	News & Politics
+http://cdn.thesecretcabal.com/scpodcast.xml	Sports & Hobbies
+https://rss.art19.com/the-good-place-the-podcast	Comedy
+http://feeds.feedburner.com/WritersCast	Arts
+http://feeds.feedburner.com/witsapm	Comedy
+http://optimalhealthdaily.libsyn.com/rss	Health & Wellness
+https://feeds.buzzsprout.com/1799255.rss	Society & Culture
+https://rss.art19.com/cold	True Crime
+https://bedtime.fm/peaceout/feed	Kids & Family
+http://onboardgames.libsyn.com/rss	Sports & Hobbies
+https://murderwewrote.libsyn.com/rss	True Crime
+http://www.theskepticsguide.org/feed/rss.aspx?feed=SGU	News & Politics
+https://www.spreaker.com/show/3539182/episodes/feed	Society & Culture
+http://www.torahclass.com/torahclasspodcast.xml	Religion & Spirituality
+https://anchor.fm/s/b29aa80/podcast/rss	Comedy
+http://feeds.feedburner.com/ArtHistoryPodcast	Education
+http://feeds.feedburner.com/photofocuspodcast	Business
+https://deconstructingyourself.com/feed/podcast	Health & Wellness
+http://dwowhocast.libsyn.com/rss	Sports & Hobbies
+http://ewebstyle.podomatic.com/rss2.xml	Business
+https://iono.fm/rss/chan/4523	Society & Culture
+https://rss.art19.com/monday-morning-podcast	Society & Culture
+http://sermons2.redeemer.com/sites/sermons2.redeemer.com/files/RSS_Feeds/Timothy_Keller_Podcasts.xml	Religion & Spirituality
+http://feeds.feedburner.com/TheHistoryOfRome	Education
+http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss	True Crime
+http://feeds.feedburner.com/sourcetrunk_ogg	Technology
+http://feeds.feedburner.com/TheVintageGamer	Sports & Hobbies
+http://feeds.feedburner.com/themeditationpodcast/jshO	Arts
+http://www.bereansonline.org/audio/hebclass.xml	Religion & Spirituality
+https://feeds.megaphone.fm/adamraguseapodcast	Sports & Hobbies
+http://faif.us/feeds/cast-ogg/	Technology
+http://feeds.feedburner.com/bootstrappedweb-podcast	Business
+http://feeds.feedburner.com/nbpodcast	Business
+http://podcast.dhamma.com/luangpor	Health & Wellness
+http://feeds.feedburner.com/RatholeRadio	News & Politics
+http://feeds.feedburner.com/StreetWiseHebrew	Society & Culture
+https://www.marketplace.org/feed/podcast/corner-office-from-marketplace	Business
+http://sixgun.org/feed/steelrain-ogg	Sports & Hobbies
+http://www.freebuddhistaudio.com/community/category/podcasts/feed/	Health & Wellness
+http://www.loyalbooks.com/book/dracula-by-bram-stoker/feed	Society & Culture
+https://sffaudio.herokuapp.com/podcast/rss	Arts
+http://flob.podbean.com/feed/	Society & Culture
+http://feeds.5by5.tv/changelog	Technology
+http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A99395178/sounds.rss	Education
+http://www.lse.ac.uk/resources/podcasts/rss/publicLecturesAndEvents.rss	News & Politics
+http://feeds.feedburner.com/BetterAtEnglish	Education
+http://www.comedypodcastnetwork.com/podcasts/feeds/funnycuzitstrue.xml	Comedy
+http://feeds.feedburner.com/NinjaVsPirates	Arts
+http://feeds.feedburner.com/JustVocabulary	Education
+http://feeds.harvest.org/ANB	News & Politics
+http://www.quackcast.com/epodcasts/files/rss.xml	Health & Wellness
+http://www.abc.net.au/rn/podcast/feeds/lnl.xml	News & Politics
+https://seekersguidance.org/names/why-islam-is-true/feed/	Education
+http://www.preachtheword.com/preachtheword.rss	Religion & Spirituality
+http://www.normancenturies.com/rss.xml	Education
+https://podcast616858.podigee.io/feed/mp3	True Crime
+http://feeds.feedburner.com/BestOfTheLeftPodcast	News & Politics
+http://nashvillewriter.audioacrobat.com/rss/writers_in_the_sky_podcast.xml	Arts
+https://www.omnycontent.com/d/playlist/d83f52e4-2455-47f4-982e-ab790120b954/746fc97b-db2e-4fef-919f-ab850163e13d/8264c1d0-8a91-4e78-827f-ab850163e14b/podcast.rss	Kids & Family
+http://www.majorspoilers.com/media/criticalhit.xml	Education
+http://adhdbrainpod.libsyn.com/rss	Business
+http://www.howstuffworks.com/podcasts/stuff-of-genius.rss	Education
+https://audioboom.com/channels/4918522.rss	True Crime
+http://podsync.net/szOUobLGG	Society & Culture
+http://pleaseconvinceme.libsyn.com/rss	True Crime
+http://podcast.foundmyfitness.com/rss.xml	Health & Wellness
+http://www.smartpassiveincome.com/podcast-rss	Business
+http://feeds.megaphone.fm/1001networks	True Crime
+http://www.box.net/shared/static/pxs9l95gdq.rss	Kids & Family
+http://www.germanpod101.com/wp-feed-audio-video.php	Education
+http://youupthepodcast.libsyn.com/rss	Comedy
+http://www.sei.cmu.edu/podcasts/files_podcasts/rssfeedpodcasts.xml	Technology
+https://feeds.megaphone.fm/LM9233046886	Comedy
+http://feeds.feedburner.com/PaleoLifestyleAndFitnessPodcast	Health & Wellness
+http://normancenturies.com/rss.xml	Education
+http://www.historyextra.com/podcast/historypodcast.xml	Education
+http://feeds.feedburner.com/Selected-Shorts	Comedy
+https://audioboom.com/channels/4903959.rss	News & Politics
+http://feeds.feedburner.com/TheHistoryNetwork	Education
+http://feeds.megaphone.fm/danielandjorgeexplaintheuniverse	Education
+https://zoe_science_and_nutrition.captivate.fm/rssfeed	Education
+http://feeds.feedburner.com/thisagilelife/podcast	Technology
+https://www.spreaker.com/show/1546252/episodes/feed	Religion & Spirituality
+https://rss.wbur.org/endlessthread/podcast	True Crime
+http://feeds.feedburner.com/LearnFrench/beginner	Education
+https://feeds.megaphone.fm/relative-unknown	Kids & Family
+http://betty.libsyn.com/rss	Comedy
+http://www.themeditationpodcast.com/tmp.xml	Health & Wellness
+http://feeds.feedburner.com/coffeebreakfrench	Education
+http://www.scientificamerican.com/podcast/sciam_podcast_r.xml	Technology
+http://feeds.feedburner.com/TheStoryCollider	Society & Culture
+http://thegenerationwhypodcast.com/feed/category/podcast	True Crime
+http://feeds.megaphone.fm/BLO7772000455	Kids & Family
+http://www.abc.net.au/radionational/feed/2884966/podcast.xml	Religion & Spirituality
+http://www.cnet.co.uk/feeds/podcasts/	Technology
+http://www.abc.net.au/radionational/feed/7762392/rss.xml	Comedy
+http://www.freebuddhistaudio.com/community/category/dharmabytes/feed/	Health & Wellness
+http://skepticality.libsyn.com/rss	News & Politics
+http://supersoundstudios.podomatic.com/rss2.xml	True Crime
+http://talkultra.libsyn.com/rss	Sports & Hobbies
+http://feeds.feedburner.com/feedburner/knightcast	Technology
+https://feeds.megaphone.fm/HSW9433683425	True Crime
+https://feeds.megaphone.fm/HSW5142951139	True Crime
+http://feeds.feedburner.com/homecookingshow	Sports & Hobbies
+http://feeds.feedburner.com/SingularityWeblogPodcasts	Business
+http://revision3.com/filmstate/feed/MP4-hd30	Arts

@@ -1,0 +1,33 @@
+# HAND LABELS for 30 ingested shows. Written by Claude from each show's description + recent episode titles (eval/label_sheet.md),
+# NOT by a human listener. For the owner to review / correct. Vibes use the fixed 12-term vocabulary.
+shows:
+  shw_ed76b5168822: {topics: [technology, software, productivity], vibe_top3: [Educational, Casual, Professional], style: solo_monologue, guest_friendly: false}
+  shw_4facb3f5eb43: {topics: [children stories, kipling, audiobook], vibe_top3: [Compelling, Relaxed, Educational], style: narrative_storytelling, guest_friendly: false}
+  shw_939e728b432e: {topics: [entrepreneurship, startups, software], vibe_top3: [Professional, Personal Narrative, Casual], style: co_hosted_banter, guest_friendly: false}
+  shw_a19316f3fd23: {topics: [comedy, interviews, pop culture], vibe_top3: [Humorous, Casual, Energetic], style: interview, guest_friendly: true}
+  shw_34f690d0d448: {topics: [innovation, entrepreneurship, venture capital], vibe_top3: [Professional, Educational, Inspirational], style: interview, guest_friendly: true}
+  shw_824b46c9787b: {topics: [programming, software engineering, technology], vibe_top3: [Educational, Professional, Casual], style: co_hosted_banter, guest_friendly: true}
+  shw_496b9f6d4567: {topics: [catholic, church history, theology], vibe_top3: [Educational, Reflective, Humorous], style: solo_monologue, guest_friendly: false}
+  shw_fc299e5f8e4a: {topics: [relationships, sexuality, advice], vibe_top3: [Casual, Personal Narrative, Wellness-Focused], style: co_hosted_banter, guest_friendly: false}
+  shw_535c1ed6242d: {topics: [film, cinema, filmmakers], vibe_top3: [Compelling, Educational, Reflective], style: narrative_storytelling, guest_friendly: true}
+  shw_21f8cdda828a: {topics: [music, electronic, dj mix], vibe_top3: [Energetic, Uplifting, Relaxed], style: solo_monologue, guest_friendly: false}
+  shw_6c91a47ab6ee: {topics: [politics, libertarian, economics], vibe_top3: [Professional, Educational, Compelling], style: interview, guest_friendly: true}
+  shw_e8342e8a6a2c: {topics: [comedy, panel show, sketch], vibe_top3: [Humorous, Casual, Energetic], style: panel, guest_friendly: true}
+  shw_333700326851: {topics: [christianity, sermons, faith], vibe_top3: [Inspirational, Educational, Uplifting], style: solo_monologue, guest_friendly: false}
+  shw_641c7b6d53b3: {topics: [open science, science communication, research], vibe_top3: [Educational, Personal Narrative, Inspirational], style: interview, guest_friendly: true}
+  shw_6ac048d3b72d: {topics: [social science, public lectures, economics], vibe_top3: [Educational, Professional, Reflective], style: educational_lecture, guest_friendly: true}
+  shw_0e75367cfdb7: {topics: [true crime, history, mystery], vibe_top3: [Compelling, Personal Narrative, Reflective], style: narrative_storytelling, guest_friendly: false}
+  shw_24d540b9cecf: {topics: [star trek, science fiction, entertainment], vibe_top3: [Casual, Energetic, Humorous], style: solo_monologue, guest_friendly: false}
+  shw_8f59c488dcdb: {topics: [true crime, serial killer, investigation], vibe_top3: [Compelling, Professional, Reflective], style: narrative_storytelling, guest_friendly: false}
+  shw_629c3e3feab1: {topics: [buddhism, meditation, dharma], vibe_top3: [Reflective, Relaxed, Wellness-Focused], style: educational_lecture, guest_friendly: true}
+  shw_e316bc1109e7: {topics: [software testing, quality, conferences], vibe_top3: [Professional, Educational, Casual], style: educational_lecture, guest_friendly: true}
+  shw_97e795622cab: {topics: [scams, improv comedy, fraud], vibe_top3: [Humorous, Compelling, Energetic], style: solo_monologue, guest_friendly: false}
+  shw_99f12206c5e2: {topics: [politics, current events, history], vibe_top3: [Compelling, Reflective, Educational], style: solo_monologue, guest_friendly: false}
+  shw_0aaeca970171: {topics: [skepticism, science, critical thinking], vibe_top3: [Educational, Humorous, Compelling], style: co_hosted_banter, guest_friendly: true}
+  shw_9cdbe4b03c77: {topics: [meditation, mindfulness, stress], vibe_top3: [Relaxed, Wellness-Focused, Reflective], style: solo_monologue, guest_friendly: false}
+  shw_0b794524763a: {topics: [success, interviews, mindset], vibe_top3: [Inspirational, Uplifting, Personal Narrative], style: interview, guest_friendly: true}
+  shw_f036edf342e4: {topics: [open source, software, linux], vibe_top3: [Educational, Casual, Professional], style: co_hosted_banter, guest_friendly: false}
+  shw_320ddfffaf9e: {topics: [technology policy, entrepreneurship, interviews], vibe_top3: [Professional, Educational, Inspirational], style: interview, guest_friendly: true}
+  shw_a48be052a9c7: {topics: [software development, technology, ai], vibe_top3: [Educational, Professional, Casual], style: interview, guest_friendly: true}
+  shw_b5b429940b3b: {topics: [economics, policy, europe], vibe_top3: [Professional, Educational, Reflective], style: interview, guest_friendly: true}
+  shw_baa861ae9bef: {topics: [sketch comedy, parody, humor], vibe_top3: [Humorous, Compelling, Casual], style: mixed, guest_friendly: false}

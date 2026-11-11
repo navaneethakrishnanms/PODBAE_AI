@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { q, q1 } from '../db/client.js';
 import { HttpError, h, parse } from '../lib.js';
 import { generatePredictions, runMatching } from '../services/matching.js';
+import { kickIntelIngest } from './intel.js';
 import { createUser, startSession } from './auth.js';
 
 export const intakeRouter = Router();
@@ -48,7 +49,9 @@ intakeRouter.post('/api/submissions', h(async (req, res) => {
   await q('UPDATE users SET onboarded = true WHERE id = $1', [uid]);
   const { count } = await runMatching(uid);
   await generatePredictions(uid);
-  res.status(201).json({ submissionId: sub.id, podcastId, matchesCreated: count });
+  // Layer 1: a submitted RSS feed starts real ingestion (best effort: the intake never fails because the AI service is down)
+  const ingest = rss ? await kickIntelIngest(podcastId, uid, rss).catch(() => null) : null;
+  res.status(201).json({ submissionId: sub.id, podcastId, matchesCreated: count, intelJobId: ingest?.ok ? ingest.jobId : null, intelNote: ingest && !ingest.ok ? ingest.error : undefined });
 }));
 
 intakeRouter.get('/api/submissions/:id/matches', h(async (req, res) => {

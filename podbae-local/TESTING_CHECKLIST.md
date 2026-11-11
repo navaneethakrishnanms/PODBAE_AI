@@ -55,6 +55,18 @@ Logins: `podcaster@podbae.local / demo123` · `brand@podbae.local / demo123` · 
 ## 8. Advertiser (brand@podbae.local)
 - [ ] /dashboard/campaign-builder: create a campaign (budget < $150 is rejected/disabled); it appears in the list.
 
+## 8b. Layer 1: Podcast Intelligence (needs `npm run dev`; run `npm run intel:connect-demo` first for a real feed)
+- [ ] Nav shows **Intelligence**. /intelligence as podcaster: progress list (feed → directory → transcripts → enrich → embed), then the profile.
+- [ ] Every field row has a tier badge (Verified green / Creator-provided blue / Estimated amber / AI-inferred purple); hovering shows source, method, fetched time, freshness, confidence.
+- [ ] Completeness meter + "Improve your profile" list; audience fields are listed as **Unknown (never guessed)** until you upload data.
+- [ ] Upload a CSV (e.g. `Country,Downloads,Percent` with 3 rows) → column-mapping step → import → the field turns **Creator-provided** and the improve item disappears.
+      Try a percent of 150 → warning shown, field flagged low-confidence (not silently accepted).
+- [ ] "Add goals" saves creator-provided goals; "Refresh from RSS" starts a job and the page updates.
+- [ ] Submit flow: on /submit enter a real RSS URL → /success shows live ingestion progress.
+- [ ] Stop the AI service (Ctrl+C the `ai` process) and reload /intelligence → "may be outdated" banner with the last saved profile.
+- [ ] /discover: a "Real shows from RSS" section below the demo rows; "View intelligence →" opens the public profile (no audience/creator fields).
+- [ ] /admin → **Ingestion jobs** (service status, ingest a feed, discover, job list), **Coverage** (per-field % per connector), **Costs** (totals, budgets, by operation).
+
 ## 9. Admin (admin@podbae.local / admin123)
 - [ ] /admin: stats; Podcasts tab → Verify/Unverify toggles; Users tab lists accounts.
 - [ ] "Generate opportunities", "Run enhanced matching", "Seed test podcasts" show a toast result.

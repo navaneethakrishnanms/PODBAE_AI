@@ -38,7 +38,12 @@ export default function Admin() {
   const metrics = useQuery({ queryKey: ['a-metrics'], enabled: tab === 'metrics', queryFn: () => api.get('/api/admin/vibe-logic-metrics') });
   const recs = useQuery({ queryKey: ['a-recs'], enabled: tab === 'metrics', queryFn: () => api.get('/api/admin/vibe-logic-recommendations') });
   const invites = useQuery({ queryKey: ['a-inv'], enabled: tab === 'invites', queryFn: () => api.get('/api/admin/partnership-invites') });
-  const jobs = useQuery({ queryKey: ['a-jobs'], enabled: tab === 'ingestion', queryFn: () => api.get('/api/admin/ingestion-jobs') });
+  const jobs = useQuery({ queryKey: ['a-jobs'], enabled: tab === 'ingestion', refetchInterval: tab === 'ingestion' ? 3000 : false, queryFn: () => api.get('/api/admin/intel/jobs') });
+  const cov = useQuery({ queryKey: ['a-cov'], enabled: tab === 'coverage', queryFn: () => api.get('/api/admin/intel/coverage') });
+  const costs = useQuery({ queryKey: ['a-costs'], enabled: tab === 'costs', queryFn: () => api.get('/api/admin/intel/costs') });
+  const health = useQuery({ queryKey: ['a-health'], enabled: tab === 'ingestion' || tab === 'costs', queryFn: () => api.get('/api/intel/health') });
+  const [feed, setFeed] = useState('');
+  const [disc, setDisc] = useState('');
   const [hits, setHits] = useState<any[]>([]);
   useEffect(() => { if (tab === 'showcase') api.get(`/api/admin/showcase/directory-search?q=${encodeURIComponent(q)}`).then((r) => setHits(r.podcasts)); }, [tab, q]);
 
@@ -61,6 +66,7 @@ export default function Admin() {
       <Tabs value={tab} onChange={setTab} tabs={[
         { id: 'podcasts', label: 'Podcasts' }, { id: 'users', label: 'Users' }, { id: 'metrics', label: 'Vibe-logic metrics' },
         { id: 'showcase', label: 'Showcase' }, { id: 'invites', label: 'Partnership invites' },
+        { id: 'ingestion', label: 'Ingestion jobs' }, { id: 'coverage', label: 'Coverage' }, { id: 'costs', label: 'Costs' },
       ]} />
       <div className="pt-6">
         {tab === 'podcasts' && (
@@ -91,7 +97,43 @@ export default function Admin() {
           </div>
         )}
         {tab === 'invites' && <div className="space-y-2 text-sm">{(invites.data?.invites ?? []).map((i: any) => <Card key={i.id}>{i.email} · {i.orgName} · {i.status}<p className="text-muted-foreground">{i.message}</p></Card>)}</div>}
-        {tab === 'ingestion' && <Card><p className="text-sm text-muted-foreground">{jobs.data?.note ?? 'Loading…'}</p><p className="mt-2 text-sm">Jobs recorded: {jobs.data?.jobs?.length ?? 0}</p></Card>}
+        {tab === 'ingestion' && (
+          <div className="space-y-4">
+            <Card className="space-y-3">
+              <p className="text-sm text-muted-foreground">AI service: {health.data?.up ? <b className="text-green-600">up</b> : <b className="text-destructive">down</b>}
+                {health.data?.llm && <> · LLM <b>{health.data.llm.active}</b> · embeddings <b>{health.data.embeddings?.active}</b> · podcastindex key {health.data.providers?.podcastindex ? 'yes' : 'no'} · taddy {health.data.providers?.taddy ? 'on' : 'off'}</>}</p>
+              <div className="flex gap-2"><Input placeholder="RSS feed URL to ingest" value={feed} onChange={(e) => setFeed(e.target.value)} />
+                <Button size="sm" onClick={run('Ingest', () => api.post('/api/admin/intel/ingest', { rssUrl: feed }))} disabled={!feed}>Ingest feed</Button></div>
+              <div className="flex gap-2"><Input placeholder="Discover shows by search term (Podcast Index, else iTunes Search)" value={disc} onChange={(e) => setDisc(e.target.value)} />
+                <Button size="sm" variant="outline" onClick={run('Discover', () => api.post('/api/admin/intel/discover', { query: disc, limit: 25 }))} disabled={!disc}>Discover</Button></div>
+            </Card>
+            <div className="flex flex-wrap gap-2 text-sm">{Object.entries(jobs.data?.counts ?? {}).map(([k, v]) => <Badge key={k} tone={k === 'failed' ? 'pink' : k === 'succeeded' ? 'green' : 'gray'}>{k}: {String(v)}</Badge>)}</div>
+            <div className="space-y-1 text-sm">{(jobs.data?.jobs ?? []).map((j: any) => (
+              <Card key={j.id} className="py-2"><b>{j.type}</b> <span className="text-xs text-muted-foreground">{j.id}</span> · {j.status} · {j.percent}% · attempts {j.attempts}/{j.max_attempts}
+                {j.last_error && <span className="text-destructive"> · {j.last_error}</span>}</Card>))}</div>
+          </div>
+        )}
+        {tab === 'coverage' && (
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">Measured data-feasibility matrix: share of successfully fetched shows where each connector actually returned the field. {cov.data?.note}</p>
+            {Object.entries(cov.data?.connectors ?? {}).map(([name, c]: any) => (
+              <Card key={name}><h3 className="font-semibold">{name} <span className="text-xs font-normal text-muted-foreground">{c.shows_ok}/{c.shows_attempted} shows fetched OK</span></h3>
+                <table className="mt-2 w-full text-sm"><tbody>{Object.entries(c.fields).map(([f, v]: any) => (
+                  <tr key={f}><td className="w-56 py-0.5">{f}</td><td><div className="h-2 w-full rounded bg-muted"><div className="h-2 rounded bg-primary" style={{ width: `${v.pct}%` }} /></div></td><td className="w-20 text-right">{v.pct}%</td></tr>))}</tbody></table></Card>))}
+            {cov.data && !Object.keys(cov.data.connectors).length && <p className="text-sm text-muted-foreground">No ingestion has run yet.</p>}
+          </div>
+        )}
+        {tab === 'costs' && (
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card><h3 className="mb-2 font-semibold">Totals (estimates)</h3>
+              <div className="text-sm">Total: <b>${costs.data?.total_usd ?? 0}</b> · avg/show <b>${costs.data?.avg_usd_per_show ?? 0}</b> · p95/show <b>${costs.data?.p95_usd_per_show ?? 0}</b></div>
+              <div className="text-sm">Enrichment cache hit rate: <b>{costs.data?.cache_hit_rate_enrichment ?? 'n/a'}</b></div>
+              <div className="mt-2 text-xs text-muted-foreground">Mock LLM and local embeddings cost $0 in API spend; GPU time is an estimate.</div></Card>
+            <Card><h3 className="mb-2 font-semibold">Budgets</h3>{(costs.data?.budgets ?? []).map((b: any, i: number) => <div key={i} className="flex justify-between text-sm"><span>{b.scope}:{b.key} / {b.period}</span><span>${b.used_usd} of ${b.limit_usd}</span></div>)}</Card>
+            <Card className="md:col-span-2"><h3 className="mb-2 font-semibold">By operation</h3>
+              {Object.entries(costs.data?.by_operation ?? {}).map(([op, v]: any) => <div key={op} className="flex justify-between text-sm"><span>{op}</span><span>{v.calls} calls · {v.cache_hits} cache hits · {v.skipped} skipped · ${v.usd}</span></div>)}</Card>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

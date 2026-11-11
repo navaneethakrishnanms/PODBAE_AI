@@ -6,6 +6,7 @@ import CampaignBuilder from './pages/CampaignBuilder';
 import Dashboard from './pages/Dashboard';
 import Discover from './pages/Discover';
 import { GetStarted, GuestSubmit, Onboarding, PodcasterSubmit, Success, VenueSubmit } from './pages/Intake';
+import Intelligence from './pages/Intelligence';
 import Landing from './pages/Landing';
 import Messages from './pages/Messages';
 import { Analytics, Enterprise, Listen, PartnershipSignup, Partners, Schedule } from './pages/Misc';
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/embed/:userId" component={Embed} />
       <Route path="/profile" component={ProfileEdit} />
 
+      <Route path="/intelligence" component={Intelligence} />
       <Route path="/messages" component={Messages} />
       <Route path="/schedule" component={Schedule} />
       <Route path="/analytics" component={Analytics} />
