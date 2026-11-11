@@ -48,7 +48,8 @@ class HashEmbedder:
             for g in grams:
                 h = int.from_bytes(hashlib.blake2b(g.encode(), digest_size=8).digest(), "little")
                 out[i, h % self.dim] += 1.0 if (h >> 63) & 1 else -1.0
-            n = np.linalg.norm(out[i])
+            from .linalg import norm
+            n = norm(out[i])
             if n:
                 out[i] /= n
         return out
@@ -79,6 +80,11 @@ _embedder: Embedder | None = None
 _fallback_reason: str | None = None
 
 
+class EmbedderUnavailable(RuntimeError):
+    """The configured embedding model could not be loaded. Raised instead of silently switching models: vectors from
+    two different models are not comparable, so a silent fallback would corrupt similarity, vibe calibration and topics."""
+
+
 def get_embedder() -> Embedder:
     global _embedder, _fallback_reason
     if _embedder is None:
@@ -88,8 +94,12 @@ def get_embedder() -> Embedder:
         else:
             try:
                 _embedder = STEmbedder(name)
-            except Exception as exc:  # noqa: BLE001 - offline / missing weights
-                _fallback_reason = f"{type(exc).__name__}: {exc}"[:200]
+            except Exception as exc:  # noqa: BLE001 - offline / missing weights / torch DLL problems
+                _fallback_reason = f"{type(exc).__name__}: {exc}"[:300]
+                if not os.environ.get("INTEL_EMBED_ALLOW_FALLBACK", "").lower() in ("1", "true", "yes"):
+                    raise EmbedderUnavailable(f"could not load embedding model {name!r}: {_fallback_reason}. Set "
+                                              "INTEL_EMBED_MODEL=hash for an offline test setup, or INTEL_EMBED_ALLOW_FALLBACK=true "
+                                              "to accept the hash fallback knowingly.") from exc
                 _embedder = HashEmbedder()
     return _embedder
 
@@ -100,7 +110,10 @@ def reset_embedder() -> None:
 
 
 def embedder_status() -> dict:
-    e = get_embedder()
+    try:
+        e = get_embedder()
+    except EmbedderUnavailable as exc:
+        return {"configured": get_settings().embed_model, "active": None, "dim": None, "fallback_reason": str(exc)[:300], "error": True}
     return {"configured": get_settings().embed_model, "active": e.name, "dim": e.dim, "fallback_reason": _fallback_reason}
 
 
@@ -211,6 +224,74 @@ def upsert_embedding(s: Session, entity_type: str, entity_id: str, space: str, c
     return "embedded"
 
 
+def embed_many(s: Session, entity_type: str, items: list[tuple[str, str]], space: str, *, podcast_id: str | None = None,
+               index: bool = True) -> dict[str, np.ndarray]:
+    """Batch version of upsert_embedding: cache hit per item (content hash + model), one GPU batch for the misses,
+    one ledger row for the batch. Returns {entity_id: vector} for every item (cached or new)."""
+    emb = get_embedder()
+    out: dict[str, np.ndarray] = {}
+    if not items:
+        return out
+    ids = [i for i, _ in items]
+    rows = {r.entity_id: r for r in s.scalars(select(Embedding).where(Embedding.entity_type == entity_type, Embedding.space == space,
+                                                                       Embedding.entity_id.in_(ids)))}
+    todo: list[tuple[str, str, str]] = []
+    for eid, content in items:
+        h = hashlib.sha256(content.encode()).hexdigest()
+        r = rows.get(eid)
+        if r is not None and r.content_hash == h and r.model == emb.name and r.model_version == emb.version:
+            out[eid] = from_blob(r.vector)
+        else:
+            todo.append((eid, content, h))
+    if out:
+        budget.charge(s, "embed", emb.name, 0, 0, podcast_id=podcast_id, cache_hit=True, note=f"{space} x{len(out)} unchanged")
+    if not todo:
+        return out
+    est = sum(len(c) for _, c, _ in todo) / 4 * 0.0001 * get_settings().cost_gpu_second
+    dec = budget.check(s, est, podcast_id=podcast_id)
+    if not dec.ok:
+        budget.skip(s, "embed", emb.name, dec.reason or "budget", podcast_id)
+        return out
+    t0 = time.perf_counter()
+    vecs = emb.embed([c[:6000] for _, c, _ in todo])
+    secs = time.perf_counter() - t0
+    budget.charge(s, "embed", emb.name, secs, get_settings().cost_gpu_second, podcast_id=podcast_id, note=f"{space} batch x{len(todo)}")
+    for (eid, _c, h), v in zip(todo, vecs):
+        r = rows.get(eid)
+        if r is None:
+            r = Embedding(entity_type=entity_type, entity_id=eid, space=space, model=emb.name, model_version=emb.version,
+                          dim=emb.dim, content_hash=h, vector=to_blob(v))
+            s.add(r)
+        else:
+            if index:
+                get_index().delete(s, space, r.id)
+            r.model, r.model_version, r.dim, r.content_hash, r.vector = emb.name, emb.version, emb.dim, h, to_blob(v)
+        s.flush()
+        if index:
+            get_index().upsert(s, space, r.id, v)
+        out[eid] = np.asarray(v, dtype=np.float32)
+    return out
+
+
+def stored_vector(s: Session, entity_type: str, entity_id: str, space: str) -> np.ndarray | None:
+    r = s.scalar(select(Embedding).where(Embedding.entity_type == entity_type, Embedding.entity_id == entity_id, Embedding.space == space))
+    return from_blob(r.vector) if r is not None else None
+
+
+_query_cache: dict[tuple[str, str], np.ndarray] = {}
+
+
+def embed_queries(texts: list[str]) -> np.ndarray:
+    """Embed fixed reference texts (vibe / topic descriptions) as e5 'query:' inputs. Cached per model in memory;
+    these are tiny, constant inputs, so they are not ledgered per call."""
+    emb = get_embedder()
+    missing = [t for t in texts if (emb.name, t) not in _query_cache]
+    if missing:
+        for t, v in zip(missing, emb.embed(missing, kind="query")):
+            _query_cache[(emb.name, t)] = np.asarray(v, dtype=np.float32)
+    return np.stack([_query_cache[(emb.name, t)] for t in texts])
+
+
 def similar(s: Session, entity_type: str, entity_id: str, space: str, k: int = 10) -> list[tuple[str, float]]:
     row = s.scalar(select(Embedding).where(Embedding.entity_type == entity_type, Embedding.entity_id == entity_id, Embedding.space == space))
     if row is None:
@@ -231,5 +312,6 @@ def reindex_all(s: Session) -> int:
 
 
 def cosine(a: np.ndarray, b: np.ndarray) -> float:
-    d = float(np.linalg.norm(a) * np.linalg.norm(b))
-    return float(np.dot(a, b) / d) if d else math.nan
+    from .linalg import dot, norm
+    d = norm(a) * norm(b)
+    return dot(a, b) / d if d else math.nan

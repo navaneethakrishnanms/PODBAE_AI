@@ -1,0 +1,2563 @@
+{
+ "generated": "2026-11-11 16:39:02",
+ "feeds": 279,
+ "before": {
+  "http_4xx": 35,
+  "tls": 2,
+  "timeout": 114,
+  "invalid_xml": 17,
+  "ok": 91,
+  "other": 2,
+  "connection": 14,
+  "http_5xx": 3,
+  "dns": 1
+ },
+ "after": {
+  "ok": 192,
+  "http_4xx": 51,
+  "tls": 3,
+  "invalid_xml": 20,
+  "connection": 1,
+  "timeout": 6,
+  "empty": 2,
+  "dns": 1,
+  "http_5xx": 3
+ },
+ "transitions": {
+  "ok -> ok": 90,
+  "http_4xx -> http_4xx": 35,
+  "tls -> tls": 1,
+  "timeout -> invalid_xml": 6,
+  "timeout -> ok": 87,
+  "tls -> ok": 1,
+  "invalid_xml -> invalid_xml": 14,
+  "other -> ok": 2,
+  "timeout -> http_4xx": 15,
+  "connection -> ok": 11,
+  "connection -> connection": 1,
+  "connection -> timeout": 2,
+  "invalid_xml -> empty": 2,
+  "dns -> dns": 1,
+  "http_5xx -> http_5xx": 2,
+  "http_5xx -> ok": 1,
+  "timeout -> tls": 2,
+  "timeout -> timeout": 4,
+  "invalid_xml -> http_5xx": 1,
+  "ok -> http_4xx": 1
+ },
+ "ok_active_90d": 90,
+ "seconds": 132.4,
+ "rows": [
+  {
+   "url": "http://2d6feet.com/category/podcast-and-notes/feed",
+   "category": "Sports & Hobbies",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 4162,
+   "active_90d": null
+  },
+  {
+   "url": "http://5minutesinchurchhistory.ligonier.org/rss",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 16117,
+   "active_90d": false
+  },
+  {
+   "url": "http://academicearth.org/courses/programming-methodology/video.rss",
+   "category": "Technology",
+   "before": "http_5xx",
+   "after": "http_5xx",
+   "error": "http_5xx: HttpStatusError: HTTP 500",
+   "ms": 5207,
+   "active_90d": null
+  },
+  {
+   "url": "http://bedsiderounds.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 9265,
+   "active_90d": false
+  },
+  {
+   "url": "http://biblestudypodcasts.org/index.php/feed",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 7198,
+   "active_90d": true
+  },
+  {
+   "url": "http://billburr.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 4850,
+   "active_90d": false
+  },
+  {
+   "url": "http://boardgamebabylon.libsyn.com/rss",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 9445,
+   "active_90d": false
+  },
+  {
+   "url": "http://bootstrapfarmer.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2506,
+   "active_90d": null
+  },
+  {
+   "url": "http://chaosradio.ccc.de/chaos_tv-latest.rss",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 1907,
+   "active_90d": false
+  },
+  {
+   "url": "http://chinahistorypodcast.com/feed/podcast/",
+   "category": "Education",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1061,
+   "active_90d": null
+  },
+  {
+   "url": "http://conversionaid.libsyn.com/rss",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5017,
+   "active_90d": false
+  },
+  {
+   "url": "http://dicetower.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 11807,
+   "active_90d": true
+  },
+  {
+   "url": "http://distrowatch.com/news/podcast.xml",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2096,
+   "active_90d": false
+  },
+  {
+   "url": "http://dl.dropbox.com/u/903112/bible.xml",
+   "category": "Religion & Spirituality",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2462,
+   "active_90d": null
+  },
+  {
+   "url": "http://faif.us/feeds/cast-ogg",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 4931,
+   "active_90d": false
+  },
+  {
+   "url": "http://feed.desiringgod.org/sermon-of-the-day.rss",
+   "category": "Religion & Spirituality",
+   "before": "connection",
+   "after": "connection",
+   "error": "connection: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "ms": 9341,
+   "active_90d": null
+  },
+  {
+   "url": "http://feed.desiringgod.org/theology-refresh.rss",
+   "category": "Religion & Spirituality",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 1770,
+   "active_90d": true
+  },
+  {
+   "url": "http://feedpress.me/keylife",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1154,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.5by5.tv/inbeta",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1132,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.5minutesinchurchhistory.com/5ChurchHistory",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3998,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/CoffeeCupCommentaries",
+   "category": "Religion & Spirituality",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1092,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/ExLibrisConciliar",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2047,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/RaisingSaintsAFR",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2263,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/SermonsAtStNicholas",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5026,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/2d6Feet",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1054,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/361Degrees",
+   "category": "Arts",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1700,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/AcademyIM",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5107,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/AlbertMohlerPowerline",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4204,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/BenGreenfieldFitness",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5485,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/BestOfTheLeftPodcastmp3",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 17276,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/CatholicunderTheHood",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 744,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/CityJournalPodcasts",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6781,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/CoralRidgePresbyterianChurchSermons",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2147,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/DuctTapeMarketingRadio",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 12104,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/EmbraceRunning",
+   "category": "Sports & Hobbies",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1185,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/EndtimeMinistriesPodcast",
+   "category": "Religion & Spirituality",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 12589,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/FreedomainRadioVolume5",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1789,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/Hanselminutes",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 10233,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/HanselminutesCompleteMP3",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 24814,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/IShouldBeMeditatingPodcast",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1998,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/KidsStoriesAndFairyTales-PalaceOfStoriesPodcast",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1601,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/MarketingOverCoffee",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3137,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/MyHistoryCanBeatUpYourPolitics",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 25417,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/NoPressureToBeFunny",
+   "category": "Comedy",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1006,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/NumeneraTheSignalPodcast",
+   "category": "Sports & Hobbies",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1107,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/PaleoPodcast",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2532,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/PhandroidPodcast",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 9159,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/PhilosophyForOurTimes",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 6990,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/Podcasts-FeralAttraction",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1528,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/ProgrammingThrowdown",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2508,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/PulpGamer",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 912,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/QuietThePowerOfIntrovertsWithSusanCain",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8425,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/RatholeRadio-ogg",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 6311,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/RichardHerringEdinburghPodcast",
+   "category": "Comedy",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2849,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/Roll2d6",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "empty",
+   "error": "empty: EmptyResponse: empty response body",
+   "ms": 571,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/SingularityBlog",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3155,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/Storynory",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 4437,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/SundayMorningLinuxReview-Mp3Feed",
+   "category": "Arts",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 935,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheAdamCarollaPodcast",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 11016,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheBikeShow",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4921,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheGameKennel",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 2215,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheLinuxActionShowOGG",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2781,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheLongViewPodcast",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 987,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheNewYorkCityCrimeReportWithPatDixon",
+   "category": "True Crime",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5156,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThePartiallyExaminedLife",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 2658,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThisIsMyNextPodcast",
+   "category": "Business",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 14774,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThisWeekInPhoto",
+   "category": "Sports & Hobbies",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 712,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/TorahClass",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2673,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/WeeklyPodcastNorthPoint",
+   "category": "Society & Culture",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 3103,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/abcradio/10percenthappier",
+   "category": "Arts",
+   "before": "dns",
+   "after": "dns",
+   "error": "dns: InvalidUrl: cannot resolve host 'feeds.castfire.com'",
+   "ms": 736,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/best-practice-software-engineering-podcast",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2922,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/bikeshowfeed",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3872,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/boagworldpodcast",
+   "category": "Arts",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 5681,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/boagworldpodcast/",
+   "category": "Arts",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 10560,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/changelogshow",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 8221,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/cnet/buzzreport",
+   "category": "Technology",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1872,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/comedycentral/standup",
+   "category": "Comedy",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 544,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/cotg",
+   "category": "Kids & Family",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1891,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/dailyboost",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 6867,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/dancarlin/commonsense",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1216,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/gangster-capitalism",
+   "category": "Kids & Family",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 5164,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/glendalecitysda/rvke",
+   "category": "Religion & Spirituality",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 353,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/iinnovatecast",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2475,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/linuxfortherestofus",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2138,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/london/lbs",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2173,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/menshealth/UCOo",
+   "category": "Health & Wellness",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 813,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/rfk-tapes",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2083,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/se-radio",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 6295,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/skepticality",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 730,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/sourcetrunk",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1160,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/sqeconferences",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 824,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/stuartgoldsmith",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2584,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/tdicasts",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2094,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/therissingtonpodcast",
+   "category": "Sports & Hobbies",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 5493,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/thetruthapm",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2643,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/thornmorris",
+   "category": "Comedy",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 11872,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/tlf-podcast",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2198,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/twis/science",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1025,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.feedburner.com/veritas-forum-best-of-audio",
+   "category": "Society & Culture",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 425,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/webaxe",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1420,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/wiredlivepodcast",
+   "category": "Business",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1335,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/wow-podcast",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2036,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.feedburner.com/zencast",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2794,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.harvardbusiness.org/harvardbusiness/ideacast",
+   "category": "Business",
+   "before": "other",
+   "after": "ok",
+   "error": null,
+   "ms": 6379,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.marspatel.com/marspatel",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 4710,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.podtrac.com/GCZVrOrFIOIY",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3172,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.schlaflosinmuenchen.com/slowsim.xml",
+   "category": "Education",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 13120,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A145673510/sounds.rss",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2624,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.thedisciplinedinvestor.com/tdicasts",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3643,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.twis.org/twis/science",
+   "category": "Technology",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 3586,
+   "active_90d": null
+  },
+  {
+   "url": "http://feeds.twit.tv/floss_video_large",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4651,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.twit.tv/specials_video_large",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5079,
+   "active_90d": false
+  },
+  {
+   "url": "http://feeds.waywordradio.org/awwwpodcast",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 14695,
+   "active_90d": true
+  },
+  {
+   "url": "http://feeds.wsjonline.com/wsj/podcast_wall_street_journal_on_small_business",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4826,
+   "active_90d": false
+  },
+  {
+   "url": "http://files.thisagilelife.com/this-agile-life.xml",
+   "category": "Technology",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1670,
+   "active_90d": null
+  },
+  {
+   "url": "http://foodforfitness.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6475,
+   "active_90d": false
+  },
+  {
+   "url": "http://frug.podbean.com/feed/",
+   "category": "Education",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1896,
+   "active_90d": null
+  },
+  {
+   "url": "http://ftew.libsyn.com/rss",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7098,
+   "active_90d": false
+  },
+  {
+   "url": "http://genealogygemspodcast.com/rss",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "tls",
+   "error": "tls: ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1017)",
+   "ms": 2900,
+   "active_90d": null
+  },
+  {
+   "url": "http://geologicpodcast.com/rss",
+   "category": "Comedy",
+   "before": "http_5xx",
+   "after": "ok",
+   "error": null,
+   "ms": 18273,
+   "active_90d": true
+  },
+  {
+   "url": "http://goodjobbrain.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 5476,
+   "active_90d": true
+  },
+  {
+   "url": "http://healthylivingradio.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 10140,
+   "active_90d": false
+  },
+  {
+   "url": "http://healthylivingradio.libsyn.org/rss/",
+   "category": "Health & Wellness",
+   "before": "http_5xx",
+   "after": "http_5xx",
+   "error": "http_5xx: HttpStatusError: HTTP 503",
+   "ms": 5441,
+   "active_90d": null
+  },
+  {
+   "url": "http://imaginaryfriendsshow.libsyn.com/rss",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 4729,
+   "active_90d": false
+  },
+  {
+   "url": "http://improvstartrek.libsyn.com/rss",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 10012,
+   "active_90d": false
+  },
+  {
+   "url": "http://isbw.wm.wizzard.tv/rss",
+   "category": "Arts",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 4768,
+   "active_90d": true
+  },
+  {
+   "url": "http://isc1.sans.org/dailypodcast.xml",
+   "category": "Arts",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 5325,
+   "active_90d": null
+  },
+  {
+   "url": "http://learningenglish.voanews.com/podcast/?count=20&zoneId=986",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2561,
+   "active_90d": false
+  },
+  {
+   "url": "http://leoville.tv/podcasts/floss.xml",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5764,
+   "active_90d": false
+  },
+  {
+   "url": "http://librivox.org/bookfeeds/the-montessori-method-by-maria-montessori.xml",
+   "category": "Kids & Family",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 14391,
+   "active_90d": null
+  },
+  {
+   "url": "http://librivox.org/rss/4108",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3491,
+   "active_90d": false
+  },
+  {
+   "url": "http://ludology.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 9509,
+   "active_90d": true
+  },
+  {
+   "url": "http://mediapub.it.ox.ac.uk/feeds/129144/audio.xml",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42393,
+   "active_90d": null
+  },
+  {
+   "url": "http://mediapub.it.ox.ac.uk/feeds/129288/audio.xml",
+   "category": "Education",
+   "before": "timeout",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42217,
+   "active_90d": null
+  },
+  {
+   "url": "http://mentalpoison.libsyn.com/rss",
+   "category": "Comedy",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 5840,
+   "active_90d": false
+  },
+  {
+   "url": "http://mettahour.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6571,
+   "active_90d": false
+  },
+  {
+   "url": "http://mikenation.net/feed/podcast/",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3710,
+   "active_90d": true
+  },
+  {
+   "url": "http://mikenation.net/miketechshow.xml",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 772,
+   "active_90d": true
+  },
+  {
+   "url": "http://mindpump.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 51189,
+   "active_90d": true
+  },
+  {
+   "url": "http://nekkidtech.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7108,
+   "active_90d": false
+  },
+  {
+   "url": "http://onsoftwarevid.pearson.libsynpro.com/rss",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7795,
+   "active_90d": false
+  },
+  {
+   "url": "http://opensourcemusician.libsyn.com/rss",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6635,
+   "active_90d": false
+  },
+  {
+   "url": "http://podcast.ft.com/rss/60/",
+   "category": "Education",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 8271,
+   "active_90d": null
+  },
+  {
+   "url": "http://podcast.hr-online.de/hrinfo-cybercrime/podcast.xml",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 6501,
+   "active_90d": null
+  },
+  {
+   "url": "http://podcasthistoryofourworld.libsyn.com/rss",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5818,
+   "active_90d": false
+  },
+  {
+   "url": "http://podcasts.personallifemedia.com/podcasts/225-sex-tantra-and-kama-sutra/feedburner.rss",
+   "category": "Health & Wellness",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 595,
+   "active_90d": null
+  },
+  {
+   "url": "http://podiobooks.com/rss/feeds/episodes/murder-at-avedon-hill/",
+   "category": "Kids & Family",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2676,
+   "active_90d": null
+  },
+  {
+   "url": "http://politicsandguns.libsyn.com/rss",
+   "category": "News & Politics",
+   "before": "tls",
+   "after": "ok",
+   "error": null,
+   "ms": 3740,
+   "active_90d": false
+  },
+  {
+   "url": "http://portal-api.thisisdistorted.com/xml/nora-en-pure-purified-radio",
+   "category": "Sports & Hobbies",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3714,
+   "active_90d": true
+  },
+  {
+   "url": "http://quicksurf.com/?feed=mp3&cat=141",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42345,
+   "active_90d": null
+  },
+  {
+   "url": "http://rationalsecurity.libsyn.com/rss",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8445,
+   "active_90d": true
+  },
+  {
+   "url": "http://reason.com/podcast/index.xml",
+   "category": "Business",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2342,
+   "active_90d": null
+  },
+  {
+   "url": "http://revision3.com/filmstate/feed/MP4-Large",
+   "category": "Arts",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 580,
+   "active_90d": null
+  },
+  {
+   "url": "http://revision3.com/hak5/feed/MP4-hd30",
+   "category": "Technology",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 667,
+   "active_90d": null
+  },
+  {
+   "url": "http://revolutionspodcast.libsyn.com/rss",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6748,
+   "active_90d": false
+  },
+  {
+   "url": "http://risky.biz/feeds/risky-business",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8010,
+   "active_90d": true
+  },
+  {
+   "url": "http://robbwolf.com/category/podcasts/feed/",
+   "category": "Health & Wellness",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2215,
+   "active_90d": false
+  },
+  {
+   "url": "http://robbwolf.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 19579,
+   "active_90d": false
+  },
+  {
+   "url": "http://rss.allaboutsymbian.com/media/podcastfeed.xml",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2980,
+   "active_90d": false
+  },
+  {
+   "url": "http://rss.art19.com/casefile/",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 10879,
+   "active_90d": false
+  },
+  {
+   "url": "http://rss.art19.com/stories-podcast",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 15071,
+   "active_90d": true
+  },
+  {
+   "url": "http://rss.sciam.com/sciam/60-second-tech",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2902,
+   "active_90d": false
+  },
+  {
+   "url": "http://seancarroll.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7508,
+   "active_90d": false
+  },
+  {
+   "url": "http://seemedlikeagoodideaatthetime.libsyn.com/rss",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5008,
+   "active_90d": false
+  },
+  {
+   "url": "http://selectedshortspri.pri.libsynpro.com/rss",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 5236,
+   "active_90d": null
+  },
+  {
+   "url": "http://shoptalkshow.com/feed/podcast",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 8283,
+   "active_90d": true
+  },
+  {
+   "url": "http://shoptalkshow.com/feed/podcast/",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 10455,
+   "active_90d": true
+  },
+  {
+   "url": "http://shotofjaq.org/feed/",
+   "category": "Technology",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1561,
+   "active_90d": null
+  },
+  {
+   "url": "http://sidenote.libsyn.com/rss",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 23694,
+   "active_90d": true
+  },
+  {
+   "url": "http://smlr.us/?feed=smlr-ogg",
+   "category": "Arts",
+   "before": "invalid_xml",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 14488,
+   "active_90d": null
+  },
+  {
+   "url": "http://stardate.org/feeds/podcast.xml",
+   "category": "Sports & Hobbies",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 6400,
+   "active_90d": true
+  },
+  {
+   "url": "http://stoppodcastingyourself.libsyn.com/rss",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 13491,
+   "active_90d": true
+  },
+  {
+   "url": "http://tarabrach.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 13907,
+   "active_90d": true
+  },
+  {
+   "url": "http://thebobdavispodcasts.com/feed/",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3427,
+   "active_90d": false
+  },
+  {
+   "url": "http://thefitcast.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2247,
+   "active_90d": null
+  },
+  {
+   "url": "http://thefoundation.libsyn.com/rss",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 9801,
+   "active_90d": false
+  },
+  {
+   "url": "http://thinkingsidewayspodcast.libsyn.com/rss",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 3585,
+   "active_90d": false
+  },
+  {
+   "url": "http://throwingshade.libsyn.com/rss",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8893,
+   "active_90d": false
+  },
+  {
+   "url": "http://torahclass.com/torahclasspodcasttwo.xml",
+   "category": "Religion & Spirituality",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6331,
+   "active_90d": true
+  },
+  {
+   "url": "http://vimeo.com/channels/kairossermons/videos/rss",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3721,
+   "active_90d": false
+  },
+  {
+   "url": "http://violetblue.libsyn.com/rss",
+   "category": "Technology",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 5836,
+   "active_90d": false
+  },
+  {
+   "url": "http://wordonfire.podbean.com/feed/",
+   "category": "Religion & Spirituality",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 16599,
+   "active_90d": true
+  },
+  {
+   "url": "http://worldwariipodcast.net/wordpress/feed/",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6597,
+   "active_90d": false
+  },
+  {
+   "url": "http://www.3kingdomspodcast.com/feed/podcast/",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 504,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.abc.net.au/radio/programs/truecrime/feed/9758336/podcast.xml",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 1599,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.abc.net.au/radionational/feed/2888650/podcast.xml",
+   "category": "Health & Wellness",
+   "before": "connection",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42176,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.abc.net.au/radionational/feed/5614238/podcast.xml",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42140,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.amyporterfield.com/feed/podcast/?wpmfeedkey=42%3B63e9a7b39200963656f686298e2ab6ba",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 18320,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.artofstorytellingshow.com/podcast/storycast.xml",
+   "category": "Kids & Family",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2522,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.barnesandnoble.com/rss/mtw.xml",
+   "category": "Arts",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1621,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.billburr.com/feed",
+   "category": "Comedy",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2036,
+   "active_90d": false
+  },
+  {
+   "url": "http://www.cert.org/podcasts/exec_podcast.rss",
+   "category": "Technology",
+   "before": "connection",
+   "after": "ok",
+   "error": null,
+   "ms": 14123,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.faif.us/feeds/cast-mp3/",
+   "category": "News & Politics",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 838,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.funagain.com/control/viewblog.xml?contentBlogId=TDT",
+   "category": "Sports & Hobbies",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 908,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.guardian.co.uk/politics/series/politicsweekly/podcast.xml",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2329,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.guardian.co.uk/stage/series/amnesty-international-comedy-podcast/podcast.xml",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 723,
+   "active_90d": false
+  },
+  {
+   "url": "http://www.howstuffworks.com/podcasts/brainstuff.rss",
+   "category": "Education",
+   "before": "invalid_xml",
+   "after": "empty",
+   "error": "empty: EmptyResponse: empty response body",
+   "ms": 881,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.ivoox.com/podcast-conferencias-marketing-directo_fg_f1346_filtro_1.xml",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8762,
+   "active_90d": false
+  },
+  {
+   "url": "http://www.japanesepod101.com/wp-feed-audio.php",
+   "category": "Education",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 373,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.katenagroup.org/PODCAST_FEEDS/FLORIDAPSYCH.xml",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 795,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.keithandthegirl.com/rss/",
+   "category": "Comedy",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 480,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.learnitalianpod.com/feed/",
+   "category": "Education",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1248,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.lewrockwell.com/lewrockwell-show/feed/",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1950,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.lewrockwell.com/podcast/feed.xml",
+   "category": "Business",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 570,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.lingq.com/itunes/45051",
+   "category": "Kids & Family",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1456,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.littlestoriestinypeople.com/podcast.xml",
+   "category": "Kids & Family",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3958,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.lse.ac.uk/assets/richmedia/webFeeds/publicLecturesAndEvents_iTunesStore.xml",
+   "category": "News & Politics",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5765,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.manager-tools.com/feeds/mt_podcasts.xml",
+   "category": "Business",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 443,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.manager-tools.com/podcasts/feed/rss2",
+   "category": "Business",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 1270,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.messyparenting.org/?feed=podcast",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 3143,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.nowplayingpodcast.com/NPP.xml",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8604,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.oneplace.com/ministries/the-alternative/subscribe/podcast.xml",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1089,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.podcastgarden.com/podcast/podcast-rss.php?id=452",
+   "category": "Sports & Hobbies",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1392,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.presentationministries.com/dbread/dbreadpodcast.asp",
+   "category": "Religion & Spirituality",
+   "before": "other",
+   "after": "ok",
+   "error": null,
+   "ms": 3429,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.radio-dingolstadt.de/podcast-comedyshows.xml",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 6533,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.radioopensource.org/feed/",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)",
+   "ms": 1461,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.scpr.org/podcasts/loh_down",
+   "category": "Education",
+   "before": "timeout",
+   "after": "tls",
+   "error": "tls: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)",
+   "ms": 5698,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.se-radio.net/feed/",
+   "category": "Technology",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4391,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.sei.cmu.edu/podcasts/files_podcasts/rssFeedPodcasts.xml",
+   "category": "Technology",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 9121,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.sfbrp.com/?feed=podcast",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 4374,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.sffaudio.com/?feed=podcast",
+   "category": "Arts",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1924,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.shutupandsitdown.com/podcast/feed.xml",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2440,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.sitepoint.com/?feed=podcast",
+   "category": "Arts",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 403",
+   "ms": 574,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.soulofislamradio.com/blog/feed/podcast/",
+   "category": "Society & Culture",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2465,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.thenarrativebreakdown.com/topics/podcast-episodes/feed",
+   "category": "Arts",
+   "before": "connection",
+   "after": "timeout",
+   "error": "timeout: ReadTimeout: timed out",
+   "ms": 42201,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.thetvcritic.org/historypodcasts/feed.xml",
+   "category": "Education",
+   "before": "invalid_xml",
+   "after": "http_5xx",
+   "error": "http_5xx: HttpStatusError: HTTP 523",
+   "ms": 9106,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.treksf.com/podcast/podcast.xml",
+   "category": "Arts",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 5007,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.wallawalla.edu/academics/departments/theology/goodword/podcast.php",
+   "category": "Religion & Spirituality",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1942,
+   "active_90d": null
+  },
+  {
+   "url": "http://www.whchurch.org/podcasts/sermons_hq.xml",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 9112,
+   "active_90d": true
+  },
+  {
+   "url": "http://www.wicketgate.co.uk/wicketgate.xml",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2360,
+   "active_90d": false
+  },
+  {
+   "url": "http://zigziglar.libsyn.com/rss",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2522,
+   "active_90d": null
+  },
+  {
+   "url": "https://aktenzeichenxy-podcast.podigee.io/feed/mp3",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6377,
+   "active_90d": true
+  },
+  {
+   "url": "https://alanwattsarchive.podomatic.com/rss2.xml",
+   "category": "Religion & Spirituality",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2962,
+   "active_90d": false
+  },
+  {
+   "url": "https://anchor.fm/s/46287364/podcast/rss",
+   "category": "Education",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1143,
+   "active_90d": false
+  },
+  {
+   "url": "https://backpackinglightpodcast.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 16703,
+   "active_90d": true
+  },
+  {
+   "url": "https://feeds.buzzsprout.com/1788738.rss",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1075,
+   "active_90d": true
+  },
+  {
+   "url": "https://feeds.buzzsprout.com/1956167.rss",
+   "category": "Comedy",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 2273,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.feedburner.com/QueeryWithCameronEsposito",
+   "category": "Society & Culture",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1942,
+   "active_90d": null
+  },
+  {
+   "url": "https://feeds.megaphone.fm/END8394789342",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7309,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HSW1226123619",
+   "category": "Education",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 3208,
+   "active_90d": null
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HSW9350285911",
+   "category": "Society & Culture",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1541,
+   "active_90d": null
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HTX4718937196",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 1450,
+   "active_90d": null
+  },
+  {
+   "url": "https://feeds.megaphone.fm/almostheretical",
+   "category": "Religion & Spirituality",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2262,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.megaphone.fm/awww",
+   "category": "Arts",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7341,
+   "active_90d": true
+  },
+  {
+   "url": "https://feeds.megaphone.fm/storypirates",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7485,
+   "active_90d": true
+  },
+  {
+   "url": "https://feeds.megaphone.fm/thenod",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2417,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.publicradio.org/public_feeds/spectacular-failures/itunes/rss.rss",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2660,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.simplecast.com/5lbWOVqN",
+   "category": "Kids & Family",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 1300,
+   "active_90d": false
+  },
+  {
+   "url": "https://feeds.soundcloud.com/users/soundcloud:users:264034133/sounds.rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 3979,
+   "active_90d": false
+  },
+  {
+   "url": "https://foundmyfitness.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 11106,
+   "active_90d": true
+  },
+  {
+   "url": "https://happymelly.libsyn.com/rss",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5174,
+   "active_90d": false
+  },
+  {
+   "url": "https://humanperformanceoutliers.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 6032,
+   "active_90d": true
+  },
+  {
+   "url": "https://hurryslowly.co/feed/podcast/",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4233,
+   "active_90d": false
+  },
+  {
+   "url": "https://mindsetbydesign.libsyn.com/rss",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7739,
+   "active_90d": false
+  },
+  {
+   "url": "https://nordictruecrime.podbean.com/feed.xml",
+   "category": "True Crime",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 3710,
+   "active_90d": false
+  },
+  {
+   "url": "https://palegroove.com/seasons/root-of-evil-the-true-story-of-the-hodel-family-and-the-black-dahlia.xml",
+   "category": "Kids & Family",
+   "before": "tls",
+   "after": "tls",
+   "error": "tls: ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'palegroove.com'. (_ssl.c:1017)",
+   "ms": 706,
+   "active_90d": null
+  },
+  {
+   "url": "https://practicalstoicpodcast.podbean.com/feed/",
+   "category": "Sports & Hobbies",
+   "before": "timeout",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 2205,
+   "active_90d": null
+  },
+  {
+   "url": "https://reason.com/podcasts/the-reason-interview-with-nick-gillespie/feed/",
+   "category": "Business",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 7515,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.acast.com/fucksgiven",
+   "category": "Society & Culture",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 410",
+   "ms": 1210,
+   "active_90d": null
+  },
+  {
+   "url": "https://rss.acast.com/mordaufex",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 7171,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/alternate_feeds/user/cold/iflK1omSrLPRbPL7T-z38sBn2XLqJysy",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8287,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/biggerpockets-real-estate-podcast",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 47198,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/deconstructing-yourself",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 3567,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/generation-why-podcast",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 3577,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/how-i-built-this",
+   "category": "Business",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 24597,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/lisk",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2997,
+   "active_90d": false
+  },
+  {
+   "url": "https://rss.art19.com/review-revue",
+   "category": "Comedy",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5441,
+   "active_90d": false
+  },
+  {
+   "url": "https://rss.art19.com/sean-carrolls-mindscape",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 13625,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/sword-and-scale",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 2725,
+   "active_90d": true
+  },
+  {
+   "url": "https://rss.art19.com/the-one-you-feed",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 21330,
+   "active_90d": true
+  },
+  {
+   "url": "https://s3-eu-west-1.amazonaws.com/rhspodcast/thegardenfeed.xml",
+   "category": "Sports & Hobbies",
+   "before": "http_4xx",
+   "after": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404",
+   "ms": 857,
+   "active_90d": null
+  },
+  {
+   "url": "https://s3.us-east-2.amazonaws.com/podcast.intelligence.org/razmedia/razfeed.xml",
+   "category": "Education",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 4289,
+   "active_90d": false
+  },
+  {
+   "url": "https://thelovelabpodcast.libsyn.com/rss",
+   "category": "Society & Culture",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 12160,
+   "active_90d": true
+  },
+  {
+   "url": "https://themeditationpodcast.com/tmp.xml",
+   "category": "Health & Wellness",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 1329,
+   "active_90d": true
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/caa92bb1-73cc-4abc-8b6d-aca8005d0d23/471fc444-1378-4268-86ea-aca8005d0d3b/podcast.rss",
+   "category": "Society & Culture",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 11210,
+   "active_90d": true
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/1a15b4e2-ba2a-4bb5-85bf-ac6001880594/73930892-67e0-449f-9731-ac600188059e/podcast.rss",
+   "category": "News & Politics",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 8861,
+   "active_90d": true
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/2abb18df-01d8-477b-aea7-ab3c017f7754/299e64ef-7490-4140-8769-ab3c017f7767/podcast.rss",
+   "category": "True Crime",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 11047,
+   "active_90d": true
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f5d5fac6-77be-47e6-9aee-ae32006cd8c3/b26cbbeb-86eb-4b97-9b34-ae32006cd8d6/podcast.rss",
+   "category": "Education",
+   "before": "timeout",
+   "after": "ok",
+   "error": null,
+   "ms": 5744,
+   "active_90d": true
+  },
+  {
+   "url": "https://www.spreaker.com/show/3212066/episodes/feed",
+   "category": "True Crime",
+   "before": "ok",
+   "after": "ok",
+   "error": null,
+   "ms": 1272,
+   "active_90d": false
+  }
+ ]
+}

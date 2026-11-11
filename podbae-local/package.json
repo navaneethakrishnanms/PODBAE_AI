@@ -25,7 +25,10 @@
     "format": "prettier -w .",
     "intel:migrate": "cd services/ai && conda run -n torch_gpu python -m alembic upgrade head",
     "intel:seed": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/intel_seed.py",
-    "intel:connect-demo": "node scripts/connect-demo.mjs"
+    "intel:connect-demo": "node scripts/connect-demo.mjs",
+    "intel:eval": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/eval_layer1.py report",
+    "intel:diagnose-feeds": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/feed_diagnose.py",
+    "ui:smoke": "conda run -n torch_gpu --no-capture-output python scripts/ui_smoke.py"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

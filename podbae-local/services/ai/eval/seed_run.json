@@ -1,2233 +1,4445 @@
 {
- "finished": "2026-11-04 16:39:13",
- "wall_seconds": 581.7,
- "shows_in_store": 102,
+ "finished": "2026-11-11 17:11:53",
+ "wall_seconds": 1125.4,
+ "target": 300,
+ "quota": {
+  "Comedy": 25,
+  "True Crime": 25,
+  "Technology": 25,
+  "Business": 25,
+  "Health & Fitness": 25,
+  "Society & Culture": 25,
+  "Education": 25,
+  "Arts": 25,
+  "Sports": 25,
+  "Leisure": 25,
+  "Religion & Spirituality": 25,
+  "Kids & Family": 25
+ },
+ "accepted_by_seed_group": {
+  "Comedy": 25,
+  "True Crime": 25,
+  "Technology": 25,
+  "Business": 25,
+  "Health & Fitness": 25,
+  "Society & Culture": 25,
+  "Education": 25,
+  "Arts": 25,
+  "Sports": 25,
+  "Leisure": 25,
+  "Religion & Spirituality": 25,
+  "Kids & Family": 25
+ },
+ "shows_in_store": 303,
+ "by_store_group": {
+  "Technology": 20,
+  "Education": 26,
+  "Arts": 26,
+  "Sports": 25,
+  "Kids & Family": 25,
+  "Society & Culture": 31,
+  "True Crime": 24,
+  "Religion & Spirituality": 25,
+  "Comedy": 25,
+  "Business": 24,
+  "?": 3,
+  "Health & Fitness": 25,
+  "Leisure": 17,
+  "News": 6,
+  "Science": 1
+ },
+ "by_language": {
+  "en": 277,
+  "es": 3,
+  "pt": 1,
+  "fr": 2,
+  "no": 1,
+  "nl": 4,
+  "de": 8,
+  "el": 1,
+  "tr": 1,
+  "so": 1,
+  "sk": 1,
+  "zh": 1,
+  "fil": 1,
+  "sv": 1
+ },
+ "by_activity": {
+  "active": 276,
+  "slowing": 27
+ },
+ "by_style": {
+  "solo_monologue": 71,
+  "unknown": 132,
+  "interview": 71,
+  "co_hosted_banter": 20,
+  "?": 3,
+  "narrative_storytelling": 3,
+  "panel": 3
+ },
+ "rejections": {
+  "directory": {
+   "network": 86,
+   "inactive": 4304,
+   "genre_outside_seed_groups": 207,
+   "too_few_episodes": 1325,
+   "too_many_episodes": 10,
+   "no_dated_episodes": 1
+  },
+  "rss": {
+   "network": 2,
+   "too_many_episodes": 1
+  }
+ },
+ "fetch_failures": {
+  "timeout": 3,
+  "tls": 2,
+  "http_4xx": 1,
+  "too_large": 2,
+  "invalid_xml": 1
+ },
+ "attempted_feeds": 322,
+ "fetch_ok": 298,
+ "ingest_failed": 15,
+ "ingest_seconds": {
+  "median": 14.4,
+  "p95": 33.74
+ },
+ "calibration": {
+  "shows": 303,
+  "with_vibe": 300,
+  "vibe_stats_n": 300,
+  "vibe_changed": 300,
+  "style_vectors": 300
+ },
+ "label_set": [
+  "shw_f5a3ed44707a",
+  "shw_ff90ecb3c334",
+  "shw_fcc1c2e43f4a",
+  "shw_ca872669b700",
+  "shw_8195f09a608e",
+  "shw_a6eb3e3cdb30",
+  "shw_89d22fa7f597",
+  "shw_b68bce7817c7",
+  "shw_0edd9673fe7c",
+  "shw_a07c0647d8fa",
+  "shw_7517a7bc16ff",
+  "shw_62b3c6eb4e06",
+  "shw_e7da5ef8503c",
+  "shw_e321c318a6b8",
+  "shw_c1add62ec40d",
+  "shw_53649e4766d2",
+  "shw_2f94cb5038ab",
+  "shw_4bcd079b6d4a",
+  "shw_e12ec5bf8d57",
+  "shw_a6d4f56517cf",
+  "shw_66d9cc864eb7",
+  "shw_a662f53a306f",
+  "shw_0f971cb7cccf",
+  "shw_74d0567c0dd3",
+  "shw_306d64488597",
+  "shw_0e669f5eb7bf",
+  "shw_c87fc49e31b2",
+  "shw_757c98a916ef",
+  "shw_012bf0035d3c",
+  "shw_888f0c0b3575"
+ ],
+ "rules": "independent-v1",
  "results": [
   {
-   "url": "http://www.manager-tools.com/feeds/mt_podcasts.xml",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.33
-  },
-  {
-   "url": "http://www.lewrockwell.com/podcast/feed.xml",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.75
-  },
-  {
-   "url": "https://palegroove.com/seasons/root-of-evil-the-true-story-of-the-hodel-family-and-the-black-dahlia.xml",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'palegroove.com'. (_ssl.c:1017)",
-   "seconds": 0.88
-  },
-  {
-   "url": "https://rss.art19.com/lisk",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.15
-  },
-  {
-   "url": "http://wordonfire.podbean.com/feed/",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.71
-  },
-  {
-   "url": "http://smlr.us/?feed=smlr-ogg",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 3.93
-  },
-  {
-   "url": "http://portal-api.thisisdistorted.com/xml/nora-en-pure-purified-radio",
-   "category": "Sports & Hobbies",
-   "ok": true,
-   "show_id": "shw_21f8cdda828a",
-   "status": "ok",
-   "seconds": 25.19,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/tdicasts",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_3e1063f138b5",
-   "status": "ok",
-   "seconds": 26.47,
-   "enrich": "llm",
-   "episodes": 50
-  },
-  {
-   "url": "http://feeds.feedburner.com/HanselminutesCompleteMP3",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_a48be052a9c7",
-   "status": "ok",
-   "seconds": 26.58,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://www.japanesepod101.com/wp-feed-audio.php",
-   "category": "Education",
-   "ok": true,
-   "show_id": "shw_7a441048efad",
-   "status": "ok",
-   "seconds": 26.77,
-   "enrich": "llm",
-   "episodes": 78
-  },
-  {
-   "url": "http://feeds.feedburner.com/zencast",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_629c3e3feab1",
-   "status": "ok",
-   "seconds": 3.23,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/IShouldBeMeditatingPodcast",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_9cdbe4b03c77",
-   "status": "ok",
-   "seconds": 1.13,
-   "enrich": "llm",
-   "episodes": 84
-  },
-  {
-   "url": "http://politicsandguns.libsyn.com/rss",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)",
-   "seconds": 15.08
-  },
-  {
-   "url": "http://distrowatch.com/news/podcast.xml",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.71
-  },
-  {
-   "url": "https://backpackinglightpodcast.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://sidenote.libsyn.com/rss",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://www.katenagroup.org/PODCAST_FEEDS/FLORIDAPSYCH.xml",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://feeds.feedburner.com/MyHistoryCanBeatUpYourPolitics",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 26.4
-  },
-  {
-   "url": "http://librivox.org/bookfeeds/the-montessori-method-by-maria-montessori.xml",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.61
-  },
-  {
-   "url": "http://feeds.ancientfaith.com/ExLibrisConciliar",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_1ae96a7877bf",
-   "status": "ok",
-   "seconds": 3.21,
-   "enrich": "llm",
-   "episodes": 99
-  },
-  {
-   "url": "http://feeds.feedburner.com/AlbertMohlerPowerline",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_3d4c3a571aa7",
-   "status": "ok",
-   "seconds": 11.84,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "https://mindsetbydesign.libsyn.com/rss",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 23.06
-  },
-  {
-   "url": "http://faif.us/feeds/cast-ogg",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 27.39
-  },
-  {
-   "url": "http://feeds.schlaflosinmuenchen.com/slowsim.xml",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.06
-  },
-  {
-   "url": "http://feeds.feedburner.com/AcademyIM",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_87fd53b33335",
-   "status": "ok",
-   "seconds": 6.35,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/cotg",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 1.67
-  },
-  {
-   "url": "https://feeds.megaphone.fm/thenod",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 27.48
-  },
-  {
-   "url": "https://themeditationpodcast.com/tmp.xml",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.05
-  },
-  {
-   "url": "http://feeds.feedburner.com/PhandroidPodcast",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_bcbeff44bcc4",
-   "status": "ok",
-   "seconds": 2.06,
-   "enrich": "llm",
-   "episodes": 15
-  },
-  {
-   "url": "http://feeds.twis.org/twis/science",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.74
-  },
-  {
-   "url": "http://www.presentationministries.com/dbread/dbreadpodcast.asp",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: episodes.show_id, episodes.guid\n[SQL: INSERT INTO episodes (id, show_id, guid, title, description, published_at, duration_sec, explic",
-   "seconds": 2.74
-  },
-  {
-   "url": "http://rss.art19.com/stories-podcast",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.07
-  },
-  {
-   "url": "http://robbwolf.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 45.18
-  },
-  {
-   "url": "http://feeds.feedburner.com/changelogshow",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_398f4f751a96",
-   "status": "ok",
-   "seconds": 12.61,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "https://feeds.megaphone.fm/HTX4718937196",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.08
-  },
-  {
-   "url": "http://feeds.feedburner.com/therissingtonpodcast",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 9.38
-  },
-  {
-   "url": "http://feeds.feedburner.com/EndtimeMinistriesPodcast",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.05
-  },
-  {
-   "url": "http://mentalpoison.libsyn.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 4.08
-  },
-  {
-   "url": "http://feeds.feedburner.com/boagworldpodcast",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.04
-  },
-  {
-   "url": "http://www.thenarrativebreakdown.com/topics/podcast-episodes/feed",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
-   "seconds": 7.03
-  },
-  {
-   "url": "http://www.abc.net.au/radionational/feed/2888650/podcast.xml",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
-   "seconds": 16.84
-  },
-  {
-   "url": "http://isbw.wm.wizzard.tv/rss",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
-   "seconds": 14.23
-  },
-  {
-   "url": "http://feeds.feedburner.com/gangster-capitalism",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/boagworldpodcast/",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.07
-  },
-  {
-   "url": "http://feeds.feedburner.com/twis/science",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_2be5bf5cc5e3",
-   "status": "ok",
-   "seconds": 2.71,
-   "enrich": "llm",
-   "episodes": 50
-  },
-  {
-   "url": "https://www.spreaker.com/show/3212066/episodes/feed",
-   "category": "True Crime",
-   "ok": true,
-   "show_id": "shw_8f59c488dcdb",
-   "status": "ok",
-   "seconds": 5.54,
-   "enrich": "llm",
-   "episodes": 30
-  },
-  {
-   "url": "http://www.lewrockwell.com/lewrockwell-show/feed/",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_272a65c69ef0",
-   "status": "ok",
-   "seconds": 6.75,
-   "enrich": "llm",
-   "episodes": 30
-  },
-  {
-   "url": "http://www.billburr.com/feed",
-   "category": "Comedy",
-   "ok": true,
-   "show_id": "shw_0a0cf3ba9807",
-   "status": "ok",
-   "seconds": 1.33,
-   "enrich": "llm",
-   "episodes": 0
-  },
-  {
-   "url": "http://shoptalkshow.com/feed/podcast",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_aa6231e8130f",
-   "status": "ok",
-   "seconds": 3.33,
-   "enrich": "llm",
-   "episodes": 100
-  },
-  {
-   "url": "http://feeds.wsjonline.com/wsj/podcast_wall_street_journal_on_small_business",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_bc17b0f38fe2",
-   "status": "ok",
-   "seconds": 8.4,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://learningenglish.voanews.com/podcast/?count=20&zoneId=986",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 24.99
-  },
-  {
-   "url": "http://feeds.feedburner.com/best-practice-software-engineering-podcast",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_15281b0da9e6",
-   "status": "ok",
-   "seconds": 1.98,
-   "enrich": "llm",
-   "episodes": 18
-  },
-  {
-   "url": "http://feeds.feedburner.com/BenGreenfieldFitness",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_bf88c3bdf335",
-   "status": "ok",
-   "seconds": 0.86,
-   "enrich": "llm",
-   "episodes": 25
-  },
-  {
-   "url": "https://rss.art19.com/alternate_feeds/user/cold/iflK1omSrLPRbPL7T-z38sBn2XLqJysy",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.63
-  },
-  {
-   "url": "http://feeds.harvardbusiness.org/harvardbusiness/ideacast",
-   "category": "Business",
-   "ok": false,
-   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: episodes.show_id, episodes.guid\n[SQL: INSERT INTO episodes (id, show_id, guid, title, description, published_at, duration_sec, explic",
-   "seconds": 2.86
-  },
-  {
-   "url": "http://feeds.feedburner.com/RatholeRadio-ogg",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_921b343ccd19",
-   "status": "ok",
-   "seconds": 4.42,
-   "enrich": "llm",
-   "episodes": 117
-  },
-  {
-   "url": "http://ludology.libsyn.com/rss",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 23.35
-  },
-  {
-   "url": "http://selectedshortspri.pri.libsynpro.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.49
-  },
-  {
-   "url": "http://opensourcemusician.libsyn.com/rss",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 26.66
-  },
-  {
-   "url": "http://revolutionspodcast.libsyn.com/rss",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 27.56
-  },
-  {
-   "url": "http://feeds.feedburner.com/menshealth/UCOo",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.56
-  },
-  {
-   "url": "http://mikenation.net/feed/podcast/",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_ed76b5168822",
-   "status": "ok",
-   "seconds": 4.08,
-   "enrich": "llm",
-   "episodes": 42
-  },
-  {
-   "url": "http://feeds.feedburner.com/ProgrammingThrowdown",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_824b46c9787b",
-   "status": "ok",
-   "seconds": 7.23,
-   "enrich": "llm",
-   "episodes": 190
-  },
-  {
-   "url": "http://thinkingsidewayspodcast.libsyn.com/rss",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.28
-  },
-  {
-   "url": "http://worldwariipodcast.net/wordpress/feed/",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 22.78
-  },
-  {
-   "url": "http://feeds.feedburner.com/TheGameKennel",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.44
-  },
-  {
-   "url": "http://feeds.feedburner.com/Storynory",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 25.76
-  },
-  {
-   "url": "http://www.soulofislamradio.com/blog/feed/podcast/",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.74
-  },
-  {
-   "url": "http://www.shutupandsitdown.com/podcast/feed.xml",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/NoPressureToBeFunny",
-   "category": "Comedy",
-   "ok": true,
-   "show_id": "shw_1ece289a6c4e",
-   "status": "ok",
-   "seconds": 1.96,
-   "enrich": "llm",
-   "episodes": 40
-  },
-  {
-   "url": "http://rss.art19.com/casefile/",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.09
-  },
-  {
-   "url": "https://rss.art19.com/generation-why-podcast",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/CoralRidgePresbyterianChurchSermons",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_16e99c214cf2",
-   "status": "ok",
-   "seconds": 1.99,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://www.wallawalla.edu/academics/departments/theology/goodword/podcast.php",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.91
-  },
-  {
-   "url": "https://feeds.buzzsprout.com/1956167.rss",
-   "category": "Comedy",
-   "ok": true,
-   "show_id": "shw_97e795622cab",
-   "status": "ok",
-   "seconds": 2.8,
-   "enrich": "llm",
-   "episodes": 16
-  },
-  {
-   "url": "http://feeds.feedburner.com/wow-podcast",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_88dec2e9e432",
-   "status": "ok",
-   "seconds": 2.53,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "https://rss.art19.com/sean-carrolls-mindscape",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "https://humanperformanceoutliers.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 46.75
-  },
-  {
-   "url": "http://feeds.feedburner.com/thetruthapm",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.39
-  },
-  {
-   "url": "http://feed.desiringgod.org/sermon-of-the-day.rss",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 3.91
-  },
-  {
-   "url": "http://feeds.feedburner.com/glendalecitysda/rvke",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.52
-  },
-  {
-   "url": "http://feedpress.me/keylife",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_80154b253ad7",
-   "status": "ok",
-   "seconds": 1.18,
-   "enrich": "llm",
-   "episodes": 30
-  },
-  {
-   "url": "http://feeds.feedburner.com/NumeneraTheSignalPodcast",
-   "category": "Sports & Hobbies",
-   "ok": true,
-   "show_id": "shw_b79610d8c6c5",
-   "status": "ok",
-   "seconds": 1.92,
-   "enrich": "llm",
-   "episodes": 25
-  },
-  {
-   "url": "http://www.messyparenting.org/?feed=podcast",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 31.58
-  },
-  {
-   "url": "http://feeds.feedburner.com/dailyboost",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_f8721eecb379",
-   "status": "ok",
-   "seconds": 4.41,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/PaleoPodcast",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 20.82
-  },
-  {
-   "url": "https://rss.art19.com/review-revue",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/TheBikeShow",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_76e360cb485e",
-   "status": "ok",
-   "seconds": 1.78,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://healthylivingradio.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://dicetower.libsyn.com/rss",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://thefitcast.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://feeds.feedburner.com/Hanselminutes",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 38.19
-  },
-  {
-   "url": "http://feeds.feedburner.com/PulpGamer",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.46
-  },
-  {
-   "url": "http://throwingshade.libsyn.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 35.73
-  },
-  {
-   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f5d5fac6-77be-47e6-9aee-ae32006cd8c3/b26cbbeb-86eb-4b97-9b34-ae32006cd8d6/podcast.rss",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.08
-  },
-  {
-   "url": "http://improvstartrek.libsyn.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://onsoftwarevid.pearson.libsynpro.com/rss",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/sqeconferences",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_e316bc1109e7",
-   "status": "ok",
-   "seconds": 0.67,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://risky.biz/feeds/risky-business",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 37.43
-  },
-  {
-   "url": "http://feeds.feedburner.com/BestOfTheLeftPodcastmp3",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.9
-  },
-  {
-   "url": "http://www.se-radio.net/feed/",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_a6b4b3c8f76c",
-   "status": "ok",
-   "seconds": 1.88,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://feeds.twit.tv/specials_video_large",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_b4924941205b",
-   "status": "ok",
-   "seconds": 8.8,
-   "enrich": "llm",
-   "episodes": 25
-  },
-  {
-   "url": "http://feeds.feedburner.com/CityJournalPodcasts",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.87
-  },
-  {
-   "url": "http://tarabrach.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 23.41
-  },
-  {
-   "url": "https://happymelly.libsyn.com/rss",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://feeds.twit.tv/floss_video_large",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_a7909658d0e4",
-   "status": "ok",
-   "seconds": 7.77,
-   "enrich": "llm",
-   "episodes": 50
-  },
-  {
-   "url": "http://feeds.podtrac.com/GCZVrOrFIOIY",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_5274d7db2418",
-   "status": "ok",
-   "seconds": 4.6,
-   "enrich": "llm",
-   "episodes": 72
-  },
-  {
-   "url": "http://foodforfitness.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 38.39
-  },
-  {
-   "url": "http://feeds.feedburner.com/EmbraceRunning",
-   "category": "Sports & Hobbies",
-   "ok": true,
-   "show_id": "shw_16080be5d1d6",
-   "status": "ok",
-   "seconds": 0.78,
-   "enrich": "llm",
-   "episodes": 29
-  },
-  {
-   "url": "http://rss.allaboutsymbian.com/media/podcastfeed.xml",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 27.81
-  },
-  {
-   "url": "http://www.lingq.com/itunes/45051",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.4
-  },
-  {
-   "url": "http://mediapub.it.ox.ac.uk/feeds/129288/audio.xml",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.42
-  },
-  {
-   "url": "http://feeds.feedburner.com/rfk-tapes",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_0e75367cfdb7",
-   "status": "ok",
-   "seconds": 4.97,
-   "enrich": "llm",
-   "episodes": 26
-  },
-  {
-   "url": "https://feeds.megaphone.fm/almostheretical",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.1
-  },
-  {
-   "url": "http://frug.podbean.com/feed/",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.81
-  },
-  {
-   "url": "https://feeds.megaphone.fm/END8394789342",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 27.58
-  },
-  {
-   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/2abb18df-01d8-477b-aea7-ab3c017f7754/299e64ef-7490-4140-8769-ab3c017f7767/podcast.rss",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/MarketingOverCoffee",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_550067df0846",
-   "status": "ok",
-   "seconds": 1.98,
-   "enrich": "cache",
-   "episodes": 99
-  },
-  {
-   "url": "http://www.faif.us/feeds/cast-mp3/",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 10.57
-  },
-  {
-   "url": "https://nordictruecrime.podbean.com/feed.xml",
-   "category": "True Crime",
-   "ok": true,
-   "show_id": "shw_42d4f20d30f6",
-   "status": "ok",
-   "seconds": 2.58,
-   "enrich": "llm",
-   "episodes": 42
-  },
-  {
-   "url": "http://feeds.feedburner.com/TheAdamCarollaPodcast",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_a19316f3fd23",
-   "status": "ok",
-   "seconds": 3.43,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://nekkidtech.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.05
-  },
-  {
-   "url": "http://feeds.feedburner.com/stuartgoldsmith",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.17
-  },
-  {
-   "url": "http://feeds.waywordradio.org/awwwpodcast",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.73
-  },
-  {
-   "url": "https://feeds.feedburner.com/QueeryWithCameronEsposito",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.58
-  },
-  {
-   "url": "http://feeds.feedburner.com/QuietThePowerOfIntrovertsWithSusanCain",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.72
-  },
-  {
-   "url": "http://quicksurf.com/?feed=mp3&cat=141",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://boardgamebabylon.libsyn.com/rss",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://isc1.sans.org/dailypodcast.xml",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 2.94
-  },
-  {
-   "url": "https://alanwattsarchive.podomatic.com/rss2.xml",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_23b3d35bce82",
-   "status": "ok",
-   "seconds": 0.71,
-   "enrich": "llm",
-   "episodes": 45
-  },
-  {
-   "url": "http://rationalsecurity.libsyn.com/rss",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://feeds.feedburner.com/webaxe",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_39efc0617429",
-   "status": "ok",
-   "seconds": 1.79,
-   "enrich": "llm",
-   "episodes": 0
-  },
-  {
-   "url": "http://vimeo.com/channels/kairossermons/videos/rss",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_221a83036204",
-   "status": "ok",
-   "seconds": 1.67,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://feeds.feedburner.com/tlf-podcast",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_320ddfffaf9e",
-   "status": "ok",
-   "seconds": 2.09,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://feeds.feedburner.com/iinnovatecast",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_34f690d0d448",
-   "status": "ok",
-   "seconds": 0.84,
-   "enrich": "llm",
-   "episodes": 25
-  },
-  {
-   "url": "http://feeds.feedburner.com/ThePartiallyExaminedLife",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.64
-  },
-  {
-   "url": "http://seemedlikeagoodideaatthetime.libsyn.com/rss",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 29.35
-  },
-  {
-   "url": "http://www.sffaudio.com/?feed=podcast",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 7.9
-  },
-  {
-   "url": "http://geologicpodcast.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 500",
-   "seconds": 14.01
-  },
-  {
-   "url": "http://feeds.feedburner.com/TheLongViewPodcast",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.4
-  },
-  {
-   "url": "https://feeds.simplecast.com/5lbWOVqN",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.08
-  },
-  {
-   "url": "http://imaginaryfriendsshow.libsyn.com/rss",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://goodjobbrain.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 4.09
-  },
-  {
-   "url": "http://feeds.feedburner.com/ThisIsMyNextPodcast",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.05
-  },
-  {
-   "url": "http://www.cert.org/podcasts/exec_podcast.rss",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
-   "seconds": 14.13
-  },
-  {
-   "url": "http://violetblue.libsyn.com/rss",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
-   "seconds": 11.08
-  },
-  {
-   "url": "http://feed.desiringgod.org/theology-refresh.rss",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
-   "seconds": 2.31
-  },
-  {
-   "url": "http://files.thisagilelife.com/this-agile-life.xml",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 1.99
-  },
-  {
-   "url": "http://feeds.feedburner.com/wiredlivepodcast",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 2.61
-  },
-  {
-   "url": "http://revision3.com/hak5/feed/MP4-hd30",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 3.22
-  },
-  {
-   "url": "http://feeds.5minutesinchurchhistory.com/5ChurchHistory",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_2c487284a89c",
-   "status": "ok",
-   "seconds": 3.91,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.thedisciplinedinvestor.com/tdicasts",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_3e1063f138b5",
-   "status": "ok",
-   "seconds": 3.17,
-   "enrich": "cache",
-   "episodes": 50
-  },
-  {
-   "url": "http://academicearth.org/courses/programming-methodology/video.rss",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 500",
-   "seconds": 1.37
-  },
-  {
-   "url": "https://anchor.fm/s/46287364/podcast/rss",
-   "category": "Education",
-   "ok": true,
-   "show_id": "shw_641c7b6d53b3",
-   "status": "ok",
-   "seconds": 0.6,
-   "enrich": "llm",
-   "episodes": 12
-  },
-  {
-   "url": "http://feeds.feedburner.com/london/lbs",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_2d62d0aa1574",
-   "status": "ok",
-   "seconds": 2.48,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "https://feeds.megaphone.fm/HSW9350285911",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 13.6
-  },
-  {
-   "url": "http://www.barnesandnoble.com/rss/mtw.xml",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.01
-  },
-  {
-   "url": "http://mettahour.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 24.09
-  },
-  {
-   "url": "http://feeds.feedburner.com/Roll2d6",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.41
-  },
-  {
-   "url": "http://stoppodcastingyourself.libsyn.com/rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://feeds.feedburner.com/SundayMorningLinuxReview-Mp3Feed",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 1.69
-  },
-  {
-   "url": "http://5minutesinchurchhistory.ligonier.org/rss",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 26.11
-  },
-  {
-   "url": "https://rss.art19.com/the-one-you-feed",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 62.73
-  },
-  {
-   "url": "http://feeds.feedburner.com/abcradio/10percenthappier",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: InvalidUrl: cannot resolve host 'feeds.castfire.com'",
-   "seconds": 1.87
-  },
-  {
-   "url": "http://leoville.tv/podcasts/floss.xml",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_95daae612baf",
-   "status": "ok",
-   "seconds": 33.02,
-   "enrich": "llm",
-   "episodes": 50
-  },
-  {
-   "url": "http://www.abc.net.au/radio/programs/truecrime/feed/9758336/podcast.xml",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.89
-  },
-  {
-   "url": "http://feeds.ancientfaith.com/RaisingSaintsAFR",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_48beab28ce72",
-   "status": "ok",
-   "seconds": 18.94,
-   "enrich": "llm",
-   "episodes": 85
-  },
-  {
-   "url": "http://www.keithandthegirl.com/rss/",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.1
-  },
-  {
-   "url": "http://feeds.feedburner.com/bikeshowfeed",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_bdcc17abe8f3",
-   "status": "ok",
-   "seconds": 10.13,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://www.lse.ac.uk/assets/richmedia/webFeeds/publicLecturesAndEvents_iTunesStore.xml",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_6ac048d3b72d",
-   "status": "ok",
-   "seconds": 21.64,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/2d6Feet",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.44
-  },
-  {
-   "url": "http://www.manager-tools.com/podcasts/feed/rss2",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.41
-  },
-  {
-   "url": "http://feeds.feedburner.com/KidsStoriesAndFairyTales-PalaceOfStoriesPodcast",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_f6fe0368ef7e",
-   "status": "ok",
-   "seconds": 3.69,
-   "enrich": "llm",
-   "episodes": 0
-  },
-  {
-   "url": "http://feeds.feedburner.com/thornmorris",
-   "category": "Comedy",
-   "ok": true,
-   "show_id": "shw_6be65e3b28f7",
-   "status": "ok",
-   "seconds": 4.47,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://chinahistorypodcast.com/feed/podcast/",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.42
-  },
-  {
-   "url": "http://feeds.feedburner.com/TheLinuxActionShowOGG",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_253ca5983732",
-   "status": "ok",
-   "seconds": 2.56,
-   "enrich": "llm",
-   "episodes": 156
-  },
-  {
-   "url": "http://www.artofstorytellingshow.com/podcast/storycast.xml",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.7
-  },
-  {
-   "url": "https://foundmyfitness.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 29.93
-  },
-  {
-   "url": "http://podcast.ft.com/rss/60/",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.7
-  },
-  {
-   "url": "http://shoptalkshow.com/feed/podcast/",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_aa6231e8130f",
-   "status": "not_modified",
-   "seconds": 0.78,
-   "enrich": "cache",
-   "episodes": null
-  },
-  {
-   "url": "http://feeds.feedburner.com/dancarlin/commonsense",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_99f12206c5e2",
-   "status": "ok",
-   "seconds": 0.58,
-   "enrich": "llm",
-   "episodes": 8
-  },
-  {
-   "url": "http://stardate.org/feeds/podcast.xml",
-   "category": "Sports & Hobbies",
-   "ok": true,
-   "show_id": "shw_21c250afecc1",
-   "status": "ok",
-   "seconds": 5.53,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://feeds.feedburner.com/RichardHerringEdinburghPodcast",
-   "category": "Comedy",
-   "ok": true,
-   "show_id": "shw_35c15a4d1f6c",
-   "status": "ok",
-   "seconds": 2.14,
-   "enrich": "llm",
-   "episodes": 80
-  },
-  {
-   "url": "http://revision3.com/filmstate/feed/MP4-Large",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.32
-  },
-  {
-   "url": "http://feeds.ancientfaith.com/SermonsAtStNicholas",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_515fc9888e10",
-   "status": "ok",
-   "seconds": 3.35,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://dl.dropbox.com/u/903112/bible.xml",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.41
-  },
-  {
-   "url": "http://podcasts.personallifemedia.com/podcasts/225-sex-tantra-and-kama-sutra/feedburner.rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.27
-  },
-  {
-   "url": "http://genealogygemspodcast.com/rss",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://feeds.feedburner.com/WeeklyPodcastNorthPoint",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.45
-  },
-  {
-   "url": "http://www.sitepoint.com/?feed=podcast",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 0.14
-  },
-  {
-   "url": "http://biblestudypodcasts.org/index.php/feed",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_282e88ce04bd",
-   "status": "ok",
-   "seconds": 5.56,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://rss.sciam.com/sciam/60-second-tech",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_440e4ce795d1",
-   "status": "ok",
-   "seconds": 2.1,
-   "enrich": "llm",
-   "episodes": 161
-  },
-  {
-   "url": "https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/caa92bb1-73cc-4abc-8b6d-aca8005d0d23/471fc444-1378-4268-86ea-aca8005d0d3b/podcast.rss",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_151776fedf0c",
-   "status": "ok",
-   "seconds": 24.92,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://bedsiderounds.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 31.8
-  },
-  {
-   "url": "https://feeds.publicradio.org/public_feeds/spectacular-failures/itunes/rss.rss",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.32
-  },
-  {
-   "url": "http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A145673510/sounds.rss",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_57c121ca86ee",
-   "status": "ok",
-   "seconds": 1.27,
-   "enrich": "llm",
-   "episodes": 4
-  },
-  {
-   "url": "https://hurryslowly.co/feed/podcast/",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_db7af9050f2a",
-   "status": "ok",
-   "seconds": 2.33,
-   "enrich": "llm",
-   "episodes": 95
-  },
-  {
-   "url": "http://2d6feet.com/category/podcast-and-notes/feed",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
-   "seconds": 2.64
-  },
-  {
-   "url": "http://www.ivoox.com/podcast-conferencias-marketing-directo_fg_f1346_filtro_1.xml",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.08
-  },
-  {
-   "url": "http://thefoundation.libsyn.com/rss",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 32.79
-  },
-  {
-   "url": "http://mediapub.it.ox.ac.uk/feeds/129144/audio.xml",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "http://www.thetvcritic.org/historypodcasts/feed.xml",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.77
-  },
-  {
-   "url": "http://www.guardian.co.uk/stage/series/amnesty-international-comedy-podcast/podcast.xml",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.07
-  },
-  {
-   "url": "http://zigziglar.libsyn.com/rss",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "https://practicalstoicpodcast.podbean.com/feed/",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.19
-  },
-  {
-   "url": "https://rss.art19.com/deconstructing-yourself",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://www.scpr.org/podcasts/loh_down",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 21.24
-  },
-  {
-   "url": "http://www.abc.net.au/radionational/feed/5614238/podcast.xml",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.13
-  },
-  {
-   "url": "https://reason.com/podcasts/the-reason-interview-with-nick-gillespie/feed/",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_6c91a47ab6ee",
-   "status": "ok",
-   "seconds": 3.57,
-   "enrich": "llm",
-   "episodes": 100
-  },
-  {
-   "url": "http://feeds.feedburner.com/comedycentral/standup",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 1.96
-  },
-  {
-   "url": "http://feeds.feedburner.com/361Degrees",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.73
-  },
-  {
-   "url": "https://s3.us-east-2.amazonaws.com/podcast.intelligence.org/razmedia/razfeed.xml",
-   "category": "Education",
-   "ok": true,
-   "show_id": "shw_e1c9f18c99fb",
-   "status": "ok",
-   "seconds": 2.33,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://chaosradio.ccc.de/chaos_tv-latest.rss",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://librivox.org/rss/4108",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_4facb3f5eb43",
-   "status": "ok",
-   "seconds": 1.9,
-   "enrich": "llm",
-   "episodes": 13
-  },
-  {
-   "url": "http://podiobooks.com/rss/feeds/episodes/murder-at-avedon-hill/",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.93
-  },
-  {
-   "url": "http://www.sfbrp.com/?feed=podcast",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 35.17
-  },
-  {
-   "url": "http://mindpump.libsyn.com/rss",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.28
-  },
-  {
-   "url": "http://feeds.feedburner.com/SingularityBlog",
-   "category": "Business",
-   "ok": true,
-   "show_id": "shw_d48cdb767392",
-   "status": "ok",
-   "seconds": 2.95,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://bootstrapfarmer.libsyn.com/rss",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 27.54
-  },
-  {
-   "url": "http://www.funagain.com/control/viewblog.xml?contentBlogId=TDT",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.49
-  },
-  {
-   "url": "http://conversionaid.libsyn.com/rss",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://feeds.feedburner.com/linuxfortherestofus",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_1ab12504457d",
-   "status": "ok",
-   "seconds": 1.48,
-   "enrich": "llm",
-   "episodes": 30
-  },
-  {
-   "url": "https://rss.art19.com/biggerpockets-real-estate-podcast",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.11
-  },
-  {
-   "url": "http://www.howstuffworks.com/podcasts/brainstuff.rss",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.44
-  },
-  {
-   "url": "http://feeds.marspatel.com/marspatel",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.43
-  },
-  {
-   "url": "http://www.learnitalianpod.com/feed/",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
-  },
-  {
-   "url": "https://rss.art19.com/sword-and-scale",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://billburr.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
-  },
-  {
-   "url": "http://podcast.hr-online.de/hrinfo-cybercrime/podcast.xml",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
-  },
-  {
-   "url": "http://mikenation.net/miketechshow.xml",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_ed76b5168822",
-   "status": "ok",
-   "seconds": 1.13,
-   "enrich": "cache",
-   "episodes": 42
-  },
-  {
-   "url": "http://healthylivingradio.libsyn.org/rss/",
-   "category": "Health & Wellness",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 503",
-   "seconds": 2.97
-  },
-  {
-   "url": "https://feeds.buzzsprout.com/1788738.rss",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_535c1ed6242d",
-   "status": "ok",
-   "seconds": 5.92,
-   "enrich": "llm",
-   "episodes": 104
-  },
-  {
-   "url": "http://www.nowplayingpodcast.com/NPP.xml",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.37
-  },
-  {
-   "url": "http://feeds.feedburner.com/PhilosophyForOurTimes",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_690cc0600c21",
-   "status": "ok",
-   "seconds": 9.32,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://thebobdavispodcasts.com/feed/",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_96f50010cbb0",
-   "status": "ok",
-   "seconds": 3.61,
-   "enrich": "llm",
-   "episodes": 50
-  },
-  {
-   "url": "http://www.littlestoriestinypeople.com/podcast.xml",
-   "category": "Kids & Family",
-   "ok": true,
-   "show_id": "shw_69a099328c63",
-   "status": "ok",
-   "seconds": 11.68,
-   "enrich": "llm",
-   "episodes": 183
-  },
-  {
-   "url": "http://feeds.feedburner.com/TorahClass",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_adfe518aa0ed",
-   "status": "ok",
-   "seconds": 2.02,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/skepticality",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_0aaeca970171",
-   "status": "ok",
-   "seconds": 2.13,
-   "enrich": "llm",
-   "episodes": 10
-  },
-  {
-   "url": "http://shotofjaq.org/feed/",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
-   "seconds": 0.95
-  },
-  {
-   "url": "http://www.podcastgarden.com/podcast/podcast-rss.php?id=452",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.54
-  },
-  {
-   "url": "http://feeds.feedburner.com/FreedomainRadioVolume5",
-   "category": "News & Politics",
-   "ok": true,
-   "show_id": "shw_22398e513af7",
-   "status": "ok",
-   "seconds": 3.34,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://robbwolf.com/category/podcasts/feed/",
-   "category": "Health & Wellness",
-   "ok": true,
-   "show_id": "shw_fc8ccf56f52f",
-   "status": "ok",
-   "seconds": 2.81,
-   "enrich": "llm",
-   "episodes": 20
-  },
-  {
-   "url": "http://www.whchurch.org/podcasts/sermons_hq.xml",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_db25d7482f01",
-   "status": "ok",
-   "seconds": 6.63,
-   "enrich": "llm",
-   "episodes": 200
-  },
-  {
-   "url": "http://feeds.feedburner.com/veritas-forum-best-of-audio",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.7
-  },
-  {
-   "url": "http://feeds.feedburner.com/CatholicunderTheHood",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_496b9f6d4567",
-   "status": "ok",
-   "seconds": 1.94,
-   "enrich": "llm",
-   "episodes": 25
-  },
-  {
-   "url": "https://s3-eu-west-1.amazonaws.com/rhspodcast/thegardenfeed.xml",
-   "category": "Sports & Hobbies",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.68
-  },
-  {
-   "url": "https://feeds.megaphone.fm/awww",
-   "category": "Arts",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.09
-  },
-  {
-   "url": "http://feeds.feedburner.com/se-radio",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_969222d2ccd6",
-   "status": "ok",
+   "group": "Business",
+   "url": "https://feeds.simplecast.com/_fDeg9zF",
+   "status": "ingest_failed",
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: sources.name\n[SQL: INSERT INTO sources (name, kind, terms_note) VALUES (?, ?, ?)]\n[parameters: ('rss', 'rss', 'Publisher RSS feed; public, fetched with conditional GET')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://feeds.feedburner.com/GuidedMeditationPodcast",
+   "status": "ingest_failed",
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: sources.name\n[SQL: INSERT INTO sources (name, kind, terms_note) VALUES (?, ?, ?)]\n[parameters: ('rss', 'rss', 'Publisher RSS feed; public, fetched with conditional GET')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.redcircle.com/25eed9e8-434f-4749-9dd0-c5dea9e2dc76",
+   "status": "ingest_failed",
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: sources.name\n[SQL: INSERT INTO sources (name, kind, terms_note) VALUES (?, ?, ?)]\n[parameters: ('rss', 'rss', 'Publisher RSS feed; public, fetched with conditional GET')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"
+  },
+  {
+   "group": "Comedy",
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/39524bfa-de3f-4fac-bf1c-ae3300346e1f/cca17ef5-974c-4e61-997c-ae3300346e3b/podcast.rss",
+   "status": "ingest_failed",
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: sources.name\n[SQL: INSERT INTO sources (name, kind, terms_note) VALUES (?, ?, ?)]\n[parameters: ('rss', 'rss', 'Publisher RSS feed; public, fetched with conditional GET')]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)"
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.simplecast.com/obaHfEr1",
+   "status": "ingested",
+   "show_id": "shw_3c0aac3fd544",
+   "seconds": 28.2,
+   "style": "solo_monologue",
+   "topics": [
+    "marketing_sales",
+    "language_learning"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.pdrl.fm/b18a20/feeds.acast.com/public/shows/681a593c1d28d623131601be",
+   "status": "ingested",
+   "show_id": "shw_0f60669ec39f",
+   "seconds": 28.89,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "paranormal_mystery"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ENTDM8206698407",
+   "status": "ingested",
+   "show_id": "shw_b36bd226ea22",
+   "seconds": 29.5,
+   "style": "unknown",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://rss.art19.com/murder-sheet",
+   "status": "fetch_failed",
+   "reason": "timeout",
+   "error": "timeout: ConnectTimeout: _ssl.c:1000: The handshake operation timed out"
+  },
+  {
+   "group": "Technology",
+   "url": "https://www.spreaker.com/show/6286381/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_113164ac447f",
+   "seconds": 48.88,
+   "style": "solo_monologue",
+   "topics": [
+    "technology_gadgets",
+    "cybersecurity",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.redcircle.com/cfc0e32d-c1fc-435f-8d4b-b3f5fb352872",
+   "status": "ingested",
+   "show_id": "shw_13ae7de4339f",
+   "seconds": 42.88,
+   "style": "solo_monologue",
+   "topics": [
+    "history",
+    "medicine_healthcare",
+    "mental_health",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.simplecast.com/J3Cw7uBl",
+   "status": "ingested",
+   "show_id": "shw_dca49e79df0b",
+   "seconds": 16.82,
+   "style": "co_hosted_banter",
+   "topics": [
+    "marketing_sales",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.buzzsprout.com/2233539.rss",
+   "status": "ingested",
+   "show_id": "shw_e3a688b952e4",
+   "seconds": 20.66,
+   "style": "interview",
+   "topics": [
+    "parenting",
+    "kids_stories",
+    "relationships_dating",
+    "christianity",
+    "mental_health",
+    "self_improvement",
+    "fitness_exercise",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/4603604/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_6244c6d3c7d5",
+   "seconds": 31.03,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "christianity",
+    "film_tv",
+    "relationships_dating",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://harbourfaith.com/rewilding-faith-podcast?format=rss",
+   "status": "ingested",
+   "show_id": "shw_c3b00ed1b8d8",
+   "seconds": 33.96,
+   "style": "interview",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feed.podbean.com/infrastructuretechnologypodcast/feed.xml",
+   "status": "fetch_failed",
+   "reason": "timeout",
+   "error": "timeout: ConnectTimeout: _ssl.c:1000: The handshake operation timed out"
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.acast.com/public/shows/293971b7-579a-4836-99b3-3a4e6f3d5629",
+   "status": "ingested",
+   "show_id": "shw_2d91434881e4",
+   "seconds": 25.36,
+   "style": "interview",
+   "topics": [
+    "investing_personal_finance",
+    "cybersecurity",
+    "entrepreneurship",
+    "careers_work",
+    "self_improvement",
+    "learning_howto",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://anchor.fm/s/9cf1b818/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_3b470260b003",
+   "seconds": 6.87,
+   "style": "solo_monologue",
+   "topics": [
+    "books_writing",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.libsyn.com/shows/120844/destinations/705313.xml",
+   "status": "fetch_failed",
+   "reason": "timeout",
+   "error": "timeout: ConnectTimeout: _ssl.c:1000: The handshake operation timed out"
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://www.fpcf.org/sermons?format=rss",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://www.omnycontent.com/d/playlist/289ceca7-bef3-48af-9f74-a4ba0095cab1/36305799-d5e7-4229-bd42-b35c00b9ddff/281fac9a-a6e0-4c22-b281-b35c00b9de08/podcast.rss",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feed.podbean.com/tmgmeditations/feed.xml",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO cost_ledger (ts, operation, provider, units, unit_cost_estimate, cost_estimate_usd, podcast_id, user_id, cache_hit, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]\n[parameters: ('2026-11-11 11:28:10.644242', 'transcript_f"
+  },
+  {
+   "group": "Leisure",
+   "url": "https://podcast.audiocon.de/rss/e3b46afb420723b1696effa0ad7c85c8f59ca495",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/5753e1dc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_ca872669b700",
+   "seconds": 49.82,
+   "style": "interview",
+   "topics": [
+    "self_improvement",
+    "mental_health",
+    "careers_work",
+    "entrepreneurship",
+    "outdoors_travel",
+    "personal_journals"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.simplecast.com/_WcvqO41",
+   "status": "ingested",
+   "show_id": "shw_2b3875baf701",
+   "seconds": 9.81,
+   "style": "unknown",
+   "topics": [
+    "comedy",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://rss.buzzsprout.com/1300039.rss",
+   "status": "ingested",
+   "show_id": "shw_e321c318a6b8",
+   "seconds": 5.17,
+   "style": "solo_monologue",
+   "topics": [
+    "technology_gadgets",
+    "self_improvement",
+    "running_endurance",
+    "comedy",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://anchor.fm/s/10907ed88/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_58b3a7189961",
+   "seconds": 3.15,
+   "style": "interview",
+   "topics": [
+    "careers_work",
+    "entrepreneurship",
+    "leadership_management",
+    "medicine_healthcare",
+    "mental_health",
+    "comedy",
+    "marketing_sales",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://harrisfootball.libsyn.com/rss",
+   "status": "ingested",
+   "show_id": "shw_fcd00b9ec6b6",
+   "seconds": 53.12,
+   "style": "solo_monologue",
+   "topics": [
+    "film_tv",
+    "sports_general",
+    "food_cooking",
+    "nature_environment",
+    "nutrition_diet"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://www.theoptimisticmeditator.com/feed/podcast/",
+   "status": "ingested",
+   "show_id": "shw_8f21ac9a9b33",
+   "seconds": 10.14,
+   "style": "solo_monologue",
+   "topics": [
+    "spirituality",
+    "music",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.megaphone.fm/ROOSTER2614230965",
+   "status": "ingested",
+   "show_id": "shw_d0271e252ef8",
+   "seconds": 20.4,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "politics_government",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://feeds.blubrry.com/feeds/reasonable_faith.xml",
+   "status": "fetch_failed",
+   "reason": "tls",
+   "error": "tls: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)"
+  },
+  {
+   "group": "Education",
+   "url": "https://rss.buzzsprout.com/2658616.rss",
+   "status": "ingested",
+   "show_id": "shw_c7feab959a3f",
+   "seconds": 14.88,
+   "style": "unknown",
+   "topics": [
+    "entrepreneurship",
+    "books_writing",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.buzzsprout.com/2621425.rss",
+   "status": "ingested",
+   "show_id": "shw_d3234985e181",
+   "seconds": 19.83,
+   "style": "interview",
+   "topics": [
+    "entrepreneurship",
+    "learning_howto",
+    "careers_work",
+    "leadership_management",
+    "marketing_sales",
+    "self_improvement",
+    "investing_personal_finance",
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://www.omnycontent.com/d/playlist/4809bc8a-e41a-405c-93da-a8cf011df2f4/4e18d0b9-8147-4141-80cf-b4f30122fc12/9cf98ad5-90e6-4b31-abc7-b4f30122fc24/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_f01967fb4ede",
+   "seconds": 10.33,
+   "style": "solo_monologue",
+   "topics": [
+    "video_games",
+    "pets_animals"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.buzzsprout.com/1903003.rss",
+   "status": "ingested",
+   "show_id": "shw_baad7bc1ee65",
+   "seconds": 22.26,
+   "style": "interview",
+   "topics": [
+    "nature_environment",
+    "leadership_management",
+    "comedy",
+    "science_general",
+    "self_improvement",
+    "careers_work",
+    "entrepreneurship",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.buzzsprout.com/2510117.rss",
+   "status": "ingested",
+   "show_id": "shw_4bcd079b6d4a",
+   "seconds": 15.13,
+   "style": "unknown",
+   "topics": [
+    "music",
+    "tabletop_games",
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.simplecast.com/tZ75G3mD",
+   "status": "ingested",
+   "show_id": "shw_d48e5725f866",
+   "seconds": 29.06,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "history"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feeds.megaphone.fm/SUPERDATASCIENCEPTYLTD9836501887",
+   "status": "ingested",
+   "show_id": "shw_3f4ccae95159",
+   "seconds": 15.07,
+   "style": "unknown",
+   "topics": [
+    "artificial_intelligence",
+    "science_general",
+    "entrepreneurship",
+    "running_endurance",
+    "leadership_management",
+    "software_development",
+    "learning_howto",
+    "careers_work"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.buzzsprout.com/379936.rss",
+   "status": "ingested",
+   "show_id": "shw_b7aea33408e4",
+   "seconds": 14.5,
+   "style": "unknown",
+   "topics": [
+    "entrepreneurship",
+    "marketing_sales",
+    "leadership_management",
+    "technology_gadgets",
+    "artificial_intelligence",
+    "self_improvement",
+    "video_games"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.transistor.fm/phases-a-parenting-podcast-with-dr-courtney",
+   "status": "ingested",
+   "show_id": "shw_0ab7cfc704c7",
+   "seconds": 25.83,
+   "style": "solo_monologue",
+   "topics": [
+    "parenting",
+    "kids_stories",
+    "self_improvement",
+    "learning_howto",
+    "science_general",
+    "social_sciences",
+    "medicine_healthcare",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/f45f84b8/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_ce24dde32797",
+   "seconds": 17.01,
+   "style": "unknown",
+   "topics": [
+    "fitness_exercise",
+    "philosophy",
+    "spirituality",
+    "self_improvement",
+    "history",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://anchor.fm/s/5bb45888/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_1c2069d89374",
+   "seconds": 3.54,
+   "style": "co_hosted_banter",
+   "topics": [
+    "crafts_diy",
+    "music",
+    "outdoors_travel"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/118d7463c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_efee21b7234d",
+   "seconds": 19.41,
+   "style": "co_hosted_banter",
+   "topics": [
+    "language_learning",
+    "learning_howto",
+    "careers_work",
+    "medicine_healthcare",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://www.spreaker.com/show/7157692/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_001e993a43f3",
+   "seconds": 14.04,
+   "style": "solo_monologue",
+   "topics": [
+    "books_writing",
+    "fiction_audio_drama",
+    "kids_stories"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://anchor.fm/s/7f026528/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_145528b11293",
+   "seconds": 13.15,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "investing_personal_finance"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://rss.buzzsprout.com/221526.rss",
+   "status": "ingested",
+   "show_id": "shw_fcc1c2e43f4a",
+   "seconds": 37.92,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "paranormal_mystery",
+    "history"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://anchor.fm/s/f98bf0ac/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_4d5e57bb143c",
+   "seconds": 6.22,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "sports_general",
+    "christianity",
+    "medicine_healthcare",
+    "music",
+    "automotive_aviation",
+    "paranormal_mystery",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.acast.com/public/shows/685bb560f42ce01224842b72",
+   "status": "ingested",
+   "show_id": "shw_c1add62ec40d",
+   "seconds": 6.91,
+   "style": "unknown",
+   "topics": [
+    "cybersecurity"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.amperwave.net/v2/feed/audacynetwork/for-the-love",
+   "status": "ingested",
+   "show_id": "shw_c8164e67a925",
+   "seconds": 28.17,
+   "style": "unknown",
+   "topics": [
+    "careers_work",
+    "relationships_dating",
+    "christianity",
+    "parenting",
+    "medicine_healthcare",
+    "mental_health",
+    "comedy",
+    "books_writing"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "http://connect.westheights.org/feed/podcast/",
+   "status": "ingested",
+   "show_id": "shw_00e7ea04a399",
+   "seconds": 8.87,
+   "style": "unknown",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/fb3b92b8/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_56a194b6c60a",
+   "seconds": 3.44,
+   "style": "solo_monologue",
+   "topics": [
+    "mental_health",
+    "self_improvement",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.fexingo.com/business/the-developer-tools-podcast.xml",
+   "status": "ingested",
+   "show_id": "shw_e12f8e3670db",
+   "seconds": 8.42,
+   "style": "solo_monologue",
+   "topics": [
+    "software_development",
+    "careers_work",
+    "mental_health",
+    "social_sciences",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.libsyn.com/shows/46373/destinations/153942.xml",
+   "status": "ingested",
+   "show_id": "shw_002a0625d61a",
+   "seconds": 15.31,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "kids_stories"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/dee9d0d4/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_b2aa173d55c7",
+   "seconds": 13.38,
+   "style": "unknown",
+   "topics": [
+    "technology_gadgets",
+    "cybersecurity",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.redcircle.com/2dbdaae2-a3be-4076-9a74-94dcaf99b2c4",
+   "status": "ingested",
+   "show_id": "shw_888f0c0b3575",
+   "seconds": 7.37,
+   "style": "unknown",
+   "topics": [
+    "food_cooking",
+    "home_garden",
+    "spirituality",
+    "entrepreneurship",
+    "fashion_beauty",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://anchor.fm/s/115e62060/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_66d9cc864eb7",
+   "seconds": 1.89,
+   "style": "unknown",
+   "topics": [
+    "parenting",
+    "marketing_sales",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://rss.libsyn.com/shows/56478/destinations/210873.xml",
+   "status": "ingested",
+   "show_id": "shw_e7da5ef8503c",
+   "seconds": 5.36,
+   "style": "solo_monologue",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://www.omnycontent.com/d/playlist/0c7e618e-d306-498b-89ea-af55014957fe/d46d2119-8cf0-401c-be15-af5c00359b45/9f00e49b-3c48-475e-8a84-af5c00359b61/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_9b7604ce0644",
+   "seconds": 22.15,
+   "style": "unknown",
+   "topics": [
+    "learning_howto",
+    "cybersecurity",
+    "politics_government",
+    "history"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.buzzsprout.com/2589255.rss",
+   "status": "ingested",
+   "show_id": "shw_a3b9e4ab93ea",
+   "seconds": 14.6,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "performing_arts",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.libsyn.com/shows/485061/destinations/4134264.xml",
+   "status": "ingested",
+   "show_id": "shw_96ef5c6039f5",
+   "seconds": 27.74,
+   "style": "unknown",
+   "topics": [
+    "spirituality",
+    "marketing_sales",
+    "self_improvement",
+    "mental_health",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://www.spreaker.com/show/5051975/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_a662f53a306f",
+   "seconds": 25.67,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "video_games"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.simplecast.com/EjCxB6PI",
+   "status": "ingested",
+   "show_id": "shw_c74c9cf7df97",
+   "seconds": 7.43,
+   "style": "unknown",
+   "topics": [
+    "careers_work",
+    "leadership_management",
+    "self_improvement",
+    "entrepreneurship",
+    "learning_howto",
+    "medicine_healthcare",
+    "politics_government",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feeds.megaphone.fm/MLN2155636147",
+   "status": "ingested",
+   "show_id": "shw_f5e7bc17afae",
+   "seconds": 12.54,
+   "style": "interview",
+   "topics": [
+    "artificial_intelligence",
+    "comedy",
+    "entrepreneurship",
+    "science_general",
+    "leadership_management",
+    "design_visual_arts",
+    "software_development",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/6214547/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_91f4f50cdaa2",
+   "seconds": 27.2,
+   "style": "unknown",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://anchor.fm/s/108a3b610/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_5b10ad7aeb4a",
+   "seconds": 6.71,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "spirituality",
+    "leadership_management",
+    "marketing_sales",
+    "learning_howto",
+    "comedy",
+    "nature_environment",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://rss.art19.com/the-wellness-cafe",
+   "status": "ingested",
+   "show_id": "shw_964df47a3b5c",
+   "seconds": 6.16,
+   "style": "unknown",
+   "topics": [
+    "self_improvement",
+    "cybersecurity",
+    "politics_government",
+    "music",
+    "fitness_exercise"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://podcasts.biblestudypodcasts.org/@BibleStudyPodcasts/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_8806bec34273",
+   "seconds": 37.84,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity",
+    "learning_howto",
+    "music"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.acast.com/public/shows/6632074568745800121a1ea7",
+   "status": "ingested",
+   "show_id": "shw_ccf17c474152",
+   "seconds": 7.75,
+   "style": "unknown",
+   "topics": [
+    "running_endurance",
+    "self_improvement",
+    "fitness_exercise",
+    "comedy",
+    "mental_health",
+    "history",
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.megaphone.fm/SSM3257074871",
+   "status": "ingested",
+   "show_id": "shw_69b2576b07c4",
+   "seconds": 21.66,
+   "style": "unknown",
+   "topics": [
+    "fitness_exercise",
+    "mental_health",
+    "nutrition_diet",
+    "self_improvement",
+    "parenting",
+    "careers_work",
+    "marketing_sales",
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://anchor.fm/s/11607fb2c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_64298fde3a11",
+   "seconds": 3.52,
+   "style": "unknown",
+   "topics": [
+    "culture_identity",
+    "entrepreneurship",
+    "paranormal_mystery",
+    "design_visual_arts",
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/efbd7ed8/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_2a188d9e2b21",
+   "seconds": 19.88,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://www.spreaker.com/show/6408070/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_ae7a784c1d00",
+   "seconds": 17.55,
+   "style": "unknown",
+   "topics": [
+    "kids_stories",
+    "home_garden",
+    "medicine_healthcare",
+    "outdoors_travel"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.transistor.fm/chiemgau-kulinarisch",
+   "status": "ingested",
+   "show_id": "shw_cc3ccbbbe8cf",
+   "seconds": 28.57,
+   "style": "solo_monologue",
+   "topics": [
+    "food_cooking",
+    "nutrition_diet"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.megaphone.fm/ASAHO6618352941",
+   "status": "ingested",
+   "show_id": "shw_b1d0543a08f4",
+   "seconds": 15.3,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "social_sciences",
+    "film_tv",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://www.werenotwizards.com/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_503a6b91b412",
+   "seconds": 27.52,
+   "style": "interview",
+   "topics": [
+    "tabletop_games",
+    "film_tv",
+    "comedy"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://between-ai.com/rss/en.xml",
+   "status": "ingested",
+   "show_id": "shw_61f77532826a",
+   "seconds": 23.26,
+   "style": "unknown",
+   "topics": [
+    "artificial_intelligence",
+    "science_general",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.acast.com/public/shows/6a70a0d362888a8235a3a5d9",
+   "status": "ingested",
+   "show_id": "shw_384ff8f93a84",
+   "seconds": 10.72,
+   "style": "unknown",
+   "topics": [
+    "spirituality",
+    "learning_howto",
+    "cybersecurity",
+    "history"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/2fe12100/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_090cd5c1ef81",
+   "seconds": 10.35,
+   "style": "solo_monologue",
+   "topics": [
+    "mental_health",
+    "learning_howto",
+    "film_tv",
+    "fitness_exercise",
+    "spirituality",
+    "parenting"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.pdrl.fm/dd21e4/feeds.libsyn.com/602795/rss/?redirect=false",
+   "status": "ingested",
+   "show_id": "shw_62b3c6eb4e06",
+   "seconds": 12.84,
+   "style": "interview",
+   "topics": [
+    "mental_health",
+    "learning_howto",
+    "medicine_healthcare",
+    "parenting",
+    "sports_general",
+    "christianity"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.buzzsprout.com/2056762.rss",
+   "status": "ingested",
+   "show_id": "shw_7e9fba3ede3f",
+   "seconds": 21.4,
+   "style": "interview",
+   "topics": [
+    "careers_work",
+    "running_endurance"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.soundcloud.com/users/soundcloud:users:801429592/sounds.rss",
+   "status": "ingested",
+   "show_id": "shw_dc874f54702e",
+   "seconds": 2.15,
+   "style": "unknown",
+   "topics": [
+    "crafts_diy"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.buzzsprout.com/2532184.rss",
+   "status": "ingested",
+   "show_id": "shw_53649e4766d2",
+   "seconds": 20.9,
+   "style": "interview",
+   "topics": [
+    "anime_manga",
+    "comedy",
+    "relationships_dating",
+    "film_tv",
+    "video_games",
+    "medicine_healthcare",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.megaphone.fm/RRE8465566885",
+   "status": "ingested",
+   "show_id": "shw_96bf380dec83",
+   "seconds": 14.69,
+   "style": "unknown",
+   "topics": [
+    "mental_health",
+    "parenting",
+    "science_general",
+    "entrepreneurship",
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/10971b3a8/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_e74749de8020",
    "seconds": 3.84,
-   "enrich": "llm",
-   "episodes": 200
+   "style": "unknown",
+   "topics": [
+    "artificial_intelligence",
+    "marketing_sales"
+   ]
   },
   {
-   "url": "http://www.guardian.co.uk/politics/series/politicsweekly/podcast.xml",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.08
+   "group": "True Crime",
+   "url": "https://feeds.simplecast.com/Z2Ui5wFW",
+   "status": "ingested",
+   "show_id": "shw_00f6a5288a30",
+   "seconds": 8.83,
+   "style": "interview",
+   "topics": [
+    "true_crime",
+    "marketing_sales",
+    "paranormal_mystery",
+    "history"
+   ]
   },
   {
-   "url": "http://feeds.feedburner.com/sourcetrunk",
-   "category": "Technology",
-   "ok": true,
-   "show_id": "shw_f036edf342e4",
-   "status": "ok",
-   "seconds": 2.11,
-   "enrich": "llm",
-   "episodes": 103
+   "group": "Sports",
+   "url": "https://feeds.simplecast.com/l1yGrT4J",
+   "status": "ingested",
+   "show_id": "shw_cc28aae05570",
+   "seconds": 19.49,
+   "style": "co_hosted_banter",
+   "topics": [
+    "parenting",
+    "science_general",
+    "fitness_exercise",
+    "leadership_management",
+    "marketing_sales"
+   ]
   },
   {
-   "url": "http://feeds.feedburner.com/cnet/buzzreport",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.66
+   "group": "Religion & Spirituality",
+   "url": "https://rss.buzzsprout.com/1857554.rss",
+   "status": "ingested",
+   "show_id": "shw_b7e6599f4d04",
+   "seconds": 19.98,
+   "style": "narrative_storytelling",
+   "topics": [
+    "christianity",
+    "learning_howto",
+    "paranormal_mystery",
+    "spirituality",
+    "history",
+    "technology_gadgets"
+   ]
   },
   {
-   "url": "http://seancarroll.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.03
+   "group": "Leisure",
+   "url": "https://feed.podbean.com/whyb/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_b7a24112aa46",
+   "seconds": 20.35,
+   "style": "interview",
+   "topics": [
+    "outdoors_travel",
+    "careers_work",
+    "entrepreneurship",
+    "sports_general",
+    "learning_howto"
+   ]
   },
   {
-   "url": "http://www.sei.cmu.edu/podcasts/files_podcasts/rssFeedPodcasts.xml",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.04
+   "group": "Health & Fitness",
+   "url": "https://api.substack.com/feed/podcast/1604051.rss",
+   "status": "ingested",
+   "show_id": "shw_b199c37ebc4e",
+   "seconds": 9.6,
+   "style": "solo_monologue",
+   "topics": [
+    "spirituality",
+    "fitness_exercise",
+    "alternative_health",
+    "learning_howto",
+    "mental_health"
+   ]
   },
   {
-   "url": "https://feeds.megaphone.fm/HSW1226123619",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
-   "seconds": 21.72
+   "group": "Business",
+   "url": "https://feed.cdnstream1.com/zjb/feed/download/13/a4/a6/13a4a67a-1da0-4149-a08f-0349d2063c56.xml",
+   "status": "ingested",
+   "show_id": "shw_b01179073fb9",
+   "seconds": 11.1,
+   "style": "interview",
+   "topics": [
+    "investing_personal_finance",
+    "comedy",
+    "marketing_sales",
+    "outdoors_travel",
+    "leadership_management"
+   ]
   },
   {
-   "url": "http://reason.com/podcast/index.xml",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 1.79
+   "group": "Sports",
+   "url": "https://anchor.fm/s/e7e11e18/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_a61cafda62fe",
+   "seconds": 8.25,
+   "style": "unknown",
+   "topics": [
+    "sports_general"
+   ]
   },
   {
-   "url": "https://thelovelabpodcast.libsyn.com/rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.03
+   "group": "Education",
+   "url": "https://feed.podbean.com/kaijadawn/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_c73070c0d418",
+   "seconds": 11.56,
+   "style": "panel",
+   "topics": [
+    "entrepreneurship",
+    "leadership_management",
+    "running_endurance",
+    "investing_personal_finance",
+    "relationships_dating",
+    "mental_health"
+   ]
   },
   {
-   "url": "http://feeds.feedburner.com/ThisWeekInPhoto",
-   "category": "Sports & Hobbies",
-   "ok": true,
-   "show_id": "shw_e35f03e2c9d0",
-   "status": "ok",
-   "seconds": 1.87,
-   "enrich": "llm",
-   "episodes": 10
+   "group": "Arts",
+   "url": "https://artpodcast.gr/feed/podcast/",
+   "status": "ingested",
+   "show_id": "shw_ee7f10060d33",
+   "seconds": 11.61,
+   "style": "unknown",
+   "topics": []
   },
   {
-   "url": "http://www.radio-dingolstadt.de/podcast-comedyshows.xml",
-   "category": "Comedy",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 29.53
+   "group": "Society & Culture",
+   "url": "https://feed.podbean.com/redletterchristians/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_430e1563e2ea",
+   "seconds": 14.14,
+   "style": "interview",
+   "topics": [
+    "christianity",
+    "politics_government",
+    "history"
+   ]
   },
   {
-   "url": "https://rss.art19.com/how-i-built-this",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.09
+   "group": "True Crime",
+   "url": "https://www.omnycontent.com/d/playlist/fa326977-3de5-4283-9b8b-af3500c58607/40a80492-0e28-4313-8a71-b21e000a1d76/8c9d591d-c504-4073-9bc1-b39e01849604/podcast.rss",
+   "status": "rejected",
+   "reasons": [
+    "network:publisher 'iheart'"
+   ]
   },
   {
-   "url": "http://www.3kingdomspodcast.com/feed/podcast/",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_c0b05eacc7a7",
-   "status": "ok",
-   "seconds": 1.1,
-   "enrich": "llm",
-   "episodes": 10
+   "group": "Leisure",
+   "url": "https://rss.buzzsprout.com/2049411.rss",
+   "status": "ingested",
+   "show_id": "shw_d3a318ac4148",
+   "seconds": 14.0,
+   "style": "interview",
+   "topics": [
+    "tabletop_games",
+    "video_games"
+   ]
   },
   {
-   "url": "https://feeds.soundcloud.com/users/soundcloud:users:264034133/sounds.rss",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.08
+   "group": "Religion & Spirituality",
+   "url": "https://media.rss.com/vintage-sermons-podcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_cb1214369447",
+   "seconds": 13.99,
+   "style": "co_hosted_banter",
+   "topics": [
+    "christianity",
+    "history"
+   ]
   },
   {
-   "url": "http://feeds.feedburner.com/TheNewYorkCityCrimeReportWithPatDixon",
-   "category": "True Crime",
-   "ok": true,
-   "show_id": "shw_37b4bc8e52ba",
-   "status": "ok",
-   "seconds": 3.31,
-   "enrich": "llm",
-   "episodes": 200
+   "group": "Kids & Family",
+   "url": "https://rss.buzzsprout.com/2508407.rss",
+   "status": "ingested",
+   "show_id": "shw_ae34d102a8a3",
+   "seconds": 19.11,
+   "style": "solo_monologue",
+   "topics": [
+    "religion_other",
+    "nature_environment"
+   ]
   },
   {
-   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/1a15b4e2-ba2a-4bb5-85bf-ac6001880594/73930892-67e0-449f-9731-ac600188059e/podcast.rss",
-   "category": "News & Politics",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.89
+   "group": "Comedy",
+   "url": "https://rss.buzzsprout.com/1540597.rss",
+   "status": "ingested",
+   "show_id": "shw_d97f3bbe16ee",
+   "seconds": 17.31,
+   "style": "co_hosted_banter",
+   "topics": [
+    "comedy",
+    "true_crime"
+   ]
   },
   {
-   "url": "http://www.amyporterfield.com/feed/podcast/?wpmfeedkey=42%3B63e9a7b39200963656f686298e2ab6ba",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.15
+   "group": "Business",
+   "url": "https://rss.libsyn.com/shows/490544/destinations/4187747.xml",
+   "status": "ingested",
+   "show_id": "shw_38af728d8277",
+   "seconds": 14.27,
+   "style": "panel",
+   "topics": [
+    "entrepreneurship",
+    "mental_health",
+    "careers_work",
+    "fitness_exercise",
+    "marketing_sales",
+    "medicine_healthcare",
+    "leadership_management",
+    "running_endurance"
+   ]
   },
   {
-   "url": "http://www.radioopensource.org/feed/",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.02
+   "group": "Education",
+   "url": "https://www.englishclass101.com/wp-feed-audio-video.php",
+   "status": "ingested",
+   "show_id": "shw_e17a04b8b05b",
+   "seconds": 1.62,
+   "style": "solo_monologue",
+   "topics": [
+    "language_learning",
+    "learning_howto"
+   ]
   },
   {
-   "url": "http://www.oneplace.com/ministries/the-alternative/subscribe/podcast.xml",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_333700326851",
-   "status": "ok",
-   "seconds": 0.82,
-   "enrich": "llm",
-   "episodes": 14
+   "group": "Society & Culture",
+   "url": "https://anchor.fm/s/e6f08a34/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_0ae05310a03c",
+   "seconds": 7.99,
+   "style": "unknown",
+   "topics": [
+    "music",
+    "crafts_diy"
+   ]
   },
   {
-   "url": "http://www.wicketgate.co.uk/wicketgate.xml",
-   "category": "Religion & Spirituality",
-   "ok": true,
-   "show_id": "shw_f185c5326b28",
-   "status": "ok",
-   "seconds": 2.11,
-   "enrich": "llm",
-   "episodes": 17
+   "group": "Technology",
+   "url": "https://rss.libsyn.com/shows/112428/destinations/628353.xml",
+   "status": "ingested",
+   "show_id": "shw_b68bce7817c7",
+   "seconds": 17.53,
+   "style": "solo_monologue",
+   "topics": [
+    "software_development",
+    "artificial_intelligence"
+   ]
   },
   {
-   "url": "http://feeds.feedburner.com/Podcasts-FeralAttraction",
-   "category": "Society & Culture",
-   "ok": true,
-   "show_id": "shw_fc299e5f8e4a",
-   "status": "ok",
-   "seconds": 2.81,
-   "enrich": "llm",
-   "episodes": 100
+   "group": "Health & Fitness",
+   "url": "https://rss.buzzsprout.com/1709167.rss",
+   "status": "ingested",
+   "show_id": "shw_3030b8fafe4e",
+   "seconds": 11.82,
+   "style": "co_hosted_banter",
+   "topics": [
+    "mental_health",
+    "relationships_dating",
+    "medicine_healthcare",
+    "spirituality",
+    "christianity",
+    "investing_personal_finance",
+    "personal_journals"
+   ]
   },
   {
-   "url": "https://rss.acast.com/fucksgiven",
-   "category": "Society & Culture",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 410",
-   "seconds": 0.58
+   "group": "Arts",
+   "url": "https://feed.podbean.com/ladonnabeaumont/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_befffdc3102a",
+   "seconds": 13.98,
+   "style": "interview",
+   "topics": [
+    "books_writing",
+    "history",
+    "fashion_beauty"
+   ]
   },
   {
-   "url": "http://ftew.libsyn.com/rss",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 22.31
+   "group": "Sports",
+   "url": "https://rss.pdrl.fm/3e3416/feeds.simplecast.com/4NoEmSg7",
+   "status": "ingested",
+   "show_id": "shw_0a8db3948129",
+   "seconds": 14.41,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "christianity"
+   ]
   },
   {
-   "url": "http://feeds.ancientfaith.com/CoffeeCupCommentaries",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
-   "seconds": 0.66
+   "group": "Technology",
+   "url": "https://www.spreaker.com/show/6886557/episodes/feed",
+   "status": "fetch_failed",
+   "reason": "http_4xx",
+   "error": "http_4xx: HttpStatusError: HTTP 404"
   },
   {
-   "url": "http://feeds.feedburner.com/DuctTapeMarketingRadio",
-   "category": "Business",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 29.11
+   "group": "Leisure",
+   "url": "https://www.fifthmeeple.com/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_b15f4829a5f3",
+   "seconds": 20.05,
+   "style": "unknown",
+   "topics": [
+    "tabletop_games",
+    "space_astronomy"
+   ]
   },
   {
-   "url": "http://www.treksf.com/podcast/podcast.xml",
-   "category": "Arts",
-   "ok": true,
-   "show_id": "shw_24d540b9cecf",
-   "status": "ok",
-   "seconds": 3.25,
-   "enrich": "llm",
-   "episodes": 200
+   "group": "Comedy",
+   "url": "https://feeds.acast.com/public/shows/339736e5-b21f-4af2-ada6-2d48cb8a1581",
+   "status": "ingested",
+   "show_id": "shw_f1b8cfecc777",
+   "seconds": 17.45,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "performing_arts",
+    "music",
+    "nature_environment"
+   ]
   },
   {
-   "url": "https://rss.acast.com/mordaufex",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 21.25
+   "group": "Religion & Spirituality",
+   "url": "https://media.rss.com/the-animation-faith-podcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_2c735bd704ac",
+   "seconds": 27.04,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity",
+    "fashion_beauty",
+    "film_tv",
+    "kids_stories",
+    "outdoors_travel"
+   ]
   },
   {
-   "url": "http://podcasthistoryofourworld.libsyn.com/rss",
-   "category": "Education",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 37.64
+   "group": "Society & Culture",
+   "url": "https://www.thesurvivalpodcast.com/feed/podcast",
+   "status": "ingested",
+   "show_id": "shw_420bf5f79713",
+   "seconds": 7.17,
+   "style": "unknown",
+   "topics": [
+    "home_garden",
+    "learning_howto",
+    "politics_government",
+    "history",
+    "news_current_events",
+    "nutrition_diet",
+    "fitness_exercise",
+    "investing_personal_finance"
+   ]
   },
   {
-   "url": "http://feeds.5by5.tv/inbeta",
-   "category": "Technology",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 20.08
+   "group": "Business",
+   "url": "https://feed.podbean.com/insurtech/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_a038a12ac7d5",
+   "seconds": 24.45,
+   "style": "unknown",
+   "topics": [
+    "entrepreneurship",
+    "leadership_management",
+    "politics_government",
+    "technology_gadgets",
+    "careers_work",
+    "artificial_intelligence",
+    "automotive_aviation",
+    "investing_personal_finance"
+   ]
   },
   {
-   "url": "https://feeds.megaphone.fm/storypirates",
-   "category": "Kids & Family",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 20.07
+   "group": "True Crime",
+   "url": "https://rss.pdrl.fm/a9bbde/feeds.megaphone.fm/SGMKL4363375697",
+   "status": "ingested",
+   "show_id": "shw_84d377b656cd",
+   "seconds": 27.25,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "music",
+    "leadership_management",
+    "christianity",
+    "paranormal_mystery",
+    "relationships_dating"
+   ]
   },
   {
-   "url": "http://torahclass.com/torahclasspodcasttwo.xml",
-   "category": "Religion & Spirituality",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
-   "seconds": 21.1
+   "group": "Education",
+   "url": "https://feeds.acast.com/public/shows/695f66d5313b8080650f58ae",
+   "status": "ingested",
+   "show_id": "shw_61d2401b4cc7",
+   "seconds": 13.44,
+   "style": "solo_monologue",
+   "topics": [
+    "language_learning",
+    "cybersecurity",
+    "learning_howto",
+    "self_improvement"
+   ]
   },
   {
-   "url": "https://aktenzeichenxy-podcast.podigee.io/feed/mp3",
-   "category": "True Crime",
-   "ok": false,
-   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
-   "seconds": 34.36
+   "group": "Kids & Family",
+   "url": "https://feed.podbean.com/riseanddadpodcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_e694281ceefd",
+   "seconds": 40.68,
+   "style": "unknown",
+   "topics": [
+    "parenting",
+    "entrepreneurship",
+    "learning_howto",
+    "sports_general",
+    "careers_work",
+    "leadership_management",
+    "mental_health",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.megaphone.fm/deliciouslyellapodcast",
+   "status": "ingested",
+   "show_id": "shw_1682c60aef27",
+   "seconds": 21.9,
+   "style": "solo_monologue",
+   "topics": [
+    "mental_health",
+    "nutrition_diet",
+    "science_general",
+    "kids_stories",
+    "food_cooking",
+    "medicine_healthcare",
+    "fashion_beauty",
+    "fitness_exercise"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/0e61fe66-e985-446f-bc46-ae27003599da/c1b3eaa8-db6b-4865-ac29-ae27003599f6/podcast.rss",
+   "status": "fetch_failed",
+   "reason": "too_large",
+   "error": "too_large: FeedTooLarge: response exceeds 25000000 bytes"
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://anchor.fm/s/c5fe35ec/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_ff21fcf8e778",
+   "seconds": 2.28,
+   "style": "solo_monologue",
+   "topics": []
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.buzzsprout.com/2363501.rss",
+   "status": "ingested",
+   "show_id": "shw_ab171ce7cf34",
+   "seconds": 15.52,
+   "style": "co_hosted_banter",
+   "topics": [
+    "philosophy",
+    "politics_government",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://podcasts.vpr.net/all-things-gardening",
+   "status": "ingested",
+   "show_id": "shw_0ad86c913698",
+   "seconds": 6.8,
+   "style": "solo_monologue",
+   "topics": [
+    "home_garden"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.megaphone.fm/CNE3915766304",
+   "status": "ingested",
+   "show_id": "shw_1a0b269556e1",
+   "seconds": 7.16,
+   "style": "unknown",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://rss.buzzsprout.com/176239.rss",
+   "status": "ingested",
+   "show_id": "shw_4ab841666200",
+   "seconds": 11.27,
+   "style": "unknown",
+   "topics": [
+    "software_development",
+    "technology_gadgets",
+    "leadership_management",
+    "artificial_intelligence",
+    "careers_work"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/ccb4c211-7bd5-47f3-b821-ae300188d20c/9422b585-faf3-408e-b5ce-ae300188d22d/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_a40b7a035a0d",
+   "seconds": 13.26,
+   "style": "unknown",
+   "topics": [
+    "cybersecurity",
+    "comedy"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.buzzsprout.com/2255117.rss",
+   "status": "ingested",
+   "show_id": "shw_18f869b7444e",
+   "seconds": 17.46,
+   "style": "solo_monologue",
+   "topics": [
+    "comedy",
+    "entrepreneurship",
+    "self_improvement",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.libsyn.com/shows/125244/destinations/745077.xml",
+   "status": "ingested",
+   "show_id": "shw_0a97b554d126",
+   "seconds": 6.78,
+   "style": "interview",
+   "topics": [
+    "careers_work",
+    "entrepreneurship",
+    "leadership_management",
+    "marketing_sales",
+    "design_visual_arts",
+    "sports_general",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/10b0c257c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_53d4ed565ec1",
+   "seconds": 15.05,
+   "style": "unknown",
+   "topics": [
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://feeds.transistor.fm/the-progressive-christians-podcast",
+   "status": "ingested",
+   "show_id": "shw_1c618facb96a",
+   "seconds": 27.87,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "politics_government",
+    "religion_other",
+    "history",
+    "culture_identity",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://anchor.fm/s/56d03e4/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_4efa93c465ca",
+   "seconds": 22.11,
+   "style": "interview",
+   "topics": [
+    "careers_work",
+    "entrepreneurship",
+    "music",
+    "comedy",
+    "crafts_diy",
+    "performing_arts",
+    "automotive_aviation",
+    "design_visual_arts"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://api.riverside.com/hosting/QXIyNkao.rss",
+   "status": "ingested",
+   "show_id": "shw_e2a880928b34",
+   "seconds": 13.24,
+   "style": "unknown",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.megaphone.fm/SBP1625601579",
+   "status": "ingested",
+   "show_id": "shw_ba711f61b7e7",
+   "seconds": 6.37,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "paranormal_mystery"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.simplecast.com/UrwSRKXH",
+   "status": "ingested",
+   "show_id": "shw_2f4a2ba823c8",
+   "seconds": 22.4,
+   "style": "co_hosted_banter",
+   "topics": [
+    "comedy",
+    "language_learning",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.buzzsprout.com/2281321.rss",
+   "status": "ingest_failed",
+   "error": "RuntimeError: could not fetch feed: tls: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)"
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://podcasts.subsplash.com/k7wfdfs/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_a07c0647d8fa",
+   "seconds": 23.78,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.megaphone.fm/SUATE7000048523",
+   "status": "ingested",
+   "show_id": "shw_310f337c0df9",
+   "seconds": 24.46,
+   "style": "interview",
+   "topics": [
+    "outdoors_travel",
+    "careers_work",
+    "learning_howto",
+    "culture_identity",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.megaphone.fm/PHL6581443578",
+   "status": "ingested",
+   "show_id": "shw_d190406f43a9",
+   "seconds": 9.84,
+   "style": "unknown",
+   "topics": [
+    "investing_personal_finance",
+    "learning_howto",
+    "entrepreneurship",
+    "self_improvement",
+    "careers_work",
+    "news_current_events",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/f5b902d0/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_186da93def9a",
+   "seconds": 18.02,
+   "style": "co_hosted_banter",
+   "topics": [
+    "mental_health",
+    "self_improvement",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/6219707/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_95fef2709907",
+   "seconds": 22.68,
+   "style": "unknown",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.blubrry.com/feeds/3884066.xml",
+   "status": "fetch_failed",
+   "reason": "tls",
+   "error": "tls: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)"
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://api.substack.com/feed/podcast/11109246.rss",
+   "status": "ingested",
+   "show_id": "shw_1ca788797439",
+   "seconds": 18.72,
+   "style": "solo_monologue",
+   "topics": [
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ESP3067387531",
+   "status": "ingested",
+   "show_id": "shw_894f61764958",
+   "seconds": 9.9,
+   "style": "interview",
+   "topics": [
+    "sports_general",
+    "history",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://app.kajabi.com/podcasts/2147488999/feed",
+   "status": "ingested",
+   "show_id": "shw_b665277fee8d",
+   "seconds": 19.65,
+   "style": "unknown",
+   "topics": [
+    "fitness_exercise",
+    "learning_howto",
+    "mental_health",
+    "philosophy",
+    "spirituality",
+    "alternative_health",
+    "culture_identity",
+    "history"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.buzzsprout.com/622789.rss",
+   "status": "ingested",
+   "show_id": "shw_1e437667e815",
+   "seconds": 22.78,
+   "style": "interview",
+   "topics": [
+    "entrepreneurship",
+    "marketing_sales",
+    "careers_work",
+    "running_endurance",
+    "comedy",
+    "learning_howto",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/58c98698/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_bc3f62f438cb",
+   "seconds": 14.87,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "learning_howto",
+    "spirituality",
+    "true_crime",
+    "investing_personal_finance",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.megaphone.fm/BVLLC2163264914",
+   "status": "ingested",
+   "show_id": "shw_db742611597a",
+   "seconds": 8.32,
+   "style": "interview",
+   "topics": [
+    "politics_government",
+    "leadership_management",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feeds.soundcloud.com/users/soundcloud:users:110506623/sounds.rss",
+   "status": "ingested",
+   "show_id": "shw_518b51761c3d",
+   "seconds": 5.95,
+   "style": "interview",
+   "topics": [
+    "technology_gadgets",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.libsyn.com/shows/131108/destinations/797893.xml",
+   "status": "ingested",
+   "show_id": "shw_c295c5fcdc36",
+   "seconds": 11.97,
+   "style": "solo_monologue",
+   "topics": [
+    "kids_stories",
+    "parenting",
+    "music"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.simplecast.com/UCwaTX1J",
+   "status": "rejected",
+   "reasons": [
+    "network:publisher 'siriusxm'"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.libsyn.com/shows/100081/destinations/525719.xml",
+   "status": "ingested",
+   "show_id": "shw_434d3cc37b40",
+   "seconds": 11.5,
+   "style": "unknown",
+   "topics": [
+    "investing_personal_finance",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.acast.com/public/shows/6af307988516e953281f983c",
+   "status": "ingested",
+   "show_id": "shw_9caf0fe7b37f",
+   "seconds": 18.04,
+   "style": "solo_monologue",
+   "topics": [
+    "history",
+    "true_crime",
+    "investing_personal_finance"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feeds.captivate.fm/tech-talk-yall/",
+   "status": "ingested",
+   "show_id": "shw_5f9024e4d807",
+   "seconds": 49.84,
+   "style": "unknown",
+   "topics": [
+    "technology_gadgets",
+    "artificial_intelligence",
+    "cybersecurity",
+    "entrepreneurship",
+    "politics_government",
+    "science_general",
+    "leadership_management",
+    "software_development"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.acast.com/public/shows/67f7daacbb8fcfee75c39196",
+   "status": "ingested",
+   "show_id": "shw_bbf21f8980c6",
+   "seconds": 11.77,
+   "style": "unknown",
+   "topics": [
+    "mental_health",
+    "parenting",
+    "cybersecurity",
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://rss.buzzsprout.com/2460059.rss",
+   "status": "ingested",
+   "show_id": "shw_e1d14ec41cfa",
+   "seconds": 10.51,
+   "style": "interview",
+   "topics": [
+    "food_cooking",
+    "history"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://feed.podbean.com/realnativeroots/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_4d4ba296d52c",
+   "seconds": 18.66,
+   "style": "unknown",
+   "topics": [
+    "learning_howto",
+    "medicine_healthcare",
+    "spirituality",
+    "leadership_management",
+    "music",
+    "careers_work",
+    "fashion_beauty",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://api.substack.com/feed/podcast/4913599.rss",
+   "status": "ingested",
+   "show_id": "shw_c5e4e191febb",
+   "seconds": 11.23,
+   "style": "panel",
+   "topics": [
+    "outdoors_travel",
+    "music",
+    "history",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/110ee92cc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_07a14a6e5243",
+   "seconds": 11.1,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "spirituality"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.buzzsprout.com/828127.rss",
+   "status": "ingested",
+   "show_id": "shw_6105bfe09e17",
+   "seconds": 21.54,
+   "style": "solo_monologue",
+   "topics": [
+    "kids_stories",
+    "music",
+    "history"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/7pminbrooklyn",
+   "status": "ingested",
+   "show_id": "shw_6f028891a415",
+   "seconds": 23.87,
+   "style": "interview",
+   "topics": [
+    "sports_general",
+    "comedy",
+    "careers_work",
+    "music",
+    "history"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://anchor.fm/s/8f7495c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_6be27b66ace1",
+   "seconds": 16.78,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "marketing_sales",
+    "music",
+    "philosophy",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/7454734/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_e8f9dd82b3c7",
+   "seconds": 21.05,
+   "style": "unknown",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://www.ximalaya.com/album/86333581.xml",
+   "status": "ingested",
+   "show_id": "shw_05b525f90d7d",
+   "seconds": 5.98,
+   "style": "unknown",
+   "topics": []
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://www.abc.net.au/feeds/3775860/podcast.xml",
+   "status": "ingested",
+   "show_id": "shw_5999c9aeb4c9",
+   "seconds": 8.96,
+   "style": "unknown",
+   "topics": [
+    "politics_government",
+    "true_crime",
+    "history",
+    "medicine_healthcare",
+    "personal_journals",
+    "science_general",
+    "sports_general",
+    "news_current_events"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://venuemarketingpodcast.podigee.io/feed/mp3",
+   "status": "ingested",
+   "show_id": "shw_7a93e00400ad",
+   "seconds": 22.96,
+   "style": "solo_monologue",
+   "topics": [
+    "marketing_sales",
+    "careers_work"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://api.substack.com/feed/podcast/3892076.rss",
+   "status": "ingested",
+   "show_id": "shw_757c98a916ef",
+   "seconds": 29.63,
+   "style": "unknown",
+   "topics": [
+    "food_cooking",
+    "technology_gadgets",
+    "learning_howto",
+    "medicine_healthcare",
+    "entrepreneurship",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://rss.libsyn.com/shows/64398/destinations/255177.xml",
+   "status": "ingested",
+   "show_id": "shw_05467cc5371b",
+   "seconds": 18.66,
+   "style": "interview",
+   "topics": [
+    "nutrition_diet",
+    "science_general",
+    "food_cooking",
+    "medicine_healthcare",
+    "leadership_management",
+    "marketing_sales",
+    "mental_health",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://plainbibleteaching.com/feed/podcast/plain-bible-teaching-podcast/",
+   "status": "ingested",
+   "show_id": "shw_29c13233b63d",
+   "seconds": 8.12,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.redcircle.com/a5aa1346-a45d-4872-8604-b145ef0dc2d0",
+   "status": "ingested",
+   "show_id": "shw_236ce58ada83",
+   "seconds": 18.37,
+   "style": "co_hosted_banter",
+   "topics": [
+    "sports_general",
+    "cybersecurity",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://bos-food-podcast.podigee.io/feed/mp3",
+   "status": "ingested",
+   "show_id": "shw_1dd973cd5082",
+   "seconds": 26.04,
+   "style": "unknown",
+   "topics": [
+    "food_cooking",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feed.ausha.co/GJN5RTgqKKqQ",
+   "status": "ingested",
+   "show_id": "shw_78b47b9a1dff",
+   "seconds": 18.53,
+   "style": "unknown",
+   "topics": [
+    "pets_animals",
+    "parenting",
+    "nutrition_diet",
+    "science_general",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://anchor.fm/s/115592430/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_ff90ecb3c334",
+   "seconds": 2.37,
+   "style": "unknown",
+   "topics": [
+    "entrepreneurship",
+    "fashion_beauty",
+    "careers_work",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://nur-noch-eine-reihe.podigee.io/feed/mp3",
+   "status": "ingested",
+   "show_id": "shw_890f298e0b70",
+   "seconds": 28.99,
+   "style": "solo_monologue",
+   "topics": [
+    "crafts_diy"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.simplecast.com/cbbta5Vb",
+   "status": "ingested",
+   "show_id": "shw_9846834f27c6",
+   "seconds": 20.98,
+   "style": "unknown",
+   "topics": [
+    "marketing_sales",
+    "relationships_dating",
+    "medicine_healthcare",
+    "spirituality"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feeds.acast.com/public/shows/66fe946ca7d676ab06c24ba9",
+   "status": "ingested",
+   "show_id": "shw_8c919a6903bd",
+   "seconds": 3.77,
+   "style": "co_hosted_banter",
+   "topics": [
+    "mental_health",
+    "self_improvement",
+    "comedy",
+    "careers_work",
+    "home_garden",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://anchor.fm/s/f5ff4dbc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_6e243d819595",
+   "seconds": 2.15,
+   "style": "unknown",
+   "topics": [
+    "design_visual_arts",
+    "true_crime",
+    "music",
+    "performing_arts"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/fff55398/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_54d84bb0b9f5",
+   "seconds": 22.55,
+   "style": "interview",
+   "topics": [
+    "technology_gadgets",
+    "learning_howto",
+    "comedy",
+    "home_garden"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://www.spreaker.com/show/5823265/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_c2bf1cab7837",
+   "seconds": 15.11,
+   "style": "interview",
+   "topics": [
+    "books_writing",
+    "christianity",
+    "history",
+    "nature_environment",
+    "learning_howto",
+    "personal_journals",
+    "philosophy",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://rss.buzzsprout.com/895741.rss",
+   "status": "ingested",
+   "show_id": "shw_7517a7bc16ff",
+   "seconds": 15.2,
+   "style": "unknown",
+   "topics": [
+    "home_garden",
+    "nature_environment",
+    "music",
+    "pets_animals"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ESP2870920494",
+   "status": "ingested",
+   "show_id": "shw_717813d0214c",
+   "seconds": 17.23,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "careers_work"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/59e9be94/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_dec148367b97",
+   "seconds": 14.41,
+   "style": "unknown",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.buzzsprout.com/822292.rss",
+   "status": "ingested",
+   "show_id": "shw_0e669f5eb7bf",
+   "seconds": 28.64,
+   "style": "unknown",
+   "topics": [
+    "relationships_dating",
+    "sexuality_intimacy",
+    "science_general",
+    "self_improvement",
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.libsyn.com/shows/46564/destinations/155002.xml",
+   "status": "ingested",
+   "show_id": "shw_c480da6cde67",
+   "seconds": 10.0,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "philosophy",
+    "pets_animals",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://rss.amperwave.net/v2/feed/audacynetwork/up-and-vanished",
+   "status": "ingested",
+   "show_id": "shw_564c6307d046",
+   "seconds": 10.09,
+   "style": "narrative_storytelling",
+   "topics": [
+    "true_crime",
+    "learning_howto",
+    "paranormal_mystery",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://anchor.fm/s/dd8ca6e4/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_74b886656510",
+   "seconds": 2.57,
+   "style": "interview",
+   "topics": [
+    "entrepreneurship",
+    "leadership_management",
+    "careers_work",
+    "self_improvement",
+    "politics_government",
+    "technology_gadgets",
+    "artificial_intelligence"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://www.spreaker.com/show/2825002/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_c1c8eb785787",
+   "seconds": 17.67,
+   "style": "interview",
+   "topics": [
+    "parenting",
+    "medicine_healthcare",
+    "relationships_dating",
+    "entrepreneurship",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.hustlestudios.net/coldcasediaries",
+   "status": "ingested",
+   "show_id": "shw_2689c0dff15f",
+   "seconds": 52.07,
+   "style": "unknown",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feed.podbean.com/paughc27/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_304062c381f3",
+   "seconds": 5.48,
+   "style": "unknown",
+   "topics": [
+    "comedy",
+    "mental_health",
+    "learning_howto",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://feed.podbean.com/thehouseofthedev/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_5d4204a20fd0",
+   "seconds": 9.79,
+   "style": "unknown",
+   "topics": [
+    "video_games",
+    "entrepreneurship",
+    "music",
+    "film_tv"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/fd45682c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_3264d1f88319",
+   "seconds": 17.39,
+   "style": "unknown",
+   "topics": [
+    "careers_work",
+    "software_development",
+    "leadership_management",
+    "cybersecurity",
+    "entrepreneurship",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.captivate.fm/food-friends-podcast/",
+   "status": "ingested",
+   "show_id": "shw_89d0dffb50e6",
+   "seconds": 11.44,
+   "style": "unknown",
+   "topics": [
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://rss.libsyn.com/shows/117116/destinations/671427.xml",
+   "status": "ingested",
+   "show_id": "shw_439767447523",
+   "seconds": 10.76,
+   "style": "unknown",
+   "topics": [
+    "automotive_aviation",
+    "personal_journals"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://anchor.fm/s/13193710/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_3648043e80df",
+   "seconds": 8.5,
+   "style": "solo_monologue",
+   "topics": [
+    "comedy"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.megaphone.fm/STM4306131571",
+   "status": "ingested",
+   "show_id": "shw_b1488b1f0182",
+   "seconds": 10.1,
+   "style": "unknown",
+   "topics": [
+    "video_games",
+    "kids_stories",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://anchor.fm/s/f99357fc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_2f94cb5038ab",
+   "seconds": 2.23,
+   "style": "solo_monologue",
+   "topics": [
+    "investing_personal_finance",
+    "news_current_events",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://www.omnycontent.com/d/playlist/5e27a451-e6e6-4c51-aa03-a7370003783c/7d45f555-6e3c-4bd1-8afd-aff40182417c/4ee207b7-9959-42b8-bada-aff40182818a/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_306d64488597",
+   "seconds": 18.2,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.simplecast.com/Nvy5cWFT",
+   "status": "ingested",
+   "show_id": "shw_c8081ff31f48",
+   "seconds": 23.75,
+   "style": "interview",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/c422c634/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_c3db43ede95a",
+   "seconds": 5.25,
+   "style": "interview",
+   "topics": [
+    "software_development",
+    "comedy",
+    "careers_work",
+    "technology_gadgets",
+    "self_improvement",
+    "artificial_intelligence",
+    "design_visual_arts",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://api.riverside.com/hosting/Ri2vt87i.rss",
+   "status": "ingested",
+   "show_id": "shw_8195f09a608e",
+   "seconds": 10.69,
+   "style": "interview",
+   "topics": [
+    "medicine_healthcare",
+    "mental_health",
+    "parenting",
+    "self_improvement",
+    "social_sciences",
+    "nature_environment"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.redcircle.com/8136b701-6bed-4cc9-bfb2-0013a2822e00",
+   "status": "ingested",
+   "show_id": "shw_788106253dfd",
+   "seconds": 22.47,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "cybersecurity",
+    "marketing_sales",
+    "personal_journals"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://api.nonarkara.org/podcast/nonism/feed.xml",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: DELETE FROM evidence WHERE evidence.entity_type = ? AND evidence.entity_id = ? AND evidence.kind IN (?, ?, ?, ?, ?, ?, ?, ?)]\n[parameters: ('show', 'shw_0edd9673fe7c', 'topics', 'guest_friendliness', 'conversational_style', 'tone'"
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://feed.podbean.com/listentothecloud/feed.xml",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.libsyn.com/95186/rss",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Sports",
+   "url": "https://api.riverside.com/hosting/GAzdah6E.rss",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.ivoox.com/feed_fg_f124314_filtro_1.xml",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO shows (id, canonical_feed_url, title, language, activity, merged_into, last_fetch_at, last_fetch_ok, last_fetch_error, etag, last_modified, content_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
+  },
+  {
+   "group": "Arts",
+   "url": "https://anchor.fm/s/b05d830/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_1c7b6d7f6deb",
+   "seconds": 54.34,
+   "style": "interview",
+   "topics": [
+    "design_visual_arts",
+    "careers_work",
+    "entrepreneurship",
+    "science_general",
+    "nature_environment",
+    "leadership_management",
+    "marketing_sales",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://anchor.fm/s/d983fc0/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_13cdedba3d5a",
+   "seconds": 12.45,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "film_tv",
+    "paranormal_mystery",
+    "comedy"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://feed.podbean.com/trenchlesstechpodcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_0f971cb7cccf",
+   "seconds": 10.53,
+   "style": "interview",
+   "topics": [
+    "technology_gadgets",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/24ca7cd0/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_17a777956ad5",
+   "seconds": 2.44,
+   "style": "unknown",
+   "topics": [
+    "fitness_exercise",
+    "mental_health",
+    "nutrition_diet",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://lft405.libsyn.com/rss",
+   "status": "ingested",
+   "show_id": "shw_314800152c70",
+   "seconds": 20.15,
+   "style": "solo_monologue",
+   "topics": [
+    "film_tv",
+    "fitness_exercise",
+    "comedy",
+    "performing_arts"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://www.spreaker.com/show/7322459/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_927c7f41781b",
+   "seconds": 28.63,
+   "style": "solo_monologue",
+   "topics": [
+    "kids_stories",
+    "sports_general",
+    "music"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://media.rss.com/weekdayfaith/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_85e2e2a01189",
+   "seconds": 42.32,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "spirituality"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.megaphone.fm/AUDD5336095663",
+   "status": "ingested",
+   "show_id": "shw_bf542af7256f",
+   "seconds": 21.46,
+   "style": "interview",
+   "topics": [
+    "food_cooking",
+    "careers_work",
+    "running_endurance",
+    "learning_howto",
+    "outdoors_travel"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://rss.libsyn.com/shows/124817/destinations/741200.xml",
+   "status": "ingested",
+   "show_id": "shw_87703ef13774",
+   "seconds": 23.4,
+   "style": "solo_monologue",
+   "topics": [
+    "leadership_management",
+    "learning_howto",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/11396e1c8/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_333d35620c8a",
+   "seconds": 1.53,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "learning_howto",
+    "spirituality",
+    "sexuality_intimacy"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.pdrl.fm/528f0b/feeds.libsyn.com/539207/rss/?redirect=false",
+   "status": "ingested",
+   "show_id": "shw_f1ac14758520",
+   "seconds": 30.08,
+   "style": "interview",
+   "topics": [
+    "entrepreneurship",
+    "leadership_management",
+    "self_improvement",
+    "investing_personal_finance",
+    "learning_howto",
+    "careers_work",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://api.substack.com/feed/podcast/9357366.rss",
+   "status": "ingested",
+   "show_id": "shw_04b90d6d66d9",
+   "seconds": 29.38,
+   "style": "unknown",
+   "topics": [
+    "philosophy",
+    "artificial_intelligence"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://anchor.fm/s/7ce1ab28/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_a62a305e47af",
+   "seconds": 7.63,
+   "style": "co_hosted_banter",
+   "topics": [
+    "home_garden",
+    "fashion_beauty",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://audioboom.com/channels/5125644.rss",
+   "status": "ingested",
+   "show_id": "shw_1679b7a9c7ad",
+   "seconds": 13.63,
+   "style": "interview",
+   "topics": []
+  },
+  {
+   "group": "Technology",
+   "url": "https://feeds.podcastmirror.com/theaudacitytopodcast",
+   "status": "ingested",
+   "show_id": "shw_1c7a7743ee37",
+   "seconds": 13.56,
+   "style": "solo_monologue",
+   "topics": [
+    "learning_howto",
+    "comedy",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.redcircle.com/bfdb7e07-e420-4c28-bb64-7f2d02ae1738",
+   "status": "ingested",
+   "show_id": "shw_12f64ca3d4bf",
+   "seconds": 20.46,
+   "style": "unknown",
+   "topics": [
+    "kids_stories",
+    "spirituality",
+    "music",
+    "automotive_aviation",
+    "parenting"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://audioboom.com/channels/5096973.rss",
+   "status": "ingested",
+   "show_id": "shw_72198ce9a0fc",
+   "seconds": 18.56,
+   "style": "interview",
+   "topics": [
+    "true_crime",
+    "fashion_beauty"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.simplecast.com/U644ZfMt",
+   "status": "ingested",
+   "show_id": "shw_a00f3097a30a",
+   "seconds": 37.37,
+   "style": "unknown",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.castos.com/ojmkk",
+   "status": "ingested",
+   "show_id": "shw_744555d0b3c4",
+   "seconds": 2.83,
+   "style": "unknown",
+   "topics": [
+    "parenting",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://rss.buzzsprout.com/1309609.rss",
+   "status": "ingested",
+   "show_id": "shw_89e12a066f22",
+   "seconds": 14.18,
+   "style": "interview",
+   "topics": [
+    "fitness_exercise",
+    "learning_howto",
+    "spirituality",
+    "philosophy",
+    "mental_health",
+    "parenting",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.captivate.fm/bed-on-the-beach/",
+   "status": "ingested",
+   "show_id": "shw_dcec701311c6",
+   "seconds": 5.38,
+   "style": "solo_monologue",
+   "topics": [
+    "outdoors_travel",
+    "kids_stories",
+    "nature_environment",
+    "spirituality",
+    "music",
+    "pets_animals"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.megaphone.fm/the-ux-design-podcast",
+   "status": "ingested",
+   "show_id": "shw_f5a3ed44707a",
+   "seconds": 6.72,
+   "style": "unknown",
+   "topics": [
+    "design_visual_arts",
+    "science_general",
+    "social_sciences",
+    "careers_work",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.pdrl.fm/872545/feeds.libsyn.com/485472/rss/?redirect=false",
+   "status": "ingested",
+   "show_id": "shw_0dd4b9b19440",
+   "seconds": 15.44,
+   "style": "unknown",
+   "topics": [
+    "mental_health",
+    "personal_journals",
+    "fitness_exercise",
+    "self_improvement",
+    "christianity",
+    "entrepreneurship",
+    "leadership_management",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.captivate.fm/autorepairmarketing/",
+   "status": "ingested",
+   "show_id": "shw_7266776b2b92",
+   "seconds": 29.12,
+   "style": "co_hosted_banter",
+   "topics": [
+    "marketing_sales",
+    "leadership_management",
+    "automotive_aviation"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.transistor.fm/the-edinburgh-fringe-comedy-podcast",
+   "status": "ingested",
+   "show_id": "shw_03c19349c99b",
+   "seconds": 7.44,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "marketing_sales",
+    "performing_arts",
+    "careers_work",
+    "nature_environment",
+    "running_endurance",
+    "social_sciences"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://anchor.fm/s/eacf5a40/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_8d1802037c53",
+   "seconds": 17.58,
+   "style": "unknown",
+   "topics": [
+    "mental_health",
+    "parenting",
+    "learning_howto",
+    "medicine_healthcare",
+    "relationships_dating",
+    "entrepreneurship",
+    "sexuality_intimacy"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://anchor.fm/s/f39c801c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_27ee36827664",
+   "seconds": 23.46,
+   "style": "interview",
+   "topics": [
+    "running_endurance"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/fe2628e4/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_92140bc6ebb6",
+   "seconds": 13.17,
+   "style": "unknown",
+   "topics": [
+    "artificial_intelligence",
+    "entrepreneurship",
+    "leadership_management",
+    "running_endurance",
+    "careers_work",
+    "science_general",
+    "software_development"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://esl.culips.com/feed/podcast/",
+   "status": "fetch_failed",
+   "reason": "invalid_xml",
+   "error": "invalid_xml: NotAFeed: not a podcast/RSS feed (no channel title or items found)"
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.acast.com/public/shows/6932b3ffd06e17dcac9150c3",
+   "status": "ingested",
+   "show_id": "shw_fecd60c6a6a0",
+   "seconds": 16.37,
+   "style": "unknown",
+   "topics": [
+    "cybersecurity"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://feeds.megaphone.fm/HAEEH8788670682",
+   "status": "ingested",
+   "show_id": "shw_5bcfeba920b4",
+   "seconds": 27.41,
+   "style": "interview",
+   "topics": [
+    "christianity",
+    "spirituality",
+    "learning_howto",
+    "history",
+    "politics_government",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.buzzsprout.com/2633136.rss",
+   "status": "ingested",
+   "show_id": "shw_f3ed8fb67b1c",
+   "seconds": 19.81,
+   "style": "solo_monologue",
+   "topics": [
+    "investing_personal_finance",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://feed.podbean.com/valleytopeaknutrition/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_b841d1959f61",
+   "seconds": 19.77,
+   "style": "unknown",
+   "topics": [
+    "nutrition_diet",
+    "fitness_exercise",
+    "outdoors_travel",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feed.podbean.com/second-swing-thoughts/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_a12ea03c2683",
+   "seconds": 16.66,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "news_current_events"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://rss.buzzsprout.com/2470795.rss",
+   "status": "ingested",
+   "show_id": "shw_969f2bd9d8be",
+   "seconds": 10.65,
+   "style": "interview",
+   "topics": [
+    "christianity",
+    "history",
+    "politics_government",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://rss.buzzsprout.com/2259135.rss",
+   "status": "ingested",
+   "show_id": "shw_89d22fa7f597",
+   "seconds": 16.14,
+   "style": "unknown",
+   "topics": [
+    "crafts_diy",
+    "marketing_sales",
+    "fashion_beauty"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.libsyn.com/shows/563220/destinations/4868140.xml",
+   "status": "ingested",
+   "show_id": "shw_790c04b0c992",
+   "seconds": 5.68,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "film_tv",
+    "music",
+    "entrepreneurship",
+    "philosophy",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://www.spreaker.com/show/5571651/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_04bd84333fdb",
+   "seconds": 29.3,
+   "style": "interview",
+   "topics": [
+    "pets_animals"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://anchor.fm/s/90f3788/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_be96d830089f",
+   "seconds": 9.3,
+   "style": "interview",
+   "topics": [
+    "true_crime",
+    "food_cooking",
+    "music"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.acast.com/public/shows/6876157801becb6b317f44b7",
+   "status": "ingested",
+   "show_id": "shw_905bc3c491f5",
+   "seconds": 27.65,
+   "style": "unknown",
+   "topics": [
+    "food_cooking",
+    "cybersecurity"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://anchor.fm/s/105c291dc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_f8c8484c1adc",
+   "seconds": 4.7,
+   "style": "unknown",
+   "topics": [
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/fb64d984/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_f258bba82385",
+   "seconds": 1.52,
+   "style": "solo_monologue",
+   "topics": [
+    "spirituality",
+    "self_improvement",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://rss.buzzsprout.com/2629585.rss",
+   "status": "ingested",
+   "show_id": "shw_a6d4f56517cf",
+   "seconds": 7.4,
+   "style": "unknown",
+   "topics": [
+    "mental_health",
+    "medicine_healthcare",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://pinecast.com/feed/techtalk-coast2coast",
+   "status": "ingested",
+   "show_id": "shw_a41597598b51",
+   "seconds": 11.84,
+   "style": "unknown",
+   "topics": [
+    "technology_gadgets",
+    "careers_work",
+    "comedy",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.buzzsprout.com/1515211.rss",
+   "status": "ingested",
+   "show_id": "shw_474e25115a24",
+   "seconds": 17.56,
+   "style": "unknown",
+   "topics": [
+    "parenting",
+    "kids_stories",
+    "mental_health",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://www.spreaker.com/show/7060395/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_32485e1dd111",
+   "seconds": 7.26,
+   "style": "solo_monologue",
+   "topics": [
+    "home_garden",
+    "nature_environment",
+    "design_visual_arts",
+    "outdoors_travel",
+    "books_writing"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://www.spreaker.com/show/7341475/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_5fe282c1d154",
+   "seconds": 10.73,
+   "style": "solo_monologue",
+   "topics": [
+    "history",
+    "paranormal_mystery",
+    "true_crime",
+    "outdoors_travel",
+    "automotive_aviation",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://media.rss.com/harmony-faith-podcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_d8e8670fb381",
+   "seconds": 4.01,
+   "style": "co_hosted_banter",
+   "topics": [
+    "christianity",
+    "music"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.buzzsprout.com/2298635.rss",
+   "status": "ingested",
+   "show_id": "shw_8d3e4c1af9e6",
+   "seconds": 3.42,
+   "style": "unknown",
+   "topics": [
+    "comedy"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/515d2905-7975-4b85-a224-b43601500d1e/3ecdf081-be76-4016-acac-b43601500d26/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_c3ad4ad5828f",
+   "seconds": 21.9,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "careers_work",
+    "politics_government",
+    "cybersecurity",
+    "leadership_management",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.art19.com/martech-podcast",
+   "status": "rejected",
+   "reasons": [
+    "too_many_episodes:2492"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.redcircle.com/9567fb37-8753-417b-9460-fc2619f2c64f",
+   "status": "ingested",
+   "show_id": "shw_6ab2f676f7e6",
+   "seconds": 19.25,
+   "style": "co_hosted_banter",
+   "topics": [
+    "christianity",
+    "kids_stories",
+    "parenting",
+    "spirituality",
+    "home_garden",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/7349236/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_c1fedc1ad362",
+   "seconds": 16.27,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime",
+    "paranormal_mystery"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://media.rss.com/ai-podcast-news/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_215bf0254572",
+   "seconds": 16.35,
+   "style": "unknown",
+   "topics": [
+    "artificial_intelligence",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://anchor.fm/s/ff601170/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_37369051179b",
+   "seconds": 9.62,
+   "style": "unknown",
+   "topics": [
+    "personal_journals",
+    "learning_howto",
+    "careers_work",
+    "parenting"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://rss.buzzsprout.com/2446744.rss",
+   "status": "ingested",
+   "show_id": "shw_93d4690884f4",
+   "seconds": 27.72,
+   "style": "interview",
+   "topics": [
+    "automotive_aviation",
+    "self_improvement",
+    "careers_work",
+    "learning_howto",
+    "social_sciences",
+    "politics_government",
+    "comedy",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.acast.com/public/shows/654a745b84df860012e13708",
+   "status": "ingested",
+   "show_id": "shw_f51a1c9ef864",
+   "seconds": 7.4,
+   "style": "solo_monologue",
+   "topics": [
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://anchor.fm/s/e572fd40/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_40c3809544c3",
+   "seconds": 8.3,
+   "style": "unknown",
+   "topics": [
+    "design_visual_arts",
+    "history"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://feeds.soundcloud.com/users/soundcloud:users:1512839928/sounds.rss",
+   "status": "ingested",
+   "show_id": "shw_e15b001d6507",
+   "seconds": 4.81,
+   "style": "unknown",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.transistor.fm/plane-comedy-podcast",
+   "status": "ingested",
+   "show_id": "shw_5340651c30f8",
+   "seconds": 4.08,
+   "style": "interview",
+   "topics": [
+    "comedy"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://zehrwoodartistry.com/podcast.php?x=rss",
+   "status": "ingested",
+   "show_id": "shw_fb7b5518c8ad",
+   "seconds": 6.28,
+   "style": "co_hosted_banter",
+   "topics": [
+    "crafts_diy",
+    "fashion_beauty"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://k12techtalkpodcast.com/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_8f60e25ac841",
+   "seconds": 26.46,
+   "style": "unknown",
+   "topics": [
+    "technology_gadgets",
+    "artificial_intelligence",
+    "cybersecurity",
+    "learning_howto",
+    "politics_government",
+    "software_development"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/3e00934c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_c9cfae29575d",
+   "seconds": 14.1,
+   "style": "unknown",
+   "topics": [
+    "medicine_healthcare",
+    "technology_gadgets",
+    "entrepreneurship",
+    "leadership_management",
+    "artificial_intelligence",
+    "comedy",
+    "politics_government",
+    "science_general"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.simplecast.com/JBS8HSo0",
+   "status": "ingested",
+   "show_id": "shw_a6eb3e3cdb30",
+   "seconds": 19.54,
+   "style": "co_hosted_banter",
+   "topics": [
+    "culture_identity",
+    "parenting",
+    "medicine_healthcare",
+    "sexuality_intimacy",
+    "mental_health",
+    "comedy",
+    "history"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://www.thehappysaver.com/podcast?format=rss",
+   "status": "ingested",
+   "show_id": "shw_3425bf9e078f",
+   "seconds": 15.27,
+   "style": "solo_monologue",
+   "topics": [
+    "investing_personal_finance",
+    "relationships_dating",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feeds.simplecast.com/zatU8XEL",
+   "status": "ingested",
+   "show_id": "shw_f3ca1042a5f6",
+   "seconds": 17.78,
+   "style": "narrative_storytelling",
+   "topics": [
+    "true_crime",
+    "paranormal_mystery",
+    "history",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://rss.pdrl.fm/41699a/feeds.libsyn.com/74117/rss/?redirect=false",
+   "status": "fetch_failed",
+   "reason": "too_large",
+   "error": "too_large: FeedTooLarge: response exceeds 25000000 bytes"
+  },
+  {
+   "group": "Education",
+   "url": "https://rss.libsyn.com/shows/18677/destinations/13420.xml",
+   "status": "ingested",
+   "show_id": "shw_e12ec5bf8d57",
+   "seconds": 10.65,
+   "style": "unknown",
+   "topics": [
+    "language_learning",
+    "news_current_events",
+    "politics_government"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://rss.libsyn.com/shows/128489/destinations/774442.xml",
+   "status": "ingested",
+   "show_id": "shw_e83ab89e6abe",
+   "seconds": 5.94,
+   "style": "interview",
+   "topics": [
+    "christianity",
+    "film_tv",
+    "comedy",
+    "mental_health",
+    "outdoors_travel",
+    "music"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://app.kajabi.com/podcasts/2147486848/feed",
+   "status": "ingested",
+   "show_id": "shw_b25d87f73fc5",
+   "seconds": 10.9,
+   "style": "interview",
+   "topics": [
+    "design_visual_arts",
+    "entrepreneurship",
+    "learning_howto",
+    "marketing_sales"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://oasis-singles.com/feed/podcast",
+   "status": "ingested",
+   "show_id": "shw_ecb348b98aba",
+   "seconds": 13.69,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "relationships_dating",
+    "science_general",
+    "spirituality",
+    "parenting"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.libsyn.com/shows/19421/destinations/16399.xml",
+   "status": "ingested",
+   "show_id": "shw_bb08f1c06475",
+   "seconds": 13.77,
+   "style": "unknown",
+   "topics": [
+    "philosophy",
+    "film_tv",
+    "music",
+    "science_general",
+    "comedy",
+    "books_writing",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/11892831c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_a6944110cf55",
+   "seconds": 0.97,
+   "style": "unknown",
+   "topics": [
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://www.livingfaithclive.com/sermons-etc?format=rss",
+   "status": "ingested",
+   "show_id": "shw_75eea147ca25",
+   "seconds": 12.9,
+   "style": "interview",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.buzzsprout.com/2631947.rss",
+   "status": "ingested",
+   "show_id": "shw_48d79fc26287",
+   "seconds": 15.19,
+   "style": "solo_monologue",
+   "topics": [
+    "philosophy",
+    "history",
+    "outdoors_travel",
+    "science_general",
+    "mental_health",
+    "christianity",
+    "learning_howto",
+    "religion_other"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://anchor.fm/s/4aaf7d10/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_6647a5f3ebf0",
+   "seconds": 13.23,
+   "style": "unknown",
+   "topics": [
+    "investing_personal_finance",
+    "politics_government",
+    "history"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://www.spreaker.com/show/5895676/episodes/feed",
+   "status": "ingested",
+   "show_id": "shw_012bf0035d3c",
+   "seconds": 16.09,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.libsyn.com/shows/616490/destinations/5377260.xml",
+   "status": "ingested",
+   "show_id": "shw_abe708f39f4f",
+   "seconds": 17.82,
+   "style": "solo_monologue",
+   "topics": [
+    "comedy"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://anchor.fm/s/10619c86c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_82e7ce0f781d",
+   "seconds": 1.73,
+   "style": "interview",
+   "topics": [
+    "books_writing",
+    "relationships_dating",
+    "comedy",
+    "film_tv",
+    "sports_general"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/f862057c/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_73333bd4c4f7",
+   "seconds": 6.92,
+   "style": "unknown",
+   "topics": [
+    "fitness_exercise",
+    "outdoors_travel",
+    "careers_work",
+    "comedy",
+    "nutrition_diet",
+    "pets_animals"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ESP7297553965",
+   "status": "ingested",
+   "show_id": "shw_c87fc49e31b2",
+   "seconds": 29.47,
+   "style": "interview",
+   "topics": [
+    "sports_general",
+    "outdoors_travel"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://api.riverside.fm/hosting/aQ9ZiBeI.rss",
+   "status": "ingested",
+   "show_id": "shw_22bdce2d8c26",
+   "seconds": 9.78,
+   "style": "unknown",
+   "topics": [
+    "medicine_healthcare"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://www.greshambible.org/feeds/sermons",
+   "status": "ingested",
+   "show_id": "shw_899f2d37504e",
+   "seconds": 7.08,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ESP8957020927",
+   "status": "ingested",
+   "show_id": "shw_f83750250e9b",
+   "seconds": 8.62,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "news_current_events"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feed.podbean.com/masterfulparenting/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_de08ea9382b3",
+   "seconds": 6.92,
+   "style": "interview",
+   "topics": [
+    "mental_health",
+    "parenting",
+    "entrepreneurship",
+    "learning_howto",
+    "self_improvement",
+    "leadership_management"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feeds.feedburner.com/podcastdescrinques/uFLJ",
+   "status": "ingested",
+   "show_id": "shw_be0a389df0c0",
+   "seconds": 9.32,
+   "style": "unknown",
+   "topics": []
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://wtspod.com/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_291052c08961",
+   "seconds": 13.56,
+   "style": "interview",
+   "topics": [
+    "sports_general",
+    "personal_journals",
+    "music",
+    "comedy",
+    "christianity",
+    "politics_government",
+    "film_tv",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feed.podbean.com/nanonanofilm/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_d8647d78be9c",
+   "seconds": 3.43,
+   "style": "interview",
+   "topics": [
+    "comedy"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/104a52454/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_9185029eeace",
+   "seconds": 1.7,
+   "style": "unknown",
+   "topics": [
+    "learning_howto",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://the-human-technology-podcast.podigee.io/feed/mp3",
+   "status": "ingested",
+   "show_id": "shw_828ee087de91",
+   "seconds": 14.97,
+   "style": "solo_monologue",
+   "topics": [
+    "technology_gadgets",
+    "automotive_aviation",
+    "careers_work",
+    "performing_arts",
+    "social_sciences",
+    "fitness_exercise"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://rss.libsyn.com/shows/57247/destinations/215186.xml",
+   "status": "ingested",
+   "show_id": "shw_8b56eaee0595",
+   "seconds": 14.4,
+   "style": "unknown",
+   "topics": [
+    "investing_personal_finance",
+    "politics_government",
+    "technology_gadgets",
+    "artificial_intelligence",
+    "comedy",
+    "self_improvement",
+    "careers_work",
+    "cybersecurity"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feed.podbean.com/thehomesteadchallengepodcast/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_686c216da9b9",
+   "seconds": 9.87,
+   "style": "solo_monologue",
+   "topics": [
+    "home_garden",
+    "alternative_health",
+    "food_cooking"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://feeds.simplecast.com/RhhQsM37",
+   "status": "ingested",
+   "show_id": "shw_7ae231cae996",
+   "seconds": 23.42,
+   "style": "unknown",
+   "topics": [
+    "careers_work",
+    "learning_howto",
+    "leadership_management",
+    "mental_health",
+    "self_improvement",
+    "nature_environment",
+    "culture_identity"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://cdn.beatlinesports.com/feeds/cfb-ucla.xml",
+   "status": "ingested",
+   "show_id": "shw_2be2d4ff81cc",
+   "seconds": 23.54,
+   "style": "solo_monologue",
+   "topics": [
+    "sports_general",
+    "running_endurance",
+    "film_tv",
+    "comedy",
+    "outdoors_travel"
+   ]
+  },
+  {
+   "group": "Arts",
+   "url": "https://feeds.megaphone.fm/ART2805827308",
+   "status": "ingested",
+   "show_id": "shw_5ccc370a1c7c",
+   "seconds": 35.46,
+   "style": "unknown",
+   "topics": [
+    "design_visual_arts",
+    "history",
+    "film_tv",
+    "science_general",
+    "entrepreneurship",
+    "fashion_beauty",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://rss.libsyn.com/shows/63870/destinations/252161.xml",
+   "status": "ingested",
+   "show_id": "shw_a7d9b75ca79b",
+   "seconds": 13.52,
+   "style": "unknown",
+   "topics": [
+    "medicine_healthcare",
+    "nutrition_diet",
+    "parenting",
+    "alternative_health",
+    "self_improvement",
+    "kids_stories",
+    "entrepreneurship",
+    "mental_health"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://feed.podbean.com/jaynicoll/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_e4c58eee1144",
+   "seconds": 41.4,
+   "style": "interview",
+   "topics": [
+    "true_crime",
+    "medicine_healthcare",
+    "investing_personal_finance"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://anchor.fm/s/1133c2abc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_c70f0bf31d6a",
+   "seconds": 2.31,
+   "style": "interview",
+   "topics": [
+    "technology_gadgets",
+    "artificial_intelligence",
+    "careers_work",
+    "learning_howto",
+    "philosophy",
+    "marketing_sales",
+    "science_general",
+    "cybersecurity"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://feed.podbean.com/danthedadpodcast1/feed.xml",
+   "status": "ingest_failed",
+   "error": "OperationalError: (sqlite3.OperationalError) database is locked\n[SQL: INSERT INTO cost_ledger (ts, operation, provider, units, unit_cost_estimate, cost_estimate_usd, podcast_id, user_id, cache_hit, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]\n[parameters: ('2026-11-11 11:40:14.651964', 'transcript_f"
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://anchor.fm/s/ec0b1dcc/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_14e17aceb834",
+   "seconds": 7.6,
+   "style": "solo_monologue",
+   "topics": [
+    "fitness_exercise",
+    "nutrition_diet",
+    "self_improvement"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.fexingo.com/business/the-programming-languages-podcast.xml",
+   "status": "ingested",
+   "show_id": "shw_2503c643eec2",
+   "seconds": 9.29,
+   "style": "solo_monologue",
+   "topics": [
+    "software_development",
+    "careers_work",
+    "design_visual_arts",
+    "nature_environment",
+    "social_sciences",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://www.borivaliassembly.net/feed/podcast/",
+   "status": "ingested",
+   "show_id": "shw_32e7c74d230f",
+   "seconds": 25.63,
+   "style": "solo_monologue",
+   "topics": [
+    "christianity",
+    "learning_howto",
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://rss.buzzsprout.com/1788302.rss",
+   "status": "ingested",
+   "show_id": "shw_64cedfd4bffa",
+   "seconds": 10.9,
+   "style": "unknown",
+   "topics": [
+    "parenting",
+    "medicine_healthcare",
+    "mental_health",
+    "relationships_dating",
+    "learning_howto"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://rss.libsyn.com/shows/530927/destinations/4608787.xml",
+   "status": "ingested",
+   "show_id": "shw_3bf62fa64aab",
+   "seconds": 15.59,
+   "style": "solo_monologue",
+   "topics": [
+    "comedy",
+    "medicine_healthcare",
+    "paranormal_mystery",
+    "history",
+    "religion_other",
+    "sports_general",
+    "film_tv",
+    "home_garden"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://api.riverside.com/hosting/t6X01wN7.rss",
+   "status": "ingested",
+   "show_id": "shw_49fb279f6198",
+   "seconds": 9.15,
+   "style": "unknown",
+   "topics": [
+    "marketing_sales",
+    "entrepreneurship"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://anchor.fm/s/8a4c588/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_a99b45774635",
+   "seconds": 5.31,
+   "style": "unknown",
+   "topics": [
+    "christianity",
+    "spirituality"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://anchor.fm/s/10468f484/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_5bd3a8580dea",
+   "seconds": 9.18,
+   "style": "unknown",
+   "topics": [
+    "video_games",
+    "music",
+    "true_crime",
+    "paranormal_mystery"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://feeds.megaphone.fm/ROGXO7192676306",
+   "status": "ingested",
+   "show_id": "shw_41853e13e9bc",
+   "seconds": 10.3,
+   "style": "unknown",
+   "topics": [
+    "sports_general",
+    "learning_howto",
+    "video_games",
+    "technology_gadgets"
+   ]
+  },
+  {
+   "group": "Kids & Family",
+   "url": "https://feeds.acast.com/public/shows/6a3baf285bb8a79968ae575d",
+   "status": "ingested",
+   "show_id": "shw_36c15045e0d6",
+   "seconds": 6.86,
+   "style": "unknown",
+   "topics": [
+    "parenting"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://rss.pdrl.fm/5f92c7/rss.art19.com/psychopedia-true-crime-criminal-psychology",
+   "status": "ingested",
+   "show_id": "shw_b26d28d43f38",
+   "seconds": 22.61,
+   "style": "unknown",
+   "topics": [
+    "true_crime",
+    "relationships_dating",
+    "social_sciences",
+    "christianity",
+    "history"
+   ]
+  },
+  {
+   "group": "True Crime",
+   "url": "https://anchor.fm/s/108091b28/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_074bdada4645",
+   "seconds": 2.89,
+   "style": "solo_monologue",
+   "topics": [
+    "true_crime"
+   ]
+  },
+  {
+   "group": "Technology",
+   "url": "https://api.substack.com/feed/podcast/10995552.rss",
+   "status": "ingested",
+   "show_id": "shw_d5d063e35d3a",
+   "seconds": 10.22,
+   "style": "interview",
+   "topics": [
+    "leadership_management",
+    "entrepreneurship",
+    "technology_gadgets",
+    "artificial_intelligence",
+    "careers_work",
+    "politics_government",
+    "history"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/10fd59660/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_e9070cab0640",
+   "seconds": 9.03,
+   "style": "solo_monologue",
+   "topics": [
+    "language_learning"
+   ]
+  },
+  {
+   "group": "Comedy",
+   "url": "https://feeds.megaphone.fm/TPC4063695588",
+   "status": "ingested",
+   "show_id": "shw_ae3440da7d90",
+   "seconds": 13.43,
+   "style": "interview",
+   "topics": [
+    "comedy",
+    "film_tv",
+    "relationships_dating",
+    "careers_work",
+    "christianity",
+    "parenting",
+    "space_astronomy",
+    "books_writing"
+   ]
+  },
+  {
+   "group": "Leisure",
+   "url": "https://feed.podbean.com/www.ascentofboardgames.com/feed.xml",
+   "status": "ingested",
+   "show_id": "shw_020637a2db7e",
+   "seconds": 5.06,
+   "style": "solo_monologue",
+   "topics": [
+    "tabletop_games",
+    "film_tv",
+    "video_games",
+    "history"
+   ]
+  },
+  {
+   "group": "Society & Culture",
+   "url": "https://feeds.captivate.fm/femmeandfurious/",
+   "status": "ingested",
+   "show_id": "shw_dcb04f4c53d0",
+   "seconds": 25.58,
+   "style": "unknown",
+   "topics": [
+    "politics_government",
+    "books_writing",
+    "culture_identity",
+    "film_tv",
+    "mental_health",
+    "anime_manga",
+    "history",
+    "relationships_dating"
+   ]
+  },
+  {
+   "group": "Health & Fitness",
+   "url": "https://api.substack.com/feed/podcast/2111323.rss",
+   "status": "ingested",
+   "show_id": "shw_eb81c704c878",
+   "seconds": 33.3,
+   "style": "co_hosted_banter",
+   "topics": [
+    "mental_health"
+   ]
+  },
+  {
+   "group": "Business",
+   "url": "https://feeds.megaphone.fm/thechristianentrepreneurspodcast",
+   "status": "ingested",
+   "show_id": "shw_339924a5e48f",
+   "seconds": 33.74,
+   "style": "co_hosted_banter",
+   "topics": [
+    "christianity",
+    "entrepreneurship",
+    "spirituality",
+    "investing_personal_finance",
+    "alternative_health",
+    "learning_howto",
+    "medicine_healthcare",
+    "personal_journals"
+   ]
+  },
+  {
+   "group": "Religion & Spirituality",
+   "url": "https://thepsychedelicchristianpodcast.com/feed/podcast/the-psychedelic-christian-podcast/",
+   "status": "ingested",
+   "show_id": "shw_c512ce79f65d",
+   "seconds": 23.06,
+   "style": "interview",
+   "topics": [
+    "christianity",
+    "medicine_healthcare",
+    "mental_health",
+    "careers_work",
+    "entrepreneurship",
+    "spirituality"
+   ]
+  },
+  {
+   "group": "Education",
+   "url": "https://anchor.fm/s/7212198/podcast/rss",
+   "status": "ingested",
+   "show_id": "shw_c1094dd61ff1",
+   "seconds": 3.42,
+   "style": "interview",
+   "topics": [
+    "learning_howto",
+    "politics_government",
+    "music"
+   ]
+  },
+  {
+   "group": "Sports",
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/895dfae1-64b0-4981-adea-b4b300f0d0f6/d110bf8d-fc65-45fb-856f-b4b300f0d117/podcast.rss",
+   "status": "ingested",
+   "show_id": "shw_f1a03ca1678f",
+   "seconds": 28.46,
+   "style": "solo_monologue",
+   "topics": [
+    "sports_general",
+    "history",
+    "space_astronomy"
+   ]
   }
  ]
 }

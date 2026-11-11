@@ -75,5 +75,11 @@ export const SimilarShowSchema = z.object({
   reason_fields: z.record(z.any()), language: z.string().nullable(),
 });
 
-/** Fields the LLM may populate, always data_tier='inferred'. Demographics / counts are NOT representable here, by design. */
-export const LLM_INFERRED_FIELDS = ['topics', 'vibe', 'tone', 'conversational_style', 'values', 'guest_friendliness', 'brand_safety_flags', 'likely_audience'] as const;
+/** Interpretive fields, always data_tier='inferred'. Phase 1: produced by rules (method 'rule') or the local embedding model
+ *  (method 'model' / 'rule+model'); no LLM is called. A later LLM phase may refine them (method 'llm'), never other fields.
+ *  Demographics / counts are NOT representable here, by design. */
+export const INFERRED_FIELDS = ['topics', 'vibe', 'tone', 'conversational_style', 'values', 'guest_friendliness', 'brand_safety_flags', 'likely_audience'] as const;
+/** @deprecated name kept for compatibility; see INFERRED_FIELDS. */
+export const LLM_INFERRED_FIELDS = INFERRED_FIELDS;
+/** Conversational style values. 'unknown' = no rule was confident (never a guess). */
+export const CONVERSATIONAL_STYLES = ['solo_monologue', 'co_hosted_banter', 'interview', 'panel', 'narrative_storytelling', 'unknown'] as const;

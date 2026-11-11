@@ -57,7 +57,9 @@ def test_profile_every_field_has_tier_source_timestamp(db, server):
     assert not [k for k in p["fields"] if k.startswith("audience.")]
     assert {m["field"] for m in p["missing"]} >= {"audience.totals", "audience.top_countries", "audience.age_bands"}
     # inferred fields are never above 'inferred'
-    assert all(p["fields"][k]["data_tier"] == "inferred" for k in ("topics", "vibe", "tone", "likely_audience"))
+    assert all(p["fields"][k]["data_tier"] == "inferred" for k in ("topics", "vibe", "tone"))
+    # likely_audience is derived from topics; with no well-evidenced topic it is honestly absent rather than invented
+    assert "likely_audience" not in p["fields"] or p["fields"]["likely_audience"]["data_tier"] == "inferred"
     assert p["fields"]["title"]["data_tier"] == "verified" and p["fields"]["hosts"]["value"] == ["Pat Host"]
 
 
@@ -187,7 +189,8 @@ def test_admin_endpoints_and_health(db, server, client):
     assert cov["connectors"]["rss"]["shows_ok"] == 1 and cov["connectors"]["rss"]["fields"]["title"]["pct"] == 100.0
     assert cov["connectors"]["rss"]["fields"]["transcripts"]["pct"] == 0.0       # measured absence, not an assumption
     costs = client.get("/v1/admin/costs").json()
-    assert "llm_extract" in costs["by_operation"] and costs["avg_usd_per_show"] >= 0 and costs["budgets"]
+    assert "llm_extract" not in costs["by_operation"]          # Phase 1: no LLM calls at all
+    assert "embed" in costs["by_operation"] and costs["avg_usd_per_show"] >= 0 and costs["budgets"]
     jb = client.get("/v1/admin/jobs").json()
     assert jb["counts"]["succeeded"] >= 1 and jb["jobs"]
     h = client.get("/v1/health").json()

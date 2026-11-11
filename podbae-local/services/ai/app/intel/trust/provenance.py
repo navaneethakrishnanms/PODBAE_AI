@@ -61,12 +61,24 @@ def ttl_for(field: str) -> timedelta | None:
 
 
 def get_source(s: Session, name: str, kind: str, terms_note: str | None = None) -> Source:
+    """Get-or-create, safe under concurrency: parallel ingest jobs on a fresh store race to create the same source row
+    (seen in the Phase 1 seed: 'UNIQUE constraint failed: sources.name'). The insert runs in a savepoint; if another
+    transaction won the race, we roll back only the savepoint and read the winner's row."""
+    from sqlalchemy.exc import IntegrityError
     src = s.scalar(select(Source).where(Source.name == name))
-    if src is None:
-        src = Source(name=name, kind=kind, terms_note=terms_note)
-        s.add(src)
-        s.flush()
-    return src
+    if src is not None:
+        return src
+    try:
+        with s.begin_nested():
+            src = Source(name=name, kind=kind, terms_note=terms_note)
+            s.add(src)
+            s.flush()
+        return src
+    except IntegrityError:
+        found = s.scalar(select(Source).where(Source.name == name))
+        if found is None:
+            raise
+        return found
 
 
 def _same(a: Any, b: Any) -> bool:

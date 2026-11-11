@@ -18,12 +18,13 @@ from .connectors import rss as rsslib
 from .connectors.base import ConnectorResult, InvalidUrl, fetch_bytes, log_run, make_client, validate_url
 from .db import session_scope
 from .models import Episode, Provenance, Show, ShowClaim, Transcript, now
-from .normalize import (add_alias, alias_lookup, detect_language, find_show, merge_shows, resolve_root, short_lang, url_key)
+from .normalize import (add_alias, alias_lookup, artwork_key, detect_language, find_show, merge_shows, resolve_root, short_lang,
+                        url_key)
 from .trust import budget
 from .trust.audit import audit
 from .trust.jobs import JobContext, register
 from .trust.provenance import get_source, live_rows, record, ttl_for
-from .understanding.extract import enrich_show
+from .understanding.pipeline import understand_show   # Phase 1: rules + local models, no LLM
 from .understanding.quality import transcript_quality
 from .understanding.rules import compute_facts
 from .vectors import upsert_embedding
@@ -151,19 +152,43 @@ def _write_feed_facts(s: Session, show: Show, pf: rsslib.ParsedFeed, ref: str) -
     return facts
 
 
-def stage_feed(s: Session, url: str, user_id: str | None, *, force: bool = False) -> dict:
-    cfg = get_settings()
+def _write_identity_facts(s: Session, show: Show, pf: rsslib.ParsedFeed, directory: dict) -> None:
+    """Identity helpers used by dedupe (never shown in the profile): artwork key, hashed owner e-mail, show type,
+    plus the discovery directory's genres (estimated tier: a directory's classification, not the publisher's)."""
+    rss = get_source(s, "rss", "rss", "Publisher RSS feed; public, fetched with conditional GET")
+    if pf.image:
+        record(s, "show", show.id, "image", pf.image, source=rss, tier="verified", method="parsed")
+        record(s, "show", show.id, "artwork_key", artwork_key(pf.image), source=rss, tier="verified", method="parsed")
+    if pf.owner_hash:
+        record(s, "show", show.id, "owner_email_hash", pf.owner_hash, source=rss, tier="verified", method="parsed",
+               source_ref="sha256(salt|owner e-mail); raw e-mail not stored")
+    if pf.show_type:
+        record(s, "show", show.id, "show_type", pf.show_type, source=rss, tier="verified", method="parsed")
+    if directory.get("genres"):
+        it = get_source(s, "itunes_search", "itunes", "Apple iTunes Search API (no key); directory metadata")
+        record(s, "show", show.id, "directory_categories", [g for g in directory["genres"] if g != "Podcasts"], source=it,
+               tier="estimated", method="api", confidence=0.8, source_ref=f"itunes:{directory.get('itunes_id')}")
+
+
+def stage_feed(s: Session, url: str, user_id: str | None, *, force: bool = False, directory: dict | None = None) -> dict:
+    """`directory` = optional metadata from the discovery source (iTunes Search): itunes_id, genres, artist."""
+    directory = directory or {}
+    itunes_id = str(directory["itunes_id"]) if directory.get("itunes_id") else None
     validate_url(url)
     rss = get_source(s, "rss", "rss", "Publisher RSS feed; public, fetched with conditional GET")
-    existing_id, _ = find_show(s, urls=[url])
+    existing_id, _ = find_show(s, urls=[url], itunes_id=itunes_id)
     show = s.get(Show, existing_id) if existing_id else None
     with _client_factory() as client:
         out = rsslib.fetch_feed(client, url, etag=None if force or show is None else show.etag,
                                 last_modified=None if force or show is None else show.last_modified)
     if out.status == "error":
-        log_run(s, out.result, rsslib.EXPECTED_FIELDS, show.id if show else None)
         if show is None:
+            # committed in its own transaction: the caller's session rolls back when we raise, and the failure reason
+            # must survive (it feeds the feed-failure table)
+            with session_scope() as s2:
+                log_run(s2, out.result, rsslib.EXPECTED_FIELDS, None)
             raise RuntimeError(f"could not fetch feed: {out.result.error}")
+        log_run(s, out.result, rsslib.EXPECTED_FIELDS, show.id)
         show.last_fetch_at, show.last_fetch_ok, show.last_fetch_error = now(), False, out.result.error
         audit(s, "ingest", "fetch_failed_serving_cached", "show", show.id, {"error": out.result.error})
         return {"status": "offline_serving_cached", "show_id": show.id, "error": out.result.error}
@@ -178,7 +203,8 @@ def stage_feed(s: Session, url: str, user_id: str | None, *, force: bool = False
     pf = out.feed
     assert pf is not None
     urls = [u for u in (url, out.final_url, out.permanent_redirect_to, pf.new_feed_url) if u]
-    keep, dups = find_show(s, urls=urls, podcast_guid=pf.podcast_guid, title=pf.title, episode_guids=[e.guid for e in pf.episodes[:50]])
+    keep, dups = find_show(s, urls=urls, podcast_guid=pf.podcast_guid, itunes_id=itunes_id, title=pf.title,
+                           episode_guids=[e.guid for e in pf.episodes[:50]], owner_hash=pf.owner_hash, artwork=artwork_key(pf.image))
     if keep is None:
         canonical = pf.new_feed_url or out.permanent_redirect_to or out.final_url or url
         show = Show(canonical_feed_url=canonical, title=pf.title)
@@ -188,8 +214,9 @@ def stage_feed(s: Session, url: str, user_id: str | None, *, force: bool = False
     else:
         show = s.get(Show, keep)
         created = False
+        why = (s.info.get("merge_reasons") or {})
         for d in dups:
-            merge_shows(s, keep, d, "same feed identity")
+            merge_shows(s, keep, d, why.get(d) or why.get(keep) or "same feed identity")
         if pf.new_feed_url and url_key(pf.new_feed_url) != url_key(show.canonical_feed_url):
             audit(s, "identity", "feed_url_changed", "show", show.id, {"from": show.canonical_feed_url, "to": pf.new_feed_url})
             show.canonical_feed_url = pf.new_feed_url
@@ -198,11 +225,14 @@ def stage_feed(s: Session, url: str, user_id: str | None, *, force: bool = False
     for u in urls:
         add_alias(s, show.id, "rss_url", url_key(u))
     add_alias(s, show.id, "guid", pf.podcast_guid)
+    if itunes_id:
+        add_alias(s, show.id, "itunes_id", itunes_id)
     show.title = pf.title or show.title
     show.etag, show.last_modified, show.content_hash = out.etag, out.last_modified, out.body_hash
     show.last_fetch_at, show.last_fetch_ok, show.last_fetch_error = now(), True, None
     ep_stats = _upsert_episodes(s, show, pf)
     facts = _write_feed_facts(s, show, pf, ref=show.canonical_feed_url)
+    _write_identity_facts(s, show, pf, directory)
     log_run(s, out.result, rsslib.EXPECTED_FIELDS, show.id)
     budget.charge(s, "rss_fetch", "rss", 1, 0.0, podcast_id=show.id, note=f"{out.result.duration_ms}ms")
     if user_id and not s.scalar(select(ShowClaim.id).where(ShowClaim.show_id == show.id, ShowClaim.user_id == user_id)):
@@ -296,6 +326,8 @@ def content_text(s: Session, show: Show) -> str:
 
 
 def style_text(s: Session, show_id: str) -> str | None:
+    """LEGACY (Layer 1): short comma-joined vibe/tone/style labels that were text-embedded for style similarity.
+    Kept only so the Phase 1 eval can measure the old method; no longer used by the pipeline (see Step 5)."""
     def val(f: str) -> Any:
         r = live_rows(s, "show", show_id, f)
         return r[0].value_json if r else None
@@ -312,9 +344,7 @@ def style_text(s: Session, show_id: str) -> str | None:
 def stage_embed(s: Session, show_id: str) -> dict:
     show = s.get(Show, show_id)
     res = {"content": upsert_embedding(s, "show", show_id, "content", content_text(s, show), podcast_id=show_id)}
-    st = style_text(s, show_id)
-    if st:
-        res["style"] = upsert_embedding(s, "show", show_id, "style", st, podcast_id=show_id)
+    # style vectors are numeric now and written by the understanding stage (understanding/pipeline.py + calibration.py)
     n = 0
     for tr in s.scalars(select(Transcript).join(Episode, Episode.id == Transcript.episode_id).where(Episode.show_id == show_id)
                         .order_by(Episode.published_at.desc()).limit(3)):
@@ -329,18 +359,19 @@ def stage_embed(s: Session, show_id: str) -> dict:
 
 
 # ───────────────────────────── orchestration ─────────────────────────────
-def run_pipeline(url: str, user_id: str | None = None, ctx: JobContext | None = None, *, force: bool = False) -> dict:
+def run_pipeline(url: str, user_id: str | None = None, ctx: JobContext | None = None, *, force: bool = False,
+                 directory: dict | None = None) -> dict:
     t0 = time.perf_counter()
     result: dict[str, Any] = (ctx.checkpoint.get("_result") if ctx else None) or {}
     if not _skip(ctx, "feed"):
         with session_scope() as s:
-            result["feed"] = stage_feed(s, url, user_id, force=force)
+            result["feed"] = stage_feed(s, url, user_id, force=force, directory=directory)
         result["show_id"] = result["feed"]["show_id"]
         if ctx:
             ctx.checkpoint["_result"] = result
         _stage_done(ctx, "feed")
     show_id = result["show_id"]
-    for name, fn in (("directory", stage_directory), ("transcripts", stage_transcripts), ("enrich", enrich_show), ("embed", stage_embed)):
+    for name, fn in (("directory", stage_directory), ("transcripts", stage_transcripts), ("enrich", understand_show), ("embed", stage_embed)):
         if _skip(ctx, name):
             continue
         with session_scope() as s:
@@ -356,7 +387,8 @@ def run_pipeline(url: str, user_id: str | None = None, ctx: JobContext | None = 
 
 @register("ingest_rss")
 def job_ingest_rss(ctx: JobContext) -> dict:
-    return run_pipeline(ctx.payload["rss_url"], ctx.payload.get("user_id"), ctx, force=bool(ctx.payload.get("force")))
+    return run_pipeline(ctx.payload["rss_url"], ctx.payload.get("user_id"), ctx, force=bool(ctx.payload.get("force")),
+                        directory=ctx.payload.get("directory"))
 
 
 @register("refresh_show")
@@ -391,6 +423,9 @@ def job_discover(ctx: JobContext) -> dict:
         queued = 0
         for f in feeds[:limit]:
             if f.get("feed_url"):
-                enqueue(s, "ingest_rss", f"ingest_rss:{url_key(f['feed_url'])}", {"rss_url": f["feed_url"], "user_id": None})
+                directory = {"itunes_id": f.get("itunes_id"), "genres": f.get("categories") or [], "artist": f.get("author")} \
+                    if provider == "itunes_search" else None
+                enqueue(s, "ingest_rss", f"ingest_rss:{url_key(f['feed_url'])}", {"rss_url": f["feed_url"], "user_id": None,
+                                                                                    "directory": directory})
                 queued += 1
     return {"provider": provider, "found": len(feeds), "queued": queued}

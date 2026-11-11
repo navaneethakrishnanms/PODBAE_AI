@@ -67,6 +67,18 @@ Logins: `podcaster@podbae.local / demo123` · `brand@podbae.local / demo123` · 
 - [ ] /discover: a "Real shows from RSS" section below the demo rows; "View intelligence →" opens the public profile (no audience/creator fields).
 - [ ] /admin → **Ingestion jobs** (service status, ingest a feed, discover, job list), **Coverage** (per-field % per connector), **Costs** (totals, budgets, by operation).
 
+## 8c. Phase 1 (rules + local model, no LLM)
+- [ ] `npm run ui:smoke` (with `npm run dev` running) prints "0 with problems"; screenshots land in `screenshots/`.
+- [ ] /intelligence: topics show taxonomy names; hover a topic to see its basis (lexicon / model / declared) and supporting episodes.
+- [ ] Conversational style shows "Unknown: no rule was confident" for shows where no rule fires (never a guess).
+- [ ] Guests present shows "x of y recent episodes"; the Evidence list shows the example episode titles and the rule that fired.
+- [ ] /admin → **Coverage**: "Feed fetch outcomes" table with failure reasons (http_4xx, timeout, invalid_xml, ...).
+- [ ] /admin → **Ingestion jobs** → "Recalibrate corpus" returns counts (vibe stats n, style vectors).
+- [ ] /admin → **Labels** → "Open the labelling page" → /admin/labels: enter your name, label a show (1-5 topics, exactly 3 vibes,
+      style, guest-friendly) → "Save & next"; the number turns green; progress counter increases.
+- [ ] Label the same shows under a second name → the agreement table shows kappa / Jaccard for the pair.
+- [ ] Stop the AI service, or set a wrong `INTEL_SERVICE_TOKEN` for the API only → intelligence pages degrade (cached profile / "ai down"), the app does not crash.
+
 ## 9. Admin (admin@podbae.local / admin123)
 - [ ] /admin: stats; Podcasts tab → Verify/Unverify toggles; Users tab lists accounts.
 - [ ] "Generate opportunities", "Run enhanced matching", "Seed test podcasts" show a toast result.

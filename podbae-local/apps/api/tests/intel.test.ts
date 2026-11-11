@@ -100,6 +100,35 @@ describe('Layer 1 wiring (AI service mocked at the HTTP boundary)', () => {
     expect(down.body).toMatchObject({ total: 0, ai_down: true });
   });
 
+  it('sends the X-Service-Token header on every AI-service call', async () => {
+    const { config } = await import('../src/config.js');
+    const prev = config.intelServiceToken;
+    config.intelServiceToken = 'tok-123';
+    const seen: (string | null)[] = [];
+    vi.stubGlobal('fetch', vi.fn(async (_url: string, init?: RequestInit) => {
+      seen.push(new Headers(init?.headers).get('x-service-token'));
+      return json(200, { total: 0, shows: [] });
+    }));
+    try {
+      await request(app).get('/api/intel/shows');
+      const admin = await login('admin@podbae.local', 'admin123');
+      await admin.get('/api/admin/intel/labels/queue?labeler=Ana');
+      expect(seen.length).toBe(2);
+      expect(seen.every((h) => h === 'tok-123')).toBe(true);
+    } finally { config.intelServiceToken = prev; }
+  });
+
+  it('label routes are admin-only and validate input before calling the AI service', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => json(200, { show_id: 'shw_1' })));
+    const user = await login('podcaster@podbae.local', 'demo123');
+    expect((await user.put('/api/admin/intel/labels/shw_1').send({})).status).toBe(403);
+    const admin = await login('admin@podbae.local', 'admin123');
+    const bad = await admin.put('/api/admin/intel/labels/shw_1').send({ labeler: 'Ana', topics: [], vibes: ['a'], style: 'x', guest_friendly: true });
+    expect(bad.status).toBe(400);
+    const ok = await admin.put('/api/admin/intel/labels/shw_1').send({ labeler: 'Ana', topics: ['comedy'], vibes: ['Casual', 'Humorous', 'Energetic'], style: 'interview', guest_friendly: true });
+    expect(ok.status).toBe(200);
+  });
+
   it('admin intel dashboards are admin-only', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => json(200, { connectors: {} })));
     const user = await login('podcaster@podbae.local', 'demo123');

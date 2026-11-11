@@ -36,6 +36,14 @@ def test_dedupe_precision_recall(db, server):
     # known hard cases we EXPECT to miss: host migration changed every episode guid and there is no podcast:guid
     add("/hard1/a.xml", "E5", "baseline", title="Epsilon Weekly", n=8, guid_prefix="e1")
     add("/hard1/b.xml", "E5", "HARD: migrated host, all new episode guids, no podcast:guid", title="Epsilon Weekly", n=8, guid_prefix="e2")
+    # same migration, but the owner e-mail (hashed) is the same -> strong signal -> merge
+    add("/own/a.xml", "E6", "baseline", title="Zeta Radio", n=8, guid_prefix="z1", owner_email="host@zeta.example")
+    add("/own/b.xml", "E6", "migrated host, all new guids, same owner (hashed e-mail)", title="Zeta Radio", n=8, guid_prefix="z2",
+        owner_email="HOST@zeta.example")
+    # same migration, same artwork file -> merge
+    add("/art/a.xml", "E7", "baseline", title="Eta Stories", n=8, guid_prefix="h1", image="https://cdn.example/eta/cover.jpg")
+    add("/art/b.xml", "E7", "migrated host, all new guids, same artwork", title="Eta Stories", n=8, guid_prefix="h2",
+        image="https://cdn.example/eta/cover.jpg")
 
     # ---------- look-alikes that must NOT merge ----------
     add("/neg/s1.xml", "N1", "negative baseline", title="Morning Notes", n=8, guid_prefix="ep")            # default 'ep-N' guids...
@@ -48,6 +56,15 @@ def test_dedupe_precision_recall(db, server):
     add("/neg/s7.xml", "N7", "near-identical title", title="Garden Talks", n=8, guid_prefix="gt2")
     add("/neg/s8.xml", "N8", "same title, 30% overlap only", title="Shared Name", n=10, guid_prefix="sn")
     add("/neg/s9.xml", "N9", "same title, 30% overlap only", title="Shared Name", n=17, guid_prefix="sn", skip_guids={f"sn-{i}" for i in range(0, 7)})
+    # Phase 1 subset-merge risk: same title + generic episode guids ('ep-1'...) that collide across unrelated shows
+    add("/neg/s10.xml", "N10", "homonym, same title, colliding short guids", title="The Weekly Chat", n=12, guid_prefix="ep", guid_style="short",
+        owner_email="anna@one.example")
+    add("/neg/s11.xml", "N11", "homonym SUBSET: same title, fewer eps, all short guids contained in N10", title="The Weekly Chat", n=5,
+        guid_prefix="ep", guid_style="short", owner_email="ben@two.example", lang="en")
+    add("/neg/s12.xml", "N12", "same title + same artwork but DIFFERENT podcast:guid (conflict)", title="Theta Hour", n=8, guid_prefix="t1",
+        podcast_guid="33333333-aaaa-5bbb-8ccc-000000000003", image="https://cdn.example/stock/mic.jpg")
+    add("/neg/s13.xml", "N13", "same title + same artwork but DIFFERENT podcast:guid (conflict)", title="Theta Hour", n=8, guid_prefix="t2",
+        podcast_guid="44444444-aaaa-5bbb-8ccc-000000000004", image="https://cdn.example/stock/mic.jpg")
 
     ids: list[str] = []
     for path, kw, _ent, _sc in cases:
@@ -77,9 +94,12 @@ def test_dedupe_precision_recall(db, server):
     recall = tp / (tp + fn) if tp + fn else 1.0
     res = {"feeds": len(cases), "true_entities": len(set(truth)), "predicted_shows": len(set(ids)), "pairs": tp + fp + fn + tn,
            "tp": tp, "fp": fp, "fn": fn, "tn": tn, "precision": round(precision, 4), "recall": round(recall, 4), "errors": errors,
-           "note": "synthetic duplicates/look-alikes built by us; includes 1 deliberately hard case (all-new episode guids) we expect to miss"}
+           "false_merges": [e for e in errors if e["predicted_same"]], "missed_merges": [e for e in errors if not e["predicted_same"]],
+           "note": "synthetic duplicates/look-alikes built by us; includes 1 deliberately hard case (all-new episode guids, no owner/artwork "
+                   "signal) we expect to miss. Owner identity compared only as a salted hash."}
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(res, indent=1), encoding="utf-8")
     assert precision == 1.0, errors           # we never merge different shows (in this constructed set)
-    assert recall >= 0.85, errors             # all realistic duplicates caught; only the deliberately hard case may be missed
+    assert recall >= 0.85, errors
+    assert not res["false_merges"], res["false_merges"]             # all realistic duplicates caught; only the deliberately hard case may be missed
     assert {e["a"].split("[")[1] for e in errors} <= {"/hard1/a.xml]"}, errors

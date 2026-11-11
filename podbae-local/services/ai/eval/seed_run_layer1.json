@@ -1,0 +1,2233 @@
+{
+ "finished": "2026-11-04 16:39:13",
+ "wall_seconds": 581.7,
+ "shows_in_store": 102,
+ "results": [
+  {
+   "url": "http://www.manager-tools.com/feeds/mt_podcasts.xml",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.33
+  },
+  {
+   "url": "http://www.lewrockwell.com/podcast/feed.xml",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.75
+  },
+  {
+   "url": "https://palegroove.com/seasons/root-of-evil-the-true-story-of-the-hodel-family-and-the-black-dahlia.xml",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'palegroove.com'. (_ssl.c:1017)",
+   "seconds": 0.88
+  },
+  {
+   "url": "https://rss.art19.com/lisk",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.15
+  },
+  {
+   "url": "http://wordonfire.podbean.com/feed/",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.71
+  },
+  {
+   "url": "http://smlr.us/?feed=smlr-ogg",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 3.93
+  },
+  {
+   "url": "http://portal-api.thisisdistorted.com/xml/nora-en-pure-purified-radio",
+   "category": "Sports & Hobbies",
+   "ok": true,
+   "show_id": "shw_21f8cdda828a",
+   "status": "ok",
+   "seconds": 25.19,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/tdicasts",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_3e1063f138b5",
+   "status": "ok",
+   "seconds": 26.47,
+   "enrich": "llm",
+   "episodes": 50
+  },
+  {
+   "url": "http://feeds.feedburner.com/HanselminutesCompleteMP3",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_a48be052a9c7",
+   "status": "ok",
+   "seconds": 26.58,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://www.japanesepod101.com/wp-feed-audio.php",
+   "category": "Education",
+   "ok": true,
+   "show_id": "shw_7a441048efad",
+   "status": "ok",
+   "seconds": 26.77,
+   "enrich": "llm",
+   "episodes": 78
+  },
+  {
+   "url": "http://feeds.feedburner.com/zencast",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_629c3e3feab1",
+   "status": "ok",
+   "seconds": 3.23,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/IShouldBeMeditatingPodcast",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_9cdbe4b03c77",
+   "status": "ok",
+   "seconds": 1.13,
+   "enrich": "llm",
+   "episodes": 84
+  },
+  {
+   "url": "http://politicsandguns.libsyn.com/rss",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)",
+   "seconds": 15.08
+  },
+  {
+   "url": "http://distrowatch.com/news/podcast.xml",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.71
+  },
+  {
+   "url": "https://backpackinglightpodcast.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://sidenote.libsyn.com/rss",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://www.katenagroup.org/PODCAST_FEEDS/FLORIDAPSYCH.xml",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.feedburner.com/MyHistoryCanBeatUpYourPolitics",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 26.4
+  },
+  {
+   "url": "http://librivox.org/bookfeeds/the-montessori-method-by-maria-montessori.xml",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.61
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/ExLibrisConciliar",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_1ae96a7877bf",
+   "status": "ok",
+   "seconds": 3.21,
+   "enrich": "llm",
+   "episodes": 99
+  },
+  {
+   "url": "http://feeds.feedburner.com/AlbertMohlerPowerline",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_3d4c3a571aa7",
+   "status": "ok",
+   "seconds": 11.84,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "https://mindsetbydesign.libsyn.com/rss",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 23.06
+  },
+  {
+   "url": "http://faif.us/feeds/cast-ogg",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 27.39
+  },
+  {
+   "url": "http://feeds.schlaflosinmuenchen.com/slowsim.xml",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.06
+  },
+  {
+   "url": "http://feeds.feedburner.com/AcademyIM",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_87fd53b33335",
+   "status": "ok",
+   "seconds": 6.35,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/cotg",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 1.67
+  },
+  {
+   "url": "https://feeds.megaphone.fm/thenod",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 27.48
+  },
+  {
+   "url": "https://themeditationpodcast.com/tmp.xml",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.05
+  },
+  {
+   "url": "http://feeds.feedburner.com/PhandroidPodcast",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_bcbeff44bcc4",
+   "status": "ok",
+   "seconds": 2.06,
+   "enrich": "llm",
+   "episodes": 15
+  },
+  {
+   "url": "http://feeds.twis.org/twis/science",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.74
+  },
+  {
+   "url": "http://www.presentationministries.com/dbread/dbreadpodcast.asp",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: episodes.show_id, episodes.guid\n[SQL: INSERT INTO episodes (id, show_id, guid, title, description, published_at, duration_sec, explic",
+   "seconds": 2.74
+  },
+  {
+   "url": "http://rss.art19.com/stories-podcast",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.07
+  },
+  {
+   "url": "http://robbwolf.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 45.18
+  },
+  {
+   "url": "http://feeds.feedburner.com/changelogshow",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_398f4f751a96",
+   "status": "ok",
+   "seconds": 12.61,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HTX4718937196",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "http://feeds.feedburner.com/therissingtonpodcast",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 9.38
+  },
+  {
+   "url": "http://feeds.feedburner.com/EndtimeMinistriesPodcast",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.05
+  },
+  {
+   "url": "http://mentalpoison.libsyn.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 4.08
+  },
+  {
+   "url": "http://feeds.feedburner.com/boagworldpodcast",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.04
+  },
+  {
+   "url": "http://www.thenarrativebreakdown.com/topics/podcast-episodes/feed",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
+   "seconds": 7.03
+  },
+  {
+   "url": "http://www.abc.net.au/radionational/feed/2888650/podcast.xml",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
+   "seconds": 16.84
+  },
+  {
+   "url": "http://isbw.wm.wizzard.tv/rss",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
+   "seconds": 14.23
+  },
+  {
+   "url": "http://feeds.feedburner.com/gangster-capitalism",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/boagworldpodcast/",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.07
+  },
+  {
+   "url": "http://feeds.feedburner.com/twis/science",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_2be5bf5cc5e3",
+   "status": "ok",
+   "seconds": 2.71,
+   "enrich": "llm",
+   "episodes": 50
+  },
+  {
+   "url": "https://www.spreaker.com/show/3212066/episodes/feed",
+   "category": "True Crime",
+   "ok": true,
+   "show_id": "shw_8f59c488dcdb",
+   "status": "ok",
+   "seconds": 5.54,
+   "enrich": "llm",
+   "episodes": 30
+  },
+  {
+   "url": "http://www.lewrockwell.com/lewrockwell-show/feed/",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_272a65c69ef0",
+   "status": "ok",
+   "seconds": 6.75,
+   "enrich": "llm",
+   "episodes": 30
+  },
+  {
+   "url": "http://www.billburr.com/feed",
+   "category": "Comedy",
+   "ok": true,
+   "show_id": "shw_0a0cf3ba9807",
+   "status": "ok",
+   "seconds": 1.33,
+   "enrich": "llm",
+   "episodes": 0
+  },
+  {
+   "url": "http://shoptalkshow.com/feed/podcast",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_aa6231e8130f",
+   "status": "ok",
+   "seconds": 3.33,
+   "enrich": "llm",
+   "episodes": 100
+  },
+  {
+   "url": "http://feeds.wsjonline.com/wsj/podcast_wall_street_journal_on_small_business",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_bc17b0f38fe2",
+   "status": "ok",
+   "seconds": 8.4,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://learningenglish.voanews.com/podcast/?count=20&zoneId=986",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 24.99
+  },
+  {
+   "url": "http://feeds.feedburner.com/best-practice-software-engineering-podcast",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_15281b0da9e6",
+   "status": "ok",
+   "seconds": 1.98,
+   "enrich": "llm",
+   "episodes": 18
+  },
+  {
+   "url": "http://feeds.feedburner.com/BenGreenfieldFitness",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_bf88c3bdf335",
+   "status": "ok",
+   "seconds": 0.86,
+   "enrich": "llm",
+   "episodes": 25
+  },
+  {
+   "url": "https://rss.art19.com/alternate_feeds/user/cold/iflK1omSrLPRbPL7T-z38sBn2XLqJysy",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.63
+  },
+  {
+   "url": "http://feeds.harvardbusiness.org/harvardbusiness/ideacast",
+   "category": "Business",
+   "ok": false,
+   "error": "IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: episodes.show_id, episodes.guid\n[SQL: INSERT INTO episodes (id, show_id, guid, title, description, published_at, duration_sec, explic",
+   "seconds": 2.86
+  },
+  {
+   "url": "http://feeds.feedburner.com/RatholeRadio-ogg",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_921b343ccd19",
+   "status": "ok",
+   "seconds": 4.42,
+   "enrich": "llm",
+   "episodes": 117
+  },
+  {
+   "url": "http://ludology.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 23.35
+  },
+  {
+   "url": "http://selectedshortspri.pri.libsynpro.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.49
+  },
+  {
+   "url": "http://opensourcemusician.libsyn.com/rss",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 26.66
+  },
+  {
+   "url": "http://revolutionspodcast.libsyn.com/rss",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 27.56
+  },
+  {
+   "url": "http://feeds.feedburner.com/menshealth/UCOo",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.56
+  },
+  {
+   "url": "http://mikenation.net/feed/podcast/",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_ed76b5168822",
+   "status": "ok",
+   "seconds": 4.08,
+   "enrich": "llm",
+   "episodes": 42
+  },
+  {
+   "url": "http://feeds.feedburner.com/ProgrammingThrowdown",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_824b46c9787b",
+   "status": "ok",
+   "seconds": 7.23,
+   "enrich": "llm",
+   "episodes": 190
+  },
+  {
+   "url": "http://thinkingsidewayspodcast.libsyn.com/rss",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.28
+  },
+  {
+   "url": "http://worldwariipodcast.net/wordpress/feed/",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 22.78
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheGameKennel",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.44
+  },
+  {
+   "url": "http://feeds.feedburner.com/Storynory",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 25.76
+  },
+  {
+   "url": "http://www.soulofislamradio.com/blog/feed/podcast/",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.74
+  },
+  {
+   "url": "http://www.shutupandsitdown.com/podcast/feed.xml",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/NoPressureToBeFunny",
+   "category": "Comedy",
+   "ok": true,
+   "show_id": "shw_1ece289a6c4e",
+   "status": "ok",
+   "seconds": 1.96,
+   "enrich": "llm",
+   "episodes": 40
+  },
+  {
+   "url": "http://rss.art19.com/casefile/",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.09
+  },
+  {
+   "url": "https://rss.art19.com/generation-why-podcast",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/CoralRidgePresbyterianChurchSermons",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_16e99c214cf2",
+   "status": "ok",
+   "seconds": 1.99,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://www.wallawalla.edu/academics/departments/theology/goodword/podcast.php",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.91
+  },
+  {
+   "url": "https://feeds.buzzsprout.com/1956167.rss",
+   "category": "Comedy",
+   "ok": true,
+   "show_id": "shw_97e795622cab",
+   "status": "ok",
+   "seconds": 2.8,
+   "enrich": "llm",
+   "episodes": 16
+  },
+  {
+   "url": "http://feeds.feedburner.com/wow-podcast",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_88dec2e9e432",
+   "status": "ok",
+   "seconds": 2.53,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "https://rss.art19.com/sean-carrolls-mindscape",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "https://humanperformanceoutliers.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 46.75
+  },
+  {
+   "url": "http://feeds.feedburner.com/thetruthapm",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.39
+  },
+  {
+   "url": "http://feed.desiringgod.org/sermon-of-the-day.rss",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 3.91
+  },
+  {
+   "url": "http://feeds.feedburner.com/glendalecitysda/rvke",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.52
+  },
+  {
+   "url": "http://feedpress.me/keylife",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_80154b253ad7",
+   "status": "ok",
+   "seconds": 1.18,
+   "enrich": "llm",
+   "episodes": 30
+  },
+  {
+   "url": "http://feeds.feedburner.com/NumeneraTheSignalPodcast",
+   "category": "Sports & Hobbies",
+   "ok": true,
+   "show_id": "shw_b79610d8c6c5",
+   "status": "ok",
+   "seconds": 1.92,
+   "enrich": "llm",
+   "episodes": 25
+  },
+  {
+   "url": "http://www.messyparenting.org/?feed=podcast",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 31.58
+  },
+  {
+   "url": "http://feeds.feedburner.com/dailyboost",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_f8721eecb379",
+   "status": "ok",
+   "seconds": 4.41,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/PaleoPodcast",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 20.82
+  },
+  {
+   "url": "https://rss.art19.com/review-revue",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheBikeShow",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_76e360cb485e",
+   "status": "ok",
+   "seconds": 1.78,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://healthylivingradio.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://dicetower.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://thefitcast.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.feedburner.com/Hanselminutes",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 38.19
+  },
+  {
+   "url": "http://feeds.feedburner.com/PulpGamer",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.46
+  },
+  {
+   "url": "http://throwingshade.libsyn.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 35.73
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/f5d5fac6-77be-47e6-9aee-ae32006cd8c3/b26cbbeb-86eb-4b97-9b34-ae32006cd8d6/podcast.rss",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "http://improvstartrek.libsyn.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://onsoftwarevid.pearson.libsynpro.com/rss",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/sqeconferences",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_e316bc1109e7",
+   "status": "ok",
+   "seconds": 0.67,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://risky.biz/feeds/risky-business",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 37.43
+  },
+  {
+   "url": "http://feeds.feedburner.com/BestOfTheLeftPodcastmp3",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.9
+  },
+  {
+   "url": "http://www.se-radio.net/feed/",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_a6b4b3c8f76c",
+   "status": "ok",
+   "seconds": 1.88,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://feeds.twit.tv/specials_video_large",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_b4924941205b",
+   "status": "ok",
+   "seconds": 8.8,
+   "enrich": "llm",
+   "episodes": 25
+  },
+  {
+   "url": "http://feeds.feedburner.com/CityJournalPodcasts",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.87
+  },
+  {
+   "url": "http://tarabrach.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 23.41
+  },
+  {
+   "url": "https://happymelly.libsyn.com/rss",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.twit.tv/floss_video_large",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_a7909658d0e4",
+   "status": "ok",
+   "seconds": 7.77,
+   "enrich": "llm",
+   "episodes": 50
+  },
+  {
+   "url": "http://feeds.podtrac.com/GCZVrOrFIOIY",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_5274d7db2418",
+   "status": "ok",
+   "seconds": 4.6,
+   "enrich": "llm",
+   "episodes": 72
+  },
+  {
+   "url": "http://foodforfitness.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 38.39
+  },
+  {
+   "url": "http://feeds.feedburner.com/EmbraceRunning",
+   "category": "Sports & Hobbies",
+   "ok": true,
+   "show_id": "shw_16080be5d1d6",
+   "status": "ok",
+   "seconds": 0.78,
+   "enrich": "llm",
+   "episodes": 29
+  },
+  {
+   "url": "http://rss.allaboutsymbian.com/media/podcastfeed.xml",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 27.81
+  },
+  {
+   "url": "http://www.lingq.com/itunes/45051",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.4
+  },
+  {
+   "url": "http://mediapub.it.ox.ac.uk/feeds/129288/audio.xml",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.42
+  },
+  {
+   "url": "http://feeds.feedburner.com/rfk-tapes",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_0e75367cfdb7",
+   "status": "ok",
+   "seconds": 4.97,
+   "enrich": "llm",
+   "episodes": 26
+  },
+  {
+   "url": "https://feeds.megaphone.fm/almostheretical",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.1
+  },
+  {
+   "url": "http://frug.podbean.com/feed/",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.81
+  },
+  {
+   "url": "https://feeds.megaphone.fm/END8394789342",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 27.58
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/2abb18df-01d8-477b-aea7-ab3c017f7754/299e64ef-7490-4140-8769-ab3c017f7767/podcast.rss",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/MarketingOverCoffee",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_550067df0846",
+   "status": "ok",
+   "seconds": 1.98,
+   "enrich": "cache",
+   "episodes": 99
+  },
+  {
+   "url": "http://www.faif.us/feeds/cast-mp3/",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 10.57
+  },
+  {
+   "url": "https://nordictruecrime.podbean.com/feed.xml",
+   "category": "True Crime",
+   "ok": true,
+   "show_id": "shw_42d4f20d30f6",
+   "status": "ok",
+   "seconds": 2.58,
+   "enrich": "llm",
+   "episodes": 42
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheAdamCarollaPodcast",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_a19316f3fd23",
+   "status": "ok",
+   "seconds": 3.43,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://nekkidtech.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.05
+  },
+  {
+   "url": "http://feeds.feedburner.com/stuartgoldsmith",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.17
+  },
+  {
+   "url": "http://feeds.waywordradio.org/awwwpodcast",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.73
+  },
+  {
+   "url": "https://feeds.feedburner.com/QueeryWithCameronEsposito",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.58
+  },
+  {
+   "url": "http://feeds.feedburner.com/QuietThePowerOfIntrovertsWithSusanCain",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.72
+  },
+  {
+   "url": "http://quicksurf.com/?feed=mp3&cat=141",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://boardgamebabylon.libsyn.com/rss",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://isc1.sans.org/dailypodcast.xml",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 2.94
+  },
+  {
+   "url": "https://alanwattsarchive.podomatic.com/rss2.xml",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_23b3d35bce82",
+   "status": "ok",
+   "seconds": 0.71,
+   "enrich": "llm",
+   "episodes": 45
+  },
+  {
+   "url": "http://rationalsecurity.libsyn.com/rss",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.feedburner.com/webaxe",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_39efc0617429",
+   "status": "ok",
+   "seconds": 1.79,
+   "enrich": "llm",
+   "episodes": 0
+  },
+  {
+   "url": "http://vimeo.com/channels/kairossermons/videos/rss",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_221a83036204",
+   "status": "ok",
+   "seconds": 1.67,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://feeds.feedburner.com/tlf-podcast",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_320ddfffaf9e",
+   "status": "ok",
+   "seconds": 2.09,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://feeds.feedburner.com/iinnovatecast",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_34f690d0d448",
+   "status": "ok",
+   "seconds": 0.84,
+   "enrich": "llm",
+   "episodes": 25
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThePartiallyExaminedLife",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.64
+  },
+  {
+   "url": "http://seemedlikeagoodideaatthetime.libsyn.com/rss",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 29.35
+  },
+  {
+   "url": "http://www.sffaudio.com/?feed=podcast",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 7.9
+  },
+  {
+   "url": "http://geologicpodcast.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 500",
+   "seconds": 14.01
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheLongViewPodcast",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.4
+  },
+  {
+   "url": "https://feeds.simplecast.com/5lbWOVqN",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "http://imaginaryfriendsshow.libsyn.com/rss",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://goodjobbrain.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 4.09
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThisIsMyNextPodcast",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.05
+  },
+  {
+   "url": "http://www.cert.org/podcasts/exec_podcast.rss",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
+   "seconds": 14.13
+  },
+  {
+   "url": "http://violetblue.libsyn.com/rss",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RemoteProtocolError: Server disconnected without sending a response.",
+   "seconds": 11.08
+  },
+  {
+   "url": "http://feed.desiringgod.org/theology-refresh.rss",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectError: [WinError 10061] No connection could be made because the target machine actively refused it",
+   "seconds": 2.31
+  },
+  {
+   "url": "http://files.thisagilelife.com/this-agile-life.xml",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 1.99
+  },
+  {
+   "url": "http://feeds.feedburner.com/wiredlivepodcast",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 2.61
+  },
+  {
+   "url": "http://revision3.com/hak5/feed/MP4-hd30",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 3.22
+  },
+  {
+   "url": "http://feeds.5minutesinchurchhistory.com/5ChurchHistory",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_2c487284a89c",
+   "status": "ok",
+   "seconds": 3.91,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.thedisciplinedinvestor.com/tdicasts",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_3e1063f138b5",
+   "status": "ok",
+   "seconds": 3.17,
+   "enrich": "cache",
+   "episodes": 50
+  },
+  {
+   "url": "http://academicearth.org/courses/programming-methodology/video.rss",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 500",
+   "seconds": 1.37
+  },
+  {
+   "url": "https://anchor.fm/s/46287364/podcast/rss",
+   "category": "Education",
+   "ok": true,
+   "show_id": "shw_641c7b6d53b3",
+   "status": "ok",
+   "seconds": 0.6,
+   "enrich": "llm",
+   "episodes": 12
+  },
+  {
+   "url": "http://feeds.feedburner.com/london/lbs",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_2d62d0aa1574",
+   "status": "ok",
+   "seconds": 2.48,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HSW9350285911",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 13.6
+  },
+  {
+   "url": "http://www.barnesandnoble.com/rss/mtw.xml",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.01
+  },
+  {
+   "url": "http://mettahour.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 24.09
+  },
+  {
+   "url": "http://feeds.feedburner.com/Roll2d6",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.41
+  },
+  {
+   "url": "http://stoppodcastingyourself.libsyn.com/rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.feedburner.com/SundayMorningLinuxReview-Mp3Feed",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 1.69
+  },
+  {
+   "url": "http://5minutesinchurchhistory.ligonier.org/rss",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 26.11
+  },
+  {
+   "url": "https://rss.art19.com/the-one-you-feed",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 62.73
+  },
+  {
+   "url": "http://feeds.feedburner.com/abcradio/10percenthappier",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: InvalidUrl: cannot resolve host 'feeds.castfire.com'",
+   "seconds": 1.87
+  },
+  {
+   "url": "http://leoville.tv/podcasts/floss.xml",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_95daae612baf",
+   "status": "ok",
+   "seconds": 33.02,
+   "enrich": "llm",
+   "episodes": 50
+  },
+  {
+   "url": "http://www.abc.net.au/radio/programs/truecrime/feed/9758336/podcast.xml",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.89
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/RaisingSaintsAFR",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_48beab28ce72",
+   "status": "ok",
+   "seconds": 18.94,
+   "enrich": "llm",
+   "episodes": 85
+  },
+  {
+   "url": "http://www.keithandthegirl.com/rss/",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.1
+  },
+  {
+   "url": "http://feeds.feedburner.com/bikeshowfeed",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_bdcc17abe8f3",
+   "status": "ok",
+   "seconds": 10.13,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://www.lse.ac.uk/assets/richmedia/webFeeds/publicLecturesAndEvents_iTunesStore.xml",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_6ac048d3b72d",
+   "status": "ok",
+   "seconds": 21.64,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/2d6Feet",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.44
+  },
+  {
+   "url": "http://www.manager-tools.com/podcasts/feed/rss2",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.41
+  },
+  {
+   "url": "http://feeds.feedburner.com/KidsStoriesAndFairyTales-PalaceOfStoriesPodcast",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_f6fe0368ef7e",
+   "status": "ok",
+   "seconds": 3.69,
+   "enrich": "llm",
+   "episodes": 0
+  },
+  {
+   "url": "http://feeds.feedburner.com/thornmorris",
+   "category": "Comedy",
+   "ok": true,
+   "show_id": "shw_6be65e3b28f7",
+   "status": "ok",
+   "seconds": 4.47,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://chinahistorypodcast.com/feed/podcast/",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.42
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheLinuxActionShowOGG",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_253ca5983732",
+   "status": "ok",
+   "seconds": 2.56,
+   "enrich": "llm",
+   "episodes": 156
+  },
+  {
+   "url": "http://www.artofstorytellingshow.com/podcast/storycast.xml",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.7
+  },
+  {
+   "url": "https://foundmyfitness.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 29.93
+  },
+  {
+   "url": "http://podcast.ft.com/rss/60/",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.7
+  },
+  {
+   "url": "http://shoptalkshow.com/feed/podcast/",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_aa6231e8130f",
+   "status": "not_modified",
+   "seconds": 0.78,
+   "enrich": "cache",
+   "episodes": null
+  },
+  {
+   "url": "http://feeds.feedburner.com/dancarlin/commonsense",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_99f12206c5e2",
+   "status": "ok",
+   "seconds": 0.58,
+   "enrich": "llm",
+   "episodes": 8
+  },
+  {
+   "url": "http://stardate.org/feeds/podcast.xml",
+   "category": "Sports & Hobbies",
+   "ok": true,
+   "show_id": "shw_21c250afecc1",
+   "status": "ok",
+   "seconds": 5.53,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://feeds.feedburner.com/RichardHerringEdinburghPodcast",
+   "category": "Comedy",
+   "ok": true,
+   "show_id": "shw_35c15a4d1f6c",
+   "status": "ok",
+   "seconds": 2.14,
+   "enrich": "llm",
+   "episodes": 80
+  },
+  {
+   "url": "http://revision3.com/filmstate/feed/MP4-Large",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.32
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/SermonsAtStNicholas",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_515fc9888e10",
+   "status": "ok",
+   "seconds": 3.35,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://dl.dropbox.com/u/903112/bible.xml",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.41
+  },
+  {
+   "url": "http://podcasts.personallifemedia.com/podcasts/225-sex-tantra-and-kama-sutra/feedburner.rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.27
+  },
+  {
+   "url": "http://genealogygemspodcast.com/rss",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://feeds.feedburner.com/WeeklyPodcastNorthPoint",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.45
+  },
+  {
+   "url": "http://www.sitepoint.com/?feed=podcast",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 0.14
+  },
+  {
+   "url": "http://biblestudypodcasts.org/index.php/feed",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_282e88ce04bd",
+   "status": "ok",
+   "seconds": 5.56,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://rss.sciam.com/sciam/60-second-tech",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_440e4ce795d1",
+   "status": "ok",
+   "seconds": 2.1,
+   "enrich": "llm",
+   "episodes": 161
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/caa92bb1-73cc-4abc-8b6d-aca8005d0d23/471fc444-1378-4268-86ea-aca8005d0d3b/podcast.rss",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_151776fedf0c",
+   "status": "ok",
+   "seconds": 24.92,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://bedsiderounds.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 31.8
+  },
+  {
+   "url": "https://feeds.publicradio.org/public_feeds/spectacular-failures/itunes/rss.rss",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.32
+  },
+  {
+   "url": "http://feeds.soundcloud.com/users/soundcloud%3Ausers%3A145673510/sounds.rss",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_57c121ca86ee",
+   "status": "ok",
+   "seconds": 1.27,
+   "enrich": "llm",
+   "episodes": 4
+  },
+  {
+   "url": "https://hurryslowly.co/feed/podcast/",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_db7af9050f2a",
+   "status": "ok",
+   "seconds": 2.33,
+   "enrich": "llm",
+   "episodes": 95
+  },
+  {
+   "url": "http://2d6feet.com/category/podcast-and-notes/feed",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 403",
+   "seconds": 2.64
+  },
+  {
+   "url": "http://www.ivoox.com/podcast-conferencias-marketing-directo_fg_f1346_filtro_1.xml",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "http://thefoundation.libsyn.com/rss",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 32.79
+  },
+  {
+   "url": "http://mediapub.it.ox.ac.uk/feeds/129144/audio.xml",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://www.thetvcritic.org/historypodcasts/feed.xml",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.77
+  },
+  {
+   "url": "http://www.guardian.co.uk/stage/series/amnesty-international-comedy-podcast/podcast.xml",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.07
+  },
+  {
+   "url": "http://zigziglar.libsyn.com/rss",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "https://practicalstoicpodcast.podbean.com/feed/",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.19
+  },
+  {
+   "url": "https://rss.art19.com/deconstructing-yourself",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://www.scpr.org/podcasts/loh_down",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 21.24
+  },
+  {
+   "url": "http://www.abc.net.au/radionational/feed/5614238/podcast.xml",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.13
+  },
+  {
+   "url": "https://reason.com/podcasts/the-reason-interview-with-nick-gillespie/feed/",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_6c91a47ab6ee",
+   "status": "ok",
+   "seconds": 3.57,
+   "enrich": "llm",
+   "episodes": 100
+  },
+  {
+   "url": "http://feeds.feedburner.com/comedycentral/standup",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 1.96
+  },
+  {
+   "url": "http://feeds.feedburner.com/361Degrees",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.73
+  },
+  {
+   "url": "https://s3.us-east-2.amazonaws.com/podcast.intelligence.org/razmedia/razfeed.xml",
+   "category": "Education",
+   "ok": true,
+   "show_id": "shw_e1c9f18c99fb",
+   "status": "ok",
+   "seconds": 2.33,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://chaosradio.ccc.de/chaos_tv-latest.rss",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://librivox.org/rss/4108",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_4facb3f5eb43",
+   "status": "ok",
+   "seconds": 1.9,
+   "enrich": "llm",
+   "episodes": 13
+  },
+  {
+   "url": "http://podiobooks.com/rss/feeds/episodes/murder-at-avedon-hill/",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.93
+  },
+  {
+   "url": "http://www.sfbrp.com/?feed=podcast",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 35.17
+  },
+  {
+   "url": "http://mindpump.libsyn.com/rss",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.28
+  },
+  {
+   "url": "http://feeds.feedburner.com/SingularityBlog",
+   "category": "Business",
+   "ok": true,
+   "show_id": "shw_d48cdb767392",
+   "status": "ok",
+   "seconds": 2.95,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://bootstrapfarmer.libsyn.com/rss",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 27.54
+  },
+  {
+   "url": "http://www.funagain.com/control/viewblog.xml?contentBlogId=TDT",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.49
+  },
+  {
+   "url": "http://conversionaid.libsyn.com/rss",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://feeds.feedburner.com/linuxfortherestofus",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_1ab12504457d",
+   "status": "ok",
+   "seconds": 1.48,
+   "enrich": "llm",
+   "episodes": 30
+  },
+  {
+   "url": "https://rss.art19.com/biggerpockets-real-estate-podcast",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.11
+  },
+  {
+   "url": "http://www.howstuffworks.com/podcasts/brainstuff.rss",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.44
+  },
+  {
+   "url": "http://feeds.marspatel.com/marspatel",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.43
+  },
+  {
+   "url": "http://www.learnitalianpod.com/feed/",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "https://rss.art19.com/sword-and-scale",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://billburr.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://podcast.hr-online.de/hrinfo-cybercrime/podcast.xml",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "http://mikenation.net/miketechshow.xml",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_ed76b5168822",
+   "status": "ok",
+   "seconds": 1.13,
+   "enrich": "cache",
+   "episodes": 42
+  },
+  {
+   "url": "http://healthylivingradio.libsyn.org/rss/",
+   "category": "Health & Wellness",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 503",
+   "seconds": 2.97
+  },
+  {
+   "url": "https://feeds.buzzsprout.com/1788738.rss",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_535c1ed6242d",
+   "status": "ok",
+   "seconds": 5.92,
+   "enrich": "llm",
+   "episodes": 104
+  },
+  {
+   "url": "http://www.nowplayingpodcast.com/NPP.xml",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.37
+  },
+  {
+   "url": "http://feeds.feedburner.com/PhilosophyForOurTimes",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_690cc0600c21",
+   "status": "ok",
+   "seconds": 9.32,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://thebobdavispodcasts.com/feed/",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_96f50010cbb0",
+   "status": "ok",
+   "seconds": 3.61,
+   "enrich": "llm",
+   "episodes": 50
+  },
+  {
+   "url": "http://www.littlestoriestinypeople.com/podcast.xml",
+   "category": "Kids & Family",
+   "ok": true,
+   "show_id": "shw_69a099328c63",
+   "status": "ok",
+   "seconds": 11.68,
+   "enrich": "llm",
+   "episodes": 183
+  },
+  {
+   "url": "http://feeds.feedburner.com/TorahClass",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_adfe518aa0ed",
+   "status": "ok",
+   "seconds": 2.02,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/skepticality",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_0aaeca970171",
+   "status": "ok",
+   "seconds": 2.13,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://shotofjaq.org/feed/",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)",
+   "seconds": 0.95
+  },
+  {
+   "url": "http://www.podcastgarden.com/podcast/podcast-rss.php?id=452",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.54
+  },
+  {
+   "url": "http://feeds.feedburner.com/FreedomainRadioVolume5",
+   "category": "News & Politics",
+   "ok": true,
+   "show_id": "shw_22398e513af7",
+   "status": "ok",
+   "seconds": 3.34,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://robbwolf.com/category/podcasts/feed/",
+   "category": "Health & Wellness",
+   "ok": true,
+   "show_id": "shw_fc8ccf56f52f",
+   "status": "ok",
+   "seconds": 2.81,
+   "enrich": "llm",
+   "episodes": 20
+  },
+  {
+   "url": "http://www.whchurch.org/podcasts/sermons_hq.xml",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_db25d7482f01",
+   "status": "ok",
+   "seconds": 6.63,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://feeds.feedburner.com/veritas-forum-best-of-audio",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.7
+  },
+  {
+   "url": "http://feeds.feedburner.com/CatholicunderTheHood",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_496b9f6d4567",
+   "status": "ok",
+   "seconds": 1.94,
+   "enrich": "llm",
+   "episodes": 25
+  },
+  {
+   "url": "https://s3-eu-west-1.amazonaws.com/rhspodcast/thegardenfeed.xml",
+   "category": "Sports & Hobbies",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.68
+  },
+  {
+   "url": "https://feeds.megaphone.fm/awww",
+   "category": "Arts",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.09
+  },
+  {
+   "url": "http://feeds.feedburner.com/se-radio",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_969222d2ccd6",
+   "status": "ok",
+   "seconds": 3.84,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "http://www.guardian.co.uk/politics/series/politicsweekly/podcast.xml",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "http://feeds.feedburner.com/sourcetrunk",
+   "category": "Technology",
+   "ok": true,
+   "show_id": "shw_f036edf342e4",
+   "status": "ok",
+   "seconds": 2.11,
+   "enrich": "llm",
+   "episodes": 103
+  },
+  {
+   "url": "http://feeds.feedburner.com/cnet/buzzreport",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.66
+  },
+  {
+   "url": "http://seancarroll.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://www.sei.cmu.edu/podcasts/files_podcasts/rssFeedPodcasts.xml",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.04
+  },
+  {
+   "url": "https://feeds.megaphone.fm/HSW1226123619",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: The read operation timed out",
+   "seconds": 21.72
+  },
+  {
+   "url": "http://reason.com/podcast/index.xml",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 1.79
+  },
+  {
+   "url": "https://thelovelabpodcast.libsyn.com/rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.03
+  },
+  {
+   "url": "http://feeds.feedburner.com/ThisWeekInPhoto",
+   "category": "Sports & Hobbies",
+   "ok": true,
+   "show_id": "shw_e35f03e2c9d0",
+   "status": "ok",
+   "seconds": 1.87,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "http://www.radio-dingolstadt.de/podcast-comedyshows.xml",
+   "category": "Comedy",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 29.53
+  },
+  {
+   "url": "https://rss.art19.com/how-i-built-this",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.09
+  },
+  {
+   "url": "http://www.3kingdomspodcast.com/feed/podcast/",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_c0b05eacc7a7",
+   "status": "ok",
+   "seconds": 1.1,
+   "enrich": "llm",
+   "episodes": 10
+  },
+  {
+   "url": "https://feeds.soundcloud.com/users/soundcloud:users:264034133/sounds.rss",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.08
+  },
+  {
+   "url": "http://feeds.feedburner.com/TheNewYorkCityCrimeReportWithPatDixon",
+   "category": "True Crime",
+   "ok": true,
+   "show_id": "shw_37b4bc8e52ba",
+   "status": "ok",
+   "seconds": 3.31,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "https://www.omnycontent.com/d/playlist/aaea4e69-af51-495e-afc9-a9760146922b/1a15b4e2-ba2a-4bb5-85bf-ac6001880594/73930892-67e0-449f-9731-ac600188059e/podcast.rss",
+   "category": "News & Politics",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.89
+  },
+  {
+   "url": "http://www.amyporterfield.com/feed/podcast/?wpmfeedkey=42%3B63e9a7b39200963656f686298e2ab6ba",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.15
+  },
+  {
+   "url": "http://www.radioopensource.org/feed/",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.02
+  },
+  {
+   "url": "http://www.oneplace.com/ministries/the-alternative/subscribe/podcast.xml",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_333700326851",
+   "status": "ok",
+   "seconds": 0.82,
+   "enrich": "llm",
+   "episodes": 14
+  },
+  {
+   "url": "http://www.wicketgate.co.uk/wicketgate.xml",
+   "category": "Religion & Spirituality",
+   "ok": true,
+   "show_id": "shw_f185c5326b28",
+   "status": "ok",
+   "seconds": 2.11,
+   "enrich": "llm",
+   "episodes": 17
+  },
+  {
+   "url": "http://feeds.feedburner.com/Podcasts-FeralAttraction",
+   "category": "Society & Culture",
+   "ok": true,
+   "show_id": "shw_fc299e5f8e4a",
+   "status": "ok",
+   "seconds": 2.81,
+   "enrich": "llm",
+   "episodes": 100
+  },
+  {
+   "url": "https://rss.acast.com/fucksgiven",
+   "category": "Society & Culture",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 410",
+   "seconds": 0.58
+  },
+  {
+   "url": "http://ftew.libsyn.com/rss",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 22.31
+  },
+  {
+   "url": "http://feeds.ancientfaith.com/CoffeeCupCommentaries",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: RuntimeError: HTTP 404",
+   "seconds": 0.66
+  },
+  {
+   "url": "http://feeds.feedburner.com/DuctTapeMarketingRadio",
+   "category": "Business",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 29.11
+  },
+  {
+   "url": "http://www.treksf.com/podcast/podcast.xml",
+   "category": "Arts",
+   "ok": true,
+   "show_id": "shw_24d540b9cecf",
+   "status": "ok",
+   "seconds": 3.25,
+   "enrich": "llm",
+   "episodes": 200
+  },
+  {
+   "url": "https://rss.acast.com/mordaufex",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 21.25
+  },
+  {
+   "url": "http://podcasthistoryofourworld.libsyn.com/rss",
+   "category": "Education",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 37.64
+  },
+  {
+   "url": "http://feeds.5by5.tv/inbeta",
+   "category": "Technology",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 20.08
+  },
+  {
+   "url": "https://feeds.megaphone.fm/storypirates",
+   "category": "Kids & Family",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 20.07
+  },
+  {
+   "url": "http://torahclass.com/torahclasspodcasttwo.xml",
+   "category": "Religion & Spirituality",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ReadTimeout: timed out",
+   "seconds": 21.1
+  },
+  {
+   "url": "https://aktenzeichenxy-podcast.podigee.io/feed/mp3",
+   "category": "True Crime",
+   "ok": false,
+   "error": "RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out",
+   "seconds": 34.36
+  }
+ ]
+}

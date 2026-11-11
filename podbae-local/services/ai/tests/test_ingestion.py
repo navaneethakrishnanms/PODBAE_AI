@@ -180,16 +180,16 @@ def test_permanent_redirect_keeps_identity(db, server):
 
 # ───────────────────────── episodes ─────────────────────────
 def test_deleted_episode_is_marked_removed_not_deleted(db, server):
-    url = server.set("/a.xml", make_feed("Del Show", 6))
+    url = server.set("/a.xml", make_feed("Del Show", 6, guid_style="short"))
     sid = ingest.run_pipeline(url)["show_id"]
-    server.set("/a.xml", make_feed("Del Show", 6, skip_guids={"ep-2"}))
+    server.set("/a.xml", make_feed("Del Show", 6, skip_guids={"ep-2"}, guid_style="short"))
     r = ingest.run_pipeline(url, force=True)
     assert r["feed"]["episodes"]["removed"] == 1
     with session_scope() as s:
         ep = s.scalar(select(Episode).where(Episode.show_id == sid, Episode.guid == "ep-2"))
         assert ep is not None and ep.removed and ep.removed_at is not None
         assert s.scalar(select(func.count()).select_from(Episode).where(Episode.show_id == sid)) == 6
-    server.set("/a.xml", make_feed("Del Show", 6))                       # comes back
+    server.set("/a.xml", make_feed("Del Show", 6, guid_style="short"))                       # comes back
     assert ingest.run_pipeline(url, force=True)["feed"]["episodes"]["revived"] == 1
 
 

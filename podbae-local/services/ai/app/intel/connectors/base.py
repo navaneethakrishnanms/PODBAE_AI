@@ -52,13 +52,81 @@ def validate_url(url: str) -> str:
 def make_client(transport: httpx.BaseTransport | None = None) -> httpx.Client:
     cfg = get_settings()
 
-    def _guard(request: httpx.Request) -> None:  # runs on every hop, including redirects
+    def _guard(request: httpx.Request) -> None:  # runs on every hop, including redirects (SSRF protection never relaxed)
         validate_url(str(request.url))
 
-    return httpx.Client(timeout=cfg.http_timeout, follow_redirects=True, max_redirects=8, transport=transport,
-                        headers={"User-Agent": "PodBaeIntel/0.1 (+local; podcast metadata research)",
+    # Phase 1 fixes: an honest browser-compatible UA (many hosts 403 bare bot UAs), explicit gzip/deflate, and a
+    # separate connect timeout so dead hosts fail fast instead of eating the whole read timeout.
+    return httpx.Client(timeout=httpx.Timeout(cfg.http_timeout, connect=cfg.http_connect_timeout), follow_redirects=True,
+                        max_redirects=8, transport=transport,
+                        headers={"User-Agent": cfg.user_agent, "Accept-Encoding": "gzip, deflate",
                                  "Accept": "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5"},
                         event_hooks={"request": [_guard]})
+
+
+# ───────────────────────────── failure diagnosis ─────────────────────────────
+ERROR_KINDS = ("dns", "timeout", "http_4xx", "http_5xx", "tls", "invalid_xml", "empty", "too_large", "ssrf_blocked",
+               "connection", "redirects", "invalid_url", "other")
+RETRYABLE = {"timeout", "connection", "http_5xx"}
+
+
+class HttpStatusError(RuntimeError):
+    def __init__(self, status: int):
+        super().__init__(f"HTTP {status}")
+        self.status = status
+
+
+class EmptyResponse(ValueError):
+    pass
+
+
+class NotAFeed(ValueError):
+    pass
+
+
+_DNS = ("getaddrinfo", "name or service not known", "nodename nor servname", "no address associated", "cannot resolve host",
+        "name resolution", "11001", "11004")
+_TLS = ("ssl", "certificate", "tls", "handshake")
+
+
+def classify_error(exc: BaseException | None = None, *, status: int | None = None, text: str | None = None) -> str:
+    """Map a fetch failure to one stable reason code. Works on exceptions, HTTP statuses, or stored error strings."""
+    if status is not None:
+        return "http_4xx" if 400 <= status < 500 else "http_5xx" if status >= 500 else "other"
+    if exc is not None:
+        msg = f"{type(exc).__name__}: {exc}".lower()
+        if isinstance(exc, InvalidUrl):
+            return "ssrf_blocked" if "private or reserved" in msg else "dns" if "cannot resolve" in msg else "invalid_url"
+        if isinstance(exc, HttpStatusError):
+            return classify_error(status=exc.status)
+        if isinstance(exc, FeedTooLarge):
+            return "too_large"
+        if isinstance(exc, EmptyResponse):
+            return "empty"
+        if isinstance(exc, NotAFeed):
+            return "invalid_xml"
+        if isinstance(exc, httpx.TimeoutException):
+            return "timeout"
+        if isinstance(exc, httpx.TooManyRedirects):
+            return "redirects"
+        if isinstance(exc, httpx.ConnectError):
+            return "dns" if any(k in msg for k in _DNS) else "tls" if any(k in msg for k in _TLS) else "connection"
+        if isinstance(exc, (httpx.RemoteProtocolError, httpx.ReadError, httpx.WriteError, httpx.NetworkError)):
+            return "tls" if any(k in msg for k in _TLS) else "connection"
+        return classify_error(text=msg)
+    t = (text or "").lower()
+    import re as _re
+    m = _re.search(r"http (\d{3})", t)
+    if m:
+        return classify_error(status=int(m.group(1)))
+    for kind, keys in (("ssrf_blocked", ("private or reserved",)), ("too_large", ("exceeds", "feedtoolarge")),
+                       ("timeout", ("timeout", "timed out")), ("dns", _DNS), ("tls", _TLS),
+                       ("redirects", ("redirect",)), ("empty", ("empty response", "emptyresponse")),
+                       ("invalid_xml", ("not a podcast", "not a feed", "notafeed", "xml")),
+                       ("connection", ("connecterror", "remoteprotocol", "connection", "readerror", "disconnected"))):
+        if any(k in t for k in keys):
+            return kind
+    return "other"
 
 
 def fetch_bytes(client: httpx.Client, url: str, *, max_bytes: int, headers: dict | None = None) -> tuple[httpx.Response, bytes]:
@@ -81,6 +149,8 @@ class ConnectorResult:
     fields: dict[str, Any] = field(default_factory=dict)
     error: str | None = None
     duration_ms: int = 0
+    error_kind: str | None = None
+    target: str | None = None
 
     @property
     def fields_returned(self) -> list[str]:
@@ -95,7 +165,8 @@ class Connector(Protocol):
 
 def log_run(s: Session, res: ConnectorResult, expected: list[str], show_id: str | None) -> None:
     s.add(ConnectorRun(connector=res.connector, show_id=show_id, ok=res.ok, fields_returned=res.fields_returned,
-                       fields_expected=expected, duration_ms=res.duration_ms, error=res.error))
+                       fields_expected=expected, duration_ms=res.duration_ms, error=res.error,
+                       error_kind=None if res.ok else (res.error_kind or classify_error(text=res.error)), target=res.target))
 
 
 class Timer:

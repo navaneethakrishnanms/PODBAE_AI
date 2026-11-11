@@ -16,7 +16,8 @@ from .trust.provenance import freshness, live_rows, resolve
 # (field, group, weight, label)
 FIELDS: list[tuple[str, str, int, str]] = [
     ("title", "identity", 4, "Title"), ("description", "identity", 4, "Description"), ("language", "identity", 3, "Language"),
-    ("categories", "identity", 3, "Categories"), ("explicit", "identity", 1, "Explicit flag"), ("hosts", "identity", 3, "Hosts"),
+    ("categories", "identity", 3, "Categories"), ("declared_topics", "identity", 2, "Declared topics (publisher categories, mapped)"),
+    ("explicit", "identity", 1, "Explicit flag"), ("hosts", "identity", 3, "Hosts"),
     ("episode_count", "activity", 3, "Episode count"), ("last_published", "activity", 4, "Last published"),
     ("cadence_days", "activity", 4, "Publishing cadence (days)"), ("avg_episode_minutes", "activity", 3, "Average episode length (min)"),
     ("activity_status", "activity", 3, "Activity status"), ("guests_present", "activity", 3, "Guests present"),

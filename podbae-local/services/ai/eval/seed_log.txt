@@ -1,61 +1,91 @@
-discovering via gPodder directory (no Podcast Index key; iTunes unreachable)
-  Comedy: 41 feeds
-  True Crime: 46 feeds
-  Technology: 49 feeds
-  Business: 52 feeds
-  Health & Wellness: 45 feeds
-  Society & Culture: 46 feeds
-  Education: 49 feeds
-  Arts: 40 feeds
-  Sports & Hobbies: 40 feeds
-  Kids & Family: 35 feeds
-  Religion & Spirituality: 44 feeds
-  News & Politics: 41 feeds
-skipped 39 feeds on 34 unreachable hosts from this network, e.g. [('leo.am', 3), ('trailwentcold.com', 2), ('feeds.backtracks.fm', 2), ('feeds.kcrw.com', 2), ('ww2.amateurscientist.org', 1), ('recordings.talkshoe.com', 1), ('handgunpodcast.com', 1), ('www.blogtalkradio.com', 1), ('rss.whooshkaa.com', 1), ('deimos3.apple.com', 1), ('itunesu.itunes.apple.com', 1), ('deimos.apple.com', 1)]
-wrote 528 feeds to C:\Nk\PODBAE\podbae-local\services\ai\seed\feeds.txt
-ingesting 279 feeds with 6 workers (target 300, already stored 21)
-  10/279 done, 4 ok, 28s elapsed
-  20/279 done, 7 ok, 53s elapsed
-  30/279 done, 10 ok, 82s elapsed
-  40/279 done, 11 ok, 99s elapsed
-  50/279 done, 17 ok, 107s elapsed
-  60/279 done, 20 ok, 135s elapsed
-  70/279 done, 23 ok, 158s elapsed
-  80/279 done, 26 ok, 179s elapsed
-  90/279 done, 30 ok, 205s elapsed
-  100/279 done, 31 ok, 233s elapsed
-  110/279 done, 36 ok, 261s elapsed
-  120/279 done, 39 ok, 283s elapsed
-  130/279 done, 41 ok, 306s elapsed
-  140/279 done, 45 ok, 324s elapsed
-  150/279 done, 45 ok, 334s elapsed
-  160/279 done, 49 ok, 353s elapsed
-  170/279 done, 53 ok, 375s elapsed
-  180/279 done, 57 ok, 384s elapsed
-  190/279 done, 61 ok, 395s elapsed
-  200/279 done, 66 ok, 416s elapsed
-  210/279 done, 67 ok, 440s elapsed
-  220/279 done, 70 ok, 459s elapsed
-  230/279 done, 72 ok, 480s elapsed
-  240/279 done, 78 ok, 492s elapsed
-  250/279 done, 84 ok, 503s elapsed
-  260/279 done, 86 ok, 525s elapsed
-  270/279 done, 90 ok, 548s elapsed
-  279/279 done, 91 ok, 582s elapsed
-
-DONE: 91 ok, 188 failed, 102 shows in store, 582s
-  FAIL http://www.manager-tools.com/feeds/mt_podcasts.xml RuntimeError: could not fetch feed: RuntimeError: HTTP 403
-  FAIL http://www.lewrockwell.com/podcast/feed.xml RuntimeError: could not fetch feed: RuntimeError: HTTP 404
-  FAIL https://palegroove.com/seasons/root-of-evil-the-true-story-of-the-hodel-family-and-the-black-dahlia.xml RuntimeError: could not fetch feed: ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'palegroove.com'. (_ssl.c:1017)
-  FAIL https://rss.art19.com/lisk RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL http://wordonfire.podbean.com/feed/ RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL http://smlr.us/?feed=smlr-ogg RuntimeError: could not fetch feed: ValueError: not a podcast/RSS feed (no channel title or items found)
-  FAIL http://politicsandguns.libsyn.com/rss RuntimeError: could not fetch feed: ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)
-  FAIL http://distrowatch.com/news/podcast.xml RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL https://backpackinglightpodcast.libsyn.com/rss RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL http://sidenote.libsyn.com/rss RuntimeError: could not fetch feed: ReadTimeout: timed out
-  FAIL http://www.katenagroup.org/PODCAST_FEEDS/FLORIDAPSYCH.xml RuntimeError: could not fetch feed: ReadTimeout: timed out
-  FAIL http://feeds.feedburner.com/MyHistoryCanBeatUpYourPolitics RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL http://librivox.org/bookfeeds/the-montessori-method-by-maria-montessori.xml RuntimeError: could not fetch feed: RuntimeError: HTTP 404
-  FAIL https://mindsetbydesign.libsyn.com/rss RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
-  FAIL http://faif.us/feeds/cast-ogg RuntimeError: could not fetch feed: ConnectTimeout: _ssl.c:1000: The handshake operation timed out
+  Comedy: 58 candidates so far (iTunes calls 6, cache hits 0)
+  True Crime: 175 candidates so far (iTunes calls 12, cache hits 0)
+  Technology: 62 candidates so far (iTunes calls 18, cache hits 0)
+  Business: 151 candidates so far (iTunes calls 24, cache hits 0)
+  Health & Fitness: 110 candidates so far (iTunes calls 30, cache hits 0)
+  Society & Culture: 81 candidates so far (iTunes calls 36, cache hits 0)
+  Education: 170 candidates so far (iTunes calls 42, cache hits 0)
+  Arts: 102 candidates so far (iTunes calls 48, cache hits 0)
+  Sports: 342 candidates so far (iTunes calls 54, cache hits 0)
+  Leisure: 150 candidates so far (iTunes calls 60, cache hits 0)
+  Religion & Spirituality: 223 candidates so far (iTunes calls 66, cache hits 0)
+  Kids & Family: 87 candidates so far (iTunes calls 72, cache hits 0)
+discovery done in 217s; candidates per group: {'Comedy': 64, 'True Crime': 176, 'Technology': 70, 'Business': 163, 'Health & Fitness': 144, 'Society & Culture': 95, 'Education': 195, 'Arts': 110, 'Sports': 353, 'Leisure': 155, 'Religion & Spirituality': 227, 'Kids & Family': 87}
+  50/1839 candidates processed; accepted 43/300, 401s
+  100/1839 candidates processed; accepted 90/300, 522s
+  150/1839 candidates processed; accepted 135/300, 647s
+  200/1839 candidates processed; accepted 183/300, 808s
+  250/1839 candidates processed; accepted 229/300, 934s
+  300/1839 candidates processed; accepted 277/300, 1058s
+  350/1839 candidates processed; accepted 299/300, 1114s
+recalibrated: {'shows': 303, 'with_vibe': 300, 'vibe_stats_n': 300, 'vibe_changed': 300, 'style_vectors': 300}; label set: 30 shows
+{
+ "shows_in_store": 303,
+ "accepted_by_seed_group": {
+  "Comedy": 25,
+  "True Crime": 25,
+  "Technology": 25,
+  "Business": 25,
+  "Health & Fitness": 25,
+  "Society & Culture": 25,
+  "Education": 25,
+  "Arts": 25,
+  "Sports": 25,
+  "Leisure": 25,
+  "Religion & Spirituality": 25,
+  "Kids & Family": 25
+ },
+ "by_activity": {
+  "active": 276,
+  "slowing": 27
+ },
+ "by_language": {
+  "en": 277,
+  "es": 3,
+  "pt": 1,
+  "fr": 2,
+  "no": 1,
+  "nl": 4,
+  "de": 8,
+  "el": 1,
+  "tr": 1,
+  "so": 1,
+  "sk": 1,
+  "zh": 1,
+  "fil": 1,
+  "sv": 1
+ },
+ "by_style": {
+  "solo_monologue": 71,
+  "unknown": 132,
+  "interview": 71,
+  "co_hosted_banter": 20,
+  "?": 3,
+  "narrative_storytelling": 3,
+  "panel": 3
+ },
+ "rejections": {
+  "directory": {
+   "network": 86,
+   "inactive": 4304,
+   "genre_outside_seed_groups": 207,
+   "too_few_episodes": 1325,
+   "too_many_episodes": 10,
+   "no_dated_episodes": 1
+  },
+  "rss": {
+   "network": 2,
+   "too_many_episodes": 1
+  }
+ },
+ "fetch_failures": {
+  "timeout": 3,
+  "tls": 2,
+  "http_4xx": 1,
+  "too_large": 2,
+  "invalid_xml": 1
+ },
+ "attempted_feeds": 322,
+ "fetch_ok": 298,
+ "wall_seconds": 1125.4
+}

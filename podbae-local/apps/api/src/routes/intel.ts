@@ -14,8 +14,12 @@ const raw = (res: Response, status: number, body: unknown) => res.status(status)
 
 /** Start (or re-use) ingestion for a member's podcast and remember the link. Never throws if the AI service is down. */
 export async function kickIntelIngest(podcastId: number, userId: number, rssUrl: string) {
+  // a different feed URL means a different show: forget the old intel show id (and cached profile) instead of keeping it
   await q(`INSERT INTO intel_links (podcast_id, rss_url) VALUES ($1,$2)
-           ON CONFLICT (podcast_id) DO UPDATE SET rss_url = EXCLUDED.rss_url, updated_at = now()`, [podcastId, rssUrl]);
+           ON CONFLICT (podcast_id) DO UPDATE SET
+             intel_show_id = CASE WHEN intel_links.rss_url IS DISTINCT FROM EXCLUDED.rss_url THEN NULL ELSE intel_links.intel_show_id END,
+             profile = CASE WHEN intel_links.rss_url IS DISTINCT FROM EXCLUDED.rss_url THEN NULL ELSE intel_links.profile END,
+             rss_url = EXCLUDED.rss_url, updated_at = now()`, [podcastId, rssUrl]);
   try {
     const r = await intel('/ingest/rss', { json: { rss_url: rssUrl, user_id: String(userId) } });
     if (r.status === 202) {
@@ -93,7 +97,13 @@ intelRouter.get('/api/intel/my/profile', requireAuth, h(async (req, res) => {
       const j = link.last_job_id ? await intel(`/jobs/${link.last_job_id}`) : (await intel('/health', { timeoutMs: 3000 }), null);
       return raw(res, 202, { error: 'processing', message: 'Your feed is still being processed.', job: j?.body ?? null });
     }
-    const r = await intel(`/shows/${sid}/profile`);
+    let r = await intel(`/shows/${sid}/profile`);
+    if (r.status === 404 && link.intel_show_id) {
+      // stale link (e.g. the intelligence store was re-seeded): forget it and resolve again from the job / feed URL
+      await q('UPDATE intel_links SET intel_show_id = NULL, updated_at = now() WHERE id = $1', [link.id]);
+      const again = await resolveShowId({ ...link, intel_show_id: null });
+      if (again) r = await intel(`/shows/${again}/profile`);
+    }
     if (r.status !== 200) return raw(res, r.status, r.body);
     await q('UPDATE intel_links SET profile = $1, profile_cached_at = now(), updated_at = now() WHERE id = $2', [JSON.stringify(r.body), link.id]);
     return raw(res, 200, { profile: r.body, outdated: false, cached_at: null });
@@ -181,6 +191,30 @@ const adminGet = (path: string, target: string) =>
 adminGet('/api/admin/intel/coverage', '/admin/coverage');
 adminGet('/api/admin/intel/costs', '/admin/costs');
 adminGet('/api/admin/intel/jobs', '/admin/jobs');
+adminGet('/api/admin/intel/feed-failures', '/admin/feed-failures');
+adminGet('/api/admin/intel/labels/queue', '/labels/queue');
+adminGet('/api/admin/intel/labels/agreement', '/labels/agreement');
+
+// ---- human evaluation labels (Phase 1, Step 7): admin-only, stored in the AI service's eval tables ----
+const LabelBody = z.object({
+  labeler: z.string().trim().min(1).max(80),
+  topics: z.array(z.string().max(60)).min(1).max(5),
+  vibes: z.array(z.string().max(40)).length(3),
+  style: z.string().max(40),
+  guest_friendly: z.boolean(),
+  notes: z.string().max(500).optional().nullable(),
+});
+intelRouter.put('/api/admin/intel/labels/:showId', requireAdmin, h(async (req, res) => {
+  const b = parse(LabelBody, req.body);
+  try {
+    const r = await intel(`/labels/${encodeURIComponent(req.params.showId)}`, { method: 'PUT', json: b });
+    raw(res, r.status, r.status === 422 ? { error: r.body?.detail ?? 'Invalid label' } : r.body);
+  } catch (e) { if (e instanceof IntelDown) throw new HttpError(503, 'AI service unavailable'); throw e; }
+}));
+intelRouter.post('/api/admin/intel/recalibrate', requireAdmin, h(async (_req, res) => {
+  try { const r = await intel('/admin/recalibrate', { method: 'POST', timeoutMs: 120_000 }); raw(res, r.status, r.body); }
+  catch (e) { if (e instanceof IntelDown) throw new HttpError(503, 'AI service unavailable'); throw e; }
+}));
 
 intelRouter.post('/api/admin/intel/discover', requireAdmin, h(async (req, res) => {
   const b = parse(z.object({ query: z.string().min(1), limit: z.number().int().min(1).max(100).default(25) }), req.body);

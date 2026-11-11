@@ -1,0 +1,95 @@
+# Definition of an "independent, active" show for the representative seed (editable).
+# A show is ACCEPTED only if ALL rules pass. Every rejection is recorded with the rule that failed.
+version: independent-v1
+
+# 1. Not published by a major network.
+#    network_blocklist: matched case-insensitively as WHOLE WORDS against the iTunes publisher (artistName), the RSS
+#    <itunes:author> and <itunes:owner><itunes:name>. (Whole words, so "ted" would not match "hosted".)
+#    host_blocklist: matched as a domain suffix of the feed URL host. Hosting platforms used by independents
+#    (anchor.fm / Spotify for Podcasters, Libsyn, Buzzsprout, Megaphone...) are deliberately NOT listed.
+network_blocklist:
+  - iheart
+  - npr
+  - wondery
+  - spotify studios
+  - spotify
+  - parcast
+  - the ringer
+  - gimlet
+  - new york times
+  - nytimes
+  - the new york times
+  - bbc
+  - audacy
+  - cadence13
+  - siriusxm
+  - sirius xm
+  - stitcher
+  - earwolf
+  - podcastone
+  - cumulus
+  - westwood one
+  - audioboom studios
+  - pushkin
+  - vox media
+  - the atlantic
+  - washington post
+  - wall street journal
+  - wsj
+  - bloomberg
+  - cnn
+  - fox news
+  - nbc news
+  - abc news
+  - cbs news
+  - pbs
+  - the guardian
+  - economist
+  - slate
+  - radiotopia
+  - prx
+  - lemonada
+  - crooked media
+  - barstool
+  - dear media
+  - kast media
+  - audible
+  - amazon music
+  - sony music
+  - universal music
+  - warner music
+  - headgum
+  - maximum fun
+  - all things comedy
+  - team coco
+  - nightcap media
+  - ted talks
+  - ted audio collective
+  - libsyn studios
+  - acast creator network
+  - forbes
+  - harvard business review
+host_blocklist:
+  - npr.org
+  - wondery.com
+  - iheart.com
+  - bbc.co.uk
+  - bbci.co.uk
+  - nytimes.com
+  - siriusxm.com
+  - audacy.com
+  - podcastone.com
+  - cbc.ca
+  - pbs.org
+  - wsj.com
+  - bloomberg.com
+
+# 2. Active: newest episode published within this many days of the seed run.
+max_days_since_last_episode: 90
+
+# 3. Enough of a catalogue to profile: at least this many episodes in the feed.
+min_episodes: 5
+
+# 4. Very large shows are almost never "independent micro-podcasters". iTunes gives no audience size, so the only
+#    size proxy available without keys is episode count; this cap only removes extreme back-catalogues (daily news etc.).
+max_episodes: 2000

@@ -1,5 +1,9 @@
-# HAND LABELS for 30 ingested shows. Written by Claude from each show's description + recent episode titles (eval/label_sheet.md),
-# NOT by a human listener. For the owner to review / correct. Vibes use the fixed 12-term vocabulary.
+# DRAFT LABELS (NOT ground truth). Written by Claude from each show's description + recent episode titles
+# (eval/label_sheet.md) for the Layer 1 store (archived; these show ids no longer exist in the Phase 1 store).
+# labeler: claude-draft  ->  EXCLUDED from all scoring. Human labels are collected at /admin/labels and stored in the
+# intelligence store (eval_labels); only those are scored by scripts/eval_layer1.py.
+labeler: claude-draft
+excluded_from_scoring: true
 shows:
   shw_ed76b5168822: {topics: [technology, software, productivity], vibe_top3: [Educational, Casual, Professional], style: solo_monologue, guest_friendly: false}
   shw_4facb3f5eb43: {topics: [children stories, kipling, audiobook], vibe_top3: [Compelling, Relaxed, Educational], style: narrative_storytelling, guest_friendly: false}

@@ -74,26 +74,92 @@ class PodcastIndex:
 
 
 # ───────────────────────────── iTunes Search (no key) ─────────────────────────────
+class _RateLimiter:
+    """Process-wide spacing between calls (thread-safe). Apple asks for about 20 Search API calls per minute."""
+
+    def __init__(self) -> None:
+        import threading
+        self._lock = threading.Lock()
+        self._next = 0.0
+
+    def wait(self, per_min: float) -> float:
+        gap = 60.0 / max(0.1, per_min)
+        with self._lock:
+            t = time.monotonic()
+            delay = max(0.0, self._next - t)
+            self._next = max(t, self._next) + gap
+        if delay:
+            time.sleep(delay)
+        return delay
+
+
+ITUNES_LIMITER = _RateLimiter()
+
+
 class ITunesSearch:
+    """Apple iTunes Search API: no key. Rate-limited (INTEL_ITUNES_RATE_PER_MIN) and cached in the store's api_cache
+    table (INTEL_ITUNES_CACHE_HOURS), so re-running a seed costs no requests. Returns directory metadata only:
+    feed URL, title, publisher name, genres, episode count and the latest release date (all 'estimated' tier)."""
     name = "itunes_search"
     kind = "itunes"
-    expected_fields = ["itunes_id", "title", "feed_url", "categories", "episode_count", "author"]
+    expected_fields = ["itunes_id", "title", "feed_url", "categories", "episode_count", "author", "latest_release"]
 
-    def __init__(self, client: httpx.Client):
-        self.client = client
+    def __init__(self, client: httpx.Client, *, use_cache: bool = True):
+        self.client, self.use_cache = client, use_cache
+        self.calls = self.cache_hits = 0
 
-    def search(self, term: str, limit: int = 50, country: str = "US") -> list[dict]:
-        r = self.client.get(ITUNES_SEARCH, params={"term": term, "media": "podcast", "entity": "podcast", "limit": limit,
-                                                   "country": country})
+    def _get_json(self, url: str, params: dict) -> dict:
+        from datetime import timedelta
+
+        from ..db import session_scope
+        from ..models import ApiCache, now
+        cfg = get_settings()
+        key = hashlib.sha256(f"itunes|{url}|{sorted(params.items())}".encode()).hexdigest()
+        if self.use_cache:
+            try:
+                with session_scope() as s:
+                    row = s.get(ApiCache, key)
+                    if row is not None and now() - row.fetched_at < timedelta(hours=cfg.itunes_cache_hours):
+                        self.cache_hits += 1
+                        return row.response
+            except Exception:  # noqa: BLE001 - cache is best-effort (e.g. store not initialised in a script)
+                pass
+        ITUNES_LIMITER.wait(cfg.itunes_rate_per_min)
+        self.calls += 1
+        r = self.client.get(url, params=params)
+        if r.status_code in (403, 429):        # Apple throttles with 403/429: back off once, then give up
+            time.sleep(30)
+            r = self.client.get(url, params=params)
         r.raise_for_status()
-        out = []
-        for it in r.json().get("results", []):
-            if not it.get("feedUrl"):
-                continue
-            out.append({"itunes_id": str(it.get("collectionId")), "title": it.get("collectionName") or it.get("trackName"),
-                        "feed_url": it["feedUrl"], "categories": it.get("genres") or [], "episode_count": it.get("trackCount"),
-                        "author": it.get("artistName"), "language": None})
-        return out
+        data = r.json()
+        if self.use_cache:
+            try:
+                with session_scope() as s:
+                    s.merge(ApiCache(key=key, provider="itunes", response=data, fetched_at=now()))
+            except Exception:  # noqa: BLE001
+                pass
+        return data
+
+    @staticmethod
+    def _norm(it: dict) -> dict:
+        return {"itunes_id": str(it.get("collectionId")), "title": it.get("collectionName") or it.get("trackName"),
+                "feed_url": it.get("feedUrl"), "categories": [g for g in (it.get("genres") or []) if g != "Podcasts"],
+                "genre_ids": [str(g) for g in (it.get("genreIds") or [])], "primary_genre": it.get("primaryGenreName"),
+                "episode_count": it.get("trackCount"), "author": it.get("artistName"), "latest_release": it.get("releaseDate"),
+                "country": it.get("country"), "explicit": it.get("collectionExplicitness"), "language": None}
+
+    def search(self, term: str, limit: int = 50, country: str | None = None, genre_id: str | int | None = None) -> list[dict]:
+        params: dict[str, Any] = {"term": term, "media": "podcast", "entity": "podcast", "limit": min(200, limit),
+                                  "country": country or get_settings().itunes_country}
+        if genre_id:
+            params["genreId"] = str(genre_id)
+        data = self._get_json(ITUNES_SEARCH, params)
+        return [self._norm(it) for it in data.get("results", []) if it.get("feedUrl")]
+
+    def lookup(self, itunes_id: str) -> dict | None:
+        data = self._get_json("https://itunes.apple.com/lookup", {"id": str(itunes_id), "entity": "podcast"})
+        res = [it for it in data.get("results", []) if it.get("feedUrl")]
+        return self._norm(res[0]) if res else None
 
 
 # ───────────────────────────── gPodder directory (public, no key) ─────────────────────────────

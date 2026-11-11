@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
@@ -14,12 +15,13 @@ from lxml import etree
 
 from ..config import get_settings
 from ..trust.sanitize import clean_text, clean_title
-from .base import ConnectorResult, FeedTooLarge, Timer, fetch_bytes, validate_url
+from .base import (RETRYABLE, ConnectorResult, EmptyResponse, FeedTooLarge, HttpStatusError, InvalidUrl, NotAFeed, Timer,
+                   classify_error, fetch_bytes, validate_url)
 
 NAME = "rss"
 KIND = "rss"
 EXPECTED_FIELDS = ["title", "description", "language", "link", "image", "author", "categories", "explicit",
-                   "podcast_guid", "new_feed_url", "episodes", "episode_dates", "episode_durations",
+                   "podcast_guid", "new_feed_url", "owner_email_hash", "show_type", "episodes", "episode_dates", "episode_durations",
                    "episode_descriptions", "transcripts", "persons"]
 
 
@@ -37,6 +39,7 @@ class ParsedEpisode:
     persons: list[dict]
     season: int | None = None
     episode_no: int | None = None
+    episode_type: str | None = None   # itunes:episodeType full|trailer|bonus
 
     def content_hash(self) -> str:
         raw = "|".join([self.title, self.description, str(self.duration_sec), self.audio_url or "", self.transcript_url or ""])
@@ -59,6 +62,9 @@ class ParsedFeed:
     episodes: list[ParsedEpisode] = field(default_factory=list)
     total_items_in_feed: int = 0
     malformed: bool = False
+    show_type: str | None = None          # itunes:type episodic|serial
+    owner_hash: str | None = None         # salted sha256 of itunes:owner e-mail (raw e-mail never kept)
+    owner_name: str | None = None
 
 
 @dataclass
@@ -136,7 +142,7 @@ def _is_podcast_ns(ns: str) -> bool:
 def _podcast_namespace_pass(content: bytes) -> tuple[dict, dict[str, dict]]:
     """Tolerant (recover=True) extraction of podcast: tags, keyed by item guid. Returns (channel, items)."""
     parser = etree.XMLParser(recover=True, resolve_entities=False, no_network=True, huge_tree=True, remove_comments=True)
-    chan: dict = {"persons": [], "guid": None, "new_feed_url": None}
+    chan: dict = {"persons": [], "guid": None, "new_feed_url": None, "owner_email": None, "owner_name": None, "type": None}
     items: dict[str, dict] = {}
     try:
         root = etree.fromstring(content, parser=parser)
@@ -157,6 +163,15 @@ def _podcast_namespace_pass(content: bytes) -> tuple[dict, dict[str, dict]]:
             chan["new_feed_url"] = el.text.strip()
         elif _is_podcast_ns(ns) and name == "person" and el.text:
             chan["persons"].append({"name": clean_title(el.text), "role": el.get("role") or "host"})
+        elif "itunes" in ns and name == "type" and el.text:
+            chan["type"] = el.text.strip().lower()[:20]
+        elif "itunes" in ns and name == "owner":
+            for sub in el:
+                sname = _local(sub.tag)[1]
+                if sname == "email" and sub.text:
+                    chan["owner_email"] = sub.text.strip().lower()
+                elif sname == "name" and sub.text:
+                    chan["owner_name"] = clean_title(sub.text)
         elif name == "item":
             guid = None
             rec: dict = {"persons": [], "transcripts": []}
@@ -173,13 +188,48 @@ def _podcast_namespace_pass(content: bytes) -> tuple[dict, dict[str, dict]]:
     return chan, items
 
 
+def owner_hash(email: str | None) -> str | None:
+    """One-way salted hash of the feed owner's e-mail, used only to tell whether two feeds share an owner.
+    The raw address is never stored, logged or exported."""
+    if not email or "@" not in email:
+        return None
+    return hashlib.sha256((get_settings().hash_salt + "|" + email.strip().lower()).encode()).hexdigest()
+
+
+def _repair(content: bytes) -> bytes | None:
+    """Encoding / junk repair for feeds feedparser cannot read: strip a BOM or leading junk before the first '<',
+    and re-encode text that is not valid in its declared charset. Returns None if nothing changed."""
+    raw = content.removeprefix(b"\xef\xbb\xbf").lstrip()
+    i = raw.find(b"<")
+    if i > 0:
+        raw = raw[i:]
+    for enc in ("utf-8", "cp1252", "latin-1"):
+        try:
+            text_ = raw.decode(enc)
+            break
+        except UnicodeDecodeError:
+            continue
+    text_ = re.sub(r'^<\?xml[^>]*\?>', '<?xml version="1.0" encoding="utf-8"?>', text_, count=1)
+    fixed = text_.encode("utf-8")
+    return fixed if fixed != content else None
+
+
 def parse_feed_bytes(content: bytes) -> ParsedFeed:
     cfg = get_settings()
+    if not content or not content.strip():
+        raise EmptyResponse("empty response body")
     d = feedparser.parse(content)
     feed = d.get("feed", {}) or {}
     entries = d.get("entries", []) or []
     if not entries and not feed.get("title"):
-        raise ValueError("not a podcast/RSS feed (no channel title or items found)")
+        repaired = _repair(content)
+        if repaired is not None:
+            d = feedparser.parse(repaired)
+            feed, entries = d.get("feed", {}) or {}, d.get("entries", []) or []
+            if entries or feed.get("title"):
+                content = repaired
+    if not entries and not feed.get("title"):
+        raise NotAFeed("not a podcast/RSS feed (no channel title or items found)")
     chan, ns_items = _podcast_namespace_pass(content)
     cats: list[str] = []
     for t in feed.get("tags", []) or []:
@@ -193,7 +243,9 @@ def parse_feed_bytes(content: bytes) -> ParsedFeed:
         author=clean_title(feed.get("author") or feed.get("itunes_author")) or None, categories=cats[:10],
         explicit=_explicit(feed.get("itunes_explicit")), podcast_guid=chan["guid"],
         new_feed_url=chan["new_feed_url"] or feed.get("itunes_new_feed_url"), persons=chan["persons"],
-        total_items_in_feed=len(entries), malformed=bool(d.get("bozo")))
+        total_items_in_feed=len(entries), malformed=bool(d.get("bozo")), show_type=chan["type"] or (feed.get("itunes_type") or None),
+        owner_hash=owner_hash(chan["owner_email"] or ((feed.get("publisher_detail") or {}).get("email") if isinstance(feed.get("publisher_detail"), dict) else None)),
+        owner_name=chan["owner_name"])
     for e in entries:
         audio = next((en.get("href") for en in e.get("enclosures", []) if "audio" in (en.get("type") or "audio") or en.get("href")), None)
         guid = e.get("id") or e.get("guid") or audio or e.get("link") or hashlib.sha1(((e.get("title") or "") + str(e.get("published"))).encode()).hexdigest()
@@ -208,7 +260,8 @@ def parse_feed_bytes(content: bytes) -> ParsedFeed:
             duration_sec=_dur(e.get("itunes_duration")), explicit=_explicit(e.get("itunes_explicit")), audio_url=audio,
             transcript_url=tr.get("url"), transcript_type=tr.get("type"), persons=ns["persons"],
             season=int(e["itunes_season"]) if str(e.get("itunes_season", "")).isdigit() else None,
-            episode_no=int(e["itunes_episode"]) if str(e.get("itunes_episode", "")).isdigit() else None))
+            episode_no=int(e["itunes_episode"]) if str(e.get("itunes_episode", "")).isdigit() else None,
+            episode_type=(e.get("itunes_episodetype") or None)))
     # newest first, keep the latest N (metadata window); undated items sink
     pf.episodes.sort(key=lambda x: x.published_at or datetime.min, reverse=True)
     pf.episodes = pf.episodes[: cfg.keep_episodes]
@@ -220,7 +273,7 @@ def _fields_of(pf: ParsedFeed) -> dict[str, Any]:
     return {
         "title": pf.title, "description": pf.description, "language": pf.language, "link": pf.link, "image": pf.image,
         "author": pf.author, "categories": pf.categories, "explicit": pf.explicit, "podcast_guid": pf.podcast_guid,
-        "new_feed_url": pf.new_feed_url, "persons": pf.persons or any(e.persons for e in eps) or None,
+        "new_feed_url": pf.new_feed_url, "owner_email_hash": pf.owner_hash, "show_type": pf.show_type, "persons": pf.persons or any(e.persons for e in eps) or None,
         "episodes": len(eps) or None,
         "episode_dates": any(e.published_at for e in eps) or None,
         "episode_durations": any(e.duration_sec for e in eps) or None,
@@ -230,37 +283,48 @@ def _fields_of(pf: ParsedFeed) -> dict[str, Any]:
 
 
 def fetch_feed(client: httpx.Client, url: str, *, etag: str | None = None, last_modified: str | None = None) -> FetchOutcome:
+    """GET + parse with bounded retries on transient failures (timeout, reset, 5xx, 429). Every failure carries a
+    stable reason code (res.error_kind) so the failure table is measured, not guessed."""
     cfg = get_settings()
-    res = ConnectorResult(connector=NAME)
+    res = ConnectorResult(connector=NAME, target=url)
+    attempts = 1 + max(0, cfg.feed_retries)
     with Timer() as t:
-        try:
-            validate_url(url)
-            headers = {}
-            if etag:
-                headers["If-None-Match"] = etag
-            if last_modified:
-                headers["If-Modified-Since"] = last_modified
-            resp, body = fetch_bytes(client, url, max_bytes=cfg.max_feed_bytes, headers=headers)
-            final = str(resp.url)
-            perm = None
-            for h in resp.history:
-                if h.status_code in (301, 308):
-                    perm = str(h.headers.get("location") or "") or None
-            if perm and perm.startswith("/"):
-                perm = final
-            if resp.status_code == 304:
-                res.fields = {}
-                out = FetchOutcome("not_modified", res, None, final, perm, etag, last_modified)
-            elif resp.status_code >= 400:
-                raise RuntimeError(f"HTTP {resp.status_code}")
-            else:
-                pf = parse_feed_bytes(body)
-                res.fields = _fields_of(pf)
-                out = FetchOutcome("ok", res, pf, final, perm, resp.headers.get("etag"), resp.headers.get("last-modified"),
-                                   hashlib.sha256(body).hexdigest())
-        except (httpx.HTTPError, ValueError, RuntimeError, FeedTooLarge) as exc:
-            res.ok, res.error = False, f"{type(exc).__name__}: {exc}"[:300]
-            out = FetchOutcome("error", res)
+        for attempt in range(attempts):
+            try:
+                validate_url(url)
+                headers = {}
+                if etag:
+                    headers["If-None-Match"] = etag
+                if last_modified:
+                    headers["If-Modified-Since"] = last_modified
+                resp, body = fetch_bytes(client, url, max_bytes=cfg.max_feed_bytes, headers=headers)
+                final = str(resp.url)
+                perm = None
+                for h in resp.history:
+                    if h.status_code in (301, 308):
+                        perm = str(h.headers.get("location") or "") or None
+                if perm and perm.startswith("/"):
+                    perm = final
+                if resp.status_code == 304:
+                    res.fields = {}
+                    out = FetchOutcome("not_modified", res, None, final, perm, etag, last_modified)
+                elif resp.status_code >= 400:
+                    raise HttpStatusError(resp.status_code)
+                else:
+                    pf = parse_feed_bytes(body)
+                    res.fields = _fields_of(pf)
+                    out = FetchOutcome("ok", res, pf, final, perm, resp.headers.get("etag"), resp.headers.get("last-modified"),
+                                       hashlib.sha256(body).hexdigest())
+                res.ok, res.error, res.error_kind = True, None, None
+                break
+            except (httpx.HTTPError, ValueError, RuntimeError, FeedTooLarge, InvalidUrl) as exc:
+                kind = classify_error(exc)
+                res.ok, res.error, res.error_kind = False, f"{kind}: {type(exc).__name__}: {exc}"[:300], kind
+                out = FetchOutcome("error", res)
+                retry = kind in RETRYABLE or (isinstance(exc, HttpStatusError) and exc.status == 429)
+                if not retry or attempt + 1 >= attempts:
+                    break
+                time.sleep(min(4.0, 1.5 * (attempt + 1)) * (cfg.backoff_base_seconds > 0))
     res.duration_ms = t.ms
     return out
 

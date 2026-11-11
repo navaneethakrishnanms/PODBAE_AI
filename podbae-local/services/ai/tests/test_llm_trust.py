@@ -18,6 +18,8 @@ from app.intel.understanding.schemas import Extraction
 from tests.feedgen import make_feed
 
 LLM_FIELDS = set(extract.LLM_FIELDS)
+PIPELINE_FIELDS = {"guests_present", "vibe_similarity", "style_features", "activity_status"} | set(__import__(
+    "app.intel.understanding.pipeline", fromlist=["WRITTEN_FIELDS"]).WRITTEN_FIELDS)
 
 
 def valid_payload(**over):
@@ -52,13 +54,18 @@ def make_show(server, title="Gardeners", **kw):
 
 # ───────────────────────── fallback / retries ─────────────────────────
 def test_invalid_json_retries_then_rules_only_fallback_no_crash(db, server, monkeypatch):
+    """The LLM path is a SEAM in Phase 1 (the ingestion pipeline never calls it). Its trust wrapper must still hold:
+    bounded retries, then a rules-only fallback, every attempt ledgered."""
     p = Scripted(["this is not json at all", "{broken", '{"topics": 5}'])
-    monkeypatch.setattr(extract, "get_provider", lambda: p)           # the pipeline's own provider misbehaves
-    sid = make_show(server)                                            # full pipeline must not crash
+    monkeypatch.setattr(extract, "get_provider", lambda: p)
+    sid = make_show(server)                                            # pipeline: rules + local models only
+    assert p.calls == 0                                                # Phase 1: the pipeline made no LLM call
+    with session_scope() as s:
+        extract.enrich_show(s, sid, force=True)                        # call the seam directly
     assert p.calls == 1 + extract.MAX_RETRIES == 3                     # bounded retries
     with session_scope() as s:
         for f in ("topics", "vibe", "conversational_style"):
-            rows = [x for x in live_rows(s, "show", sid, f) if x.method == "rule"]
+            rows = [x for x in live_rows(s, "show", sid, f) if x.method == "rule" and (x.source_ref or "").startswith("fallback")]
             assert rows and rows[0].confidence <= 0.2 and rows[0].data_tier == "inferred"      # low confidence, still labelled
         assert s.scalar(select(AuditLog.id).where(AuditLog.action == "llm_invalid_fallback"))
         assert s.scalar(select(func.count()).select_from(CostLedger).where(CostLedger.provider.contains("scripted"))) == 3  # every attempt is accounted
@@ -155,8 +162,8 @@ def test_prompt_injection_transcript_does_not_change_behaviour_or_schema(db, ser
         out = extract.enrich_show(s, sid, force=True)                        # real mock provider over injected content
         assert out["mode"] in ("llm", "cache")
         fields = {x.field for x in s.scalars(select(Provenance).where(Provenance.entity_id == sid, Provenance.data_tier == "inferred"))}
-        assert fields <= LLM_FIELDS | {"guests_present"}
-        vibe = live_rows(s, "show", sid, "vibe")[0].value_json
+        assert fields <= LLM_FIELDS | PIPELINE_FIELDS                  # only known fields, nothing injected
+        vibe = next(r for r in live_rows(s, "show", sid, "vibe") if r.method == "llm").value_json
         assert set(vibe) == set(Extraction.model_validate(valid_payload()).vibe)       # exactly the 12 vocabulary terms
         assert not any(k in fields for k in ("admin", "median_age", "listeners"))
     # same show without the injection text produces identical structure AND identical vibe scores:

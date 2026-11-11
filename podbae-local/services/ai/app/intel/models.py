@@ -255,4 +255,53 @@ class ConnectorRun(Base):
     fields_expected: Mapped[list] = mapped_column(JSON, default=list)
     duration_ms: Mapped[int] = mapped_column(Integer, default=0)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Phase 1: per-feed failure diagnosis. target = the URL attempted (also for feeds that never became a show);
+    # error_kind = dns|timeout|http_4xx|http_5xx|tls|invalid_xml|empty|too_large|ssrf_blocked|connection|redirects|other
+    target: Mapped[str | None] = mapped_column(Text, nullable=True)
+    error_kind: Mapped[str | None] = mapped_column(String(30), nullable=True)
     __table_args__ = (Index("ix_runs_conn_show", "connector", "show_id"),)
+
+
+# ───────────────────────────── Phase 1: calibration, caches, human labels ─────────────────────────────
+class CorpusStat(Base):
+    """Corpus-level statistics used by deterministic calibration (vibe z-scores, style-vector centering).
+    Keyed by name + model, so stats computed for one embedding model are never applied to another."""
+    __tablename__ = "corpus_stats"
+    key: Mapped[str] = mapped_column(String(120), primary_key=True)
+    value: Mapped[dict] = mapped_column(JSON, default=dict)
+    n: Mapped[int] = mapped_column(Integer, default=0)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=now, onupdate=now)
+
+
+class ApiCache(Base):
+    """Response cache for keyless public APIs (iTunes Search) so repeated searches cost no requests."""
+    __tablename__ = "api_cache"
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)    # sha256(provider|url|params)
+    provider: Mapped[str] = mapped_column(String(30))
+    response: Mapped[dict] = mapped_column(JSON, default=dict)
+    fetched_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+
+
+class LabelItem(Base):
+    """The fixed set of shows humans label (admin /admin/labels). Order is stable."""
+    __tablename__ = "label_items"
+    show_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    position: Mapped[int] = mapped_column(Integer)
+    category: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+
+
+class EvalLabel(Base):
+    """One labeler's judgement of one show. Labels are evaluation data only: they never feed a profile."""
+    __tablename__ = "eval_labels"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    show_id: Mapped[str] = mapped_column(String(40))
+    labeler: Mapped[str] = mapped_column(String(80))
+    topics: Mapped[list] = mapped_column(JSON, default=list)          # taxonomy topic ids
+    vibes: Mapped[list] = mapped_column(JSON, default=list)           # exactly 3 of the 12 vibe terms
+    style: Mapped[str] = mapped_column(String(30))
+    guest_friendly: Mapped[bool] = mapped_column(Boolean)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=now, onupdate=now)
+    __table_args__ = (UniqueConstraint("show_id", "labeler", name="uq_label_show_labeler"),)

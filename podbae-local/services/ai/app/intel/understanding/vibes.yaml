@@ -1,0 +1,16 @@
+# Short descriptions of the 12 vibe terms (vibe-v1). Embedded once by the local e5 model; a show's vibe score for a
+# term is the corpus-calibrated similarity between its text and this description (method=model, tier=inferred).
+version: vibe-v1
+terms:
+  Casual: "a casual, laid-back podcast where friends chat, joke around and hang out informally"
+  Compelling: "a gripping, suspenseful podcast with cliffhangers, mysteries and stories you cannot stop listening to"
+  Educational: "an educational podcast that teaches, explains concepts and helps listeners learn new knowledge"
+  Energetic: "a high-energy, fast-paced, loud and exciting podcast full of hype and enthusiasm"
+  Humorous: "a funny comedy podcast full of jokes, laughter, silly bits and hilarious banter"
+  Inspirational: "an inspiring, motivational podcast about overcoming obstacles, success, dreams and purpose"
+  Personal Narrative: "a personal podcast where the host shares their own life, memories, experiences and journey"
+  Professional: "a professional podcast with expert insights on business, industry, careers and strategy"
+  Reflective: "a thoughtful, reflective podcast that ponders life, meaning, ideas and philosophy"
+  Relaxed: "a calm, soothing, gentle podcast for relaxing, unwinding and falling asleep"
+  Uplifting: "an uplifting, positive, joyful podcast that spreads hope, gratitude and good vibes"
+  Wellness-Focused: "a wellness podcast about health, self-care, mental wellbeing, fitness and healthy living"

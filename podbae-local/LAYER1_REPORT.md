@@ -1,5 +1,10 @@
 # LAYER 1 REPORT: Podcast Intelligence + Trust Spine
 
+> **Historical (Layer 1 as first built, 4 Nov 2026).** Superseded by `PHASE1_REPORT.md`, which hardened Layer 1 without
+> any LLM. Since then: the store was re-seeded with independent active shows via iTunes Search; topics, guests, style and
+> vibe are produced by rules and local embeddings; style similarity uses numeric vectors; and the labels below are
+> marked `claude-draft` and excluded from scoring. Current numbers are in `EVAL_LAYER1.md`.
+
 Status: built, tested, seeded with real shows, running. Measured numbers are in `EVAL_LAYER1.md`. **No Layer 2+ work was done.**
 
 ## What works (verified by tests or measurement)

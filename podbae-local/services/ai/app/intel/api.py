@@ -320,3 +320,86 @@ def health() -> dict:
         info["status"] = "degraded"
         info["store"]["error"] = f"{type(exc).__name__}: {exc}"[:200]
     return info
+
+
+# ───────────────────────────── Phase 1: calibration, feed failures ─────────────────────────────
+@router.post("/admin/recalibrate")
+def admin_recalibrate() -> dict:
+    """Recompute corpus vibe statistics + style-vector centring and rewrite every show's vibe / style vector."""
+    from .calibration import recalibrate
+    with session_scope() as s:
+        return recalibrate(s)
+
+
+@router.get("/admin/feed-failures")
+def admin_feed_failures(limit: int = Query(50, ge=1, le=500)) -> dict:
+    """Latest RSS fetch outcome per feed URL (including feeds that never became a show), grouped by failure reason."""
+    with session_scope() as s:
+        latest: dict[str, ConnectorRun] = {}
+        for r in s.scalars(select(ConnectorRun).where(ConnectorRun.connector == "rss").order_by(ConnectorRun.id)):
+            key = r.target or r.show_id or f"run:{r.id}"
+            latest[key] = r
+        ok = sum(1 for r in latest.values() if r.ok)
+        kinds: dict[str, int] = {}
+        for r in latest.values():
+            if not r.ok:
+                kinds[r.error_kind or "other"] = kinds.get(r.error_kind or "other", 0) + 1
+        fails = [{"target": k, "error_kind": r.error_kind, "error": (r.error or "")[:200], "ts": r.ts.isoformat() + "Z"}
+                 for k, r in latest.items() if not r.ok][-limit:]
+        return {"feeds": len(latest), "ok": ok, "failed": len(latest) - ok,
+                "success_rate": round(ok / len(latest), 3) if latest else None,
+                "by_reason": dict(sorted(kinds.items(), key=lambda kv: -kv[1])), "recent_failures": fails}
+
+
+# ───────────────────────────── Phase 1: human labels (Step 7) ─────────────────────────────
+class LabelIn(BaseModel):
+    labeler: str = Field(min_length=1, max_length=80)
+    topics: list[str] = Field(min_length=1, max_length=5)
+    vibes: list[str] = Field(min_length=3, max_length=3)
+    style: str
+    guest_friendly: bool
+    notes: str | None = Field(default=None, max_length=500)
+
+
+class LabelSetIn(BaseModel):
+    n: int = Field(default=30, ge=5, le=100)
+    replace: bool = False
+
+
+@router.get("/labels/queue")
+def labels_queue(labeler: str | None = None) -> dict:
+    from . import labels as lb
+    from .models import LabelItem
+    from .understanding.signals import taxonomy
+    with session_scope() as s:
+        items = [lb.item_view(s, it, labeler) for it in s.scalars(select(LabelItem).order_by(LabelItem.position))]
+        return {"items": items, "done": sum(1 for i in items if i["label"]), "total": len(items),
+                "taxonomy": [{"id": k, "label": v["label"], "group": v["group"]} for k, v in taxonomy().items()],
+                "vibes": list(lb.VIBE_TERMS), "styles": lb.LABEL_STYLES,
+                "instructions": "Judge from the description and episode titles shown. Topics: 1-5 from the list. Vibes: exactly 3. "
+                                "Style: how the show is usually made. Guest-friendly: outside guests appear regularly (roughly 1 in 3 episodes or more)."}
+
+
+@router.put("/labels/{show_id}")
+def labels_save(show_id: str, body: LabelIn) -> dict:
+    from . import labels as lb
+    with session_scope() as s:
+        try:
+            return lb.label_dict(lb.save_label(s, show_id, body.labeler, body.topics, body.vibes, body.style, body.guest_friendly, body.notes))
+        except lb.LabelError as exc:
+            raise HTTPException(422, str(exc)) from exc
+
+
+@router.get("/labels/agreement")
+def labels_agreement() -> dict:
+    from . import labels as lb
+    with session_scope() as s:
+        return lb.agreement(s)
+
+
+@router.post("/labels/items")
+def labels_items(body: LabelSetIn) -> dict:
+    from . import labels as lb
+    with session_scope() as s:
+        ids = lb.pick_label_set(s, body.n, replace=body.replace)
+        return {"show_ids": ids, "count": len(ids)}

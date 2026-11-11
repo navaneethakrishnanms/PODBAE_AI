@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { AppLayout, PublicLayout } from '../components/Layout';
 import { Badge, Button, Card, Field, Input, Spinner, Tabs, toast } from '../components/ui';
 import { api } from '../lib/api';
@@ -42,6 +42,8 @@ export default function Admin() {
   const cov = useQuery({ queryKey: ['a-cov'], enabled: tab === 'coverage', queryFn: () => api.get('/api/admin/intel/coverage') });
   const costs = useQuery({ queryKey: ['a-costs'], enabled: tab === 'costs', queryFn: () => api.get('/api/admin/intel/costs') });
   const health = useQuery({ queryKey: ['a-health'], enabled: tab === 'ingestion' || tab === 'costs', queryFn: () => api.get('/api/intel/health') });
+  const failures = useQuery({ queryKey: ['a-fail'], enabled: tab === 'coverage', queryFn: () => api.get('/api/admin/intel/feed-failures') });
+  const agree = useQuery({ queryKey: ['a-agree'], enabled: tab === 'labels', queryFn: () => api.get('/api/admin/intel/labels/agreement') });
   const [feed, setFeed] = useState('');
   const [disc, setDisc] = useState('');
   const [hits, setHits] = useState<any[]>([]);
@@ -66,7 +68,7 @@ export default function Admin() {
       <Tabs value={tab} onChange={setTab} tabs={[
         { id: 'podcasts', label: 'Podcasts' }, { id: 'users', label: 'Users' }, { id: 'metrics', label: 'Vibe-logic metrics' },
         { id: 'showcase', label: 'Showcase' }, { id: 'invites', label: 'Partnership invites' },
-        { id: 'ingestion', label: 'Ingestion jobs' }, { id: 'coverage', label: 'Coverage' }, { id: 'costs', label: 'Costs' },
+        { id: 'ingestion', label: 'Ingestion jobs' }, { id: 'coverage', label: 'Coverage' }, { id: 'costs', label: 'Costs' }, { id: 'labels', label: 'Labels' },
       ]} />
       <div className="pt-6">
         {tab === 'podcasts' && (
@@ -106,6 +108,8 @@ export default function Admin() {
                 <Button size="sm" onClick={run('Ingest', () => api.post('/api/admin/intel/ingest', { rssUrl: feed }))} disabled={!feed}>Ingest feed</Button></div>
               <div className="flex gap-2"><Input placeholder="Discover shows by search term (Podcast Index, else iTunes Search)" value={disc} onChange={(e) => setDisc(e.target.value)} />
                 <Button size="sm" variant="outline" onClick={run('Discover', () => api.post('/api/admin/intel/discover', { query: disc, limit: 25 }))} disabled={!disc}>Discover</Button></div>
+              <div className="flex items-center gap-2"><Button size="sm" variant="outline" onClick={run('Recalibrate', () => api.post('/api/admin/intel/recalibrate'))}>Recalibrate corpus</Button>
+                <span className="text-xs text-muted-foreground">Recomputes vibe z-scores and style-vector centring across all shows (no LLM).</span></div>
             </Card>
             <div className="flex flex-wrap gap-2 text-sm">{Object.entries(jobs.data?.counts ?? {}).map(([k, v]) => <Badge key={k} tone={k === 'failed' ? 'pink' : k === 'succeeded' ? 'green' : 'gray'}>{k}: {String(v)}</Badge>)}</div>
             <div className="space-y-1 text-sm">{(jobs.data?.jobs ?? []).map((j: any) => (
@@ -121,7 +125,26 @@ export default function Admin() {
                 <table className="mt-2 w-full text-sm"><tbody>{Object.entries(c.fields).map(([f, v]: any) => (
                   <tr key={f}><td className="w-56 py-0.5">{f}</td><td><div className="h-2 w-full rounded bg-muted"><div className="h-2 rounded bg-primary" style={{ width: `${v.pct}%` }} /></div></td><td className="w-20 text-right">{v.pct}%</td></tr>))}</tbody></table></Card>))}
             {cov.data && !Object.keys(cov.data.connectors).length && <p className="text-sm text-muted-foreground">No ingestion has run yet.</p>}
+            {failures.data && (
+              <Card><h3 className="font-semibold">Feed fetch outcomes <span className="text-xs font-normal text-muted-foreground">latest attempt per feed URL · {failures.data.ok}/{failures.data.feeds} ok
+                {failures.data.success_rate != null && ` (${Math.round(failures.data.success_rate * 100)}%)`}</span></h3>
+                {Object.keys(failures.data.by_reason ?? {}).length === 0 ? <p className="mt-2 text-sm text-muted-foreground">No failed feeds.</p> : (
+                  <table className="mt-2 text-sm"><tbody>{Object.entries(failures.data.by_reason).map(([k, v]: any) => (
+                    <tr key={k}><td className="w-40 py-0.5">{k}</td><td className="text-right">{v}</td></tr>))}</tbody></table>)}
+                {(failures.data.recent_failures ?? []).length > 0 && (
+                  <details className="mt-2"><summary className="cursor-pointer text-xs text-muted-foreground">Recent failures</summary>
+                    <ul className="mt-1 space-y-0.5 text-xs">{failures.data.recent_failures.slice(-20).map((f: any) => <li key={f.target}><b>{f.error_kind}</b> · {f.target}</li>)}</ul></details>)}
+              </Card>)}
           </div>
+        )}
+        {tab === 'labels' && (
+          <Card className="space-y-2">
+            <h3 className="font-semibold">Human evaluation labels</h3>
+            <p className="text-sm text-muted-foreground">30 real shows, labelled one at a time. Only human labels are scored; machine-written drafts are excluded.</p>
+            <div className="text-sm">{(agree.data?.labelers ?? []).length ? agree.data.labelers.map((l: any) => `${l.labeler}: ${l.labelled}/${l.of}`).join(' · ') : 'No labels yet.'}</div>
+            <p className="text-sm">{agree.data?.status === 'ok' ? `Agreement available for ${agree.data.pairs.length} labeler pair(s).` : agree.data?.message}</p>
+            <Link href="/admin/labels"><Button size="sm">Open the labelling page</Button></Link>
+          </Card>
         )}
         {tab === 'costs' && (
           <div className="grid gap-4 md:grid-cols-2">

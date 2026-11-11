@@ -1,0 +1,305 @@
+{
+ "labels": {
+  "human_labels": 0
+ },
+ "style": {
+  "embedder": {
+   "configured": "intfloat/multilingual-e5-small",
+   "active": "intfloat/multilingual-e5-small",
+   "dim": 384,
+   "fallback_reason": null
+  },
+  "matched_mean": 0.33119886126169207,
+  "contrast_mean": -0.06134196868101386,
+  "old_matched": 0.9469389207243477,
+  "old_contrast": 0.9338054059554591,
+  "win_rate": 0.8641975308641975,
+  "before_l1": {
+   "n": 102,
+   "p10": 0.903,
+   "p50": 0.939,
+   "p90": 0.962
+  },
+  "before": {
+   "n": 303,
+   "p10": 0.904,
+   "p50": 0.941,
+   "p90": 0.964
+  },
+  "after": {
+   "n": 303,
+   "p10": -0.355,
+   "p50": -0.02,
+   "p90": 0.398
+  }
+ },
+ "layer4": {
+  "title": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "description": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "language": {
+   "present": 1.0,
+   "tiers": [
+    "estimated",
+    "verified"
+   ],
+   "methods": [
+    "model",
+    "parsed"
+   ]
+  },
+  "categories": {
+   "present": 0.9966996699669967,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "declared_topics": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "explicit": {
+   "present": 0.026402640264026403,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "hosts": {
+   "present": 0.0429042904290429,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "episode_count": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "last_published": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "cadence_days": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "avg_episode_minutes": {
+   "present": 0.9834983498349835,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "activity_status": {
+   "present": 1.0,
+   "tiers": [
+    "estimated"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "guests_present": {
+   "present": 1.0,
+   "tiers": [
+    "inferred",
+    "verified"
+   ],
+   "methods": [
+    "parsed",
+    "rule"
+   ]
+  },
+  "transcripts_available": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "topics": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "model",
+    "rule",
+    "rule+model"
+   ]
+  },
+  "vibe": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "model"
+   ]
+  },
+  "tone": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "conversational_style": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "values": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "guest_friendliness": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "brand_safety_flags": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "likely_audience": {
+   "present": 0.9834983498349835,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "vibe_similarity": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "model"
+   ]
+  },
+  "style_features": {
+   "present": 1.0,
+   "tiers": [
+    "inferred"
+   ],
+   "methods": [
+    "rule+model"
+   ]
+  },
+  "category_group": {
+   "present": 1.0,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "rule"
+   ]
+  },
+  "image": {
+   "present": 0.9966996699669967,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "owner_email_hash": {
+   "present": 0.7755775577557755,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "show_type": {
+   "present": 0.9504950495049505,
+   "tiers": [
+    "verified"
+   ],
+   "methods": [
+    "parsed"
+   ]
+  },
+  "directory_categories": {
+   "present": 1.0,
+   "tiers": [
+    "estimated"
+   ],
+   "methods": [
+    "api"
+   ]
+  }
+ }
+}

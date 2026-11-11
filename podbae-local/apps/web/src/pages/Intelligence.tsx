@@ -15,9 +15,9 @@ const TIER_STYLE: Record<DataTier, string> = {
 const TIER_ICON: Record<DataTier, typeof BadgeCheck> = { verified: BadgeCheck, creator_provided: UserCheck, estimated: Clock, inferred: Bot };
 const STAGE_LABEL: Record<string, string> = {
   feed: 'Reading your RSS feed', directory: 'Matching directory records', transcripts: 'Checking transcripts',
-  enrich: 'Understanding your content', embed: 'Building similarity vectors',
+  enrich: 'Understanding your content (rules + local model)', embed: 'Building similarity vectors',
 };
-export const GROUPS: [string, string][] = [['identity', 'Identity'], ['activity', 'Activity & format'], ['content', 'Content understanding (AI-inferred)'],
+export const GROUPS: [string, string][] = [['identity', 'Identity'], ['activity', 'Activity & format'], ['content', 'Content understanding (inferred by rules + a local model; no LLM)'],
   ['audience', 'Audience (creator analytics only)'], ['creator', 'Your goals']];
 
 const fmtDate = (s?: string | null) => (s ? new Date(s).toLocaleString() : '—');
@@ -68,7 +68,14 @@ function Value({ name, v }: { name: string; v: any }) {
         <div className="h-1.5 flex-1 rounded-full bg-muted"><div className="h-full rounded-full bg-primary" style={{ width: `${x * 100}%` }} /></div><span className="w-8 text-right">{x.toFixed(2)}</span></div>))}</div>
       : <span className="text-muted-foreground">No clear vibe signal in the text</span>;
   }
-  if (name === 'topics') return <div className="flex flex-wrap gap-1">{(v as any[]).map((t) => <Badge key={t.name}>{t.name} · {Math.round(t.weight * 100)}%</Badge>)}</div>;
+  if (name === 'topics') {
+    if (!(v as any[]).length) return <span className="text-muted-foreground">No topic has enough evidence yet (needs 2 episodes, or the description + 1 episode)</span>;
+    return <div className="flex flex-wrap gap-1">{(v as any[]).map((t) => (
+      <span key={t.id ?? t.name} title={`Basis: ${(t.basis ?? []).join(', ')}${t.episodes != null ? ` · ${t.episodes} supporting episode(s)` : ''}${t.in_description ? ' · in description' : ''}`}>
+        <Badge>{t.name} · {Math.round(t.weight * 100)}%</Badge></span>))}</div>;
+  }
+  if (name === 'declared_topics') return <div className="flex flex-wrap gap-1">{(v as string[]).length ? (v as string[]).map((x) => <Badge key={x} tone="green">{x.replace(/_/g, ' ')}</Badge>) : <span className="text-muted-foreground">Categories do not map to a topic</span>}</div>;
+  if (name === 'conversational_style' && v === 'unknown') return <span className="text-muted-foreground">Unknown: no rule was confident, so we do not guess</span>;
   if (name.startsWith('audience.')) {
     const d = v.data;
     return (
@@ -80,9 +87,9 @@ function Value({ name, v }: { name: string; v: any }) {
       </div>
     );
   }
-  if (name === 'guests_present') return <span>{v.value ? 'Yes' : 'Not evident'} <span className="text-xs text-muted-foreground">({v.basis}, {Math.round(v.share * 100)}% of episodes)</span></span>;
+  if (name === 'guests_present') return <span>{v.value ? 'Yes' : 'Not evident'} <span className="text-xs text-muted-foreground">({v.basis}; {v.guest_episodes ?? Math.round(v.share * (v.episodes_checked ?? 0))} of {v.episodes_checked ?? '?'} recent episodes, {Math.round(v.share * 100)}%)</span></span>;
   if (name === 'transcripts_available') return <span>{v.episodes_with_transcript} of {v.of} episodes</span>;
-  if (name === 'guest_friendliness') return <span>{Math.round(v * 100)}%</span>;
+  if (name === 'guest_friendliness') return <span>{Math.round(v * 100)}% of recent episodes name a guest</span>;
   if (name === 'last_published') return <span>{new Date(v).toLocaleDateString()}</span>;
   if (typeof v === 'boolean') return <span>{v ? 'Yes' : 'No'}</span>;
   if (Array.isArray(v)) return <div className="flex flex-wrap gap-1">{v.length ? v.map((x) => <Badge key={String(x)}>{String(x).replace(/_/g, ' ')}</Badge>) : <span className="text-muted-foreground">None detected</span>}</div>;

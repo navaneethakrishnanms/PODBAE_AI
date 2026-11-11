@@ -1,5 +1,6 @@
 import { Route, Switch } from 'wouter';
 import Admin, { AdminSetup } from './pages/Admin';
+import AdminLabels from './pages/AdminLabels';
 import AdvertiserSubmit from './pages/AdvertiserSubmit';
 import { Login } from './pages/Auth';
 import CampaignBuilder from './pages/CampaignBuilder';
@@ -55,6 +56,7 @@ export default function App() {
       <Route path="/mock-checkout" component={MockCheckout} />
 
       <Route path="/admin/setup" component={AdminSetup} />
+      <Route path="/admin/labels" component={AdminLabels} />
       <Route path="/admin" component={Admin} />
       <Route>
         <div className="p-20 text-center text-xl">Page not found. <a className="text-primary" href="/">Go home</a></div>

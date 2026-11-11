@@ -1,0 +1,155 @@
+# Apple Podcasts / iTunes category (current and legacy names, case-insensitive) -> taxonomy topic ids.
+# Used for the VERIFIED "declared_topics" field (what the publisher says the show is about). Unmapped categories are
+# kept in the raw `categories` field but never become topics. Broad parent categories map to no topic: they are too
+# vague to be a topic, but still give the show its `category_group`.
+version: category-map-v1
+groups:   # category -> group (used for balancing the seed and for group-level agreement)
+  arts: Arts
+  business: Business
+  comedy: Comedy
+  education: Education
+  fiction: Fiction
+  government: News
+  history: History
+  health & fitness: Health & Fitness
+  health: Health & Fitness
+  kids & family: Kids & Family
+  leisure: Leisure
+  games & hobbies: Leisure
+  music: Music
+  news: News
+  news & politics: News
+  religion & spirituality: Religion & Spirituality
+  science: Science
+  science & medicine: Science
+  society & culture: Society & Culture
+  sports: Sports
+  sports & recreation: Sports
+  technology: Technology
+  true crime: True Crime
+  tv & film: TV & Film
+map:
+  # Arts
+  books: [books_writing]
+  literature: [books_writing]
+  design: [design_visual_arts]
+  visual arts: [design_visual_arts]
+  fashion & beauty: [fashion_beauty]
+  food: [food_cooking]
+  performing arts: [performing_arts]
+  # Business
+  careers: [careers_work]
+  entrepreneurship: [entrepreneurship]
+  investing: [investing_personal_finance]
+  management: [leadership_management]
+  management & marketing: [leadership_management, marketing_sales]
+  marketing: [marketing_sales]
+  non-profit: [leadership_management]
+  business news: [news_current_events, investing_personal_finance]
+  # Comedy
+  comedy: [comedy]
+  comedy interviews: [comedy]
+  improv: [comedy]
+  stand-up: [comedy]
+  # Education
+  courses: [learning_howto]
+  how to: [learning_howto]
+  language learning: [language_learning]
+  self-improvement: [self_improvement]
+  educational technology: [learning_howto, technology_gadgets]
+  # Fiction
+  fiction: [fiction_audio_drama]
+  comedy fiction: [fiction_audio_drama, comedy]
+  drama: [fiction_audio_drama]
+  science fiction: [fiction_audio_drama]
+  # Government / News
+  government: [politics_government]
+  politics: [politics_government]
+  daily news: [news_current_events]
+  news commentary: [news_current_events]
+  entertainment news: [news_current_events, film_tv]
+  sports news: [sports_general]
+  tech news: [technology_gadgets]
+  # History
+  history: [history]
+  # Health & Fitness
+  alternative health: [alternative_health]
+  fitness: [fitness_exercise]
+  medicine: [medicine_healthcare]
+  mental health: [mental_health]
+  nutrition: [nutrition_diet]
+  sexuality: [sexuality_intimacy]
+  # Kids & Family
+  education for kids: [kids_stories]
+  parenting: [parenting]
+  pets & animals: [pets_animals]
+  stories for kids: [kids_stories]
+  # Leisure
+  animation & manga: [anime_manga]
+  automotive: [automotive_aviation]
+  aviation: [automotive_aviation]
+  crafts: [crafts_diy]
+  games: [tabletop_games]
+  hobbies: [crafts_diy]
+  home & garden: [home_garden]
+  video games: [video_games]
+  # Music
+  music: [music]
+  music commentary: [music]
+  music history: [music, history]
+  music interviews: [music]
+  # Religion & Spirituality
+  buddhism: [religion_other]
+  christianity: [christianity]
+  hinduism: [religion_other]
+  islam: [religion_other]
+  judaism: [religion_other]
+  religion: [religion_other]
+  spirituality: [spirituality]
+  # Science
+  astronomy: [space_astronomy]
+  chemistry: [science_general]
+  earth sciences: [nature_environment, science_general]
+  life sciences: [science_general]
+  mathematics: [science_general]
+  natural sciences: [science_general]
+  nature: [nature_environment]
+  physics: [science_general]
+  social sciences: [social_sciences]
+  # Society & Culture
+  documentary: [personal_journals]
+  personal journals: [personal_journals]
+  philosophy: [philosophy]
+  places & travel: [outdoors_travel]
+  relationships: [relationships_dating]
+  # Sports
+  baseball: [sports_general]
+  basketball: [sports_general]
+  cricket: [sports_general]
+  fantasy sports: [sports_general]
+  football: [sports_general]
+  golf: [sports_general]
+  hockey: [sports_general]
+  rugby: [sports_general]
+  running: [running_endurance]
+  soccer: [sports_general]
+  swimming: [running_endurance]
+  tennis: [sports_general]
+  volleyball: [sports_general]
+  wilderness: [outdoors_travel]
+  wrestling: [sports_general]
+  outdoor: [outdoors_travel]
+  # Technology
+  technology: [technology_gadgets]
+  gadgets: [technology_gadgets]
+  software how-to: [software_development]
+  podcasting: [technology_gadgets]
+  # True Crime
+  true crime: [true_crime]
+  # TV & Film
+  tv & film: [film_tv]
+  after shows: [film_tv]
+  film history: [film_tv, history]
+  film interviews: [film_tv]
+  film reviews: [film_tv]
+  tv reviews: [film_tv]

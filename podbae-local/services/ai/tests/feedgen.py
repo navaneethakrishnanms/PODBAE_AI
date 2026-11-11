@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 from email.utils import format_datetime
 from datetime import timezone
+from uuid import NAMESPACE_URL, uuid5
 from xml.sax.saxutils import escape
 
 NS = ('xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" '
@@ -14,14 +15,18 @@ def make_feed(title: str = "Test Show", n: int = 6, *, lang: str | None = "en", 
               desc: str = "A weekly show about gardening, cooking and community.", ep_desc=None, ep_title=None, podcast_guid: str | None = None,
               new_feed_url: str | None = None, transcripts: dict[int, str] | None = None, guests: bool = False, hosts: list[str] | None = None,
               categories: list[str] | None = None, skip_guids: set[str] | None = None, duration: str = "00:30:00", explicit: str = "no",
-              guid_prefix: str = "ep", malformed: bool = False) -> bytes:
+              guid_prefix: str = "ep", malformed: bool = False, guid_style: str = "uuid", owner_email: str | None = None,
+              image: str | None = None, author: str = "Host Person", show_type: str | None = None) -> bytes:
+    """guid_style='uuid' (default) gives distinctive per-show episode guids like real feeds; 'short' gives 'ep-3' style
+    guids that collide across unrelated shows (used to test that weak guids are not identity evidence)."""
     newest = newest or datetime.utcnow() - timedelta(days=1)
     cats = "".join(f'<itunes:category text="{escape(c)}"/>' for c in (categories or ["Society &amp; Culture".replace("&amp;", "&")]))
     items = []
     for i in range(n):
-        guid = f"{guid_prefix}-{i}"
-        if skip_guids and guid in skip_guids:
+        base = f"{guid_prefix}-{i}"
+        if skip_guids and base in skip_guids:
             continue
+        guid = base if guid_style == "short" else f"urn:uuid:{uuid5(NAMESPACE_URL, base)}"
         d = newest - timedelta(days=gap_days * i)
         t = ep_title(i) if ep_title else f"Episode {n - i}: topic {i}" + (" with Jane Smith" if guests else "")
         body = ep_desc(i) if ep_desc else f"In this episode we talk about topic {i}. <b>Welcome</b> friends, today we chat about local gardens and community."
@@ -36,7 +41,9 @@ def make_feed(title: str = "Test Show", n: int = 6, *, lang: str | None = "en", 
 <itunes:explicit>{explicit}</itunes:explicit>{extra}</item>""")
     head = f"""<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" {NS}><channel><title>{escape(title)}</title>
 <link>https://example.invalid/{escape(title).replace(' ', '')}</link><description>{escape(desc)}</description>
-{f'<language>{lang}</language>' if lang else ''}<itunes:explicit>{explicit}</itunes:explicit><itunes:author>Host Person</itunes:author>{cats}
+{f'<language>{lang}</language>' if lang else ''}<itunes:explicit>{explicit}</itunes:explicit><itunes:author>{escape(author)}</itunes:author>{cats}
+{f'<itunes:owner><itunes:name>Owner</itunes:name><itunes:email>{owner_email}</itunes:email></itunes:owner>' if owner_email else ''}
+{f'<itunes:image href="{image}"/>' if image else ''}{f'<itunes:type>{show_type}</itunes:type>' if show_type else ''}
 {f'<podcast:guid>{podcast_guid}</podcast:guid>' if podcast_guid else ''}{f'<itunes:new-feed-url>{new_feed_url}</itunes:new-feed-url>' if new_feed_url else ''}
 {''.join(f'<podcast:person role="host">{escape(h)}</podcast:person>' for h in (hosts or []))}
 """

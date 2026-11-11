@@ -1,101 +1,118 @@
 # PodBae Local (PODBAE_AI)
 
-A localhost replica of the PodBae MVP (podbae.love): same pages, flows and API surface.
-No Docker, no cloud, **zero API keys needed** (Hey Bae falls back to a deterministic mock).
+A localhost replica of the PodBae MVP (podbae.love) plus the AI layer being built for it, one layer at a time.
+Windows, no Docker, **no API keys required**. Everything lives in `podbae-local/`.
+
+| Layer | Status |
+|---|---|
+| Phase 0: MVP replica (UI, routes, `/api/*` surface) | Done |
+| **Layer 1: Podcast Intelligence + Trust Spine** | Built, **hardened in Phase 1** (no LLM; rules + local embeddings). See `podbae-local/PHASE1_REPORT.md` |
+| Layer 2-6 (sponsor, venue, opportunity engine, Bae agent, outcomes) | Not started |
+
+## Architecture
 
 ```mermaid
 flowchart LR
   Web["apps/web<br/>React + Vite :5173"] -- "/api (Vite proxy)" --> API["apps/api<br/>Express :5000"]
-  API -- "Drizzle / SQL" --> DB[("PGlite (embedded Postgres)<br/>./data/pglite")]
-  API -- "POST /match, /heybae/chat" --> AI["services/ai<br/>FastAPI :8000 (conda: torch_gpu)"]
-  API -. "AI down" .-> FB["in-process TS scoring<br/>(same algorithm)"]
-  Contracts["packages/contracts<br/>zod schemas + types"] -.-> Web
-  Contracts -.-> API
+  API -- "Drizzle / SQL" --> DB[("Express app DB<br/>PGlite (embedded Postgres)<br/>data/pglite")]
+  API -- "HTTP + X-Service-Token<br/>/v1/*, /match, /heybae/chat" --> AI["services/ai<br/>FastAPI 127.0.0.1:8000<br/>(conda: torch_gpu)"]
+  AI -- "SQLAlchemy + Alembic" --> IS[("AI intelligence store<br/>SQLite WAL + sqlite-vec<br/>data/intel.db")]
+  AI -. "local GPU" .-> E5["multilingual-e5-small<br/>embeddings"]
+  AI -. "no key" .-> SRC["RSS feeds · iTunes Search API"]
+  API -. "AI down" .-> FB["cached profile / in-process<br/>TS scoring fallback"]
 ```
 
+Two databases, two owners:
+
+| Store | Owner | Holds |
+|---|---|---|
+| **Express app DB** (`data/pglite`, PGlite) | `apps/api` | users, sessions, tiers, payments (mock), chat, swipes, matches, UI state, the link between a member's podcast and its intelligence show id (`intel_links`) |
+| **AI intelligence store** (`data/intel.db`, SQLite + sqlite-vec; Postgres + pgvector in production, untested) | `services/ai` | shows, episodes, field-level provenance (source, tier, method, confidence, freshness), evidence snippets, embeddings, cost ledger, budgets, jobs, audit log, corpus calibration, human evaluation labels |
+
+The Node API reaches intelligence **only** through the AI service's HTTP API. The AI service listens on `127.0.0.1` only, and every route except `/health` and `/v1/health` requires the header `X-Service-Token` (value `INTEL_SERVICE_TOKEN` in `.env`; Express sends it automatically).
+
+## Layer 1 status (after Phase 1)
+
+- **Ingestion:** RSS (conditional GET, retries, encoding repair, SSRF protection on every redirect hop), iTunes Search for discovery (no key; rate-limited about 20/min and cached). Every failed feed gets a reason code: `dns`, `timeout`, `http_4xx`, `http_5xx`, `tls`, `invalid_xml`, `empty`, `too_large`, `ssrf_blocked`, ...
+- **Seed:** about 300 *independent, active* shows across 12 category groups. The definition is in `services/ai/seed/independent.yaml`: a network blocklist, a new episode within 90 days, and at least 5 episodes.
+- **Understanding, with no LLM:**
+  - topics from a fixed taxonomy (each needs evidence from 2 episodes, or the description + 1 episode)
+  - guest detection rules
+  - conversational style, with `unknown` when no rule is confident
+  - vibe from corpus-calibrated embedding similarity
+  - tone, values and brand-safety lexicons
+
+  Each value records `method` = rule / model and a confidence.
+- **Similarity:**
+  - content: e5 embeddings
+  - style: a numeric, mean-centred vector (fixes the Layer 1 problem where unrelated shows scored 0.97)
+- **Identity:** a same-title merge needs a strong agreeing signal: podcast:guid, iTunes ID, the same owner (salted email hash; the raw email is never stored), the same artwork, or ≥50% shared distinctive episode GUIDs.
+- **Evaluation:** human labels are collected at `/admin/labels`. Claude-written drafts are excluded from scoring.
+- **Still mocked / untested:** LLM (none used), Podcast Index and Taddy (no keys), Postgres + pgvector, Whisper.
+
 ## Requirements
-- Node 20+ (here: the Node inside the `torch_gpu` conda env — run commands from a conda-activated terminal, or make sure `node`/`npm` are on PATH)
-- conda env **`torch_gpu`** (Python deps install into it; no venv, no uv)
+- Node 20+ and Python: both come from the conda env **`torch_gpu`** (run commands from a conda-activated terminal).
+- Internet access for seeding and real feeds.
 
 ## Run
-Open a terminal where conda works (Anaconda Prompt, or PowerShell after `conda init`):
 ```powershell
 conda activate torch_gpu
 cd C:\Nk\PODBAE\podbae-local
-npm run setup     # first time only: npm install + pip install into torch_gpu + migrate + seed
-npm run dev       # web http://localhost:5173 · api http://localhost:5000 · ai http://localhost:8000
+copy .env.example .env      # first time only, then set INTEL_SERVICE_TOKEN to a long random string
+npm run setup               # first time only: npm install + pip install + migrations + demo seed
+npm run dev                 # web http://localhost:5173 · api http://localhost:5000 · ai http://127.0.0.1:8000
 ```
-Open http://localhost:5173 and log in with a demo account below. Press `Ctrl+C` in the terminal to stop all three servers.
+Open http://localhost:5173. Press `Ctrl+C` to stop all three servers.
 
-### Stop everything (if servers were left running in the background)
+Stop leftovers:
 ```powershell
 foreach ($p in 5173,5000,8000) { Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue | % { Stop-Process -Id $_.OwningProcess -Force } }
 ```
 
-### Troubleshooting
-- **"Invalid email or password"**: check for typos. The admin email is `admin@podbae.local` (ends in `.local`).
-- **Port already in use**: run the stop command above, then `npm run dev` again.
-- **`node` / `npm` not found**: use the conda-activated terminal. Node is installed inside the `torch_gpu` env.
-- **Database errors after stopping uncleanly, or you want a clean slate**: stop all servers, then `npm run reset`.
-- **`npm run reset` / `npm run seed` fails or hangs**: the dev servers still hold the database. Stop them first (PGlite allows one process).
+## Commands (from `podbae-local/`)
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | starts web, api and ai together |
-| `npm run setup` | install deps, apply migrations, seed demo data |
-| `npm run reset` | wipe `./data` and reseed (**stop `npm run dev` first** — PGlite allows one process) |
-| `npm run db:generate` | generate a new drizzle-kit migration after editing `apps/api/src/db/schema.ts` |
-| `npm run db:migrate` / `npm run seed` | apply migrations / seed only |
+| `npm run dev` | start web, api and ai together |
+| `npm run setup` | install deps, apply migrations (both stores), seed demo data |
+| `npm run reset` | wipe the **Express** DB (`data/pglite`) and reseed demo users (stop `npm run dev` first) |
+| `npm run db:generate` / `npm run db:migrate` / `npm run seed` | Express DB: new drizzle migration / apply / seed |
+| `npm run intel:migrate` | apply Alembic migrations to the intelligence store |
+| `npm run intel:seed` | ingest ~300 independent active shows via iTunes Search (add `-- --fresh` to archive the current store first) |
+| `npm run intel:connect-demo` | connect `podcaster@podbae.local` to a real feed (needs `npm run dev`) |
+| `npm run intel:eval` | write `EVAL_LAYER1.md` (human-label metrics, style similarity, dedupe, seed, coverage, costs) |
+| `npm run intel:diagnose-feeds` | re-fetch the Layer 1 feed list and classify every failure |
+| `npm run ui:smoke` | Playwright: log in as each role, screenshot the main pages into `screenshots/`, report console errors (needs `npm run dev`) |
+| `npm test` · `npm run test:ai` | API tests (vitest) · AI-service tests (pytest) |
 | `npm run typecheck` · `npm run lint` · `npm run build` | quality checks |
-| `npm test` · `npm run test:ai` | API integration tests (vitest + supertest, temp in-memory PGlite) · AI tests (pytest in torch_gpu) |
-| `npm run open` | open http://localhost:5173 in your default browser |
 
 ## Demo logins (all fake, `demo=true`)
 | Email | Password | Role |
 |---|---|---|
-| admin@podbae.local | admin123 | admin |
-| podcaster@podbae.local | demo123 | podcaster (flirt tier) |
+| admin@podbae.local | admin123 | admin (sees Ingestion / Coverage / Costs / Labels tabs, `/admin/labels`) |
+| podcaster@podbae.local | demo123 | podcaster (flirt tier; `/intelligence`) |
 | brand@podbae.local | demo123 | advertiser |
 
-Other seeded accounts use `*@demo.podbae.local` / `demo123` (7 more podcasters, 4 advertisers, 4 venues, 5 guests).
-Demo accounts "like back" automatically when `DEMO_AUTO_LIKE=true` (set in `.env`), so mutual matches are easy to demo.
+Other seeded accounts use `*@demo.podbae.local` / `demo123`.
 
-## Layer 1: Podcast Intelligence (new)
-Real RSS ingestion + a trust-labelled **Podcast Intelligence Profile**, owned by `services/ai` (its own store, `data/intel.db`: SQLite WAL + sqlite-vec; the
-Node API and web app reach it **only** through the AI service `/v1` HTTP API).
+## Reports
+- `podbae-local/PHASE1_REPORT.md`: what Phase 1 changed, before/after numbers, what is still mocked, risks, and what Layer 4 can rely on.
+- `podbae-local/EVAL_LAYER1.md`: the measured numbers (regenerate with `npm run intel:eval`).
+- `podbae-local/LAYER1_REPORT.md`: the original Layer 1 report (historical).
+- `podbae-local/TESTING_CHECKLIST.md`: the manual test list.
 
-```powershell
-npm run intel:seed             # ingest ~300 real shows (needs internet; see EVAL_LAYER1.md for what this machine could reach)
-npm run dev                    # everything
-npm run intel:connect-demo     # connects podcaster@podbae.local to a real feed, then open http://localhost:5173/intelligence
-npm run test:ai                # pytest: ingestion, trust, LLM-guard and API acceptance tests
+## Folder map (`podbae-local/`)
 ```
-- **Trust rules (enforced in code + tests):** every stored fact has source, data tier (Verified / Creator-provided / Estimated / AI-inferred), timestamp, confidence; stale data is flagged and refreshed;
-  the LLM can never produce ages, genders, incomes, cities or listener counts (schema rejects them); all external text is sanitised and only sent to LLMs inside delimited data blocks; every
-  external/LLM/GPU call is in a cost ledger and subject to a budget.
-- **Zero keys:** mock LLM + local embeddings (`intfloat/multilingual-e5-small` on your GPU). Optional keys in `.env`: `OPENAI_API_KEY` / `ANTHROPIC_API_KEY`, `PODCASTINDEX_API_KEY` + `PODCASTINDEX_API_SECRET`, `TADDY_USER_ID` + `TADDY_API_KEY` (+ `INTEL_TADDY_ENABLED=true`).
-- **Pages:** `/intelligence` (your profile, tier badges, audience CSV upload), `/discover` (real ingested shows), `/admin` (Ingestion jobs / Coverage / Costs tabs).
-- **Reports:** `LAYER1_REPORT.md` (what works, mocked parts, risks, seams for Layer 2 and 4), `EVAL_LAYER1.md` (measured numbers).
-- **Postgres in production:** set `INTEL_DATABASE_URL=postgresql+psycopg://…` and `INTEL_VECTOR_BACKEND=pgvector` (code path written but not exercised locally).
-
-## Optional keys
-`OPENAI_API_KEY` or `ANTHROPIC_API_KEY` in `.env` (plus `LLM_PROVIDER=openai|anthropic`) only change Hey Bae replies. Matching never uses an LLM.
-
-## Folder map (inside `podbae-local/`)
+packages/contracts/     zod schemas + types shared by web and api (incl. intelligence.ts)
+apps/api/               Express: routes (auth, intake, podcasts, member, social, admin, intel), services (matching, intel client, payments seam)
+apps/web/src/           React pages (incl. Intelligence.tsx, Admin.tsx, AdminLabels.tsx) and components
+services/ai/app/        FastAPI: main.py (+ /match, /heybae), auth.py (service token), intel/ (Layer 1)
+  intel/connectors/     rss, iTunes Search, Podcast Index + Taddy (untested), failure classification
+  intel/understanding/  signals.py (rules), model_signals.py (embeddings), pipeline.py, taxonomy.yaml, category_map.yaml,
+                        vibes.yaml, first_names.txt, refine.py (LLM seam, disabled), extract.py (LLM path, unused in Phase 1)
+  intel/trust/          provenance, budgets + cost ledger, jobs, audit, sanitiser
+services/ai/seed/       independent.yaml (seed rules), feeds.txt (last seed's accepted feeds)
+services/ai/scripts/    intel_seed.py, eval_layer1.py, feed_diagnose.py
+scripts/                connect-demo.mjs, ui_smoke.py, open-browser.mjs
+data/                   pglite/ (Express DB), intel.db (intelligence store), archive/ (previous stores)   (git-ignored)
 ```
-packages/contracts/   zod schemas, vocabularies, tier config (shared by web + api)
-apps/api/
-  drizzle/            generated SQL migrations (from src/db/schema.ts — the single source of truth)
-  src/db/             PGlite client, schema, session store, migrate + seed
-  src/routes/         auth, intake, podcasts(+public/search), member, social(chat/heybae/campaigns/schedule), admin
-  src/services/       matching, scoring (TS fallback), ai client, tiers/quota, payments (PaymentProvider seam)
-  tests/              vitest + supertest
-apps/web/src/         pages/, components/ (shadcn-style on Radix), lib/
-services/ai/          FastAPI placeholder matcher + Hey Bae (requirements.txt, weights.yaml, tests/)
-data/pglite/          the database files (git-ignored)
-```
-
-## Notes
-- Placeholder AI only: weighted tag-overlap scoring + templated explanations. No ingestion, embeddings or agent tools yet. The pgvector extension is enabled in PGlite for later.
-- Checkout is a mock page (`/mock-checkout`) behind a `PaymentProvider` interface; "paying" upgrades the tier locally.
-- Anything shown to users comes from a DB row; seeded rows are flagged `demo` and have provenance rows in `data_sources`.

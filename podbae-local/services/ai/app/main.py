@@ -1,25 +1,19 @@
 from __future__ import annotations
 
+try:  # import torch BEFORE other native libraries: on Windows another DLL load order can make torch fail to load
+    import torch  # noqa: F401  (WinError 127 on fbgemm.dll). The embedder refuses to fall back silently if it does.
+except Exception:  # noqa: BLE001
+    pass
+
 import os
 from contextlib import asynccontextmanager
-from pathlib import Path
 
 from fastapi import Depends, FastAPI
 
 
-def _load_env() -> None:
-    """Tiny .env loader (repo root) so optional keys apply without extra deps."""
-    env = Path(__file__).resolve().parents[3] / ".env"
-    if not env.exists():
-        return
-    for line in env.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
+from .envfile import load_env  # noqa: E402
 
-
-_load_env()
+load_env()
 
 from . import scoring  # noqa: E402
 from .auth import require_service_token  # noqa: E402
