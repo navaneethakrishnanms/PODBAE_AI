@@ -33,7 +33,7 @@ def test_breakdown_and_explanation() -> None:
 
 
 def test_http_endpoints() -> None:
-    c = TestClient(app)
+    c = TestClient(app, headers={"X-Service-Token": "test-service-token"})
     assert c.get("/health").json()["status"] == "ok"
     r = c.post("/match", json=REQ).json()
     assert r["matches"][0]["scoreBreakdown"]["genreScore"] == 1.0

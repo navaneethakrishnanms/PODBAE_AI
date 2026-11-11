@@ -52,6 +52,21 @@ class Settings:
     cost_taddy_request: float = field(default_factory=lambda: _f("INTEL_COST_TADDY_REQUEST_USD", 0.002))
     cost_gpu_second: float = field(default_factory=lambda: _f("INTEL_COST_GPU_SECOND_USD", 0.0003))
     cost_whisper_audio_minute: float = field(default_factory=lambda: _f("INTEL_COST_WHISPER_MIN_USD", 0.003))
+    # service auth: every /v1 route (except /v1/health) requires X-Service-Token == this. Empty = fail closed (401).
+    service_token: str = field(default_factory=lambda: os.environ.get("INTEL_SERVICE_TOKEN", "").strip())
+    # salt for one-way hashes of identifying values (owner e-mail); raw values are never stored, logged or exported
+    hash_salt: str = field(default_factory=lambda: os.environ.get("INTEL_HASH_SALT", "podbae-intel-owner-v1"))
+    # HTTP politeness / rate limits
+    user_agent: str = field(default_factory=lambda: os.environ.get(
+        "INTEL_USER_AGENT", "Mozilla/5.0 (compatible; PodBaeIntel/0.3; podcast metadata reader; +https://podbae.love)"))
+    http_connect_timeout: float = field(default_factory=lambda: _f("INTEL_HTTP_CONNECT_TIMEOUT", 10))
+    feed_retries: int = field(default_factory=lambda: int(_f("INTEL_FEED_RETRIES", 1)))   # extra tries on timeout / 5xx
+    itunes_rate_per_min: float = field(default_factory=lambda: _f("INTEL_ITUNES_RATE_PER_MIN", 20))
+    itunes_cache_hours: float = field(default_factory=lambda: _f("INTEL_ITUNES_CACHE_HOURS", 24))
+    itunes_country: str = field(default_factory=lambda: os.environ.get("INTEL_ITUNES_COUNTRY", "US"))
+    # feature flags
+    # LLM refinement seam (Phase 1: OFF, and no refiner is registered). Rules + local models produce every field.
+    llm_refine_enabled: bool = field(default_factory=lambda: _b("INTEL_LLM_REFINE", False))
     # job worker
     worker_enabled: bool = field(default_factory=lambda: _b("INTEL_WORKER", True))
     max_attempts: int = 3

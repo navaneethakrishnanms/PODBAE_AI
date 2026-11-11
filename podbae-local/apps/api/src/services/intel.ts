@@ -6,12 +6,17 @@ export class IntelDown extends Error {
 }
 export interface IntelResult<T = any> { status: number; body: T }
 
+/** Every call to the AI service carries the shared service token (the service is 401 without it). */
+export function serviceHeaders(extra: Record<string, string> = {}): Record<string, string> {
+  return { ...extra, 'x-service-token': config.intelServiceToken };
+}
+
 export async function intel<T = any>(path: string, init: { method?: string; json?: unknown; form?: FormData; timeoutMs?: number } = {}): Promise<IntelResult<T>> {
   let res: Response;
   try {
     res = await fetch(`${config.aiServiceUrl}/v1${path}`, {
       method: init.method ?? (init.json || init.form ? 'POST' : 'GET'),
-      headers: init.json ? { 'content-type': 'application/json' } : undefined,
+      headers: serviceHeaders(init.json ? { 'content-type': 'application/json' } : {}),
       body: init.form ?? (init.json ? JSON.stringify(init.json) : undefined),
       signal: AbortSignal.timeout(init.timeoutMs ?? 20_000),
     });

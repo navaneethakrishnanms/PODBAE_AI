@@ -4,7 +4,7 @@ import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 
 
 def _load_env() -> None:
@@ -22,6 +22,7 @@ def _load_env() -> None:
 _load_env()
 
 from . import scoring  # noqa: E402
+from .auth import require_service_token  # noqa: E402
 from .llm import get_llm  # noqa: E402
 from .schemas import ChatRequest, ChatResponse, MatchRequest, MatchResponse  # noqa: E402
 
@@ -34,10 +35,12 @@ async def lifespan(_app: FastAPI):
     intel.shutdown()
 
 
-app = FastAPI(title="PodBae AI Service", version="0.3.0", lifespan=lifespan)
+app = FastAPI(title="PodBae AI Service", version="0.4.0", lifespan=lifespan)
+from .intel.api import public_router as intel_public_router  # noqa: E402
 from .intel.api import router as intel_router  # noqa: E402
 
-app.include_router(intel_router)
+app.include_router(intel_public_router)   # /v1/health only
+app.include_router(intel_router)          # every other /v1 route: X-Service-Token required
 
 
 @app.get("/health")
@@ -45,12 +48,12 @@ def health() -> dict[str, str]:
     return {"status": "ok", "llm": get_llm().name}
 
 
-@app.post("/match", response_model=MatchResponse, response_model_by_alias=True)
+@app.post("/match", response_model=MatchResponse, response_model_by_alias=True, dependencies=[Depends(require_service_token)])
 def match(req: MatchRequest) -> MatchResponse:
     return scoring.match(req)
 
 
-@app.post("/heybae/chat", response_model=ChatResponse, response_model_by_alias=True)
+@app.post("/heybae/chat", response_model=ChatResponse, response_model_by_alias=True, dependencies=[Depends(require_service_token)])
 def heybae_chat(req: ChatRequest) -> ChatResponse:
     llm = get_llm()
     try:

@@ -11,6 +11,8 @@ export const config = {
   migrationsDir: path.resolve(here, '../drizzle'),
   sessionSecret: process.env.SESSION_SECRET ?? 'dev-secret-change-me',
   aiServiceUrl: process.env.AI_SERVICE_URL ?? 'http://localhost:8000',
+  /** Shared secret sent as X-Service-Token on every AI-service call (the service rejects calls without it). */
+  intelServiceToken: process.env.INTEL_SERVICE_TOKEN ?? '',
   webOrigin: process.env.WEB_ORIGIN ?? 'http://localhost:5173',
   demoAutoLike: (process.env.DEMO_AUTO_LIKE ?? 'false').toLowerCase() === 'true',
 };

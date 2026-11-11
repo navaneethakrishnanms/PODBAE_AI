@@ -10,20 +10,22 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 
 from app.intel import ingest, vectors
-from app.intel.api import router
+from app.intel.api import public_router, router
 from app.intel.config import reset_settings
 from app.intel.db import session_scope
 from app.intel.models import AuditLog, Job, Provenance, Show
 from app.intel.profile import build_profile
 from app.intel.trust import jobs
+from tests.conftest import TOKEN_HEADERS
 from tests.feedgen import make_feed
 
 
 @pytest.fixture()
 def client(db):
     app = FastAPI()
+    app.include_router(public_router)
     app.include_router(router)
-    return TestClient(app)
+    return TestClient(app, headers=TOKEN_HEADERS)
 
 
 def run_ingest(client, url, **kw):

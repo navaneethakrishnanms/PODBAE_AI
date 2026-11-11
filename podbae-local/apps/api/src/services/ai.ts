@@ -1,11 +1,12 @@
 import { MatchResponseSchema, type MatchRequest, type MatchResponse } from '@podbae/contracts';
 import { config } from '../config.js';
+import { serviceHeaders } from './intel.js';
 import { localMatch } from './scoring.js';
 
 async function post(path: string, body: unknown): Promise<any> {
   const res = await fetch(`${config.aiServiceUrl}${path}`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: serviceHeaders({ 'content-type': 'application/json' }),
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(20_000),
   });

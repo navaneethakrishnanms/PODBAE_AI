@@ -64,3 +64,14 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# Local backups (database snapshots, zip archives — never push)
+backups/
+*.zip
+*.tar.gz
+*.bak
+
+# Uploaded files & local intel database
+intel_uploads/
+intel.db
+**/intel.db
+

@@ -9,7 +9,9 @@ from pathlib import Path
 # must be set before app modules read settings
 os.environ.update({"INTEL_DATABASE_URL": "sqlite://", "INTEL_ALLOW_PRIVATE_URLS": "1", "INTEL_EMBED_MODEL": "hash",
                    "LLM_PROVIDER": "mock", "INTEL_WORKER": "0", "INTEL_BACKOFF_BASE": "0", "INTEL_DISABLED": "1",
-                   "PODCASTINDEX_API_KEY": "", "PODCASTINDEX_API_SECRET": "", "INTEL_TADDY_ENABLED": "0"})
+                   "PODCASTINDEX_API_KEY": "", "PODCASTINDEX_API_SECRET": "", "INTEL_TADDY_ENABLED": "0",
+                   "INTEL_SERVICE_TOKEN": "test-service-token"})
+TOKEN_HEADERS = {"X-Service-Token": "test-service-token"}
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import pytest  # noqa: E402

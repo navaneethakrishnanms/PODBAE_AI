@@ -6,10 +6,11 @@ import time
 from datetime import datetime
 from typing import Any
 
-from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select, text
 
+from ..auth import require_service_token
 from . import audience as aud
 from . import profile as prof
 from .config import get_settings
@@ -22,7 +23,8 @@ from .understanding.providers import provider_status
 from .vectors import embedder_status, similar
 from .whisper_job import NotAllowed, check_allowed
 
-router = APIRouter(prefix="/v1")
+router = APIRouter(prefix="/v1", dependencies=[Depends(require_service_token)])   # X-Service-Token required
+public_router = APIRouter(prefix="/v1")                                              # /v1/health only, no data
 
 
 class IngestRss(BaseModel):
@@ -301,7 +303,7 @@ def admin_jobs(status: str | None = None, limit: int = Query(50, ge=1, le=500)) 
         return {"counts": counts, "jobs": [_job_view(j) for j in s.scalars(q)]}
 
 
-@router.get("/health")
+@public_router.get("/health")
 def health() -> dict:
     cfg = get_settings()
     info: dict[str, Any] = {"status": "ok", "service": "podbae-intel", "store": {"backend": "sqlite" if cfg.database_url.startswith("sqlite") else "postgres"},
