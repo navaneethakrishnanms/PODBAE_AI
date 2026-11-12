@@ -1,6 +1,6 @@
 # EVAL_LAYER1: measured numbers (after Phase 1)
 
-_Generated 2026-11-11 17:14 by `python scripts/eval_layer1.py report` from the local intelligence store. No LLM was used to produce any value measured here._
+_Generated 2026-11-12 10:30 by `python scripts/eval_layer1.py report` from the local intelligence store. No LLM was used to produce any value measured here._
 
 ## 1. Extraction vs HUMAN labels
 
@@ -18,29 +18,29 @@ Label set: **30 shows** (stratified across category groups, `label_items`). Huma
 |---|---|---|---|---|
 | BEFORE: Layer 1 store as it was (archived) | 102 | 0.903 | 0.939 | 0.962 |
 | BEFORE: old method re-applied to the Phase 1 corpus | 303 | 0.904 | 0.941 | 0.964 |
-| AFTER: numeric, mean-centred (Phase 1) | 303 | -0.355 | -0.02 | 0.398 |
+| AFTER: numeric, mean-centred (Phase 1) | 303 | -0.356 | -0.022 | 0.402 |
 
-**Matched vs contrasting pairs** (pairs chosen by category group only: matched = two shows of the same group, preferring the same rule-detected style; contrasting = groups with opposite registers, e.g. Comedy vs Religion). NEW mean cosine: matched **0.33** vs contrasting **-0.06** (gap +0.39; a matched pair beats a contrasting pair 86% of the time). OLD method on the same pairs: matched 0.95 vs contrasting 0.93 (gap +0.01).
+**Matched vs contrasting pairs** (pairs chosen by category group only: matched = two shows of the same group, preferring the same rule-detected style; contrasting = groups with opposite registers, e.g. Comedy vs Religion). NEW mean cosine: matched **0.33** vs contrasting **-0.10** (gap +0.43; a matched pair beats a contrasting pair 90% of the time). OLD method on the same pairs: matched 0.95 vs contrasting 0.93 (gap +0.01).
 
 | Type | Show A | Show B | NEW cosine | OLD cosine |
 |---|---|---|---|---|
-| matched (Comedy) | The Edinburgh Fringe Comedy Podcast | Soder | 0.15 | 0.94 |
-| matched (True Crime) | Going West: True Crime | The Minds of Madness - True Crime Storie | 0.77 | 0.96 |
-| matched (Religion & Spirituality) | Plain Bible Teaching Podcast | Tabernacle Talk - A Bible Study Podcast  | 0.26 | 0.95 |
-| matched (Health & Fitness) | Sound Bites A Nutrition Podcast | The Start My Wellness Podcast | 0.50 | 0.95 |
-| matched (Technology) | TECHNOLOGY PODCAST | Podcasts SUCK! (a podcast about how to s | -0.09 | 0.96 |
-| matched (Sports) | Unreasonable Doubt - A WVU Basketball Po | The Cheer Mom Podcast | 0.50 | 0.95 |
-| matched (Kids & Family) | Sparkle Stories Podcast | Phases - A Parenting podcast with Dr Cou | 0.16 | 0.94 |
+| matched (Comedy) | The Edinburgh Fringe Comedy Podcast | Soder | 0.14 | 0.94 |
+| matched (True Crime) | Going West: True Crime | The Minds of Madness - True Crime Storie | 0.62 | 0.96 |
+| matched (Religion & Spirituality) | Plain Bible Teaching Podcast | Tabernacle Talk - A Bible Study Podcast  | 0.18 | 0.95 |
+| matched (Health & Fitness) | Sound Bites A Nutrition Podcast | The Start My Wellness Podcast | 0.51 | 0.95 |
+| matched (Technology) | TECHNOLOGY PODCAST | Podcasts SUCK! (a podcast about how to s | -0.08 | 0.96 |
+| matched (Sports) | Unreasonable Doubt - A WVU Basketball Po | The Cheer Mom Podcast | 0.49 | 0.95 |
+| matched (Kids & Family) | Sparkle Stories Podcast | Phases - A Parenting podcast with Dr Cou | 0.21 | 0.94 |
 | matched (Business) | The Programming Languages Podcast with F | Personal Finance with Ravi Sharma | Aust | 0.56 | 0.96 |
-| matched (Education) | Wellness Podcast | Listening Time: English Practice | 0.18 | 0.92 |
-| contrasting (Comedy vs Religion & Spirituality) | The Edinburgh Fringe Comedy Podcast | Westheights Teaching Podcast | -0.42 | 0.93 |
-| contrasting (True Crime vs Kids & Family) | Going West: True Crime | Sparkle Stories Podcast | -0.10 | 0.93 |
-| contrasting (Sports vs Religion & Spirituality) | Locked On Cowboys - Daily Podcast On The | Westheights Teaching Podcast | -0.18 | 0.95 |
+| matched (Education) | Wellness Podcast | Listening Time: English Practice | 0.37 | 0.92 |
+| contrasting (Comedy vs Religion & Spirituality) | The Edinburgh Fringe Comedy Podcast | Westheights Teaching Podcast | -0.43 | 0.93 |
+| contrasting (True Crime vs Kids & Family) | Going West: True Crime | Sparkle Stories Podcast | -0.18 | 0.93 |
+| contrasting (Sports vs Religion & Spirituality) | Locked On Cowboys - Daily Podcast On The | Westheights Teaching Podcast | -0.20 | 0.95 |
 | contrasting (Comedy vs Education) | The Edinburgh Fringe Comedy Podcast | BBC 随身英语 | -0.07 | 0.92 |
-| contrasting (True Crime vs Health & Fitness) | Going West: True Crime | Sound Bites A Nutrition Podcast | 0.30 | 0.92 |
-| contrasting (Technology vs Kids & Family) | TECHNOLOGY PODCAST | Sparkle Stories Podcast | 0.25 | 0.95 |
-| contrasting (Business vs True Crime) | The Programming Languages Podcast with F | Going West: True Crime | 0.10 | 0.95 |
-| contrasting (Sports vs Education) | Locked On Cowboys - Daily Podcast On The | BBC 随身英语 | -0.25 | 0.90 |
+| contrasting (True Crime vs Health & Fitness) | Going West: True Crime | Sound Bites A Nutrition Podcast | 0.17 | 0.92 |
+| contrasting (Technology vs Kids & Family) | TECHNOLOGY PODCAST | Sparkle Stories Podcast | 0.30 | 0.95 |
+| contrasting (Business vs True Crime) | The Programming Languages Podcast with F | Going West: True Crime | -0.03 | 0.95 |
+| contrasting (Sports vs Education) | Locked On Cowboys - Daily Podcast On The | BBC 随身英语 | -0.27 | 0.90 |
 | contrasting (Comedy vs Business) | The Edinburgh Fringe Comedy Podcast | The Programming Languages Podcast with F | -0.18 | 0.96 |
 
 ## 3. Dedupe (Step 6, constructed cases)
@@ -97,22 +97,22 @@ Ingestion time per show: median 14.4 s, p95 33.74 s.
 
 | Field | % |
 |---|---|
-| title | 100.0% |
-| description | 100.0% |
-| language | 100.0% |
-| link | 98.3% |
-| image | 99.7% |
-| author | 100.0% |
-| categories | 99.7% |
+| title | 99.7% |
+| description | 99.7% |
+| language | 99.7% |
+| link | 98.0% |
+| image | 99.3% |
+| author | 99.7% |
+| categories | 99.3% |
 | explicit | 2.6% |
 | podcast_guid | 30.7% |
-| new_feed_url | 25.4% |
-| owner_email_hash | 77.6% |
-| show_type | 95.0% |
-| episodes | 100.0% |
-| episode_dates | 100.0% |
-| episode_durations | 98.3% |
-| episode_descriptions | 99.7% |
+| new_feed_url | 25.1% |
+| owner_email_hash | 77.2% |
+| show_type | 94.7% |
+| episodes | 99.7% |
+| episode_dates | 99.7% |
+| episode_durations | 98.0% |
+| episode_descriptions | 99.3% |
 | transcripts | 31.7% |
 | persons | 5.0% |
 
@@ -121,11 +121,11 @@ Podcast Index and Taddy: **not tested (no keys)**.
 ## 5. Costs and the no-LLM check
 
 - LLM ledger rows: **0**; provenance rows with method=llm: **0** (Phase 1 requires 0).
-- Live provenance rows by method: {'api': 303, 'model': 911, 'parsed': 3271, 'rule': 4566, 'rule+model': 568}.
-- Total estimated spend $0.053977 (local GPU time only); avg $0.000178/show, p95 $0.000779/show.
-- Embedding cache-hit rate in the ledger: 0.084.
-- rss_fetch: 306 ledger rows, 0 cache hits, 0 skipped, $0.0
-- embed: 3619 ledger rows, 303 cache hits, 0 skipped, $0.053977
+- Live provenance rows by method: {'api': 303, 'model': 913, 'parsed': 3271, 'rule': 4563, 'rule+model': 571}.
+- Total estimated spend $0.059683 (local GPU time only); avg $0.000197/show, p95 $0.000825/show.
+- Embedding cache-hit rate in the ledger: 0.228.
+- rss_fetch: 307 ledger rows, 1 cache hits, 0 skipped, $0.0
+- embed: 4654 ledger rows, 1062 cache hits, 0 skipped, $0.059683
 - transcript_fetch: 422 ledger rows, 0 cache hits, 0 skipped, $0.0
 
 ## 6. What Layer 4 can rely on (measured over the store)
@@ -172,4 +172,4 @@ Podcast Index and Taddy: **not tested (no keys)**.
 | directory_categories | 100% | estimated | api | 0.80 / 0.80 / 0.80 |
 
 Conversational style distribution: {'solo_monologue': 72, 'unknown': 134, 'interview': 71, 'co_hosted_banter': 20, 'narrative_storytelling': 3, 'panel': 3}.
-Topics per show (after the evidence rule): mean 4.0, shows with none 5.
+Topics per show (after the evidence rule): mean 3.9, shows with none 6.

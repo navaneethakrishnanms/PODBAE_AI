@@ -1,0 +1,234 @@
+[
+ {
+  "role": "public",
+  "page": "/",
+  "url": "/",
+  "screenshot": "screenshots\\public_home.png",
+  "ms": 2411,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/get-started",
+  "url": "/get-started",
+  "screenshot": "screenshots\\public_get_started.png",
+  "ms": 1676,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/login",
+  "url": "/login",
+  "screenshot": "screenshots\\public_login.png",
+  "ms": 1600,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/discover",
+  "url": "/discover",
+  "screenshot": "screenshots\\public_discover.png",
+  "ms": 1746,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/submit",
+  "url": "/submit",
+  "screenshot": "screenshots\\public_submit.png",
+  "ms": 1724,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/advertiser-submit",
+  "url": "/advertiser-submit",
+  "screenshot": "screenshots\\public_advertiser_submit.png",
+  "ms": 1611,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "public",
+  "page": "/enterprise",
+  "url": "/enterprise",
+  "screenshot": "screenshots\\public_enterprise.png",
+  "ms": 1637,
+  "not_found": false,
+  "admins_only": false,
+  "expected_401": 1
+ },
+ {
+  "role": "podcaster",
+  "page": "/dashboard",
+  "url": "/dashboard",
+  "screenshot": "screenshots\\podcaster_dashboard.png",
+  "ms": 2010,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/intelligence",
+  "url": "/intelligence",
+  "screenshot": "screenshots\\podcaster_intelligence.png",
+  "ms": 1791,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/swipe",
+  "url": "/swipe",
+  "screenshot": "screenshots\\podcaster_swipe.png",
+  "ms": 1645,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/messages",
+  "url": "/messages",
+  "screenshot": "screenshots\\podcaster_messages.png",
+  "ms": 1631,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/discover",
+  "url": "/discover",
+  "screenshot": "screenshots\\podcaster_discover.png",
+  "ms": 1763,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/profile",
+  "url": "/profile",
+  "screenshot": "screenshots\\podcaster_profile.png",
+  "ms": 1675,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/schedule",
+  "url": "/schedule",
+  "screenshot": "screenshots\\podcaster_schedule.png",
+  "ms": 1616,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/analytics",
+  "url": "/analytics",
+  "screenshot": "screenshots\\podcaster_analytics.png",
+  "ms": 1617,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/partners",
+  "url": "/partners",
+  "screenshot": "screenshots\\podcaster_partners.png",
+  "ms": 1618,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "podcaster",
+  "page": "/listen",
+  "url": "/listen",
+  "screenshot": "screenshots\\podcaster_listen.png",
+  "ms": 1661,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "advertiser",
+  "page": "/dashboard/campaign-builder",
+  "url": "/dashboard/campaign-builder",
+  "screenshot": "screenshots\\advertiser_dashboard_campaign_builder.png",
+  "ms": 2006,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "advertiser",
+  "page": "/discover",
+  "url": "/discover",
+  "screenshot": "screenshots\\advertiser_discover.png",
+  "ms": 1768,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "/admin",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin.png",
+  "ms": 1930,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "tab:Ingestion jobs",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin_tab_ingestion_jobs.png",
+  "ms": 876,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "tab:Coverage",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin_tab_coverage.png",
+  "ms": 925,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "tab:Costs",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin_tab_costs.png",
+  "ms": 862,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "tab:Labels",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin_tab_labels.png",
+  "ms": 868,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "/admin/labels",
+  "url": "/admin/labels",
+  "screenshot": "screenshots\\admin_admin_labels.png",
+  "ms": 2519,
+  "not_found": false,
+  "admins_only": false
+ }
+]

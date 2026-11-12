@@ -45,14 +45,21 @@ def main() -> int:
             page = ctx.new_page()
             current: dict = {}
 
-            def on_console(msg, cur=current):
+            def on_console(msg, cur=current, role=role):
+                if role == "public" and "status of 401" in msg.text:      # the browser's log line for the expected 401 above
+                    return
                 if msg.type == "error" and not IGNORE.search(msg.text):
                     cur.setdefault("console_errors", []).append(msg.text[:300])
 
             def on_pageerror(err, cur=current):
                 cur.setdefault("page_errors", []).append(str(err)[:300])
 
-            def on_response(resp, cur=current):
+            def on_response(resp, cur=current, role=role):
+                # anonymous visitors: the app probes the session with /api/auth/me, and 401 is the expected answer
+                if role == "public" and resp.status == 401 and resp.url.endswith("/api/auth/me"):
+                    cur.setdefault("expected_401", 0)
+                    cur["expected_401"] += 1
+                    return
                 if resp.status >= 400 and not IGNORE.search(resp.url):
                     cur.setdefault("failed_requests", []).append(f"{resp.status} {resp.request.method} {resp.url.replace(a.base, '')}")
 
@@ -78,7 +85,7 @@ def main() -> int:
                         label = p[4:]
                         if "/admin" not in page.url or "/admin/labels" in page.url:
                             page.goto(f"{a.base}/admin", wait_until="networkidle")
-                        page.get_by_role("button", name=label, exact=True).first.click()
+                        page.get_by_role("tab", name=label, exact=True).first.click()     # Radix Tabs render role="tab"
                         page.wait_for_load_state("networkidle")
                         page.wait_for_timeout(800)
                         name = f"{role}_admin_tab_{slug(label)}"
@@ -86,14 +93,21 @@ def main() -> int:
                         page.goto(f"{a.base}{p}", wait_until="networkidle")
                         page.wait_for_timeout(1000)
                         name = f"{role}_{slug(p)}"
+                    if p == "/admin/labels":       # render the labelling form for show 1 (nothing is saved)
+                        page.get_by_placeholder("e.g. Priya").fill("ui-smoke (not saved)")
+                        page.get_by_role("button", name=re.compile("Start labelling|Switch labeler")).click()
+                        page.get_by_text("Show 1 of").wait_for(timeout=15000)
+                        page.wait_for_timeout(500)
                     shot = OUT / f"{name}.png"
                     page.screenshot(path=str(shot), full_page=True)
                     text = page.inner_text("body")[:20000]
                     entry = {"role": role, "page": p, "url": page.url.replace(a.base, ""), "screenshot": str(shot.relative_to(ROOT)),
                              "ms": int((time.perf_counter() - t0) * 1000), "not_found": "Page not found" in text,
-                             "admins_only": "Admins only" in text, **{k: list(v) for k, v in current.items()}}
+                             "admins_only": "Admins only" in text,
+                             **{k: (list(v) if isinstance(v, list) else v) for k, v in current.items()}}
                 except Exception as exc:  # noqa: BLE001
-                    entry = {"role": role, "page": p, "error": f"{type(exc).__name__}: {exc}"[:300], **{k: list(v) for k, v in current.items()}}
+                    entry = {"role": role, "page": p, "error": f"{type(exc).__name__}: {exc}"[:300],
+                             **{k: (list(v) if isinstance(v, list) else v) for k, v in current.items()}}
                 report.append(entry)
             ctx.close()
         browser.close()
