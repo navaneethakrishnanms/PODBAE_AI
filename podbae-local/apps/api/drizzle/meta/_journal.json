@@ -15,6 +15,13 @@
       "when": 1793789144188,
       "tag": "0001_mature_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794493196447,
+      "tag": "0002_phase2_opportunities",
+      "breakpoints": true
     }
   ]
 }

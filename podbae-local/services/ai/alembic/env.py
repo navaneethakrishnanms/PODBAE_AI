@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 import sys
@@ -9,6 +9,7 @@ from sqlalchemy import engine_from_config, pool
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.intel.models import Base  # noqa: E402
+from app.opportunities import models as _opp_models  # noqa: E402,F401
 
 config = context.config
 target_metadata = Base.metadata

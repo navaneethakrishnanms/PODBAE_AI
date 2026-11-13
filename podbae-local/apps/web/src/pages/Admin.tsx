@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
+import { EngineTab } from '../components/EngineTab';
 import { AppLayout, PublicLayout } from '../components/Layout';
 import { Badge, Button, Card, Field, Input, Spinner, Tabs, toast } from '../components/ui';
 import { api } from '../lib/api';
@@ -68,7 +69,7 @@ export default function Admin() {
       <Tabs value={tab} onChange={setTab} tabs={[
         { id: 'podcasts', label: 'Podcasts' }, { id: 'users', label: 'Users' }, { id: 'metrics', label: 'Vibe-logic metrics' },
         { id: 'showcase', label: 'Showcase' }, { id: 'invites', label: 'Partnership invites' },
-        { id: 'ingestion', label: 'Ingestion jobs' }, { id: 'coverage', label: 'Coverage' }, { id: 'costs', label: 'Costs' }, { id: 'labels', label: 'Labels' },
+        { id: 'ingestion', label: 'Ingestion jobs' }, { id: 'coverage', label: 'Coverage' }, { id: 'costs', label: 'Costs' }, { id: 'labels', label: 'Labels' }, { id: 'engine', label: 'Engine' },
       ]} />
       <div className="pt-6">
         {tab === 'podcasts' && (
@@ -146,6 +147,7 @@ export default function Admin() {
             <Link href="/admin/labels"><Button size="sm">Open the labelling page</Button></Link>
           </Card>
         )}
+        {tab === 'engine' && <EngineTab />}
         {tab === 'costs' && (
           <div className="grid gap-4 md:grid-cols-2">
             <Card><h3 className="mb-2 font-semibold">Totals (estimates)</h3>

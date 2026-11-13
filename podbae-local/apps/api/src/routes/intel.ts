@@ -46,7 +46,7 @@ async function myLink(userId: number) {
 }
 
 /** Resolve the intel show id for a member, via the job result when the link is not yet filled in. */
-async function resolveShowId(link: any): Promise<string | null> {
+export async function resolveShowId(link: any): Promise<string | null> {
   if (!link) return null;
   if (link.intel_show_id) return link.intel_show_id;
   if (link.last_job_id) {

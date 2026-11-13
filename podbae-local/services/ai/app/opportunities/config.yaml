@@ -1,0 +1,113 @@
+# Layer 4 Opportunity Engine: podcast partners (cross-promo / guest swap / feed swap). NO LLM anywhere in this file's path.
+#
+# scoring_version is stamped on every opportunity, event and run. Change it whenever weights, transforms, gates,
+# thresholds or the confidence formula change, so old and new scores are never compared as if they were the same thing.
+# Everything here is a DRAFT: the founder has not approved Vibe Logic yet (status below). Numbers are starting points
+# chosen from the Phase 1 store's measured distributions (see PHASE2_REPORT.md), not tuned against human labels.
+scoring_version: fit-draft-v2   # v2 (Phase 2 close-out): uncertain-language rule, contact-route readiness
+status: draft-unapproved-by-founder
+
+# ───────────────────────── A. candidate generation ─────────────────────────
+candidates:
+  content_neighbours: 120      # e5 content-space nearest neighbours (exact, brute force over the stored vectors)
+  style_neighbours: 60         # numeric style-space nearest neighbours
+  shared_metadata_max: 120     # shows sharing a declared topic or category group (best overlap first)
+  cap: 200                     # union is capped here (deterministic order: best evidence of relatedness first)
+
+# ───────────────────────── B. eligibility gates (hard, applied BEFORE scoring) ─────────────────────────
+gates:
+  language_detected_min_confidence: 0.9   # declared vs detected conflict: use detected only if its confidence >= this
+  # tags normalised to the base language (en-US / en-GB -> en). Hard reject ONLY when both languages are confidently known
+  # and different; an uncertain match passes with confidence x this factor (recorded in the breakdown).
+  language_uncertain_confidence_factor: 0.8
+  # cooldown per past interaction type (days). 'dismiss' also suppresses immediately on the next list call.
+  cooldown_days: {contact: 30, partnership: 30, dismiss: 30, reply: 30, meeting: 30}
+  exclude_inactive: true
+  exclude_slowing: false
+  exclude_closed_to_collaboration: true   # candidate creator said collaboration_openness = closed (creator-provided)
+
+# ───────────────────────── C. compatibility ("Fit", 0-100) ─────────────────────────
+# Each factor is normalised to [0,1]. A factor without data is EXCLUDED and the remaining weights are renormalised;
+# the omission is recorded and lowers confidence. Nothing is imputed.
+factors:
+  topic_alignment:
+    weight: 0.30
+    declared_weight: 0.8         # weight of a publisher-declared topic (verified) in the topic vector
+    inferred_scale: 1.0          # inferred topic weight is multiplied by this
+    group_credit: 0.35           # partial credit when no topic is shared but a category group is (x Jaccard of groups)
+  content_similarity:
+    weight: 0.25
+    # e5 cosines are compressed (Phase 1 store: p1 0.786, median 0.845, p99 0.90), so the cosine is turned into a z-score
+    # against all pairwise cosines of the corpus, then mapped: below ramp_start_z -> 0, rising to 1 at peak_start_z,
+    # flat to peak_end_z ("similar but not a clone"), falling to clone_floor at clone_z and beyond.
+    ramp_start_z: 0.5
+    peak_start_z: 2.0
+    peak_end_z: 3.5
+    clone_z: 5.0
+    clone_floor: 0.3
+  vibe_compatibility:
+    weight: 0.15
+    # centred cosine of the numeric style vector (12 vibe + 8 tone dims, + 5 conversational-style dims only when BOTH
+    # shows have a known style). Mapped linearly: cos_floor -> 0, cos_ceiling -> 1.
+    cos_floor: -0.4
+    cos_ceiling: 0.6
+  format_compatibility:
+    weight: 0.10
+    length_share: 0.6            # within-factor split; a missing part is dropped and the split renormalised
+    cadence_share: 0.4
+    length_ratio_zero: 3.0       # a 3x difference in average episode length scores 0
+    cadence_ratio_zero: 4.0      # a 4x difference in (cadence_days + 1) scores 0
+  activity_match:
+    weight: 0.08
+    status_score: {active: 1.0, slowing: 0.5, inactive: 0.0}
+    recency_half_life_days: 45
+  collaboration_openness:
+    weight: 0.12
+    openness_score: {open: 1.0, selective: 0.6}
+    openness_share: 0.7          # when the creator stated openness; the rest is guest-friendliness
+    guest_share_full: 0.5        # guest-episode share at which guest-friendliness scores 1
+  audience_size_parity:          # DEFINED BUT DISABLED until both shows have audience totals (creator-provided or estimated)
+    weight: 0.08
+    ratio_zero: 10.0             # a 10x size difference scores 0
+    metrics: [downloads, listens, plays, streams, followers, subscribers]
+  geo_overlap:                   # DEFINED BUT DISABLED until both shows have top-country data
+    weight: 0.06
+
+# ───────────────────────── D. evidence confidence ─────────────────────────
+confidence:
+  tier_weight: {verified: 1.0, creator_provided: 0.9, estimated: 0.7, inferred: 0.5}
+  stale_factor: 0.7              # an input past its freshness window counts at 70%
+  coverage_exponent: 0.5         # confidence = coverage^0.5 * input_quality
+  levels: {high: 0.70, medium: 0.50}   # >= high -> High, >= medium -> Medium, else Low
+  # content embeddings are a local-model reading of verified text: counted as tier 'estimated' with this confidence
+  embedding_confidence: 0.8
+
+# ───────────────────────── F. why-now triggers (real timestamps only) ─────────────────────────
+why_now:
+  shared_topic_days: 21
+  reactivated_gap_days: 60
+  reactivated_recent_days: 30
+  joined_days: 30
+  guest_episode_days: 30
+  cadence_recent_n: 5
+  cadence_prior_n: 10
+  cadence_ratio: 0.6             # recent median gap < 60% of the prior median gap
+  priority: [joined_podbae, shared_topic_recent, recent_guest_episodes, reactivated, cadence_increased]
+
+# ───────────────────────── G. ranking ─────────────────────────
+ranking:
+  min_fit: 55                    # NO PADDING: shown only if Fit >= min_fit AND confidence >= min_confidence
+  min_confidence: 0.40
+  mmr_lambda: 0.75               # MMR on content vectors so the top results are not near-clones of each other
+  mmr_top_k: 20
+  seen_window_days: 14           # seen-suppression: shown on >= seen_max_days distinct days in the window without
+  seen_max_days: 5               #   a save/open/contact -> suppressed
+  expiry_days: 14
+  max_items: 50
+
+# opportunity type (deterministic): the member's declared goals pick the format; otherwise guest swap when both shows
+# run guests, else cross-promo.
+types:
+  guest_share_for_guest_swap: 0.30
+  goal_to_type: {guest_swap: guest_swap, find_guests: guest_swap, be_a_guest: guest_swap, feed_swap: feed_swap,
+                 cross_promo: cross_promo, grow_audience: cross_promo}

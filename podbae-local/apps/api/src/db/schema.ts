@@ -226,12 +226,27 @@ export const notifications = pgTable('notifications', {
 
 export const partnershipInvites = pgTable('partnership_invites', {
   id: uuid('id').primaryKey().defaultRandom(),
-  email: text('email').notNull(),
+  /** null for "Invite to PodBae" records created from an opportunity card: we never derive or store a show owner's e-mail. */
+  email: text('email'),
   orgName: text('org_name'),
   message: text('message'),
   status: text('status').notNull().default('pending'),
+  /** signup (public form) | podbae_invite (Layer 4: invite a non-member show; nothing is sent externally) */
+  kind: text('kind').notNull().default('signup'),
+  targetShowId: text('target_show_id'),
+  opportunityId: text('opportunity_id'),
   createdBy: integer('created_by').references(() => users.id, { onDelete: 'set null' }),
   createdAt: ts('created_at').notNull().defaultNow(),
+});
+
+/** Last podcast-partner opportunity list served to each member (Layer 4). Served with an "may be outdated" banner when the AI
+ *  service is unreachable, so members still see their stored opportunities. */
+export const opportunityCache = pgTable('opportunity_cache', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().unique().references(() => users.id, { onDelete: 'cascade' }),
+  memberShowId: text('member_show_id'),
+  payload: jsonb('payload').notNull(),
+  cachedAt: ts('cached_at').notNull().defaultNow(),
 });
 
 export const scheduledSessions = pgTable('scheduled_sessions', {

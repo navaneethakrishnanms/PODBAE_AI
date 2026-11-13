@@ -162,7 +162,8 @@ def _podcast_namespace_pass(content: bytes) -> tuple[dict, dict[str, dict]]:
         elif "itunes" in ns and name == "new-feed-url" and el.text:
             chan["new_feed_url"] = el.text.strip()
         elif _is_podcast_ns(ns) and name == "person" and el.text:
-            chan["persons"].append({"name": clean_title(el.text), "role": el.get("role") or "host"})
+            chan["persons"].append({"name": clean_title(el.text), "role": el.get("role") or "host",
+                                    **({"href": el.get("href")} if el.get("href") and "@" not in el.get("href") else {})})
         elif "itunes" in ns and name == "type" and el.text:
             chan["type"] = el.text.strip().lower()[:20]
         elif "itunes" in ns and name == "owner":
@@ -182,7 +183,8 @@ def _podcast_namespace_pass(content: bytes) -> tuple[dict, dict[str, dict]]:
                 elif _is_podcast_ns(sns) and sname == "transcript" and sub.get("url"):
                     rec["transcripts"].append({"url": sub.get("url"), "type": sub.get("type")})
                 elif _is_podcast_ns(sns) and sname == "person" and sub.text:
-                    rec["persons"].append({"name": clean_title(sub.text), "role": sub.get("role") or "guest"})
+                    rec["persons"].append({"name": clean_title(sub.text), "role": sub.get("role") or "guest",
+                                           **({"href": sub.get("href")} if sub.get("href") and "@" not in sub.get("href") else {})})
             if guid:
                 items[guid] = rec
     return chan, items

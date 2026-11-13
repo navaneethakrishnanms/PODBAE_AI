@@ -2,6 +2,9 @@ from __future__ import annotations
 
 try:  # import torch BEFORE other native libraries: on Windows another DLL load order can make torch fail to load
     import torch  # noqa: F401  (WinError 127 on fbgemm.dll). The embedder refuses to fall back silently if it does.
+    # Phase 2: sentence_transformers must ALSO load before lxml (RSS connector): lxml.etree first, then
+    # sentence_transformers (-> sklearn/scipy) segfaults the process in the torch_gpu env (access violation on import).
+    import sentence_transformers  # noqa: F401
 except Exception:  # noqa: BLE001
     pass
 
@@ -32,9 +35,11 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(title="PodBae AI Service", version="0.4.0", lifespan=lifespan)
 from .intel.api import public_router as intel_public_router  # noqa: E402
 from .intel.api import router as intel_router  # noqa: E402
+from .opportunities.api import router as opportunities_router  # noqa: E402
 
 app.include_router(intel_public_router)   # /v1/health only
 app.include_router(intel_router)          # every other /v1 route: X-Service-Token required
+app.include_router(opportunities_router)  # Layer 4 opportunity engine (same token)
 
 
 @app.get("/health")

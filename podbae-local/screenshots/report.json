@@ -4,7 +4,7 @@
   "page": "/",
   "url": "/",
   "screenshot": "screenshots\\public_home.png",
-  "ms": 2411,
+  "ms": 6348,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -14,7 +14,7 @@
   "page": "/get-started",
   "url": "/get-started",
   "screenshot": "screenshots\\public_get_started.png",
-  "ms": 1676,
+  "ms": 1969,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -24,7 +24,7 @@
   "page": "/login",
   "url": "/login",
   "screenshot": "screenshots\\public_login.png",
-  "ms": 1600,
+  "ms": 1828,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -34,7 +34,7 @@
   "page": "/discover",
   "url": "/discover",
   "screenshot": "screenshots\\public_discover.png",
-  "ms": 1746,
+  "ms": 2248,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -44,7 +44,7 @@
   "page": "/submit",
   "url": "/submit",
   "screenshot": "screenshots\\public_submit.png",
-  "ms": 1724,
+  "ms": 2073,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -54,7 +54,7 @@
   "page": "/advertiser-submit",
   "url": "/advertiser-submit",
   "screenshot": "screenshots\\public_advertiser_submit.png",
-  "ms": 1611,
+  "ms": 1832,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -64,7 +64,7 @@
   "page": "/enterprise",
   "url": "/enterprise",
   "screenshot": "screenshots\\public_enterprise.png",
-  "ms": 1637,
+  "ms": 1824,
   "not_found": false,
   "admins_only": false,
   "expected_401": 1
@@ -74,16 +74,24 @@
   "page": "/dashboard",
   "url": "/dashboard",
   "screenshot": "screenshots\\podcaster_dashboard.png",
-  "ms": 2010,
+  "ms": 7397,
   "not_found": false,
-  "admins_only": false
+  "admins_only": false,
+  "opportunity_cards": 3,
+  "readiness_seen": [
+   "Verified"
+  ],
+  "four_measures": true,
+  "no_match_state": false,
+  "breakdown_open": true,
+  "dismiss_reason_dialog": true
  },
  {
   "role": "podcaster",
   "page": "/intelligence",
   "url": "/intelligence",
   "screenshot": "screenshots\\podcaster_intelligence.png",
-  "ms": 1791,
+  "ms": 2495,
   "not_found": false,
   "admins_only": false
  },
@@ -92,7 +100,7 @@
   "page": "/swipe",
   "url": "/swipe",
   "screenshot": "screenshots\\podcaster_swipe.png",
-  "ms": 1645,
+  "ms": 1881,
   "not_found": false,
   "admins_only": false
  },
@@ -101,7 +109,7 @@
   "page": "/messages",
   "url": "/messages",
   "screenshot": "screenshots\\podcaster_messages.png",
-  "ms": 1631,
+  "ms": 1846,
   "not_found": false,
   "admins_only": false
  },
@@ -110,7 +118,7 @@
   "page": "/discover",
   "url": "/discover",
   "screenshot": "screenshots\\podcaster_discover.png",
-  "ms": 1763,
+  "ms": 2347,
   "not_found": false,
   "admins_only": false
  },
@@ -119,7 +127,7 @@
   "page": "/profile",
   "url": "/profile",
   "screenshot": "screenshots\\podcaster_profile.png",
-  "ms": 1675,
+  "ms": 1947,
   "not_found": false,
   "admins_only": false
  },
@@ -128,7 +136,7 @@
   "page": "/schedule",
   "url": "/schedule",
   "screenshot": "screenshots\\podcaster_schedule.png",
-  "ms": 1616,
+  "ms": 1898,
   "not_found": false,
   "admins_only": false
  },
@@ -137,7 +145,7 @@
   "page": "/analytics",
   "url": "/analytics",
   "screenshot": "screenshots\\podcaster_analytics.png",
-  "ms": 1617,
+  "ms": 1908,
   "not_found": false,
   "admins_only": false
  },
@@ -146,7 +154,7 @@
   "page": "/partners",
   "url": "/partners",
   "screenshot": "screenshots\\podcaster_partners.png",
-  "ms": 1618,
+  "ms": 1899,
   "not_found": false,
   "admins_only": false
  },
@@ -155,7 +163,7 @@
   "page": "/listen",
   "url": "/listen",
   "screenshot": "screenshots\\podcaster_listen.png",
-  "ms": 1661,
+  "ms": 1878,
   "not_found": false,
   "admins_only": false
  },
@@ -164,7 +172,7 @@
   "page": "/dashboard/campaign-builder",
   "url": "/dashboard/campaign-builder",
   "screenshot": "screenshots\\advertiser_dashboard_campaign_builder.png",
-  "ms": 2006,
+  "ms": 2627,
   "not_found": false,
   "admins_only": false
  },
@@ -173,7 +181,7 @@
   "page": "/discover",
   "url": "/discover",
   "screenshot": "screenshots\\advertiser_discover.png",
-  "ms": 1768,
+  "ms": 2336,
   "not_found": false,
   "admins_only": false
  },
@@ -182,7 +190,7 @@
   "page": "/admin",
   "url": "/admin",
   "screenshot": "screenshots\\admin_admin.png",
-  "ms": 1930,
+  "ms": 2884,
   "not_found": false,
   "admins_only": false
  },
@@ -191,7 +199,7 @@
   "page": "tab:Ingestion jobs",
   "url": "/admin",
   "screenshot": "screenshots\\admin_admin_tab_ingestion_jobs.png",
-  "ms": 876,
+  "ms": 1368,
   "not_found": false,
   "admins_only": false
  },
@@ -200,7 +208,7 @@
   "page": "tab:Coverage",
   "url": "/admin",
   "screenshot": "screenshots\\admin_admin_tab_coverage.png",
-  "ms": 925,
+  "ms": 1051,
   "not_found": false,
   "admins_only": false
  },
@@ -209,7 +217,7 @@
   "page": "tab:Costs",
   "url": "/admin",
   "screenshot": "screenshots\\admin_admin_tab_costs.png",
-  "ms": 862,
+  "ms": 1024,
   "not_found": false,
   "admins_only": false
  },
@@ -218,7 +226,7 @@
   "page": "tab:Labels",
   "url": "/admin",
   "screenshot": "screenshots\\admin_admin_tab_labels.png",
-  "ms": 868,
+  "ms": 1022,
   "not_found": false,
   "admins_only": false
  },
@@ -227,8 +235,73 @@
   "page": "/admin/labels",
   "url": "/admin/labels",
   "screenshot": "screenshots\\admin_admin_labels.png",
-  "ms": 2519,
+  "ms": 3258,
   "not_found": false,
   "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "tab:Engine",
+  "url": "/admin",
+  "screenshot": "screenshots\\admin_admin_tab_engine.png",
+  "ms": 1772,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "admin",
+  "page": "/admin/labels/pairs",
+  "url": "/admin/labels/pairs",
+  "screenshot": "screenshots\\admin_admin_labels_pairs.png",
+  "ms": 3488,
+  "not_found": false,
+  "admins_only": false,
+  "pair_candidates": 8,
+  "failed_requests": [
+   "FAILED GET /api/admin/engine/metrics: net::ERR_ABORTED"
+  ]
+ },
+ {
+  "role": "commit_showcase",
+  "page": "/dashboard",
+  "url": "/dashboard",
+  "screenshot": "screenshots\\commit_showcase_dashboard.png",
+  "ms": 9630,
+  "not_found": false,
+  "admins_only": false,
+  "opportunity_cards": 37,
+  "readiness_seen": [
+   "Verified",
+   "Potential lead",
+   "Discovery lead"
+  ],
+  "four_measures": true,
+  "no_match_state": false,
+  "breakdown_open": true,
+  "dismiss_reason_dialog": true
+ },
+ {
+  "role": "commit_showcase",
+  "page": "/intelligence",
+  "url": "/intelligence",
+  "screenshot": "screenshots\\commit_showcase_intelligence.png",
+  "ms": 2579,
+  "not_found": false,
+  "admins_only": false
+ },
+ {
+  "role": "no_match",
+  "page": "/dashboard",
+  "url": "/dashboard",
+  "screenshot": "screenshots\\no_match_dashboard.png",
+  "ms": 8961,
+  "not_found": false,
+  "admins_only": false,
+  "opportunity_cards": 0,
+  "readiness_seen": [
+   "Verified"
+  ],
+  "four_measures": null,
+  "no_match_state": true
  }
 ]

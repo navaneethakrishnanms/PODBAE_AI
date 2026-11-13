@@ -18,6 +18,7 @@ FIELDS: list[tuple[str, str, int, str]] = [
     ("title", "identity", 4, "Title"), ("description", "identity", 4, "Description"), ("language", "identity", 3, "Language"),
     ("categories", "identity", 3, "Categories"), ("declared_topics", "identity", 2, "Declared topics (publisher categories, mapped)"),
     ("explicit", "identity", 1, "Explicit flag"), ("hosts", "identity", 3, "Hosts"),
+    ("contact_routes", "identity", 1, "Declared contact / booking routes (no e-mails)"),
     ("episode_count", "activity", 3, "Episode count"), ("last_published", "activity", 4, "Last published"),
     ("cadence_days", "activity", 4, "Publishing cadence (days)"), ("avg_episode_minutes", "activity", 3, "Average episode length (min)"),
     ("activity_status", "activity", 3, "Activity status"), ("guests_present", "activity", 3, "Guests present"),
@@ -30,6 +31,7 @@ FIELDS: list[tuple[str, str, int, str]] = [
     ("audience.top_cities", "audience", 4, "Top cities"), ("audience.age_bands", "audience", 6, "Age bands"),
     ("creator.goals", "creator", 4, "Creator goals"), ("creator.collaboration_openness", "creator", 3, "Collaboration openness"),
     ("creator.blocked_categories", "creator", 2, "Blocked categories"),
+    ("creator.blocked_brand_safety_flags", "creator", 1, "Blocked brand-safety flags"),
 ]
 TOTAL_WEIGHT = sum(w for _, _, w, _ in FIELDS)
 TIER_LABEL = {"verified": "Verified", "creator_provided": "Creator-provided", "estimated": "Estimated", "inferred": "AI-inferred"}

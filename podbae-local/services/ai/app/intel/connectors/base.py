@@ -43,10 +43,24 @@ def validate_url(url: str) -> str:
         except socket.gaierror as exc:
             raise InvalidUrl(f"cannot resolve host {host!r}") from exc
         for info in infos:
-            ip = ipaddress.ip_address(info[4][0])
-            if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast or ip.is_unspecified:
+            if _blocked_ip(ipaddress.ip_address(info[4][0])):
                 raise InvalidUrl("URL points to a private or reserved address")
     return url
+
+
+NAT64 = ipaddress.ip_network("64:ff9b::/96")   # RFC 6052 well-known prefix (DNS64 networks synthesize these AAAA records)
+
+
+def _blocked_ip(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
+    """Private / loopback / link-local / reserved / multicast / unspecified -> blocked. A NAT64 address (64:ff9b::/96, what a
+    DNS64 resolver returns for IPv4-only hosts) is judged by the IPv4 address it embeds, so public hosts stay reachable on
+    NAT64 networks and a NAT64 address pointing at a private IPv4 is still blocked (Phase 2 fix)."""
+    if isinstance(ip, ipaddress.IPv6Address):
+        if ip in NAT64:
+            return _blocked_ip(ipaddress.IPv4Address(int(ip) & 0xFFFFFFFF))
+        if ip.ipv4_mapped is not None:
+            return _blocked_ip(ip.ipv4_mapped)
+    return ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast or ip.is_unspecified
 
 
 def make_client(transport: httpx.BaseTransport | None = None) -> httpx.Client:

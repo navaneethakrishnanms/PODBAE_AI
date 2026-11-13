@@ -9,7 +9,12 @@ from app.main import app
 from tests.conftest import TOKEN_HEADERS
 
 PROTECTED = [("get", "/v1/shows"), ("get", "/v1/admin/coverage"), ("get", "/v1/admin/costs"), ("get", "/v1/jobs/job_x"),
-             ("post", "/v1/ingest/rss"), ("get", "/v1/labels/queue"), ("post", "/match"), ("post", "/heybae/chat")]
+             ("post", "/v1/ingest/rss"), ("get", "/v1/labels/queue"), ("post", "/match"), ("post", "/heybae/chat"),
+             # Phase 2: Layer 4 opportunity engine
+             ("post", "/v1/opportunities/generate"), ("get", "/v1/opportunities?member_show_id=x"), ("get", "/v1/opportunities/opp_x"),
+             ("get", "/v1/opportunities/opp_x/explain"), ("get", "/v1/opportunities/options"), ("post", "/v1/events"),
+             ("get", "/v1/admin/engine/metrics"), ("get", "/v1/admin/engine/showcase"), ("delete", "/v1/shows/shw_x/claim?user_id=1"), ("get", "/v1/labels/pairs/queue"), ("put", "/v1/labels/pairs/rate"),
+             ("post", "/v1/labels/pairs/items"), ("get", "/v1/labels/pairs/agreement")]
 
 
 @pytest.fixture()

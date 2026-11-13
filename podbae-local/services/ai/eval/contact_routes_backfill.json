@@ -1,0 +1,13 @@
+{
+ "shows": 303,
+ "shows_with_declared_route": 9,
+ "routes_by_kind": {
+  "contact_page": 7,
+  "guest_application": 1,
+  "collaboration": 2
+ },
+ "routes_by_source": {
+  "episode_notes": 9,
+  "show_description": 1
+ }
+}

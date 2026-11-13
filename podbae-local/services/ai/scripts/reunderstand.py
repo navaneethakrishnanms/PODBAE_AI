@@ -5,6 +5,9 @@ from __future__ import annotations
 
 try:  # load order: see app/intel/linalg.py
     import torch  # noqa: F401
+    # Phase 2: sentence_transformers must ALSO load before lxml (RSS connector): lxml.etree first, then
+    # sentence_transformers (-> sklearn/scipy) segfaults the process in the torch_gpu env (access violation on import).
+    import sentence_transformers  # noqa: F401
 except Exception:  # noqa: BLE001
     pass
 import sys

@@ -10,6 +10,7 @@ import { authRouter } from './routes/auth.js';
 import { intakeRouter } from './routes/intake.js';
 import { intelRouter } from './routes/intel.js';
 import { memberRouter } from './routes/member.js';
+import { opportunitiesRouter } from './routes/opportunities.js';
 import { podcastsRouter, publicRouter } from './routes/podcasts.js';
 import { socialRouter } from './routes/social.js';
 
@@ -43,6 +44,7 @@ export function createApp() {
   app.use(podcastsRouter);
   app.use(publicRouter);
   app.use(memberRouter);
+  app.use(opportunitiesRouter); // Layer 4 (podcast partners); admin routes inside are admin-guarded
   app.use(socialRouter);
   app.use(adminRouter);
 

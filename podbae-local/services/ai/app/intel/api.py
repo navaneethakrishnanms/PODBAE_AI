@@ -43,7 +43,8 @@ class CreatorProfile(BaseModel):
     user_id: str | None = None
     goals: list[str] | None = Field(default=None, max_length=10)
     collaboration_openness: str | None = Field(default=None, pattern="^(open|selective|closed)$")
-    blocked_categories: list[str] | None = Field(default=None, max_length=20)
+    blocked_categories: list[str] | None = Field(default=None, max_length=40)
+    blocked_brand_safety_flags: list[str] | None = Field(default=None, max_length=20)   # Phase 2: Layer 4 gate
 
 
 class Transcribe(BaseModel):
@@ -234,17 +235,36 @@ async def audience_upload(show_id: str, file: UploadFile = File(...), mapping: s
 def creator_profile(show_id: str, body: CreatorProfile) -> dict:
     with session_scope() as s:
         root = _require_show(s, show_id)
-        fields = aud.save_creator_profile(s, root, body.user_id, body.goals, body.collaboration_openness, body.blocked_categories)
+        fields = aud.save_creator_profile(s, root, body.user_id, body.goals, body.collaboration_openness, body.blocked_categories,
+                                          body.blocked_brand_safety_flags)
         return {"stored": fields, "data_tier": "creator_provided"}
 
 
 @router.post("/shows/{show_id}/claim")
-def claim_show(show_id: str, user_id: str) -> dict:
+def claim_show(show_id: str, user_id: str, demo: bool = False, joined_days_ago: float | None = Query(None, ge=0, le=3650)) -> dict:
+    """A claim marks the show as belonging to a PodBae member (Layer 4: membership + readiness). Idempotent.
+    joined_days_ago is honoured ONLY for demo claims (demo members get realistic join dates; real joins are 'now')."""
+    from datetime import timedelta
     with session_scope() as s:
         root = _require_show(s, show_id)
-        if not s.scalar(select(ShowClaim.id).where(ShowClaim.show_id == root, ShowClaim.user_id == user_id)):
-            s.add(ShowClaim(show_id=root, user_id=user_id))
-        return {"show_id": root, "user_id": user_id}
+        cl = s.scalar(select(ShowClaim).where(ShowClaim.show_id == root, ShowClaim.user_id == user_id))
+        if cl is None:
+            cl = ShowClaim(show_id=root, user_id=user_id, demo=demo)
+            s.add(cl)
+        cl.demo = demo
+        if demo and joined_days_ago is not None:
+            cl.created_at = now() - timedelta(days=joined_days_ago)
+        s.flush()
+        return {"show_id": root, "user_id": user_id, "demo": demo, "joined_at": cl.created_at.isoformat() + "Z" if cl.created_at else None}
+
+
+@router.delete("/shows/{show_id}/claim")
+def unclaim_show(show_id: str, user_id: str) -> dict:
+    """Remove a membership claim (used by the demo setup to retire stale demo members)."""
+    with session_scope() as s:
+        root = _require_show(s, show_id)
+        n = s.query(ShowClaim).filter(ShowClaim.show_id == root, ShowClaim.user_id == user_id).delete()
+        return {"show_id": root, "user_id": user_id, "removed": n}
 
 
 @router.post("/shows/{show_id}/transcribe", status_code=202)

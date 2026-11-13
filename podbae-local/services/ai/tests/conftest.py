@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+# Native load order, same as app/main.py: torch, then sentence_transformers (-> sklearn/pandas/pyarrow), BEFORE any test
+# module imports lxml (RSS connector). Otherwise collecting the suite segfaults in the torch_gpu env (access violation).
+try:
+    import torch  # noqa: F401
+    import sentence_transformers  # noqa: F401
+except Exception:  # noqa: BLE001
+    pass
+
 import os
 import sys
 import threading

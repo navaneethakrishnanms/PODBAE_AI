@@ -172,10 +172,11 @@ def store_upload(s: Session, show_id: str, user_id: str | None, filename: str, r
 
 
 def save_creator_profile(s: Session, show_id: str, user_id: str | None, goals: list[str] | None, openness: str | None,
-                         blocked: list[str] | None) -> list[str]:
+                         blocked: list[str] | None, blocked_flags: list[str] | None = None) -> list[str]:
     src = get_source(s, "creator_declared", "creator", "Self-declared by the creator in PodBae")
     written = []
-    for f, v in (("creator.goals", goals), ("creator.collaboration_openness", openness), ("creator.blocked_categories", blocked)):
+    for f, v in (("creator.goals", goals), ("creator.collaboration_openness", openness), ("creator.blocked_categories", blocked),
+                 ("creator.blocked_brand_safety_flags", blocked_flags)):
         if v is not None:
             record(s, "show", show_id, f, v, source=src, tier="creator_provided", method="manual", confidence=1.0,
                    source_ref=f"user:{user_id or 'unknown'}")

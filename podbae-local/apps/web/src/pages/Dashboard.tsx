@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { AppLayout } from '../components/Layout';
 import { MatchCard, type MatchRow } from '../components/MatchCard';
+import { OpportunitiesPanel } from '../components/OpportunityCard';
 import { Badge, Button, Card, Dialog, Empty, Input, Spinner, Tabs, toast } from '../components/ui';
 import { api, ApiError } from '../lib/api';
 import { useMe } from '../lib/auth';
@@ -63,6 +64,8 @@ function Predictions() {
   const rows: any[] = data?.predictions ?? [];
   return (
     <div className="space-y-4">
+      {data?.partnerOpportunities && <OpportunitiesPanel data={data.partnerOpportunities} />}
+      {data?.partnerOpportunities && <h2 className="pt-2 text-lg font-semibold">Other opportunities</h2>}
       {data?.forecast && (
         <Card className="bg-gradient-to-r from-primary/10 to-purple-500/10">
           <h3 className="font-semibold">📈 Opportunity forecast</h3>
@@ -124,10 +127,12 @@ function Matches({ saved }: { saved?: boolean }) {
           <Button size="sm" variant="outline" onClick={() => rerun.mutate()} disabled={rerun.isPending}>Run matching</Button>
         </div>
       )}
+      {!saved && data?.opportunities && <OpportunitiesPanel data={data.opportunities} />}
+      {!saved && data?.opportunities && type !== 'podcast' && <h2 className="pt-2 text-lg font-semibold">Sponsors, guests, venues &amp; collaborators</h2>}
       {!saved && data?.limited && (
         <p className="rounded-lg bg-primary/10 p-3 text-sm">Your plan shows {data.matchesPerDay} matches per day ({data.total} found). Upgrade to see more.</p>
       )}
-      {!rows.length ? <Empty>No matches here yet.</Empty> : (
+      {!rows.length ? (type === 'podcast' && data?.opportunities ? null : <Empty>No matches here yet.</Empty>) : (
         <div className="grid gap-4 md:grid-cols-2">
           {rows.map((m) => (
             <MatchCard key={m.id} m={{ ...m, saved: saved || m.saved }}

@@ -9,7 +9,11 @@
   ],
   "scripts": {
     "dev": "concurrently -k -n web,api,ai -c magenta,cyan,green \"npm run dev -w @podbae/web\" \"npm run dev -w @podbae/api\" \"npm run dev:ai\"",
-    "dev:ai": "cd services/ai && conda run -n torch_gpu --no-capture-output python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload",
+    "dev:ai": "node scripts/dev-ai.mjs",
+    "dev:ai:reload": "node scripts/dev-ai.mjs --reload",
+    "stop": "node scripts/stop.mjs",
+    "doctor": "conda run -n torch_gpu --no-capture-output python scripts/doctor.py",
+    "intel:eval4": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/eval_layer4.py",
     "setup": "npm install && npm run setup:ai && npm run db:migrate && npm run seed && npm run intel:migrate",
     "setup:ai": "conda run -n torch_gpu pip install -r services/ai/requirements.txt",
     "db:generate": "npm run db:generate -w @podbae/api",

@@ -15,4 +15,6 @@ export const config = {
   intelServiceToken: process.env.INTEL_SERVICE_TOKEN ?? '',
   webOrigin: process.env.WEB_ORIGIN ?? 'http://localhost:5173',
   demoAutoLike: (process.env.DEMO_AUTO_LIKE ?? 'false').toLowerCase() === 'true',
+  /** Podcast-partner matching: 'engine' = Layer 4 Opportunity Engine (AI service); 'legacy' = old tag-overlap scorer (fallback + eval baseline). */
+  engine: ((process.env.ENGINE ?? 'engine').toLowerCase() === 'legacy' ? 'legacy' : 'engine') as 'engine' | 'legacy',
 };

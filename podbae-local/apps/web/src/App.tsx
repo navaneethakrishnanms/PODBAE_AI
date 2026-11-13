@@ -1,6 +1,7 @@
 import { Route, Switch } from 'wouter';
 import Admin, { AdminSetup } from './pages/Admin';
 import AdminLabels from './pages/AdminLabels';
+import AdminPairLabels from './pages/AdminPairLabels';
 import AdvertiserSubmit from './pages/AdvertiserSubmit';
 import { Login } from './pages/Auth';
 import CampaignBuilder from './pages/CampaignBuilder';
@@ -56,6 +57,7 @@ export default function App() {
       <Route path="/mock-checkout" component={MockCheckout} />
 
       <Route path="/admin/setup" component={AdminSetup} />
+      <Route path="/admin/labels/pairs" component={AdminPairLabels} />
       <Route path="/admin/labels" component={AdminLabels} />
       <Route path="/admin" component={Admin} />
       <Route>

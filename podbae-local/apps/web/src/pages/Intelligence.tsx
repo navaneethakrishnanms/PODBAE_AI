@@ -170,26 +170,55 @@ function AudienceUpload({ onDone }: { onDone: () => void }) {
   );
 }
 
-function CreatorForm({ onDone }: { onDone: () => void }) {
-  const [goals, setGoals] = useState('');
-  const [open, setOpen] = useState('open');
-  const [blocked, setBlocked] = useState('');
+const GOAL_LABEL: Record<string, string> = { cross_promo: 'Cross-promos', guest_swap: 'Guest swaps', feed_swap: 'Feed swaps',
+  find_guests: 'Find guests', be_a_guest: 'Be a guest', grow_audience: 'Grow my audience' };
+const FLAG_LABEL = (f: string) => f.replace(/_/g, ' ');
+
+function Chips({ options, value, onChange, labelOf }: { options: string[]; value: string[]; onChange: (v: string[]) => void; labelOf?: (x: string) => string }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">{options.map((o) => {
+      const on = value.includes(o);
+      return <button type="button" key={o} aria-pressed={on} onClick={() => onChange(on ? value.filter((x) => x !== o) : [...value, o])}
+        className={`rounded-full border px-2.5 py-0.5 text-xs ${on ? 'border-primary bg-primary text-primary-foreground' : 'border-input bg-card hover:bg-secondary'}`}>{labelOf ? labelOf(o) : o}</button>;
+    })}</div>
+  );
+}
+
+/** The creator fields the Layer 4 engine uses. Stored as creator-provided (never inferred). */
+function PartnerSettings({ fields, onDone }: { fields: Record<string, any>; onDone: () => void }) {
+  const opts = useQuery({ queryKey: ['opp-options'], queryFn: () => api.get('/api/opportunities/options') });
+  const [goals, setGoals] = useState<string[]>(fields['creator.goals']?.value ?? []);
+  const [open, setOpen] = useState<string>(fields['creator.collaboration_openness']?.value ?? '');
+  const [blocked, setBlocked] = useState<string[]>(fields['creator.blocked_categories']?.value ?? []);
+  const [flags, setFlags] = useState<string[]>(fields['creator.blocked_brand_safety_flags']?.value ?? []);
+  const [showTopics, setShowTopics] = useState(false);
   const save = useMutation({
     mutationFn: () => api.put('/api/intel/my/creator-profile', {
-      goals: goals.split(',').map((x) => x.trim()).filter(Boolean), collaboration_openness: open,
-      blocked_categories: blocked.split(',').map((x) => x.trim()).filter(Boolean),
+      goals, ...(open ? { collaboration_openness: open } : {}), blocked_categories: blocked, blocked_brand_safety_flags: flags,
     }),
-    onSuccess: () => { toast('Saved as creator-provided'); onDone(); },
+    onSuccess: () => { toast('Saved as creator-provided. Your partner list will refresh.'); onDone(); },
     onError: (e: any) => toast(e.message),
   });
+  const o = opts.data;
+  const topics: any[] = o?.topics ?? [];
+  const topicLabel = (id: string) => topics.find((x) => x.id === id)?.label ?? id;
   return (
-    <Card className="space-y-3">
-      <h3 className="font-semibold">Your goals &amp; boundaries</h3>
-      <Field label="Goals" hint="(comma separated)"><Input value={goals} onChange={(e) => setGoals(e.target.value)} placeholder="find sponsors, book guests" /></Field>
-      <Field label="Collaboration openness"><select className="w-full rounded-lg border border-input bg-card px-3 py-2 text-sm" value={open} onChange={(e) => setOpen(e.target.value)}>
-        <option value="open">Open to most collaborations</option><option value="selective">Selective</option><option value="closed">Not looking right now</option></select></Field>
-      <Field label="Blocked categories" hint="(comma separated)"><Input value={blocked} onChange={(e) => setBlocked(e.target.value)} placeholder="gambling, alcohol" /></Field>
-      <Button size="sm" onClick={() => save.mutate()} disabled={save.isPending}>Save</Button>
+    <Card className="space-y-4" >
+      <div data-testid="partner-settings"><h3 className="font-semibold">Partner matching settings</h3>
+        <p className="text-xs text-muted-foreground">Used by the podcast-partner engine. Blocked categories, topics and brand-safety flags remove a show
+          before it is ever scored, however good the fit. Saved as <b>creator-provided</b>.</p></div>
+      <Field label="Goals"><Chips options={o?.goals ?? Object.keys(GOAL_LABEL)} value={goals} onChange={setGoals} labelOf={(g) => GOAL_LABEL[g] ?? g} /></Field>
+      <Field label="Collaboration openness" hint="(open or selective = shown to other members as Verified)">
+        <select className="w-full rounded-lg border border-input bg-card px-3 py-2 text-sm" value={open} onChange={(e) => setOpen(e.target.value)}>
+          <option value="">Not stated</option><option value="open">Open to most collaborations</option><option value="selective">Selective</option>
+          <option value="closed">Not looking right now (you will not be suggested to others)</option></select></Field>
+      <Field label="Blocked categories"><Chips options={o?.categoryGroups ?? []} value={blocked} onChange={setBlocked} /></Field>
+      <div>
+        <button type="button" className="text-xs font-medium text-purple-600" onClick={() => setShowTopics(!showTopics)}>{showTopics ? 'Hide' : 'Block specific topics'}</button>
+        {showTopics && <div className="mt-2"><Chips options={topics.map((x) => x.id)} value={blocked} onChange={setBlocked} labelOf={topicLabel} /></div>}
+      </div>
+      <Field label="Blocked brand-safety flags"><Chips options={o?.brandSafetyFlags ?? []} value={flags} onChange={setFlags} labelOf={FLAG_LABEL} /></Field>
+      <Button size="sm" onClick={() => save.mutate()} disabled={save.isPending}>Save settings</Button>
     </Card>
   );
 }
@@ -197,7 +226,7 @@ function CreatorForm({ onDone }: { onDone: () => void }) {
 export default function Intelligence() {
   const qc = useQueryClient();
   const [rss, setRss] = useState('');
-  const [panel, setPanel] = useState<'' | 'upload' | 'goals'>('');
+  const [panel, setPanel] = useState<'' | 'upload'>('');
   const status = useQuery({
     queryKey: ['intel-status'], queryFn: () => api.get('/api/intel/my/status'),
     refetchInterval: (q) => { const s = q.state.data; return s?.job && ['queued', 'running'].includes(s.job.status) ? 1500 : false; },
@@ -277,13 +306,13 @@ export default function Intelligence() {
                   <li key={i.code} className="flex flex-wrap items-center justify-between gap-2 text-sm">
                     <span><b>{i.action}</b> <span className="text-muted-foreground">· +{i.gain_points} pts. {i.detail}</span></span>
                     {i.code === 'upload_audience' && <Button size="sm" variant="outline" onClick={() => setPanel('upload')}>Upload CSV</Button>}
-                    {i.code === 'declare_goals' && <Button size="sm" variant="outline" onClick={() => setPanel('goals')}>Add</Button>}
+                    {i.code === 'declare_goals' && <Button size="sm" variant="outline" onClick={() => document.querySelector('[data-testid=partner-settings]')?.scrollIntoView({ behavior: 'smooth' })}>Add</Button>}
                     {(i.code === 'refresh' || i.code === 'fix_feed') && <Button size="sm" variant="outline" onClick={() => refresh.mutate()}>Refresh</Button>}
                   </li>))}</ul>
               </Card>
             )}
             {(panel === 'upload' || !p.improve.some((i: any) => i.code === 'upload_audience')) && panel === 'upload' && <AudienceUpload onDone={refreshAll} />}
-            {panel === 'goals' && <CreatorForm onDone={() => { setPanel(''); refreshAll(); }} />}
+            <PartnerSettings key={p.generated_at} fields={p.fields} onDone={refreshAll} />
             {panel === '' && !p.improve.some((i: any) => i.code === 'upload_audience') && <Button variant="outline" size="sm" onClick={() => setPanel('upload')}>Upload more audience data</Button>}
 
             {GROUPS.map(([g, label]) => {

@@ -51,29 +51,36 @@ The Node API reaches intelligence **only** through the AI service's HTTP API. Th
 - **Still mocked / untested:** LLM (none used), Podcast Index and Taddy (no keys), Postgres + pgvector, Whisper.
 
 ## Requirements
-- Node 20+ and Python: both come from the conda env **`torch_gpu`** (run commands from a conda-activated terminal).
+- **Node 20+** (verified: node **v24.12.0**, npm **11.6.2**) and **Python 3.10** in the conda env **`torch_gpu`**.
+- Exact working Python environment: `services/ai/requirements.lock.txt` (pip freeze of `torch_gpu`; minimum ranges in `requirements.txt`).
 - Internet access for seeding and real feeds.
+- Check everything with **`npm run doctor`** (PASS / WARN / FAIL with the fix for each failure).
 
 ## Run
 ```powershell
 conda activate torch_gpu
-cd C:\Nk\PODBAE\podbae-local
+cd C:\Users\nk\PODBAE\podbae-local
 copy .env.example .env      # first time only, then set INTEL_SERVICE_TOKEN to a long random string
 npm run setup               # first time only: npm install + pip install + migrations + demo seed
+npm run doctor              # environment self-check
 npm run dev                 # web http://localhost:5173 · api http://localhost:5000 · ai http://127.0.0.1:8000
 ```
 Open http://localhost:5173. Press `Ctrl+C` to stop all three servers.
 
-Stop leftovers:
-```powershell
-foreach ($p in 5173,5000,8000) { Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue | % { Stop-Process -Id $_.OwningProcess -Force } }
-```
+- The AI service runs **without auto-reload** (`scripts/dev-ai.mjs` starts the torch_gpu Python directly and kills its
+  process tree on exit). Under `conda run`, uvicorn's Windows reloader hung and left orphaned servers.
+- When developing the AI service, use `npm run dev:ai:reload` in its own terminal instead.
+- If anything is left on 5173 / 5000 / 8000, run `npm run stop` (it only kills PodBae processes).
 
 ## Commands (from `podbae-local/`)
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | start web, api and ai together |
+| `npm run dev` | start web, api and ai together (ai without auto-reload) |
+| `npm run dev:ai:reload` | the AI service alone, with auto-reload (development) |
+| `npm run stop` | stop leftover PodBae processes on 5173 / 5000 / 8000 |
+| `npm run doctor` | environment self-check: versions, packages, native import order, sqlite-vec, e5 on GPU, data stores, workspace links, ports, .env |
+| `npm run intel:eval4` | Layer 4 evaluation without labels (coverage, no-match, gates, readiness, diversity, determinism, latency) -> `services/ai/eval/layer4_after.json` |
 | `npm run setup` | install deps, apply migrations (both stores), seed demo data |
 | `npm run reset` | wipe the **Express** DB (`data/pglite`) and reseed demo users (stop `npm run dev` first) |
 | `npm run db:generate` / `npm run db:migrate` / `npm run seed` | Express DB: new drizzle migration / apply / seed |
@@ -84,6 +91,7 @@ foreach ($p in 5173,5000,8000) { Get-NetTCPConnection -LocalPort $p -State Liste
 | `npm run intel:diagnose-feeds` | re-fetch the Layer 1 feed list and classify every failure |
 | `npm run ui:smoke` | Playwright: log in as each role, screenshot the main pages into `screenshots/`, report console errors (needs `npm run dev`) |
 | `npm test` · `npm run test:ai` | API tests (vitest) · AI-service tests (pytest) |
+| `ENGINE=legacy` (in `.env`) | podcast-partner matching falls back to the old tag-overlap scorer (default: the Layer 4 engine) |
 | `npm run typecheck` · `npm run lint` · `npm run build` | quality checks |
 
 ## Demo logins (all fake, `demo=true`)
@@ -93,13 +101,18 @@ foreach ($p in 5173,5000,8000) { Get-NetTCPConnection -LocalPort $p -State Liste
 | podcaster@podbae.local | demo123 | podcaster (flirt tier; `/intelligence`) |
 | brand@podbae.local | demo123 | advertiser |
 
-Other seeded accounts use `*@demo.podbae.local` / `demo123`.
+Other seeded accounts use `*@demo.podbae.local` / `demo123`. Phase 2 demo (create via Admin -> Engine -> "Set up demo members"):
+
+- `mindful@demo.podbae.local`: Commit-tier showcase, sees every opportunity level.
+- `nomatch@demo.podbae.local`: shows the honest no-match state.
+- `member01..21@demo.podbae.local`: demo PodBae members.
 
 ## Reports
 - `podbae-local/PHASE1_REPORT.md`: what Phase 1 changed, before/after numbers, what is still mocked, risks, and what Layer 4 can rely on.
 - `podbae-local/EVAL_LAYER1.md`: the measured numbers (regenerate with `npm run intel:eval`).
 - `podbae-local/LAYER1_REPORT.md`: the original Layer 1 report (historical).
 - `podbae-local/TESTING_CHECKLIST.md`: the manual test list.
+- `podbae-local/PHASE2_REPORT.md` · `podbae-local/EVAL_LAYER4.md`: Layer 4 opportunity engine (podcast partners) and its measured numbers.
 
 ## Folder map (`podbae-local/`)
 ```

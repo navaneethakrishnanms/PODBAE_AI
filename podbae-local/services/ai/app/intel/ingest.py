@@ -107,6 +107,16 @@ def _upsert_episodes(s: Session, show: Show, pf: rsslib.ParsedFeed) -> dict:
             "stored_window": len(pf.episodes)}
 
 
+def public_website(link: str | None) -> str | None:
+    """A plain public http(s) URL from the feed's <link>, or None. Anything carrying an '@' (mailto, credentials) is dropped."""
+    from urllib.parse import urlparse
+    if not isinstance(link, str) or "@" in link:
+        return None
+    u = link.strip()
+    p = urlparse(u)
+    return u[:300] if p.scheme in ("http", "https") and p.netloc else None
+
+
 def _write_feed_facts(s: Session, show: Show, pf: rsslib.ParsedFeed, ref: str) -> dict:
     rss = get_source(s, "rss", "rss", "Publisher RSS feed; public, fetched with conditional GET")
     lang_src = get_source(s, "langdetect", "local_model", "Local language detector; estimate only")
@@ -120,6 +130,9 @@ def _write_feed_facts(s: Session, show: Show, pf: rsslib.ParsedFeed, ref: str) -
         rec("explicit", pf.explicit)
     if pf.author:
         rec("author", pf.author)
+    site = public_website(pf.link)
+    if site:   # Phase 2: the show's public website from <channel><link> (Layer 4 readiness). http(s) only, never mailto.
+        rec("website", site)
     if pf.language:
         rec("language", short_lang(pf.language))
     live = list(s.scalars(select(Episode).where(Episode.show_id == show.id, Episode.removed.is_(False)).order_by(Episode.published_at.desc())))

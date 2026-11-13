@@ -23,8 +23,13 @@ ROLES = {
     "podcaster": ("podcaster@podbae.local", "demo123", ["/dashboard", "/intelligence", "/swipe", "/messages", "/discover", "/profile", "/schedule",
                                                          "/analytics", "/partners", "/listen"]),
     "advertiser": ("brand@podbae.local", "demo123", ["/dashboard/campaign-builder", "/discover"]),
-    "admin": ("admin@podbae.local", "admin123", ["/admin", "tab:Ingestion jobs", "tab:Coverage", "tab:Costs", "tab:Labels", "/admin/labels"]),
+    "admin": ("admin@podbae.local", "admin123", ["/admin", "tab:Ingestion jobs", "tab:Coverage", "tab:Costs", "tab:Labels", "/admin/labels",
+                                                  "tab:Engine", "/admin/labels/pairs"]),
+    # Phase 2 (Layer 4 opportunity engine) demo accounts, created by Admin -> Engine -> "Set up demo members"
+    "commit_showcase": ("mindful@demo.podbae.local", "demo123", ["/dashboard", "/intelligence"]),
+    "no_match": ("nomatch@demo.podbae.local", "demo123", ["/dashboard"]),
 }
+OPP_PAGES = {("podcaster", "/dashboard"), ("commit_showcase", "/dashboard"), ("no_match", "/dashboard")}
 IGNORE = re.compile(r"favicon|hot-update|__vite|sockjs|/@vite/|\.map$", re.I)
 
 
@@ -93,6 +98,30 @@ def main() -> int:
                         page.goto(f"{a.base}{p}", wait_until="networkidle")
                         page.wait_for_timeout(1000)
                         name = f"{role}_{slug(p)}"
+                    extra: dict = {}
+                    if (role, p) in OPP_PAGES:      # Layer 4 cards: count them, read the four measures, open breakdown + dismiss dialog
+                        page.wait_for_timeout(1500)
+                        cards = page.locator("[data-testid=opportunity-card]")
+                        extra["opportunity_cards"] = cards.count()
+                        body = page.inner_text("body")
+                        extra["readiness_seen"] = [x for x in ("Verified", "Potential lead", "Discovery lead") if x in body]
+                        extra["four_measures"] = all(x.lower() in body.lower() for x in ("Fit", "Evidence confidence", "Commercial status", "Not enough data yet")) if cards.count() else None
+                        extra["no_match_state"] = "No good match yet" in body
+                        if cards.count():
+                            page.get_by_role("button", name="Show breakdown").first.click()
+                            page.wait_for_timeout(300)
+                            extra["breakdown_open"] = page.get_by_text("disabled").count() > 0
+                            page.get_by_role("button", name="Dismiss").first.click()
+                            page.get_by_text("Tell us why").wait_for(timeout=5000)
+                            extra["dismiss_reason_dialog"] = page.get_by_text("Not my vibe").count() > 0
+                            page.keyboard.press("Escape")      # close without dismissing (nothing is changed)
+                            page.wait_for_timeout(300)
+                    if p == "/admin/labels/pairs":   # render member show 1 with its blind candidate pairs (nothing is saved)
+                        page.get_by_placeholder("e.g. Priya").fill("ui-smoke (not saved)")
+                        page.get_by_role("button", name=re.compile("Start labelling|Switch labeler")).click()
+                        page.get_by_text("Member show 1 of").wait_for(timeout=20000)
+                        extra["pair_candidates"] = page.get_by_text(re.compile(r"^Candidate \d+$")).count()
+                        page.wait_for_timeout(500)
                     if p == "/admin/labels":       # render the labelling form for show 1 (nothing is saved)
                         page.get_by_placeholder("e.g. Priya").fill("ui-smoke (not saved)")
                         page.get_by_role("button", name=re.compile("Start labelling|Switch labeler")).click()
@@ -103,7 +132,7 @@ def main() -> int:
                     text = page.inner_text("body")[:20000]
                     entry = {"role": role, "page": p, "url": page.url.replace(a.base, ""), "screenshot": str(shot.relative_to(ROOT)),
                              "ms": int((time.perf_counter() - t0) * 1000), "not_found": "Page not found" in text,
-                             "admins_only": "Admins only" in text,
+                             "admins_only": "Admins only" in text, **extra,
                              **{k: (list(v) if isinstance(v, list) else v) for k, v in current.items()}}
                 except Exception as exc:  # noqa: BLE001
                     entry = {"role": role, "page": p, "error": f"{type(exc).__name__}: {exc}"[:300],

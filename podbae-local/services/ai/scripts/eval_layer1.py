@@ -10,6 +10,9 @@ from __future__ import annotations
 
 try:  # import torch BEFORE other native libraries: on Windows a different DLL load order can make torch fail
     import torch  # noqa: F401  (WinError 127 on fbgemm.dll), and the embedding model then cannot load
+    # Phase 2: sentence_transformers must ALSO load before lxml (RSS connector): lxml.etree first, then
+    # sentence_transformers (-> sklearn/scipy) segfaults the process in the torch_gpu env (access violation on import).
+    import sentence_transformers  # noqa: F401
 except Exception:  # noqa: BLE001 - reported later by the embedder, which refuses to fall back silently
     pass
 

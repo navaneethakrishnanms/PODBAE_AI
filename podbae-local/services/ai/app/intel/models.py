@@ -166,6 +166,8 @@ class ShowClaim(Base):
     show_id: Mapped[str] = mapped_column(ForeignKey("shows.id"))
     user_id: Mapped[str] = mapped_column(String(40))
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
+    # Phase 2: a claim = the show belongs to a PodBae member (Layer 4 readiness). demo=True marks seeded demo members.
+    demo: Mapped[bool] = mapped_column(Boolean, default=False)
     __table_args__ = (UniqueConstraint("show_id", "user_id", name="uq_claim"),)
 
 

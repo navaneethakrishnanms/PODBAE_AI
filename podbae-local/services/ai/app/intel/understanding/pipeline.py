@@ -180,5 +180,8 @@ def understand_show(s: Session, show_id: str) -> dict:
 
     if refine_enabled():   # Phase 1: never true (flag off, no refiners registered)
         res["refined"] = []
+    # Phase 2 close-out: declared contact / booking / guest routes (no e-mails; no fetching) for Layer 4 readiness
+    from ..contact_routes import record_routes
+    res["contact_routes"] = len(record_routes(s, show_id))
     res["seconds"] = round(time.perf_counter() - t0, 3)
     return res
