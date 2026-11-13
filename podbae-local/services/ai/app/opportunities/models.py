@@ -14,6 +14,7 @@ class OpportunityRun(Base):
     __tablename__ = "opportunity_runs"
     id: Mapped[str] = mapped_column(String(40), primary_key=True, default=lambda: new_id("orun"))
     member_show_id: Mapped[str] = mapped_column(String(40))
+    kind: Mapped[str] = mapped_column(String(10), default="partner")      # partner | sponsor (same engine, two target kinds)
     scoring_version: Mapped[str] = mapped_column(String(40))
     config_hash: Mapped[str] = mapped_column(String(20))
     inputs_fingerprint: Mapped[str] = mapped_column(String(64))

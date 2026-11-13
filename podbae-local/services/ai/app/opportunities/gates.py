@@ -29,7 +29,7 @@ def _primary(lang: Any) -> str | None:
     return lang.strip().lower().replace("_", "-").split("-")[0]
 
 
-def effective_language(sf: ShowFeatures, min_detected_conf: float) -> tuple[str | None, str, bool]:
+def effective_language(sf: ShowFeatures, min_detected_conf: float, min_chars: int = 0) -> tuple[str | None, str, bool]:
     """Base language (en-US / en-GB / en -> en) + basis + whether it is CONFIDENTLY known.
       declared and detected agree           -> declared, certain
       they disagree, detection conf >= min  -> detected, certain
@@ -40,7 +40,13 @@ def effective_language(sf: ShowFeatures, min_detected_conf: float) -> tuple[str 
     declared = next((r for r in sf.language_rows if r.tier == "verified"), None)
     detected = next((r for r in sorted(sf.language_rows, key=lambda r: -r.confidence) if r.tier != "verified"), None)
     d, t = _primary(declared.value) if declared else None, _primary(detected.value) if detected else None
+    desc = sf.val("description")
+    sample = (sf.text_chars or 0) + (len(desc) if isinstance(desc, str) else 0)
+    long_enough = sample >= min_chars
     if d and t and d != t:
+        if detected.confidence >= min_detected_conf and not long_enough:
+            return d, (f"uncertain: declared '{d}' but detected '{t}' (confidence {detected.confidence:.2f}) on only {sample} characters "
+                       f"of text (< {min_chars})"), False
         if detected.confidence >= min_detected_conf:
             return t, f"detected '{t}' (conflicts with declared '{d}'; detection confidence {detected.confidence:.2f} >= {min_detected_conf})", True
         return d, f"uncertain: declared '{d}' but detected '{t}' with confidence {detected.confidence:.2f} < {min_detected_conf}", False
@@ -91,8 +97,9 @@ def check(m: ShowFeatures, c: ShowFeatures, cfg: dict, history: dict[str, list[t
         return GateResult(False, "slowing", {"activity": act})
     if c.content_vec is None:
         return GateResult(False, "insufficient_data", {"missing": "content embedding"})
-    lm, bm, okm = effective_language(m, float(g["language_detected_min_confidence"]))
-    lc, bc, okc = effective_language(c, float(g["language_detected_min_confidence"]))
+    mc, mch = float(g["language_detected_min_confidence"]), int(g.get("language_detected_min_chars", 0))
+    lm, bm, okm = effective_language(m, mc, mch)
+    lc, bc, okc = effective_language(c, mc, mch)
     # hard reject ONLY when both languages are confidently known and different
     if lm and lc and lm != lc and okm and okc:
         return GateResult(False, "language_incompatible", {"member": lm, "member_basis": bm, "candidate": lc, "candidate_basis": bc})

@@ -1,0 +1,44 @@
+# Manual brand identity mapping, applied deterministically after automatic resolution.
+# - aliases: a NAME (as written in show notes) -> the brand's registrable domain. This is the only way a name-only
+#   detection joins a domain brand besides appearing in the same sentence as that domain. Never similarity-based.
+# - parents: product brand domain -> parent company domain (parent_brand_id is set; both stay separate brands).
+# - names: canonical display name for a domain (otherwise derived from the domain or the co-occurring name).
+# Keep entries factual (public, verifiable). Add as reviewers confirm them.
+aliases:
+  betterhelp: betterhelp.com
+  better help: betterhelp.com
+  athletic greens: drinkag1.com
+  ag1: drinkag1.com
+  squarespace: squarespace.com
+  hellofresh: hellofresh.com
+  hello fresh: hellofresh.com
+  shopify: shopify.com
+  nordvpn: nordvpn.com
+  expressvpn: expressvpn.com
+  factor: factormeals.com
+  rocket money: rocketmoney.com
+  mint mobile: mintmobile.com
+  shipstation: shipstation.com
+  zocdoc: zocdoc.com
+  cerebral: cerebral.com
+  manscaped: manscaped.com
+  quince: quince.com
+  rakuten: rakuten.com
+  indeed: indeed.com
+  ziprecruiter: ziprecruiter.com
+  progressive: progressive.com
+parents:
+  factormeals.com: hellofresh.com
+  greenchef.com: hellofresh.com
+  everyplate.com: hellofresh.com
+names:
+  betterhelp.com: BetterHelp
+  drinkag1.com: AG1
+  squarespace.com: Squarespace
+  hellofresh.com: HelloFresh
+  factormeals.com: Factor
+  nordvpn.com: NordVPN
+  expressvpn.com: ExpressVPN
+  mintmobile.com: Mint Mobile
+  rocketmoney.com: Rocket Money
+  ziprecruiter.com: ZipRecruiter

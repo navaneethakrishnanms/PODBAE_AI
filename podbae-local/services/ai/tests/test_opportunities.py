@@ -106,7 +106,7 @@ def test_self_same_owner_inactive_closed_optout_and_no_embedding(world):
 def test_language_gate_declared_vs_detected(world):
     with session_scope() as s:
         mk_show(s, "shw_es", "Show ES", v=peak_vec(BASE, 21), lang="es")
-        mk_show(s, "shw_conf_hi", "Mislabelled", v=peak_vec(BASE, 22), lang="en", detected=("de", 0.95))
+        mk_show(s, "shw_conf_hi", "Mislabelled", v=peak_vec(BASE, 22), lang="en", detected=("de", 0.95), description="Ein Podcast. " * 40)
         mk_show(s, "shw_conf_lo", "Unsure", v=peak_vec(BASE, 23), lang="en", detected=("de", 0.70))
         res = run(s)
         rej = {r["candidate_show_id"]: r for r in res["rejections"]}
@@ -538,3 +538,30 @@ def test_demo_join_dates_and_joined_trigger_window(world, client):
         codes = {r["target_show_id"]: [t["code"] for t in r["why_now"]] for r in res["qualified"]}
         assert "joined_podbae" not in codes.get("shw_old", [])
         assert "joined_podbae" in codes.get("shw_new2", [])
+
+
+# ───────────────────────── Phase 3 leftovers ─────────────────────────
+def test_language_detection_needs_a_long_enough_text_sample(db):
+    with session_scope() as s:
+        filler(s)
+        mk_show(s, "shw_lm", "Lang Member", v=BASE, lang="en")
+        mk_show(s, "shw_short", "Short Text", v=peak_vec(BASE, 83), lang="en", detected=("ro", 1.0), description="Salut.")
+        mk_show(s, "shw_long", "Long Text", v=peak_vec(BASE, 84), lang="en", detected=("ro", 1.0), description="Bun venit la podcast. " * 30)
+        res = run(s, "shw_lm")
+        rej = {r["candidate_show_id"]: r for r in res["rejections"]}
+        sc = {r["target_show_id"]: r for r in res["scored"]}
+        assert "shw_short" in sc and sc["shw_short"]["gate"]["language_uncertain"] is True     # 1.0 confidence on 6 chars: not trusted
+        assert "characters" in sc["shw_short"]["gate"]["candidate_language_basis"]
+        assert rej["shw_long"]["reason"] == "language_incompatible"                             # long sample: detection trusted
+
+
+def test_why_now_guest_episode_pluralised_and_faithful():
+    rec_one = {"code": "recent_guest_episodes", "detail": {"guest_episodes": 1, "window_days": 30},
+               "evidence": [{"episode_id": "e1", "date": "2026-11-01", "title": "Ep 7"}]}
+    rec_many = dict(rec_one, detail={"guest_episodes": 3, "window_days": 30})
+    one, many = ex.why_part(rec_one), ex.why_part(rec_many)
+    assert "1 guest episode in" in one["text"] and "guest episodes" not in one["text"]
+    assert "3 guest episodes in" in many["text"]
+    for tr in (rec_one, rec_many):
+        record = {"target_title": "T", "type": "cross_promo", "fit": 70.0, "confidence": {"level": "Medium"}, "factors": [], "why_now": [tr]}
+        assert ex.faithfulness(ex.build(record), record) == []

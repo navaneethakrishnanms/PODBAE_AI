@@ -7,6 +7,7 @@ _worker = None
 def startup(*, use_alembic: bool = True, start_worker: bool | None = None) -> None:
     from . import ingest, whisper_job  # noqa: F401  (registers job handlers)
     from ..opportunities import engine as _opp_engine  # noqa: F401  (registers the opportunities_generate job)
+    from ..sponsors import opportunities as _sp_opp, scan as _sp_scan  # noqa: F401  (sponsors_scan + sponsor job)
     from .config import get_settings
     from .db import create_all, init_engine, migrate, session_scope
     from .trust.budget import ensure_default_budgets

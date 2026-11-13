@@ -1,0 +1,23 @@
+# Registrable domains that are NOT advertisers: podcast hosts / apps, app stores, social networks, link shorteners,
+# payment / tip pages, generic platforms. A URL on one of these never becomes a brand (it may still be evidence of a
+# podcast promo, self-promotion, network disclosure or an affiliate link). Editable; matched on the registrable domain.
+podcast_hosts_and_apps: [anchor.fm, spotify.com, spotifyforcreators.com, apple.com, buzzsprout.com, libsyn.com, megaphone.fm, acast.com,
+  simplecast.com, spreaker.com, podbean.com, omnystudio.com, art19.com, captivate.fm, transistor.fm, redcircle.com, iheart.com,
+  iheartpodcasts.com, podcastchoices.com, podtrac.com, chartable.com, pdst.fm, podnews.net, castbox.fm, pocketcasts.com, overcast.fm,
+  podcastaddict.com, podchaser.com, pod.link, podlink.to, podfollow.com, audioboom.com, blubrry.com, soundcloud.com, simplecastaudio.com,
+  podcasts.google.com, music.amazon.com, audible.com, stitcher.com, tunein.com, deezer.com, castos.com, riverside.fm, descript.com,
+  squadcast.fm, zencastr.com, wondery.com, podcastone.com, rss.com, fireside.fm, pinecast.com, whooshkaa.com, podomatic.com,
+  sounder.fm, ausha.co, hubhopper.com, podplay.com, podcasters.spotify.com, plus.acast.com, supercast.com, glow.fm]
+app_stores: [play.google.com, apps.apple.com, itunes.apple.com]
+social: [instagram.com, facebook.com, fb.com, twitter.com, x.com, tiktok.com, youtube.com, youtu.be, linkedin.com, threads.net, discord.gg,
+  discord.com, reddit.com, twitch.tv, pinterest.com, snapchat.com, tumblr.com, bsky.app, mastodon.social, whatsapp.com, t.me, telegram.me,
+  vimeo.com, clubhouse.com, meetup.com, eventbrite.com]
+shorteners_and_link_pages: [bit.ly, linktr.ee, tinyurl.com, lnk.to, ow.ly, buff.ly, smarturl.it, geni.us, rebrand.ly, t.co, goo.gl,
+  cutt.ly, shorturl.at, is.gd, beacons.ai, linkin.bio, flow.page, campsite.bio, hoo.be, lnk.bio, msha.ke, tap.bio, solo.to, carrd.co,
+  feeds.feedburner.com, feedburner.com, podpage.com]
+payment_and_tips: [patreon.com, buymeacoffee.com, ko-fi.com, paypal.com, paypal.me, venmo.com, cash.app, gofundme.com, givebutter.com,
+  donorbox.org, memberful.com, gumroad.com, stripe.com, square.site, kofi.com, glow.fm, supporter.fm]
+generic_platforms: [google.com, wikipedia.org, wikimedia.org, gmail.com, docs.google.com, forms.gle, typeform.com, calendly.com,
+  substack.com, mailchimp.com, list-manage.com, eepurl.com, convertkit.com, kit.com, beehiiv.com, wordpress.com, blogspot.com,
+  squarespace-cdn.com, wixsite.com, github.com, medium.com, amazonaws.com, cloudfront.net, archive.org, dropbox.com, zoom.us, imdb.com,
+  goodreads.com, ted.com]

@@ -1,0 +1,15 @@
+# Manual brand-category corrections, applied after inference (stored with method "manual", replacing inferred categories).
+# Key = brand registrable domain, value = list of category ids from categories.yaml. Edits made in /admin/sponsors/brands
+# are stored in the database (audited); this file holds reviewed, versioned corrections.
+overrides:
+  betterhelp.com: [mental_health_therapy]
+  drinkag1.com: [health_supplements]
+  squarespace.com: [business_software]
+  hellofresh.com: [food_meal_kits]
+  factormeals.com: [food_meal_kits]
+  nordvpn.com: [vpn_security]
+  expressvpn.com: [vpn_security]
+  shopify.com: [business_software]
+  mintmobile.com: [tech_consumer]
+  ziprecruiter.com: [hiring_jobs]
+  indeed.com: [hiring_jobs]

@@ -20,6 +20,9 @@ gates:
   # tags normalised to the base language (en-US / en-GB -> en). Hard reject ONLY when both languages are confidently known
   # and different; an uncertain match passes with confidence x this factor (recorded in the breakdown).
   language_uncertain_confidence_factor: 0.8
+  # the detected language may override the declared one only with confidence >= 0.9 AND at least this many characters of
+  # text (show description + stored episode descriptions); otherwise the language is uncertain (Phase 3 leftover fix)
+  language_detected_min_chars: 400
   # cooldown per past interaction type (days). 'dismiss' also suppresses immediately on the next list call.
   cooldown_days: {contact: 30, partnership: 30, dismiss: 30, reply: 30, meeting: 30}
   exclude_inactive: true

@@ -1,0 +1,61 @@
+# Fixed brand-category list (version brand-categories-v1). description = one sentence embedded by the local e5 model
+# (similarity to ad snippets). sensitive = gated by default for Kids & Family shows and blockable by any member.
+# related = the show category groups / taxonomy topics where this category is a natural fit (category_fit factor).
+version: brand-categories-v1
+categories:
+  mental_health_therapy: {label: Mental health & therapy, sensitive: false, related: [Health & Fitness, mental_health, self_improvement],
+    description: "online therapy, counseling, mental health apps and talking to a licensed therapist"}
+  health_supplements: {label: Health & nutrition supplements, sensitive: false, related: [Health & Fitness, nutrition_diet, fitness_exercise],
+    description: "nutrition drinks, vitamins, greens powders, protein and health supplements"}
+  weight_loss: {label: Weight-loss products, sensitive: true, related: [Health & Fitness, nutrition_diet],
+    description: "weight loss programs, diet pills, appetite suppressants and GLP-1 weight loss prescriptions"}
+  fitness_wellness: {label: Fitness & wellness gear, sensitive: false, related: [Health & Fitness, fitness_exercise, Sports],
+    description: "fitness equipment, workout apps, sleep trackers, wellness devices and athletic wear"}
+  telehealth_pharma: {label: Telehealth & pharmacy, sensitive: false, related: [Health & Fitness, medicine_healthcare],
+    description: "telehealth doctor visits, online prescriptions, pharmacy and medical services"}
+  food_meal_kits: {label: Food & meal kits, sensitive: false, related: [Arts, food_cooking, Kids & Family],
+    description: "meal kit delivery, ready-made meals, groceries, snacks and food brands"}
+  alcohol: {label: Alcohol, sensitive: true, related: [Comedy, food_cooking],
+    description: "beer, wine, spirits, cocktails, breweries, distilleries and alcohol delivery"}
+  cannabis: {label: Cannabis & CBD, sensitive: true, related: [],
+    description: "cannabis, marijuana, THC, CBD oils and gummies, hemp products and dispensaries"}
+  gambling_betting: {label: Gambling & betting, sensitive: true, related: [Sports],
+    description: "sports betting, sportsbooks, online casinos, poker, fantasy sports and gambling apps"}
+  crypto_trading: {label: Crypto & trading, sensitive: true, related: [Business, investing_personal_finance],
+    description: "cryptocurrency exchanges, bitcoin, crypto wallets, day trading and trading platforms"}
+  finance_banking: {label: Finance, banking & insurance, sensitive: false, related: [Business, investing_personal_finance],
+    description: "banks, budgeting apps, credit cards, loans, insurance and personal finance services"}
+  business_software: {label: Business software & services, sensitive: false, related: [Business, Technology, entrepreneurship, marketing_sales],
+    description: "website builders, e-commerce platforms, accounting, payroll, CRM and software for small businesses"}
+  hiring_jobs: {label: Hiring & jobs, sensitive: false, related: [Business, careers_work],
+    description: "job boards, recruiting platforms and hiring services for employers"}
+  vpn_security: {label: VPN & online security, sensitive: false, related: [Technology],
+    description: "VPN services, password managers, antivirus and online privacy protection"}
+  tech_consumer: {label: Consumer tech & gadgets, sensitive: false, related: [Technology, video_games],
+    description: "phones, mobile plans, headphones, gadgets, computers and consumer electronics"}
+  education_learning: {label: Education & courses, sensitive: false, related: [Education, learning_howto, language_learning],
+    description: "online courses, language learning apps, tutoring, books and educational platforms"}
+  fashion_beauty_grooming: {label: Fashion, beauty & grooming, sensitive: false, related: [Arts, fashion_beauty],
+    description: "clothing, shoes, skincare, makeup, razors, grooming and personal care products"}
+  home_lifestyle: {label: Home & lifestyle, sensitive: false, related: [Leisure, home_garden],
+    description: "mattresses, bedding, furniture, home goods, cleaning products and household items"}
+  pets: {label: Pet products, sensitive: false, related: [pets_animals, Kids & Family],
+    description: "pet food, pet insurance, dog and cat supplies and veterinary services"}
+  kids_family_products: {label: Kids & family products, sensitive: false, related: [Kids & Family, parenting],
+    description: "toys, children's books, baby products, family apps and kids learning products"}
+  travel_auto: {label: Travel & auto, sensitive: false, related: [Leisure, automotive_aviation],
+    description: "travel booking, hotels, airlines, car buying, car insurance and rental cars"}
+  media_entertainment: {label: Media & entertainment, sensitive: false, related: [TV & Film, Music, Arts, Comedy, Fiction],
+    description: "streaming services, audiobooks, movies, music, games and entertainment subscriptions"}
+  firearms: {label: Firearms & weapons, sensitive: true, related: [],
+    description: "guns, firearms, ammunition, gun accessories, knives and shooting ranges"}
+  political: {label: Political & advocacy, sensitive: true, related: [News, politics_government],
+    description: "political campaigns, candidates, political action committees and advocacy groups"}
+  adult: {label: Adult products, sensitive: true, related: [sexuality_intimacy],
+    description: "adult toys, sexual wellness products, erectile dysfunction treatment and adult content"}
+  dating: {label: Dating apps, sensitive: true, related: [Society & Culture],
+    description: "dating apps, matchmaking services and online dating sites"}
+  religious_org: {label: Religious organisations & products, sensitive: false, related: [Religion & Spirituality, christianity, spirituality],
+    description: "churches, ministries, faith apps, Bible study tools and religious organisations"}
+  nonprofit_cause: {label: Nonprofits & causes, sensitive: false, related: [Society & Culture],
+    description: "charities, nonprofits, donations and cause campaigns"}

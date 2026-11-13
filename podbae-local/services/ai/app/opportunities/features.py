@@ -57,6 +57,7 @@ class ShowFeatures:
     activity: str | None
     fields: dict[str, FieldVal] = field(default_factory=dict)
     language_rows: list[FieldVal] = field(default_factory=list)
+    text_chars: int | None = None          # description + stored episode descriptions (language-detection sample size)
     content_vec: np.ndarray | None = None
     is_member: bool = False
     member_user_id: str | None = None
@@ -103,6 +104,11 @@ class Corpus:
         for sh in s.scalars(select(Show).where(Show.merged_into.is_(None)).order_by(Show.id)):
             c.shows[sh.id] = ShowFeatures(sh.id, sh.title or "", sh.activity)
         c.ids = sorted(c.shows)
+        from sqlalchemy import func as _f
+        from ..intel.models import Episode as _E
+        for sid, n in s.execute(select(_E.show_id, _f.sum(_f.length(_E.description))).group_by(_E.show_id)):
+            if sid in c.shows:
+                c.shows[sid].text_chars = int(n or 0)
         sources = {x.id: x.name for x in s.scalars(select(Source))}
         best: dict[tuple[str, str], Provenance] = {}
         rows = s.scalars(select(Provenance).where(Provenance.entity_type == "show", Provenance.superseded_by.is_(None),

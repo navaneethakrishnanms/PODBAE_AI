@@ -90,7 +90,11 @@ def main() -> int:
                         label = p[4:]
                         if "/admin" not in page.url or "/admin/labels" in page.url:
                             page.goto(f"{a.base}/admin", wait_until="networkidle")
-                        page.get_by_role("tab", name=label, exact=True).first.click()     # Radix Tabs render role="tab"
+                        if label == "Engine":   # wait for the (slow) metrics request so navigating away cannot abort it
+                            with page.expect_response(lambda r: "/api/admin/engine/metrics" in r.url, timeout=60000):
+                                page.get_by_role("tab", name=label, exact=True).first.click()
+                        else:
+                            page.get_by_role("tab", name=label, exact=True).first.click()     # Radix Tabs render role="tab"
                         page.wait_for_load_state("networkidle")
                         page.wait_for_timeout(800)
                         name = f"{role}_admin_tab_{slug(label)}"

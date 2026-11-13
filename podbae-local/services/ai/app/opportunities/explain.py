@@ -31,6 +31,7 @@ T = {
     "collaboration_openness.guests": "{target} features guests in {pct}% of recent episodes.",
     "why.joined_podbae": "Why now: they joined PodBae on {date}.",
     "why.shared_topic_recent": "Why now: they published “{title}” on {date}, on {topic}, a topic you share.",
+    "why.recent_guest_episodes.one": "Why now: {n} guest episode in the last {days} days: “{title}” ({date}).",
     "why.recent_guest_episodes": "Why now: {n} guest episodes in the last {days} days, most recently “{title}” ({date}).",
     "why.reactivated": "Why now: they are back after a {gap}-day break with “{title}” ({date}).",
     "why.cadence_increased": "Why now: they are publishing more often, every {recent} days lately vs {prior} before.",
@@ -88,7 +89,8 @@ def why_part(t: dict) -> dict | None:
     if code == "shared_topic_recent":
         return _part("why.shared_topic_recent", title=e0["title"], date=e0["date"], topic=d["topic_name"])
     if code == "recent_guest_episodes":
-        return _part("why.recent_guest_episodes", n=d["guest_episodes"], days=d["window_days"], title=e0["title"], date=e0["date"])
+        tid = "why.recent_guest_episodes.one" if d["guest_episodes"] == 1 else "why.recent_guest_episodes"
+        return _part(tid, n=d["guest_episodes"], days=d["window_days"], title=e0["title"], date=e0["date"])
     if code == "reactivated":
         return _part("why.reactivated", gap=d["gap_days"], title=e0["title"], date=e0["date"])
     if code == "cadence_increased":
