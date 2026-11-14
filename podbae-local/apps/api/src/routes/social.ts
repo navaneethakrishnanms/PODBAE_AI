@@ -1,4 +1,4 @@
-import { CampaignCreateSchema, ScheduleCreateSchema } from '@podbae/contracts';
+import { CampaignCreateSchema, ScheduleCreateSchema, websiteDomain } from '@podbae/contracts';
 import { Router } from 'express';
 import { z } from 'zod';
 import { q, q1 } from '../db/client.js';
@@ -107,6 +107,8 @@ socialRouter.post('/api/campaigns', requireRole('advertiser', 'admin'), h(async 
     `INSERT INTO campaigns (advertiser_id, name, description, budget_min, budget_max, categories, vibe_tags, tone_tags, location)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
     [adv.id, b.name, b.description ?? null, b.budgetMin, b.budgetMax ?? null, b.categories, b.vibeTags, b.toneTags, b.location ?? null]);
+  const dom = websiteDomain(b.website);
+  if (dom) await q('UPDATE advertisers SET website = $1 WHERE id = $2', [dom, adv.id]);   // company website lives on the advertiser
   res.status(201).json({ campaign: c });
 }));
 

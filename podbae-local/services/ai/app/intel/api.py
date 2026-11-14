@@ -45,6 +45,10 @@ class CreatorProfile(BaseModel):
     collaboration_openness: str | None = Field(default=None, pattern="^(open|selective|closed)$")
     blocked_categories: list[str] | None = Field(default=None, max_length=40)
     blocked_brand_safety_flags: list[str] | None = Field(default=None, max_length=20)   # Phase 2: Layer 4 gate
+    # Phase 3: sponsor gates (Layer 2)
+    blocked_brands: list[str] | None = Field(default=None, max_length=50)
+    blocked_brand_categories: list[str] | None = Field(default=None, max_length=30)
+    exclusive_categories: list[str] | None = Field(default=None, max_length=30)
 
 
 class Transcribe(BaseModel):
@@ -236,7 +240,10 @@ def creator_profile(show_id: str, body: CreatorProfile) -> dict:
     with session_scope() as s:
         root = _require_show(s, show_id)
         fields = aud.save_creator_profile(s, root, body.user_id, body.goals, body.collaboration_openness, body.blocked_categories,
-                                          body.blocked_brand_safety_flags)
+                                          body.blocked_brand_safety_flags,
+                                          extra={"creator.blocked_brands": body.blocked_brands,
+                                                 "creator.blocked_brand_categories": body.blocked_brand_categories,
+                                                 "creator.exclusive_categories": body.exclusive_categories})
         return {"stored": fields, "data_tier": "creator_provided"}
 
 

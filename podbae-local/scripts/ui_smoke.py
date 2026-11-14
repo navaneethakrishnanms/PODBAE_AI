@@ -24,7 +24,7 @@ ROLES = {
                                                          "/analytics", "/partners", "/listen"]),
     "advertiser": ("brand@podbae.local", "demo123", ["/dashboard/campaign-builder", "/discover"]),
     "admin": ("admin@podbae.local", "admin123", ["/admin", "tab:Ingestion jobs", "tab:Coverage", "tab:Costs", "tab:Labels", "/admin/labels",
-                                                  "tab:Engine", "/admin/labels/pairs"]),
+                                                  "tab:Engine", "/admin/labels/pairs", "/admin/sponsors/review", "/admin/sponsors/brands"]),
     # Phase 2 (Layer 4 opportunity engine) demo accounts, created by Admin -> Engine -> "Set up demo members"
     "commit_showcase": ("mindful@demo.podbae.local", "demo123", ["/dashboard", "/intelligence"]),
     "no_match": ("nomatch@demo.podbae.local", "demo123", ["/dashboard"]),
@@ -85,24 +85,36 @@ def main() -> int:
             for p in pages:
                 current.clear()
                 t0 = time.perf_counter()
+                extra_tab: dict = {}
                 try:
                     if p.startswith("tab:"):
                         label = p[4:]
                         if "/admin" not in page.url or "/admin/labels" in page.url:
                             page.goto(f"{a.base}/admin", wait_until="networkidle")
-                        if label == "Engine":   # wait for the (slow) metrics request so navigating away cannot abort it
-                            with page.expect_response(lambda r: "/api/admin/engine/metrics" in r.url, timeout=60000):
+                        if label == "Engine":   # wait for the (slow) metrics requests so navigating away cannot abort them
+                            with page.expect_response(lambda r: "/api/admin/engine/metrics" in r.url, timeout=60000), \
+                                    page.expect_response(lambda r: "/api/admin/engine/sponsor-metrics" in r.url, timeout=60000):
                                 page.get_by_role("tab", name=label, exact=True).first.click()
                         else:
                             page.get_by_role("tab", name=label, exact=True).first.click()     # Radix Tabs render role="tab"
                         page.wait_for_load_state("networkidle")
                         page.wait_for_timeout(800)
                         name = f"{role}_admin_tab_{slug(label)}"
+                        if label == "Engine":
+                            extra_tab = {"llm_panel": page.locator("[data-testid=llm-panel]").count()}
                     else:
                         page.goto(f"{a.base}{p}", wait_until="networkidle")
                         page.wait_for_timeout(1000)
                         name = f"{role}_{slug(p)}"
-                    extra: dict = {}
+                    extra: dict = dict(extra_tab)
+                    if p == "/dashboard/campaign-builder":   # Phase 4: optional company website, validated (nothing is saved)
+                        f = page.locator("[data-testid=campaign-website]")
+                        extra["website_field"] = f.count()
+                        if f.count():
+                            f.fill("not a url")
+                            extra["website_invalid_msg"] = page.get_by_text("Enter a valid website").count() > 0
+                            f.fill("https://www.example-brand.com")
+                            extra["website_valid"] = page.get_by_text("Enter a valid website").count() == 0
                     if (role, p) in OPP_PAGES:      # Layer 4 cards: count them, read the four measures, open breakdown + dismiss dialog
                         page.wait_for_timeout(1500)
                         cards = page.locator("[data-testid=opportunity-card]")
@@ -111,6 +123,12 @@ def main() -> int:
                         extra["readiness_seen"] = [x for x in ("Verified", "Potential lead", "Discovery lead") if x in body]
                         extra["four_measures"] = all(x.lower() in body.lower() for x in ("Fit", "Evidence confidence", "Commercial status", "Not enough data yet")) if cards.count() else None
                         extra["no_match_state"] = "No good match yet" in body
+                        extra["sponsor_cards"] = page.locator("[data-testid=sponsor-card]").count()
+                        extra["sponsor_locked_notice"] = "Sponsor recommendations are locked" in body
+                        # Phase 4: AI-phrased card text (only cards shown earlier get phrased, lazily) + Verified sponsor path
+                        extra["ai_phrased"] = page.locator("[data-testid=ai-phrased]").count()
+                        sp_panel = page.locator("[data-testid=sponsor-panel]")
+                        extra["sponsor_verified"] = sp_panel.count() > 0 and "Verified" in sp_panel.first.inner_text()
                         if cards.count():
                             page.get_by_role("button", name="Show breakdown").first.click()
                             page.wait_for_timeout(300)
@@ -126,11 +144,39 @@ def main() -> int:
                         page.get_by_text("Member show 1 of").wait_for(timeout=20000)
                         extra["pair_candidates"] = page.get_by_text(re.compile(r"^Candidate \d+$")).count()
                         page.wait_for_timeout(500)
+                    if p == "/admin/sponsors/review":   # render the review queue (nothing is saved)
+                        page.get_by_placeholder("e.g. Priya").fill("ui-smoke (not saved)")
+                        page.get_by_role("button", name=re.compile("Start reviewing|Switch reviewer")).click()
+                        page.locator("[data-testid=sponsor-review-queue]").wait_for(timeout=30000)
+                        page.wait_for_timeout(800)
+                        extra["review_items"] = page.get_by_role("button", name="Not evidence").count()
+                        page.locator("[data-testid=filter-disagree]").click()      # Phase 4: rules vs AI disagree first
+                        page.wait_for_load_state("networkidle")
+                        page.wait_for_timeout(1200)
+                        extra["disagree_items"] = page.locator("[data-testid=rules-vs-ai]").count()
+                    if p == "/admin/sponsors/brands":
+                        page.locator("[data-testid=brand-list] button").first.wait_for(timeout=30000)
+                        page.locator("[data-testid=brand-list] button").first.click()
+                        page.get_by_text("Recent events").wait_for(timeout=20000)
+                        extra["brands_listed"] = page.locator("[data-testid=brand-list] button").count()
+                        page.locator("[data-testid=brands-filter-disagree]").click()
+                        page.wait_for_load_state("networkidle")
+                        page.wait_for_timeout(1200)
+                        extra["brands_disagree"] = page.locator("[data-testid=brand-list] button").count()
+                        if extra["brands_disagree"]:
+                            page.locator("[data-testid=brand-list] button").first.click()
+                            page.get_by_text("Recent events").wait_for(timeout=20000)
+                            extra["brand_ai_panel"] = (page.locator("[data-testid=brand-rules-vs-ai]").count()
+                                                       + page.locator("[data-testid=name-suggestion]").count())
                     if p == "/admin/labels":       # render the labelling form for show 1 (nothing is saved)
                         page.get_by_placeholder("e.g. Priya").fill("ui-smoke (not saved)")
                         page.get_by_role("button", name=re.compile("Start labelling|Switch labeler")).click()
                         page.get_by_text("Show 1 of").wait_for(timeout=15000)
                         page.wait_for_timeout(500)
+                        page.locator("[data-testid=labels-filter-disagree] input").check()   # Phase 4 (opt-in, labels not blind)
+                        page.wait_for_load_state("networkidle")
+                        page.wait_for_timeout(1200)
+                        extra["labels_rules_vs_ai"] = page.locator("[data-testid=labels-rules-vs-ai]").count()
                     shot = OUT / f"{name}.png"
                     page.screenshot(path=str(shot), full_page=True)
                     text = page.inner_text("body")[:20000]

@@ -65,8 +65,25 @@ class Settings:
     itunes_cache_hours: float = field(default_factory=lambda: _f("INTEL_ITUNES_CACHE_HOURS", 24))
     itunes_country: str = field(default_factory=lambda: os.environ.get("INTEL_ITUNES_COUNTRY", "US"))
     # feature flags
-    # LLM refinement seam (Phase 1: OFF, and no refiner is registered). Rules + local models produce every field.
+    # LLM refinement (Phase 4). OFF unless INTEL_LLM_REFINE=true AND LLM_PROVIDER is a real provider (not mock).
+    # Either kill switch (LLM_PROVIDER=mock or INTEL_LLM_REFINE=false) restores exact Phase 3 behaviour: no LLM calls, and
+    # every stored LLM value is ignored by every reader (it stays in the store for audit / comparison).
     llm_refine_enabled: bool = field(default_factory=lambda: _b("INTEL_LLM_REFINE", False))
+    # Ollama (local or cloud model behind the local Ollama daemon)
+    ollama_base_url: str = field(default_factory=lambda: os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/"))
+    ollama_model: str = field(default_factory=lambda: os.environ.get("OLLAMA_MODEL", "gpt-oss:120b-cloud"))
+    llm_timeout: float = field(default_factory=lambda: _f("LLM_TIMEOUT_SECONDS", 180))
+    llm_think: str = field(default_factory=lambda: os.environ.get("LLM_THINK", "low"))   # only sent to models that can think
+    llm_num_ctx: int = field(default_factory=lambda: int(_f("LLM_NUM_CTX", 8192)))
+    llm_rate_per_min: float = field(default_factory=lambda: _f("LLM_RATE_PER_MIN", 30))   # client-side limiter; 0 = off
+    llm_max_retries: int = field(default_factory=lambda: int(_f("LLM_MAX_RETRIES", 2)))   # invalid output -> at most 3 calls
+    llm_backoff_base: float = field(default_factory=lambda: _f("LLM_BACKOFF_BASE", 2.0))
+    llm_backoff_max: float = field(default_factory=lambda: _f("LLM_BACKOFF_MAX", 60.0))
+    llm_http_retries: int = field(default_factory=lambda: int(_f("LLM_HTTP_RETRIES", 3)))  # 429 / 5xx retries before pausing
+    llm_conf_cap: float = field(default_factory=lambda: _f("LLM_CONFIDENCE_CAP", 0.6))     # max confidence of any LLM value
+    llm_organic_sample: int = field(default_factory=lambda: int(_f("LLM_ORGANIC_SAMPLE", 1500)))   # organic_mention audit size
+    llm_phrase_daily_calls: int = field(default_factory=lambda: int(_f("LLM_PHRASE_DAILY_CALLS", 300)))
+    llm_phrasing_enabled: bool = field(default_factory=lambda: _b("INTEL_LLM_PHRASING", True))  # extra switch for card text only
     # job worker
     worker_enabled: bool = field(default_factory=lambda: _b("INTEL_WORKER", True))
     max_attempts: int = 3

@@ -36,10 +36,14 @@ app = FastAPI(title="PodBae AI Service", version="0.4.0", lifespan=lifespan)
 from .intel.api import public_router as intel_public_router  # noqa: E402
 from .intel.api import router as intel_router  # noqa: E402
 from .opportunities.api import router as opportunities_router  # noqa: E402
+from .sponsors.api import router as sponsors_router  # noqa: E402
+from .llm_refine.api import router as llm_router  # noqa: E402
 
 app.include_router(intel_public_router)   # /v1/health only
 app.include_router(intel_router)          # every other /v1 route: X-Service-Token required
 app.include_router(opportunities_router)  # Layer 4 opportunity engine (same token)
+app.include_router(sponsors_router)       # Layer 2 sponsor intelligence + sponsor opportunities (same token)
+app.include_router(llm_router)            # Phase 4 LLM admin: status / metrics / run / rule-vs-AI (same token)
 
 
 @app.get("/health")

@@ -22,6 +22,20 @@
       "when": 1794493196447,
       "tag": "0002_phase2_opportunities",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794589103116,
+      "tag": "0003_phase3_sponsor_cache",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794652445235,
+      "tag": "0004_phase4_advertiser_website",
+      "breakpoints": true
     }
   ]
 }

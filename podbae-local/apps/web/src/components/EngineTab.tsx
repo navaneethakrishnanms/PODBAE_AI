@@ -20,6 +20,7 @@ function Bars({ rows, fmt }: { rows: { from: number; to: number; n: number }[]; 
 export function EngineTab() {
   const qc = useQueryClient();
   const m = useQuery({ queryKey: ['a-engine'], queryFn: () => api.get('/api/admin/engine/metrics') });
+  const sm = useQuery({ queryKey: ['a-engine-sponsor'], queryFn: () => api.get('/api/admin/engine/sponsor-metrics') });
   const [showId, setShowId] = useState('');
   const [busy, setBusy] = useState(false);
   const regen = async (id: string) => {
@@ -77,6 +78,8 @@ export function EngineTab() {
               <tbody>{Object.entries(d.pairLabels?.systems ?? {}).map(([k, v]: any) => (
                 <tr key={k}><td>{k}</td><td>{v.precisionAt3 ?? '–'}</td><td>{v.ndcgAt5 ?? '–'}</td><td>{v.coverageAt3 ?? '–'}</td></tr>))}</tbody></table>)}</Card>
       </div>
+      <SponsorEngine d={sm.data} />
+      <LlmPanel />
       <Card className="space-y-3">
         <h3 className="font-semibold">Runs per show</h3>
         <div className="flex gap-2"><Input placeholder="Show id (shw_…) to regenerate" value={showId} onChange={(e) => setShowId(e.target.value)} />
@@ -88,5 +91,54 @@ export function EngineTab() {
         {!(d.runs ?? []).length && <p className="text-sm text-muted-foreground">No runs yet. Use "Set up demo members" or open a member's dashboard.</p>}
       </Card>
     </div>
+  );
+}
+
+/** Phase 4: what the LLM does, measured (calls, tokens, latency, cache, pauses) + the kill-switch state. */
+function LlmPanel() {
+  const m = useQuery({ queryKey: ['a-llm-metrics'], queryFn: () => api.get('/api/admin/llm/metrics') });
+  const d = m.data;
+  const run = async () => { try { const r: any = await api.post('/api/admin/llm/run', {}); toast(`LLM refine job ${r.job_id ?? r.jobId} queued`); } catch (e: any) { toast(e.message); } };
+  return (
+    <Card className="space-y-3" data-testid="llm-panel">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-semibold">LLM refinement (Phase 4)</h3>
+        {d && <Badge tone={d.llm_active ?? d.llmActive ? 'green' : 'gray'}>{(d.llm_active ?? d.llmActive) ? `on · ${d.model ?? d.provider}` : 'off (Phase 3 behaviour)'}</Badge>}
+      </div>
+      {m.isLoading ? <Spinner /> : !d ? <p className="text-sm text-muted-foreground">Metrics unavailable.</p> : (
+        <>
+          <p className="text-xs text-muted-foreground">Used only where rules are weak; every value cites verbatim evidence and is stored next to the rule value.
+            Kill switches: {d.kill_switches ?? d.killSwitches}. Only public podcast content is sent.</p>
+          <table className="w-full text-sm"><thead><tr className="text-left text-xs text-muted-foreground"><th>Task</th><th>Calls</th><th>Cache hits</th><th>Tokens in/out</th><th>Avg / p95 ms</th><th>Pauses</th></tr></thead>
+            <tbody>{Object.entries(d.calls?.by_task ?? d.calls?.byTask ?? {}).map(([k, v]: any) => (
+              <tr key={k}><td>{k}</td><td>{v.provider_calls ?? v.providerCalls}</td><td>{v.cache_hits ?? v.cacheHits}</td>
+                <td>{v.tokens_in ?? v.tokensIn} / {v.tokens_out ?? v.tokensOut}</td><td>{v.latency_ms_avg ?? v.latencyMsAvg ?? '–'} / {v.latency_ms_p95 ?? v.latencyMsP95 ?? '–'}</td>
+                <td>{v.rate_limit_pauses ?? v.rateLimitPauses}</td></tr>))}</tbody></table>
+          {d.layer1?.style && <p className="text-xs">Conversational style unknown: {Math.round(100 * (d.layer1.style.rule_unknown_share ?? d.layer1.style.ruleUnknownShare ?? 0))}% (rules)
+            → {Math.round(100 * (d.layer1.style.after_ai_unknown_share ?? d.layer1.style.afterAiUnknownShare ?? 0))}% (with AI evidence)</p>}
+          <Button size="sm" variant="outline" disabled={!(d.llm_active ?? d.llmActive)} onClick={run}>Run refiners (background job)</Button>
+        </>)}
+    </Card>
+  );
+}
+
+function SponsorEngine({ d }: { d: any }) {
+  if (!d) return null;
+  const c = d.counts ?? {};
+  return (
+    <Card className="space-y-3" >
+      <div className="flex flex-wrap items-center gap-2" data-testid="engine-sponsor-metrics">
+        <h3 className="font-semibold">Sponsor opportunities (Layer 2)</h3><Badge tone="pink">{d.scoringVersion}</Badge><Badge tone="gray">{d.status}</Badge>
+        <Link href="/admin/sponsors/review"><Button size="sm" variant="outline">Review queue</Button></Link>
+        <Link href="/admin/sponsors/brands"><Button size="sm" variant="outline">Brands</Button></Link>
+      </div>
+      <p className="text-sm text-muted-foreground">Members run: {c.memberShowsWithRuns ?? 0} · qualified: {c.opportunitiesQualified ?? 0} · ≥1: {c.membersWith1Plus ?? 0} · ≥3: {c.membersWith3Plus ?? 0} · no-match: {c.membersNoMatch ?? 0}</p>
+      <div className="grid gap-4 md:grid-cols-3 text-sm">
+        <div><b className="text-xs">Gate reasons</b>{Object.entries(d.gateRejections ?? {}).map(([k, v]) => <div key={k} className="flex justify-between"><span>{k.replace(/([A-Z])/g, '_$1').toLowerCase()}</span><span>{String(v)}</span></div>)}</div>
+        <div><b className="text-xs">Factor coverage (used)</b>{Object.entries(d.factorCoverage ?? {}).map(([k, v]: any) => <div key={k} className="flex justify-between"><span>{k.replace(/([A-Z])/g, ' $1').toLowerCase()}</span><span>{Math.round(100 * (v.used ?? 0))}%{v.disabled ? ' (disabled)' : ''}</span></div>)}</div>
+        <div><b className="text-xs">Readiness / contact</b>{Object.entries(c.byReadiness ?? {}).map(([k, v]) => <div key={k} className="flex justify-between"><span>{k}</span><span>{String(v)}</span></div>)}
+          {Object.entries(c.byContactStatus ?? {}).map(([k, v]) => <div key={k} className="flex justify-between text-muted-foreground"><span>{k}</span><span>{String(v)}</span></div>)}</div>
+      </div>
+    </Card>
   );
 }

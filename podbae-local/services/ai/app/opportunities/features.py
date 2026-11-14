@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 from ..intel.linalg import gram, mm, norm
 from ..intel.models import Embedding, Episode, Evidence, Provenance, Show, ShowClaim, Source
-from ..intel.trust.provenance import TIER_RANK
+from ..intel.trust.provenance import TIER_RANK, pick_key  # noqa: F401
 from ..intel.understanding.model_signals import STYLE_VERSION
 from ..intel.understanding.schemas import VIBE_TERMS
 from ..intel.understanding.signals import STYLES, TONES
@@ -31,6 +31,7 @@ ENGINE_FIELDS = [
     "audience.totals", "audience.top_countries",
     "creator.goals", "creator.collaboration_openness", "creator.blocked_categories", "creator.blocked_brand_safety_flags",
     "creator.opportunity_opt_out", "owner_email_hash",
+    "creator.blocked_brands", "creator.blocked_brand_categories", "creator.exclusive_categories",   # Layer 2 sponsor gates
 ]
 EMAIL_RX = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 
@@ -111,8 +112,12 @@ class Corpus:
                 c.shows[sid].text_chars = int(n or 0)
         sources = {x.id: x.name for x in s.scalars(select(Source))}
         best: dict[tuple[str, str], Provenance] = {}
-        rows = s.scalars(select(Provenance).where(Provenance.entity_type == "show", Provenance.superseded_by.is_(None),
-                                                  Provenance.field.in_(ENGINE_FIELDS)).order_by(Provenance.id))
+        from ..llm_refine import llm_active
+        q = select(Provenance).where(Provenance.entity_type == "show", Provenance.superseded_by.is_(None),
+                                     Provenance.field.in_(ENGINE_FIELDS))
+        if not llm_active():                      # Phase 4 kill switch: LLM refinements are invisible -> exact Phase 3 inputs
+            q = q.where(Provenance.method != "llm")
+        rows = s.scalars(q.order_by(Provenance.id))
         for p in rows:
             sf = c.shows.get(p.entity_id)
             if sf is None:
@@ -122,8 +127,7 @@ class Corpus:
                 sf.language_rows.append(fv)
             key = (p.entity_id, p.field)
             cur = best.get(key)
-            if cur is None or (TIER_RANK[p.data_tier], -p.fetched_at.timestamp(), -p.confidence, p.id) < \
-                    (TIER_RANK[cur.data_tier], -cur.fetched_at.timestamp(), -cur.confidence, cur.id):
+            if cur is None or (*pick_key(p), p.id) < (*pick_key(cur), cur.id):
                 best[key] = p
         for (sid, f), p in best.items():
             c.shows[sid].fields[f] = FieldVal(p.value_json, p.data_tier, float(p.confidence), _fresh(p, as_of), p.method,

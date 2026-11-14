@@ -40,7 +40,22 @@ def clean_url(raw: str) -> str | None:
     return u[:400] if p.netloc and "." in p.netloc else None
 
 
+TENANT_PLATFORMS = {"onelink.me", "app.link", "page.link", "ubpages.com", "myshopify.com", "pxf.io", "sjv.io", "go2cloud.org",
+                    "hubspotpagebuilder.com", "carrd.co", "webflow.io", "framer.website", "typedream.app"}
+
+
 def registrable(url_or_host: str) -> str | None:
+    """Brand identity domain. For link / landing platforms where each tenant gets a subdomain (prizepicks.onelink.me,
+    afterglow.ubpages.com) the tenant host is the identity, so different advertisers never merge into the platform."""
+    reg = _registrable(url_or_host)
+    if reg in TENANT_PLATFORMS:
+        host = (urlsplit(url_or_host if "//" in url_or_host else "https://" + url_or_host).hostname or "").lower().removeprefix("www.")
+        sub_ = host[: -len(reg)].rstrip(".")
+        return f"{sub_.split('.')[-1]}.{reg}" if sub_ else None
+    return reg
+
+
+def _registrable(url_or_host: str) -> str | None:
     host = urlsplit(url_or_host if "//" in url_or_host else "https://" + url_or_host).hostname or ""
     if not host:
         return None

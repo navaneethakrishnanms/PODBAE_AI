@@ -25,44 +25,57 @@ def _latency(ms: list[int]) -> dict | None:
     return {"median": ms[len(ms) // 2], "p95": ms[min(len(ms) - 1, int(0.95 * len(ms)))], "max": ms[-1], "runs": len(ms)}
 
 
-def engine_metrics(s: Session) -> dict:
-    cfg = get_config()
+def _sum_hist(runs: list[OpportunityRun], key: str, edges: list[float]) -> list[dict]:
+    tot = [0] * 10
+    for r in runs:
+        for i, n in enumerate((r.stats or {}).get(key) or []):
+            tot[i] += n
+    return [{"from": lo, "to": hi, "n": n} for lo, hi, n in zip(edges, edges[1:], tot)]
+
+
+def engine_metrics(s: Session, kind: str = "partner", cfg: dict | None = None, factors: list[str] | None = None) -> dict:
+    """Latest run per member show for one opportunity kind. Distributions come from run.stats (every scored candidate);
+    stored opportunities are the qualified ones only."""
+    from .engine import kind_filter
+    cfg = cfg or get_config()
+    factors = factors or FACTORS
     sv = cfg["scoring_version"]
     latest: dict[str, OpportunityRun] = {}
-    for r in s.scalars(select(OpportunityRun).where(OpportunityRun.scoring_version == sv).order_by(OpportunityRun.created_at, OpportunityRun.id)):
+    for r in s.scalars(select(OpportunityRun).where(OpportunityRun.scoring_version == sv, OpportunityRun.kind == kind)
+                       .order_by(OpportunityRun.created_at, OpportunityRun.id)):
         latest[r.member_show_id] = r
-    run_ids = [r.id for r in latest.values()]
+    runs = list(latest.values())
     rej = Counter()
-    if run_ids:
-        rej.update(dict(s.execute(select(OpportunityRejection.reason, func.count()).where(OpportunityRejection.run_id.in_(run_ids))
-                                  .group_by(OpportunityRejection.reason)).all()))
-    active = list(s.scalars(select(Opportunity).where(Opportunity.status == "active", Opportunity.scoring_version == sv)))
-    q = [o for o in active if o.qualified]
-    cov = {f: Counter() for f in FACTORS}
-    for o in active:
-        for f in (o.breakdown_json or {}).get("factors") or []:
-            cov[f["name"]][f["status"]] += 1
-    n_act = len(active) or 1
+    for r in runs:
+        rej.update((r.stats or {}).get("gate_counts") or {})
+    q = list(s.scalars(select(Opportunity).where(Opportunity.status == "active", Opportunity.scoring_version == sv, kind_filter(kind))))
+    n_scored = sum((r.stats or {}).get("n_scored", 0) for r in runs) or 1
+    cov: dict[str, Counter] = {f: Counter() for f in factors}
+    for r in runs:
+        for name, st in ((r.stats or {}).get("factor_status") or {}).items():
+            cov.setdefault(name, Counter()).update(st)
     members = sorted({c.show_id for c in s.scalars(select(ShowClaim))})
     titles = {sh.id: sh.title for sh in s.scalars(select(Show).where(Show.id.in_(list(latest) + members)))} if (latest or members) else {}
     return {
-        "scoring_version": sv, "status": cfg["status"], "config_hash": config_hash(cfg),
+        "kind": kind, "scoring_version": sv, "status": cfg["status"], "config_hash": config_hash(cfg),
         "thresholds": {"min_fit": cfg["ranking"]["min_fit"], "min_confidence": cfg["ranking"]["min_confidence"]},
-        "weights": {f: cfg["factors"][f]["weight"] for f in FACTORS},
-        "counts": {"member_shows_with_runs": len(latest), "runs_total": s.scalar(select(func.count()).select_from(OpportunityRun)) or 0,
-                   "opportunities_active": len(active), "opportunities_qualified": len(q),
-                   "by_status": dict(s.execute(select(Opportunity.status, func.count()).group_by(Opportunity.status)).all()),
+        "weights": {f: cfg["factors"][f]["weight"] for f in factors},
+        "counts": {"member_shows_with_runs": len(latest),
+                   "runs_total": s.scalar(select(func.count()).select_from(OpportunityRun).where(OpportunityRun.kind == kind)) or 0,
+                   "candidates_scored": sum((r.stats or {}).get("n_scored", 0) for r in runs), "opportunities_qualified": len(q),
+                   "by_status": dict(s.execute(select(Opportunity.status, func.count()).where(kind_filter(kind)).group_by(Opportunity.status)).all()),
                    "by_readiness": dict(Counter(o.readiness for o in q)), "by_confidence_level": dict(Counter(o.confidence_level for o in q)),
                    "by_type": dict(Counter(o.type for o in q)),
-                   "members_with_1_plus": sum(1 for r in latest.values() if r.n_qualified >= 1),
-                   "members_with_3_plus": sum(1 for r in latest.values() if r.n_qualified >= 3),
-                   "members_no_match": sum(1 for r in latest.values() if r.n_qualified == 0),
-                   "events": dict(s.execute(select(OpportunityEvent.type, func.count()).group_by(OpportunityEvent.type)).all())},
+                   "members_with_1_plus": sum(1 for r in runs if r.n_qualified >= 1),
+                   "members_with_3_plus": sum(1 for r in runs if r.n_qualified >= 3),
+                   "members_no_match": sum(1 for r in runs if r.n_qualified == 0),
+                   "events": dict(s.execute(select(OpportunityEvent.type, func.count()).where(
+                       OpportunityEvent.opportunity_id.in_(select(Opportunity.id).where(kind_filter(kind)))).group_by(OpportunityEvent.type)).all())},
         "gate_rejections": dict(rej.most_common()),
-        "fit_distribution": _hist([o.fit for o in active], [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
-        "confidence_distribution": _hist([o.confidence for o in active], [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]),
-        "factor_coverage": {f: {k: round(v / n_act, 3) for k, v in c.items()} for f, c in cov.items()},
-        "latency_ms": _latency([r.duration_ms for r in latest.values()]),
+        "fit_distribution": _sum_hist(runs, "fit_hist", [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]),
+        "confidence_distribution": _sum_hist(runs, "confidence_hist", [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]),
+        "factor_coverage": {f: {k: round(v / n_scored, 3) for k, v in c.items()} for f, c in cov.items()},
+        "latency_ms": _latency([r.duration_ms for r in runs]),
         "runs": [{"member_show_id": m, "title": titles.get(m, m), "qualified": r.n_qualified, "scored": r.n_scored, "rejected": r.n_rejected,
                   "duration_ms": r.duration_ms, "created_at": r.created_at.isoformat() + "Z", "is_member": m in members}
                  for m, r in sorted(latest.items(), key=lambda kv: titles.get(kv[0], kv[0]))],

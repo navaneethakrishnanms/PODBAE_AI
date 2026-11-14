@@ -13,3 +13,6 @@ sentence-transformers>=3.0,<6
 sqlite-vec>=0.1.6
 python-multipart>=0.0.9
 # optional (GPU transcription job, off by default): faster-whisper
+# Phase 3 (Layer 2 sponsor intelligence)
+tldextract>=5.1          # registrable domains from the BUNDLED public-suffix snapshot (never fetched)
+gliner==0.2.16           # local zero-shot NER for brand names near ad cues; newer gliner needs transformers>=4.51

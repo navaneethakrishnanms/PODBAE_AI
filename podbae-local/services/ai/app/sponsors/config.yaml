@@ -1,0 +1,52 @@
+# Sponsor opportunities (type = sponsor) on the shared Layer 4 engine. NO LLM. Every number is a DRAFT.
+scoring_version: sponsor-draft-v1
+status: draft-unapproved-by-founder
+
+candidates:
+  k_neighbours: 30            # the member's k nearest shows (e5 content space) whose sponsors are candidates
+  shared_metadata_max: 60     # + shows sharing a declared topic / category group
+  cap: 150
+
+gates:
+  min_history_events: 2       # fewer sponsorship events than this, all of them only "likely" -> insufficient_evidence
+  sensitive_blocked_for_groups: [Kids & Family]      # sensitive brand categories gated by default for these shows
+  sensitive_blocked_for_topics: [kids_stories, parenting]
+  cooldown_days: {contact: 30, dismiss: 30, partnership: 60, reply: 30, meeting: 30}
+
+factors:
+  lookalike_affinity: {weight: 0.35, half_life_days: 120, scale: 1.0}   # sum over k nearest shows of sim x sponsored(s)
+  momentum: {weight: 0.15}                                             # events in last 90 days vs the 90 before
+  category_fit: {weight: 0.20}                                         # brand categories vs member groups / topics
+  recency: {weight: 0.15, half_life_days: 60}                          # days since the brand's last sponsorship anywhere
+  breadth: {weight: 0.15, scale: 3.0}                                  # distinct sponsored shows, diminishing returns
+  audience_size_fit: {weight: 0.10}                                    # DEFINED, DISABLED: no audience data
+  geo_fit: {weight: 0.05}                                              # DEFINED, DISABLED: no audience data
+class_weight: {declared_sponsorship: 1.0, likely_sponsorship: 0.5}   # likely_sponsorship counts at reduced weight
+
+confidence:
+  tier_weight: {verified: 1.0, creator_provided: 0.9, estimated: 0.7, inferred: 0.5}
+  stale_factor: 0.7
+  coverage_exponent: 0.5
+  levels: {high: 0.70, medium: 0.50}
+  # evidence tiers: a show's own explicit sponsor disclosure = verified (0.9); promo-code-only = estimated (0.6);
+  # human-reviewed ok = verified (1.0); brand categories = inferred (0.35) unless manual / override
+  support_full_shows: 4       # confidence x min(1, 0.6 + 0.1 x supporting shows)
+
+readiness:
+  potential_min_declared: 2
+  potential_recent_days: 90
+
+why_now:
+  similar_windows: [30, 60]
+  category_start_days: 60
+  rising_min_recent: 3
+  rising_ratio: 1.5
+  campaign_days: 30
+
+ranking:
+  min_fit: 45
+  min_confidence: 0.40
+  expiry_days: 14
+  seen_window_days: 14
+  seen_max_days: 5
+  max_items: 50

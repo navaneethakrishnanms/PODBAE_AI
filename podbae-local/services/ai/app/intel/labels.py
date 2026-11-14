@@ -28,7 +28,8 @@ class LabelError(ValueError):
 
 
 def _val(s: Session, sid: str, f: str):
-    rows = live_rows(s, "show", sid, f)
+    from .trust.provenance import pick_key
+    rows = sorted(live_rows(s, "show", sid, f), key=pick_key)
     return rows[0].value_json if rows else None
 
 

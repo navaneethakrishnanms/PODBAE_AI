@@ -51,7 +51,7 @@ def versions() -> None:
 
 # ───────────── python packages ─────────────
 IMPORT_NAME = {"pyyaml": "yaml", "uvicorn[standard]": "uvicorn", "python-multipart": "multipart", "sqlite-vec": "sqlite_vec",
-               "sentence-transformers": "sentence_transformers", "pytest": "pytest"}
+               "sentence-transformers": "sentence_transformers", "pytest": "pytest", "gliner": "gliner", "tldextract": "tldextract"}
 
 
 def packages() -> None:
@@ -180,13 +180,51 @@ def env() -> None:
     miss = [k for k in REQUIRED_ENV if not keys.get(k)]
     rec("PASS" if not miss else "FAIL", ".env required keys", "all present" if not miss else f"missing/empty: {miss}",
         "see .env.example (INTEL_SERVICE_TOKEN: any long random string, shared by api and ai)")
-    if keys.get("LLM_PROVIDER", "mock") != "mock" or keys.get("INTEL_LLM_REFINE", "false").lower() == "true":
-        rec("WARN", "LLM settings", "LLM_PROVIDER is not mock or INTEL_LLM_REFINE is on", "Phase 1-2 run with no LLM: LLM_PROVIDER=mock")
+    _ENV.update(keys)
+
+
+_ENV: dict = {}
+
+
+# ───────────── Phase 4 LLM (Ollama). Never a FAIL: with the LLM off/unreachable the app runs on rules + templates ─────────────
+def llm() -> None:
+    import urllib.request
+    prov = (_ENV.get("LLM_PROVIDER") or "mock").split("#")[0].strip().lower()
+    on = (_ENV.get("INTEL_LLM_REFINE") or "false").split("#")[0].strip().lower() == "true"
+    if prov == "mock" or not on:
+        rec("PASS", "LLM", f"off (LLM_PROVIDER={prov}, INTEL_LLM_REFINE={str(on).lower()}): exact Phase 3 behaviour, no LLM calls")
+        return
+    if prov != "ollama":
+        rec("WARN", "LLM", f"provider {prov!r} is not supported by the Phase 4 refiners", "LLM_PROVIDER=ollama or mock")
+        return
+    base = (_ENV.get("OLLAMA_BASE_URL") or "http://localhost:11434").split("#")[0].strip().rstrip("/")
+    model = (_ENV.get("OLLAMA_MODEL") or "gpt-oss:120b-cloud").split("#")[0].strip()
+    fix = (f"ollama serve (or start the Ollama app); ollama pull {model}; "
+           + ("ollama signin (cloud models need an ollama.com account with credits); " if model.endswith("-cloud") else "")
+           + f'ollama run {model} "reply with OK"; or set LLM_PROVIDER=mock to switch the LLM off')
+    try:
+        tags = json.loads(urllib.request.urlopen(f"{base}/api/tags", timeout=5).read())
+    except Exception as exc:  # noqa: BLE001
+        rec("WARN", "LLM (ollama daemon)", f"not reachable at {base}: {type(exc).__name__}", fix)
+        return
+    if not any(m.get("name") == model for m in tags.get("models") or []):
+        rec("WARN", "LLM (model)", f"{model} not pulled", fix)
+        return
+    body = json.dumps({"model": model, "stream": False, "messages": [{"role": "user", "content": "Reply with OK"}],
+                       "options": {"num_predict": 5, "temperature": 0}}).encode()
+    try:
+        r = json.loads(urllib.request.urlopen(urllib.request.Request(f"{base}/api/chat", body, {"Content-Type": "application/json"}),
+                                              timeout=180).read())
+        ok = bool((r.get("message") or {}).get("content"))
+        rec("PASS" if ok else "WARN", "LLM (model answers)", f"{model} at {base}" + ("" if ok else f": {r.get('error')}"), None if ok else fix)
+    except Exception as exc:  # noqa: BLE001 - e.g. HTTP 4xx "add usage credits"
+        msg = exc.read().decode()[:160] if hasattr(exc, "read") else f"{type(exc).__name__}"
+        rec("WARN", "LLM (model answers)", f"{model}: {msg}", fix)
 
 
 def main() -> int:
     print(f"PodBae doctor ({ROOT})\n", flush=True)
-    for fn in (versions, packages, import_order, sqlite_vec, e5_gpu, stores, workspaces, ports, env):
+    for fn in (versions, packages, import_order, sqlite_vec, e5_gpu, stores, workspaces, ports, env, llm):
         try:
             fn()
         except Exception as exc:  # noqa: BLE001

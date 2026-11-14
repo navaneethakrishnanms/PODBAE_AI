@@ -2,6 +2,7 @@ import { Route, Switch } from 'wouter';
 import Admin, { AdminSetup } from './pages/Admin';
 import AdminLabels from './pages/AdminLabels';
 import AdminPairLabels from './pages/AdminPairLabels';
+import { AdminSponsorBrands, AdminSponsorReview } from './pages/AdminSponsors';
 import AdvertiserSubmit from './pages/AdvertiserSubmit';
 import { Login } from './pages/Auth';
 import CampaignBuilder from './pages/CampaignBuilder';
@@ -58,6 +59,8 @@ export default function App() {
 
       <Route path="/admin/setup" component={AdminSetup} />
       <Route path="/admin/labels/pairs" component={AdminPairLabels} />
+      <Route path="/admin/sponsors/review" component={AdminSponsorReview} />
+      <Route path="/admin/sponsors/brands" component={AdminSponsorBrands} />
       <Route path="/admin/labels" component={AdminLabels} />
       <Route path="/admin" component={Admin} />
       <Route>

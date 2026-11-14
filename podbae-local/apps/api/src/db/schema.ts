@@ -87,6 +87,7 @@ export const advertisers = pgTable('advertisers', {
   location: text('location'),
   contactName: text('contact_name'),
   contactEmail: text('contact_email'),
+  website: text('website'),   // Phase 4: company website DOMAIN only (e.g. betterhelp.com); used for domain-only brand matching
   demo: boolean('demo').notNull().default(false),
   createdAt: ts('created_at').notNull().defaultNow(),
 }, (t) => [check('advertisers_budget_min', sql`${t.budgetMin} is null or ${t.budgetMin} >= 150`)]);
@@ -243,11 +244,13 @@ export const partnershipInvites = pgTable('partnership_invites', {
  *  service is unreachable, so members still see their stored opportunities. */
 export const opportunityCache = pgTable('opportunity_cache', {
   id: serial('id').primaryKey(),
-  userId: integer('user_id').notNull().unique().references(() => users.id, { onDelete: 'cascade' }),
+  userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  /** partner | sponsor (Phase 3): one cached list per user per opportunity kind */
+  kind: text('kind').notNull().default('partner'),
   memberShowId: text('member_show_id'),
   payload: jsonb('payload').notNull(),
   cachedAt: ts('cached_at').notNull().defaultNow(),
-});
+}, (t) => [unique('opportunity_cache_user_kind').on(t.userId, t.kind)]);
 
 export const scheduledSessions = pgTable('scheduled_sessions', {
   id: serial('id').primaryKey(),

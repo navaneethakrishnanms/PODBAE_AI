@@ -29,7 +29,10 @@ NETWORK = [("adchoices", re.compile(r"adchoices|ad choices|podcastchoices\.com",
            ("ad_sales_contact", re.compile(r"advertising (?:inquiries|enquiries)|sponsorship (?:inquiries|enquiries|opportunities)|"
                                            r"interested in (?:advertising|sponsoring)|(?:to )?advertise (?:on|with) (?:this|the|our|my) (?:show|podcast)|"
                                            r"redcircle\.com/brands|advertisecast|podcorn", re.I)),
-           ("hosted_on_network", re.compile(r"hosted (?:on|by) acast|see acast\.com|megaphone\.fm/adchoices", re.I))]
+           ("hosted_on_network", re.compile(r"hosted (?:on|by) acast|see acast\.com|megaphone\.fm/adchoices", re.I)),
+           ("regulatory_disclaimer", re.compile(r"1-800-gambler|gambling problem|problem gambl|ccpg\.org|ncpgambling|gamblers? anonymous|"
+                                                r"must be (?:21|18)\+|void where prohibited|1-800-next-step|responsible (?:gaming|gambling)|"
+                                                r"terms (?:and|&) conditions apply|\bT&Cs? apply\b", re.I))]
 EXPLICIT = [("sponsored_by", re.compile(r"\bsponsored by\b", re.I)),
             ("brought_to_you_by", re.compile(r"\bbrought to you by\b", re.I)),
             ("thanks_to_sponsor", re.compile(r"\bthank(?:s| you) (?:to )?(?:our|today'?s|this week'?s|this episode'?s) (?:sponsors?|partners?)\b", re.I)),
@@ -87,8 +90,20 @@ def compact(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
 
+CONTACT_SENT = re.compile(r"@|\b(?:call|text|e-?mail|dm|message|contact|reach out|ask for|whatsapp|phone)\b|\+?\d[\d ().-]{7,}\d", re.I)
+
+
+def no_contacts(text: str) -> str:
+    """Snippets never carry a person's contact line: any sentence with an e-mail, a phone number or a contact instruction
+    ('call Jane', 'email ...', 'DM me') is replaced BEFORE it is stored, so no API can ever return it."""
+    sents = re.split(r"(?<=[.!?])\s+", text)
+    kept = [x if not CONTACT_SENT.search(x) else "[contact details removed]" for x in sents]
+    out = " ".join(kept)
+    return re.sub(r"(\[contact details removed\]\s*){2,}", "[contact details removed] ", out).strip()
+
+
 def _snip(seg: str, start: int = 0) -> str:
-    seg = " ".join(seg.split())
+    seg = no_contacts(" ".join(seg.split()))
     if len(seg) <= 300:
         return seg
     a = max(0, min(start, len(seg)) - 120)
@@ -224,6 +239,9 @@ def detect(text: str, ctx: ShowContext, *, ner_fn=None, organic_fn=None, organic
                 found.append(Detection("uncertain", f"{rule}:no_identifiable_brand", _snip(seg), promo_code=code))
                 continue
             for n in ns[:3]:
+                if compact(n) in platform_labels():     # "sponsored by Spotify": a platform name is never auto-made a brand
+                    found.append(Detection("uncertain", f"{rule}:platform_name", _snip(seg), brand_name=n, promo_code=code))
+                    continue
                 # the same brand's URL within one sentence either side: the name is that domain's alias, not a second brand
                 near = next((d for d in found if d.domain and abs(d.extra.get("seg", -99) - i) <= 1 and d.cls in ("declared_sponsorship", "likely_sponsorship")
                              and compact(n) == compact(dm.label(d.domain))), None)
@@ -238,6 +256,8 @@ def detect(text: str, ctx: ShowContext, *, ner_fn=None, organic_fn=None, organic
             for n in ns:
                 if not _is_own_name(n, ctx):
                     found.append(Detection("organic_mention", "name_no_commercial_cue", _snip(segs[i][0]), brand_name=n))
+    if any(d.cls in ("declared_sponsorship", "likely_sponsorship") for d in found):
+        found = [d for d in found if not (d.cls == "uncertain" and len(d.snippet) <= 60)]
     seen: set[tuple[str, str]] = set()
     out = []
     for d in found:
@@ -246,3 +266,14 @@ def detect(text: str, ctx: ShowContext, *, ner_fn=None, organic_fn=None, organic
             seen.add(k)
             out.append(d)
     return out
+
+
+_platforms: frozenset[str] | None = None
+
+
+def platform_labels() -> frozenset[str]:
+    """Labels of denylisted platform domains (spotify, youtube, patreon, ...): such a NAME after a sponsor cue goes to review."""
+    global _platforms
+    if _platforms is None:
+        _platforms = frozenset(compact(dm.label(d)) for d in dm.denylist() if len(dm.label(d)) >= 4)
+    return _platforms

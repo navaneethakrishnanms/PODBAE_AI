@@ -197,6 +197,22 @@ export const PodcasterSubmissionSchema = z.object({
   goals: z.string().optional(),
 });
 
+/** Phase 4: an advertiser's company website. Only the host (minus "www.") is stored; brand matching is by registrable
+ *  domain only, never by name. Returns null for anything that is not an http(s) URL with a dotted host. */
+export function websiteDomain(raw: string | null | undefined): string | null {
+  const v = (raw ?? '').trim();
+  if (!v) return null;
+  try {
+    const u = new URL(/^https?:\/\//i.test(v) ? v : `https://${v}`);
+    if (!/^https?:$/.test(u.protocol) || u.username || u.password) return null;
+    const host = u.hostname.toLowerCase().replace(/^www\./, '').replace(/\.$/, '');
+    if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(host) || !/[a-z]/.test(host.split('.').pop() ?? '')) return null;
+    return host;
+  } catch { return null; }
+}
+const WebsiteField = z.string().trim().max(200).optional()
+  .refine((v) => !v || websiteDomain(v) !== null, 'Enter a valid website, e.g. https://example.com');
+
 export const AdvertiserRegisterSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
@@ -210,6 +226,7 @@ export const AdvertiserRegisterSchema = z.object({
   goals: z.array(z.string()).default([]),
   contactName: z.string().optional(),
   location: z.string().optional(),
+  website: WebsiteField,
 });
 
 export const CampaignCreateSchema = z.object({
@@ -221,6 +238,7 @@ export const CampaignCreateSchema = z.object({
   vibeTags: z.array(z.string()).default([]),
   toneTags: z.array(z.string()).default([]),
   location: z.string().optional(),
+  website: WebsiteField,
 });
 
 export const SwipeSchema = z.object({
@@ -229,10 +247,11 @@ export const SwipeSchema = z.object({
 });
 
 export const TIER_CONFIG = {
-  flirt: { price: 0, matchesPerDay: 3, swipesPerDay: 10, ads: true, heyBae: false, forecasting: false, revenueRecs: 0, predictionsLimit: 3 },
-  date: { price: 19, matchesPerDay: 10, swipesPerDay: 50, ads: false, heyBae: false, forecasting: false, revenueRecs: 3, predictionsLimit: 10 },
-  commit: { price: 29, matchesPerDay: -1, swipesPerDay: -1, ads: false, heyBae: true, forecasting: true, revenueRecs: -1, predictionsLimit: -1 },
-  premium: { price: null, matchesPerDay: -1, swipesPerDay: -1, ads: false, heyBae: true, forecasting: true, revenueRecs: -1, predictionsLimit: -1 },
+  // sponsorPerDay (Phase 3, Layer 2 sponsor opportunities): 0 = locked notice, -1 = all. Never padded.
+  flirt: { price: 0, matchesPerDay: 3, swipesPerDay: 10, ads: true, heyBae: false, forecasting: false, revenueRecs: 0, predictionsLimit: 3, sponsorPerDay: 0 },
+  date: { price: 19, matchesPerDay: 10, swipesPerDay: 50, ads: false, heyBae: false, forecasting: false, revenueRecs: 3, predictionsLimit: 10, sponsorPerDay: 2 },
+  commit: { price: 29, matchesPerDay: -1, swipesPerDay: -1, ads: false, heyBae: true, forecasting: true, revenueRecs: -1, predictionsLimit: -1, sponsorPerDay: -1 },
+  premium: { price: null, matchesPerDay: -1, swipesPerDay: -1, ads: false, heyBae: true, forecasting: true, revenueRecs: -1, predictionsLimit: -1, sponsorPerDay: -1 },
 } as const;
 
 export type Podcast = z.infer<typeof PodcastSchema>;

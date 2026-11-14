@@ -80,6 +80,9 @@ Open http://localhost:5173. Press `Ctrl+C` to stop all three servers.
 | `npm run dev:ai:reload` | the AI service alone, with auto-reload (development) |
 | `npm run stop` | stop leftover PodBae processes on 5173 / 5000 / 8000 |
 | `npm run doctor` | environment self-check: versions, packages, native import order, sqlite-vec, e5 on GPU, data stores, workspace links, ports, .env |
+| `npm run sponsors:scan` | Layer 2: scan every stored episode + transcript for sponsorship evidence (rules + local GLiNER on the GPU; no LLM), resolve brands, infer categories |
+| `npm run intel:eval2` | Layer 2 evaluation -> `services/ai/eval/layer2.json` (class counts, coverage, brands, sponsor-opportunity coverage, merge test) |
+| `npm run intel:compact` | remove superseded / below-threshold opportunity rows and VACUUM `data/intel.db` (stop the AI service first) |
 | `npm run intel:eval4` | Layer 4 evaluation without labels (coverage, no-match, gates, readiness, diversity, determinism, latency) -> `services/ai/eval/layer4_after.json` |
 | `npm run setup` | install deps, apply migrations (both stores), seed demo data |
 | `npm run reset` | wipe the **Express** DB (`data/pglite`) and reseed demo users (stop `npm run dev` first) |
@@ -107,12 +110,29 @@ Other seeded accounts use `*@demo.podbae.local` / `demo123`. Phase 2 demo (creat
 - `nomatch@demo.podbae.local`: shows the honest no-match state.
 - `member01..21@demo.podbae.local`: demo PodBae members.
 
+## Copy-safe: `data/` is NOT in git
+`podbae-local/data/` (about 290 MB) holds everything the app has learned. It is git-ignored, along with `.env`, so a `git clone` gives you code only:
+- `intel.db`: the intelligence store (shows, episodes, embeddings, sponsor events, brands, opportunities, LLM cache)
+- `pglite/`: the app database (users, advertisers, campaigns)
+- `intel_uploads/`: uploaded files
+- `archive/`: old store snapshots
+
+To move a working copy to another machine or folder:
+1. Stop everything first: `npm run stop`. Copying while running can corrupt the SQLite WAL or PGlite files.
+2. Copy the whole `podbae-local/data/` folder, and `podbae-local/.env`, to the same place in the new checkout. For example, in PowerShell:
+   `robocopy C:\old\podbae-local\data C:\new\podbae-local\data /E`
+3. Optional: remove `data/pglite/postmaster.pid` if it was copied.
+4. Run `npm run doctor` before `npm run dev`.
+
+Without `data/`, the app starts empty. Re-seed the demo with `npm run seed`, then `npm run intel:seed`, `npm run sponsors:scan`, and Admin → Engine → "Set up demo members".
+
 ## Reports
 - `podbae-local/PHASE1_REPORT.md`: what Phase 1 changed, before/after numbers, what is still mocked, risks, and what Layer 4 can rely on.
 - `podbae-local/EVAL_LAYER1.md`: the measured numbers (regenerate with `npm run intel:eval`).
 - `podbae-local/LAYER1_REPORT.md`: the original Layer 1 report (historical).
 - `podbae-local/TESTING_CHECKLIST.md`: the manual test list.
 - `podbae-local/PHASE2_REPORT.md` · `podbae-local/EVAL_LAYER4.md`: Layer 4 opportunity engine (podcast partners) and its measured numbers.
+- `podbae-local/PHASE3_REPORT.md` · `podbae-local/EVAL_LAYER2.md`: Layer 2 sponsor intelligence + sponsor opportunities.
 
 ## Folder map (`podbae-local/`)
 ```

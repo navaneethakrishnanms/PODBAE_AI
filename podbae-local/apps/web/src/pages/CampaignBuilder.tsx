@@ -1,4 +1,4 @@
-import { CATEGORIES, MIN_CAMPAIGN_BUDGET, VIBE_TAGS } from '@podbae/contracts';
+import { CATEGORIES, MIN_CAMPAIGN_BUDGET, VIBE_TAGS, websiteDomain } from '@podbae/contracts';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { AppLayout } from '../components/Layout';
@@ -8,9 +8,9 @@ import { api } from '../lib/api';
 export default function CampaignBuilder() {
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ['campaigns'], queryFn: () => api.get('/api/campaigns') });
-  const [f, setF] = useState({ name: '', description: '', budgetMin: MIN_CAMPAIGN_BUDGET, budgetMax: '', categories: [] as string[], vibeTags: [] as string[], location: '' });
+  const [f, setF] = useState({ name: '', description: '', budgetMin: MIN_CAMPAIGN_BUDGET, budgetMax: '', categories: [] as string[], vibeTags: [] as string[], location: '', website: '' });
   const create = useMutation({
-    mutationFn: () => api.post('/api/campaigns', { ...f, budgetMax: f.budgetMax ? Number(f.budgetMax) : undefined }),
+    mutationFn: () => api.post('/api/campaigns', { ...f, budgetMax: f.budgetMax ? Number(f.budgetMax) : undefined, website: f.website.trim() || undefined }),
     onSuccess: () => { toast('Campaign created'); qc.invalidateQueries({ queryKey: ['campaigns'] }); setF({ ...f, name: '', description: '' }); },
     onError: (e: Error) => toast(e.message),
   });
@@ -27,9 +27,13 @@ export default function CampaignBuilder() {
             <Field label="Max budget"><Input type="number" value={f.budgetMax} onChange={(e) => setF({ ...f, budgetMax: e.target.value })} /></Field>
           </div>
           <Field label="Location"><Input value={f.location} onChange={(e) => setF({ ...f, location: e.target.value })} /></Field>
+          <Field label="Company website" hint="(optional, used to recognise your brand on podcasts by domain)">
+            <Input data-testid="campaign-website" value={f.website} onChange={(e) => setF({ ...f, website: e.target.value })} placeholder="https://yourbrand.com" />
+            {f.website.trim() && !websiteDomain(f.website) && <p className="mt-1 text-xs text-destructive">Enter a valid website, e.g. https://example.com</p>}
+          </Field>
           <Field label="Categories"><ChipSelect options={CATEGORIES} value={f.categories} onChange={(categories) => setF({ ...f, categories })} /></Field>
           <Field label="Vibe"><ChipSelect options={VIBE_TAGS} value={f.vibeTags} onChange={(vibeTags) => setF({ ...f, vibeTags })} /></Field>
-          <Button disabled={!f.name || f.budgetMin < MIN_CAMPAIGN_BUDGET || create.isPending} onClick={() => create.mutate()}>Create campaign</Button>
+          <Button disabled={!f.name || f.budgetMin < MIN_CAMPAIGN_BUDGET || (!!f.website.trim() && !websiteDomain(f.website)) || create.isPending} onClick={() => create.mutate()}>Create campaign</Button>
         </Card>
         <div className="space-y-3">
           <h2 className="font-bold">Your campaigns</h2>

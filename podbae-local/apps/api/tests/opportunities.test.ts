@@ -166,3 +166,122 @@ describe('Layer 4 opportunities in the app (AI service mocked at the HTTP bounda
     expect((await admin.get('/api/admin/engine/metrics')).body.scoringVersion).toBe('fit-draft-v1');
   });
 });
+
+describe('Layer 2 sponsor opportunities in the app (AI service mocked)', () => {
+  const sItem = (n: number) => ({
+    ...item(n), id: `sopp_${n}`, type: 'sponsor', type_label: 'sponsorship',
+    target: { brand_id: `brd_${n}`, target_id: `brd_${n}`, name: `Brand ${n}`, title: `Brand ${n}`, domain: `brand${n}.com`, is_member: false },
+    contact_status: { status: 'website_only', label: 'Official website only (not a verified contact)', website: `https://brand${n}.com` },
+    readiness: { level: 'potential_lead', label: 'Potential lead' },
+  });
+  const sponsorAi = (items: any[], extra: (url: string) => Response | undefined = () => undefined) => {
+    const calls: string[] = [];
+    vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
+      calls.push(`${init?.method ?? 'GET'} ${url}`);
+      const x = extra(url);
+      if (x) return x;
+      if (url.includes('/claim')) return json(200, {});
+      if (url.includes('/v1/sponsor-opportunities?')) return json(200, { ...list(items), kind: 'sponsor' });
+      if (url.includes('/v1/opportunities?')) return json(200, list([]));
+      if (url.includes('/v1/events')) return json(200, { recorded: [] });
+      if (/\/v1\/opportunities\/sopp_1$/.test(url)) return json(200, sItem(1));
+      return json(404, {});
+    }));
+    return calls;
+  };
+  const setTier = (tier: string) => q(`UPDATE users SET tier = $1 WHERE email = 'podcaster@podbae.local'`, [tier]);
+
+  it('Flirt sees a locked notice (no engine call); Date sees up to 2 per day; Commit sees all - never padded', async () => {
+    const agent = await login('podcaster@podbae.local', 'demo123');
+    await setTier('flirt');
+    let calls = sponsorAi([1, 2, 3, 4].map(sItem));
+    const f = await agent.get('/api/sponsor-opportunities');
+    expect(f.body.state).toBe('locked');
+    expect(f.body.items).toHaveLength(0);
+    expect(calls.some((c) => c.includes('/v1/sponsor-opportunities'))).toBe(false);
+    await setTier('date');
+    calls = sponsorAi([1, 2, 3, 4].map(sItem));
+    const d = await agent.get('/api/sponsor-opportunities');
+    expect(d.body.items).toHaveLength(2);
+    expect(d.body.limited).toBe(true);
+    sponsorAi([sItem(1)]);
+    expect((await agent.get('/api/sponsor-opportunities')).body.items).toHaveLength(1);       // fewer qualify -> fewer shown
+    await setTier('commit');
+    sponsorAi([1, 2, 3, 4].map(sItem));
+    const c = await agent.get('/api/sponsor-opportunities');
+    expect(c.body.items).toHaveLength(4);
+    expect(EMAIL.test(JSON.stringify(c.body))).toBe(false);
+    const m = await agent.get('/api/member/matches?type=sponsor');
+    expect(m.body.sponsorOpportunities.items).toHaveLength(4);
+    expect(m.body.matches.every((x: any) => x.targetType !== 'sponsor')).toBe(true);
+    await setTier('flirt');
+  });
+
+  it('AI service down -> cached sponsor cards with the "may be outdated" banner', async () => {
+    const agent = await login('podcaster@podbae.local', 'demo123');
+    await setTier('commit');
+    sponsorAi([sItem(1), sItem(2)]);
+    expect((await agent.get('/api/sponsor-opportunities')).body.items).toHaveLength(2);
+    vi.stubGlobal('fetch', vi.fn(async () => { throw new TypeError('connect ECONNREFUSED'); }));
+    const down = await agent.get('/api/sponsor-opportunities');
+    expect(down.body.outdated).toBe(true);
+    expect(down.body.items.map((i: any) => i.id)).toEqual(['sopp_1', 'sopp_2']);
+    expect(down.body.message).toMatch(/may be outdated/);
+    await setTier('flirt');
+  });
+
+  it('sponsor actions: Save / Dismiss with a sponsor reason / Mark as contacted; message and invite are refused', async () => {
+    const agent = await login('podcaster@podbae.local', 'demo123');
+    const calls = sponsorAi([sItem(1)]);
+    expect((await agent.post('/api/opportunities/sopp_1/action').send({ action: 'message' })).status).toBe(400);
+    expect((await agent.post('/api/opportunities/sopp_1/action').send({ action: 'invite' })).status).toBe(400);
+    expect((await agent.post('/api/opportunities/sopp_1/action').send({ action: 'dismiss', reason: 'not_my_vibe' })).status).toBe(400);
+    expect((await agent.post('/api/opportunities/sopp_1/action').send({ action: 'dismiss', reason: 'category_conflict' })).status).toBe(200);
+    const c = await agent.post('/api/opportunities/sopp_1/action').send({ action: 'contacted' });
+    expect(c.status).toBe(200);
+    expect(c.body.note).toMatch(/did not contact/);
+    const evs = calls.filter((x) => x.endsWith('/v1/events'));
+    expect(evs.length).toBe(2);
+  });
+});
+
+describe('Phase 4: advertiser company website -> Verified sponsor path (domain only, never by name)', () => {
+  it('signup stores only the domain; an invalid website is refused', async () => {
+    const base = { password: 'longenough1', orgName: 'BetterHelp', orgType: 'Emerging Brand', budgetMin: 300, categories: ['Comedy'], goals: ['sales'] };
+    const bad = await request(app).post('/api/advertiser/register').send({ ...base, email: 'bad-site@test.local', website: 'not a url' });
+    expect(bad.status).toBe(400);
+    const ok = await request(app).post('/api/advertiser/register').send({ ...base, email: 'site@test.local', website: 'https://WWW.Example-Brand.com/about?x=1' });
+    expect(ok.status).toBe(201);
+    expect(ok.body.advertiser.website).toBe('example-brand.com');
+  });
+
+  it('campaign builder website updates the advertiser; sync sends ONLY advertisers with a domain (a name alone never matches)', async () => {
+    const agent = request.agent(app);
+    const reg = await agent.post('/api/advertiser/register').send({ email: 'camp-site@test.local', password: 'longenough1', orgName: 'Shopify',
+      orgType: 'Agency', budgetMin: 300, categories: ['Comedy'], goals: ['sales'] });   // named like a real brand, but NO website
+    expect(reg.status).toBe(201);
+    expect(reg.body.advertiser.website).toBeNull();
+    const sent: any[] = [];
+    vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes('/v1/sponsors/registrations')) {
+        const body = JSON.parse(String(init?.body));
+        sent.push(...body.advertisers);
+        return json(200, { linked: body.advertisers.filter((a: any) => a.domain === 'drinkag1.com').length, unmatched: [] });
+      }
+      return json(404, {});
+    }));
+    const admin = await login('admin@podbae.local', 'admin123');
+    const r = await admin.post('/api/admin/sponsors/sync-advertisers').send({});
+    expect(r.status).toBe(200);
+    expect(sent.every((a) => typeof a.domain === 'string' && a.domain.includes('.'))).toBe(true);
+    const ids = new Set(sent.map((a) => a.advertiser_ref));
+    expect(ids.has(String(reg.body.advertiser.id))).toBe(false);                       // name-only advertiser: never sent, never Verified
+    expect(sent.some((a) => a.domain === 'drinkag1.com')).toBe(true);                   // seeded demo advertiser with a website
+    expect(sent.some((a) => /@/.test(JSON.stringify(a)))).toBe(false);                  // no e-mail ever leaves for the AI service
+    // the campaign builder's website field fills in the domain
+    const c = await agent.post('/api/campaigns').send({ name: 'Spring', budgetMin: 300, website: 'shop.example.org' });
+    expect(c.status).toBe(201);
+    expect((await q1('SELECT website FROM advertisers WHERE id = $1', [reg.body.advertiser.id])).website).toBe('shop.example.org');
+    expect((await agent.post('/api/campaigns').send({ name: 'Bad', budgetMin: 300, website: 'ftp://x' })).status).toBe(400);
+  });
+});

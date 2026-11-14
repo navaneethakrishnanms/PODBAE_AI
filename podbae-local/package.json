@@ -32,7 +32,13 @@
     "intel:connect-demo": "node scripts/connect-demo.mjs",
     "intel:eval": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/eval_layer1.py report",
     "intel:diagnose-feeds": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/feed_diagnose.py",
-    "ui:smoke": "conda run -n torch_gpu --no-capture-output python scripts/ui_smoke.py"
+    "ui:smoke": "conda run -n torch_gpu --no-capture-output python scripts/ui_smoke.py",
+    "sponsors:scan": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/sponsors_scan.py",
+    "intel:eval2": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/eval_layer2.py",
+    "intel:compact": "cd services/ai && conda run -n torch_gpu --no-capture-output python scripts/compact_store.py",
+    "llm:check": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/llm_check.py",
+    "llm:refine": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/llm_refine.py",
+    "intel:evalllm": "cd services/ai && conda run -n torch_gpu --no-capture-output python -u scripts/eval_llm.py"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

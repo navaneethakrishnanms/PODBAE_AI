@@ -62,11 +62,18 @@ export const CreatorProfileSchema = z.object({
   user_id: z.string().optional(), goals: z.array(z.string()).max(10).optional(),
   collaboration_openness: z.enum(COLLAB_OPENNESS).optional(), blocked_categories: z.array(z.string()).max(40).optional(),
   blocked_brand_safety_flags: z.array(z.string()).max(20).optional(),
+  blocked_brands: z.array(z.string().max(120)).max(50).optional(),
+  blocked_brand_categories: z.array(z.string()).max(30).optional(),
+  exclusive_categories: z.array(z.string()).max(30).optional(),
 });
 
 /** Layer 4 (podcast partners): dismiss reasons; a reason is required and applies a personal suppression at once. */
-export const DISMISS_REASONS = ['not_my_vibe', 'wrong_topic', 'too_big', 'too_small', 'already_know_them', 'other'] as const;
-export const OPPORTUNITY_ACTIONS = ['open', 'save', 'unsave', 'dismiss', 'message', 'invite'] as const;
+export const DISMISS_REASONS = ['not_my_vibe', 'wrong_topic', 'too_big', 'too_small', 'already_know_them', 'other',
+  'not_my_audience', 'category_conflict', 'already_contacted'] as const;
+/** Sponsor cards offer only these reasons (Layer 2). */
+export const SPONSOR_DISMISS_REASONS = ['not_my_audience', 'category_conflict', 'too_big', 'already_contacted', 'other'] as const;
+/** 'contacted' = "Mark as contacted" on a sponsor card: logged as an event, nothing is sent. */
+export const OPPORTUNITY_ACTIONS = ['open', 'save', 'unsave', 'dismiss', 'message', 'invite', 'contacted'] as const;
 export const OpportunityActionSchema = z.object({
   action: z.enum(OPPORTUNITY_ACTIONS), reason: z.enum(DISMISS_REASONS).optional(), note: z.string().max(300).optional(),
 }).refine((b) => b.action !== 'dismiss' || !!b.reason, { message: 'Dismiss needs a reason', path: ['reason'] });

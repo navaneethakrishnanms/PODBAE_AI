@@ -15,7 +15,7 @@ import json
 import re
 from typing import Any, Protocol
 
-TYPE_LABEL = {"cross_promo": "cross-promo", "guest_swap": "guest-swap", "feed_swap": "feed-swap"}
+TYPE_LABEL = {"cross_promo": "cross-promo", "guest_swap": "guest-swap", "feed_swap": "feed-swap", "sponsor": "sponsorship"}
 T = {
     "headline": "{target} could be a good {type_label} partner: Fit {fit}, {level} evidence confidence.",
     "topic_alignment.topics": "You both cover {topics}.",
@@ -30,6 +30,20 @@ T = {
     "collaboration_openness.stated": "{target} says they are {openness} to collaborations.",
     "collaboration_openness.guests": "{target} features guests in {pct}% of recent episodes.",
     "why.joined_podbae": "Why now: they joined PodBae on {date}.",
+    # ── sponsor opportunities (Layer 2 evidence) ──
+    "sponsor.lookalike.one": "{target} sponsored {n} show similar to yours: {shows}.",
+    "sponsor.lookalike": "{target} sponsored {n} shows similar to yours, including {shows}.",
+    "sponsor.quote": "Evidence: \u201c{snippet}\u201d ({show}, {date}).",
+    "sponsor.momentum": "Their sponsorship activity is rising: {recent} sponsored episodes in the last {window} days vs {prior} in the {window} before.",
+    "sponsor.category": "Their ads fit your category: {category}.",
+    "sponsor.breadth.one": "They sponsor {n} show we track.",
+    "sponsor.breadth": "They sponsor {n} different shows we track.",
+    "sponsor.recency": "Last seen sponsoring a podcast {days} days ago.",
+    "why.sponsor_similar_recent.one": "Why now: they sponsored {n} show similar to yours in the last {days} days.",
+    "why.sponsor_similar_recent": "Why now: they sponsored {n} shows similar to yours in the last {days} days.",
+    "why.sponsor_category_start": "Why now: they started sponsoring {group} shows on {date}.",
+    "why.sponsor_rising": "Why now: their sponsorship activity is rising, {recent} episodes in the last {window} days vs {prior} before.",
+    "why.sponsor_campaign": "Why now: a matching PodBae advertiser campaign started on {date}.",
     "why.shared_topic_recent": "Why now: they published “{title}” on {date}, on {topic}, a topic you share.",
     "why.recent_guest_episodes.one": "Why now: {n} guest episode in the last {days} days: “{title}” ({date}).",
     "why.recent_guest_episodes": "Why now: {n} guest episodes in the last {days} days, most recently “{title}” ({date}).",
@@ -98,21 +112,28 @@ def why_part(t: dict) -> dict | None:
     return None
 
 
-def build(record: dict) -> dict:
-    """record = {target_title, type, fit, confidence:{level}, factors:[...], why_now:[...]}. Deterministic."""
+def build(record: dict, factor_part_fn=None, why_part_fn=None, max_reasons: int = 3) -> dict:
+    """record = {target_title, type, fit, confidence:{level}, factors:[...], why_now:[...]}. Deterministic. Each opportunity
+    kind supplies its own factor_part / why_part (partner ones by default); text = templates only, faithfulness-checked."""
+    factor_part_fn, why_part_fn = factor_part_fn or factor_part, why_part_fn or why_part
     target = record["target_title"]
     parts = [_part("headline", target=target, type_label=TYPE_LABEL[record["type"]], fit=round(record["fit"]),
                    level=record["confidence"]["level"])]
     used = sorted((f for f in record["factors"] if f["status"] == "used" and f["contribution"] > 0),
                   key=lambda f: (-f["contribution"], f["name"]))
-    reasons = [p for p in (factor_part(f, target) for f in used) if p][:3]
+    reasons = [p for p in (factor_part_fn(f, target) for f in used) if p][:max_reasons]
     parts += reasons
-    why = next((p for p in (why_part(t) for t in record.get("why_now") or []) if p), None)
+    why = next((p for p in (why_part_fn(t) for t in record.get("why_now") or []) if p), None)
     if why:
         parts.append(why)
     text = " ".join(p["text"] for p in parts)
     return {"parts": parts, "text": get_phraser().phrase(parts, record) if _llm_phrasing_enabled() else text,
             "method": "template", "top_factors": [f["name"] for f in used[:3]]}
+
+
+def part(tid: str, **slots) -> dict:
+    """Public helper for other opportunity kinds' template parts."""
+    return _part(tid, **slots)
 
 
 # ───────────────────────── faithfulness ─────────────────────────

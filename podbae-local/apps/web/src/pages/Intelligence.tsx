@@ -3,6 +3,7 @@ import { AlertTriangle, BadgeCheck, Bot, CheckCircle2, Clock, FileUp, RefreshCw,
 import { useState } from 'react';
 import { INGEST_STAGES, TIER_LABELS, type DataTier } from '@podbae/contracts';
 import { AppLayout } from '../components/Layout';
+import { SponsorsSeen } from '../components/SponsorCard';
 import { Badge, Button, Card, Empty, Field, Input, Spinner, toast } from '../components/ui';
 import { api } from '../lib/api';
 
@@ -191,10 +192,15 @@ function PartnerSettings({ fields, onDone }: { fields: Record<string, any>; onDo
   const [open, setOpen] = useState<string>(fields['creator.collaboration_openness']?.value ?? '');
   const [blocked, setBlocked] = useState<string[]>(fields['creator.blocked_categories']?.value ?? []);
   const [flags, setFlags] = useState<string[]>(fields['creator.blocked_brand_safety_flags']?.value ?? []);
+  const [blockedBrands, setBlockedBrands] = useState<string>((fields['creator.blocked_brands']?.value ?? []).join(', '));
+  const [blockedBrandCats, setBlockedBrandCats] = useState<string[]>(fields['creator.blocked_brand_categories']?.value ?? []);
+  const [exclusive, setExclusive] = useState<string[]>(fields['creator.exclusive_categories']?.value ?? []);
   const [showTopics, setShowTopics] = useState(false);
   const save = useMutation({
     mutationFn: () => api.put('/api/intel/my/creator-profile', {
       goals, ...(open ? { collaboration_openness: open } : {}), blocked_categories: blocked, blocked_brand_safety_flags: flags,
+      blocked_brands: blockedBrands.split(',').map((x) => x.trim()).filter(Boolean), blocked_brand_categories: blockedBrandCats,
+      exclusive_categories: exclusive,
     }),
     onSuccess: () => { toast('Saved as creator-provided. Your partner list will refresh.'); onDone(); },
     onError: (e: any) => toast(e.message),
@@ -218,6 +224,16 @@ function PartnerSettings({ fields, onDone }: { fields: Record<string, any>; onDo
         {showTopics && <div className="mt-2"><Chips options={topics.map((x) => x.id)} value={blocked} onChange={setBlocked} labelOf={topicLabel} /></div>}
       </div>
       <Field label="Blocked brand-safety flags"><Chips options={o?.brandSafetyFlags ?? []} value={flags} onChange={setFlags} labelOf={FLAG_LABEL} /></Field>
+      <div className="space-y-3 border-t pt-3" data-testid="sponsor-settings">
+        <h4 className="text-sm font-semibold">Sponsor preferences</h4>
+        <Field label="Blocked brands" hint="(comma separated names or domains)"><Input value={blockedBrands} onChange={(e) => setBlockedBrands(e.target.value)} placeholder="brandname, brand.com" /></Field>
+        <Field label="Blocked brand categories" hint="(sensitive ones are marked *; Kids & Family shows block them by default)">
+          <Chips options={(o?.brandCategories ?? []).map((c: any) => c.id)} value={blockedBrandCats} onChange={setBlockedBrandCats}
+            labelOf={(id) => { const c = (o?.brandCategories ?? []).find((x: any) => x.id === id); return c ? `${c.label}${c.sensitive ? ' *' : ''}` : id; }} /></Field>
+        <Field label="Exclusive categories" hint="(if you already have a sponsor in one of these, competing brands are not suggested)">
+          <Chips options={(o?.brandCategories ?? []).map((c: any) => c.id)} value={exclusive} onChange={setExclusive}
+            labelOf={(id) => (o?.brandCategories ?? []).find((x: any) => x.id === id)?.label ?? id} /></Field>
+      </div>
       <Button size="sm" onClick={() => save.mutate()} disabled={save.isPending}>Save settings</Button>
     </Card>
   );
@@ -247,6 +263,7 @@ export default function Intelligence() {
   });
 
   const p = profile.data?.profile;
+  const mySponsors = useQuery({ queryKey: ['my-sponsors', p?.show_id], enabled: !!p, queryFn: () => api.get('/api/intel/my/sponsors') });
   const job = status.data?.job;
   return (
     <AppLayout>
@@ -313,6 +330,7 @@ export default function Intelligence() {
             )}
             {(panel === 'upload' || !p.improve.some((i: any) => i.code === 'upload_audience')) && panel === 'upload' && <AudienceUpload onDone={refreshAll} />}
             <PartnerSettings key={p.generated_at} fields={p.fields} onDone={refreshAll} />
+            <Card><SponsorsSeen data={mySponsors.data} /></Card>
             {panel === '' && !p.improve.some((i: any) => i.code === 'upload_audience') && <Button variant="outline" size="sm" onClick={() => setPanel('upload')}>Upload more audience data</Button>}
 
             {GROUPS.map(([g, label]) => {

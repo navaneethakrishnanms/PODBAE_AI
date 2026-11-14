@@ -13,6 +13,8 @@ const FACTOR_LABEL: Record<string, string> = {
   format_compatibility: 'Format compatibility', activityMatch: 'Activity match', activity_match: 'Activity match',
   collaborationOpenness: 'Collaboration openness', collaboration_openness: 'Collaboration openness',
   audienceSizeParity: 'Audience size parity', audience_size_parity: 'Audience size parity', geoOverlap: 'Audience geography', geo_overlap: 'Audience geography',
+  lookalike_affinity: 'Sponsors shows like yours', momentum: 'Momentum', category_fit: 'Category fit', recency: 'Recency', breadth: 'Breadth',
+  audience_size_fit: 'Audience size fit', geo_fit: 'Audience geography fit',
 };
 const label = (n: string) => FACTOR_LABEL[n] ?? n.replace(/_/g, ' ');
 export const DISMISS_REASONS: [string, string][] = [
@@ -24,7 +26,7 @@ const LEVEL_TONE: Record<string, string> = {
 };
 const READY_TONE: Record<string, string> = { verified: 'text-green-600', potential_lead: 'text-blue-600', potentialLead: 'text-blue-600', discovery_lead: 'text-muted-foreground' };
 
-function Measure({ title, value, sub, tone }: { title: string; value: string; sub?: string; tone?: string }) {
+export function Measure({ title, value, sub, tone }: { title: string; value: string; sub?: string; tone?: string }) {
   return (
     <div className="rounded-lg border bg-background/50 p-2.5">
       <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{title}</div>
@@ -34,7 +36,7 @@ function Measure({ title, value, sub, tone }: { title: string; value: string; su
   );
 }
 
-function Breakdown({ o }: { o: any }) {
+export function Breakdown({ o }: { o: any }) {
   const f: any[] = o.breakdown?.factors ?? [];
   return (
     <div className="mt-3 space-y-3 rounded-lg bg-secondary/50 p-3 text-xs">
@@ -59,7 +61,21 @@ function Breakdown({ o }: { o: any }) {
       {(o.confidence?.adjustments ?? []).map((a: any) => <p key={a.code} className="text-amber-700 dark:text-amber-300">Confidence ×{a.factor}: {a.code === 'language_uncertain' ? 'language not confidently known' : a.code} ({a.detail})</p>)}
       {o.readiness?.reason && <p className="text-muted-foreground">Commercial status: {o.readiness.reason}</p>}
       <p className="text-muted-foreground">Scoring version <code>{o.fit?.scoringVersion}</code> · {o.typeReason}</p>
+      <p className="text-muted-foreground" data-testid="text-source">Card text: {o.explanation?.textSource === 'ai_phrased'
+        ? <>AI-phrased from the facts above (checked: every number and name comes from them). Original template: “{o.explanation?.templateText}”</>
+        : <>template (written only from the facts above)</>}</p>
     </div>
+  );
+}
+
+/** The card's explanation sentence, with a small marker when it was AI-phrased (Phase 4). */
+export function ExplanationText({ o }: { o: any }) {
+  return (
+    <p className="mt-3 text-sm">{o.explanation?.text}
+      {o.explanation?.textSource === 'ai_phrased' && (
+        <span data-testid="ai-phrased" title="Reworded by AI from the facts in the breakdown; checked for faithfulness"
+          className="ml-1.5 rounded bg-secondary px-1.5 py-0.5 align-middle text-[10px] font-medium text-muted-foreground">AI-phrased</span>)}
+    </p>
   );
 }
 
@@ -107,7 +123,7 @@ export function OpportunityCard({ o, readOnly }: { o: any; readOnly?: boolean })
         <Measure title="Conversion" value="Not enough data yet" sub="No partnership outcomes recorded yet" tone="text-muted-foreground text-sm" />
       </div>
 
-      <p className="mt-3 text-sm">{o.explanation?.text}</p>
+      <ExplanationText o={o} />
       {why && (
         <div className="mt-2 flex gap-2 rounded-lg bg-primary/10 p-2 text-xs"><Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
           <div><b>Why now: {why.label}.</b>{why.evidence?.[0] && <> “{why.evidence[0].title}” ({why.evidence[0].date})</>}</div></div>

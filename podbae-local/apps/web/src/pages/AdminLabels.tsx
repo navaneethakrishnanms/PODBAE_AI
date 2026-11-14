@@ -23,8 +23,18 @@ export default function AdminLabels() {
   const [idx, setIdx] = useState(0);
   const queue = useQuery({ queryKey: ['a-labels', labeler], enabled: !!labeler, queryFn: () => api.get(`/api/admin/intel/labels/queue?labeler=${encodeURIComponent(labeler)}`) });
   const agree = useQuery({ queryKey: ['a-agree'], queryFn: () => api.get('/api/admin/intel/labels/agreement') });
-  const items: any[] = queue.data?.items ?? [];
+  // Phase 4: optional "Rules vs AI disagree" view. Off by default so labels stay blind; when on, shows with a disagreement
+  // come first and the rule + AI answers are shown side by side. Human labels remain the only ground truth.
+  const [disagree, setDisagree] = useState(false);
+  const cmp = useQuery({ queryKey: ['a-labels-ai'], enabled: !!labeler && disagree, queryFn: () => api.get('/api/admin/llm/labels/disagreements') });
+  const cmpBy = useMemo(() => Object.fromEntries((cmp.data?.items ?? []).map((x: any) => [x.showId ?? x.show_id, x])), [cmp.data]);
+  const items: any[] = useMemo(() => {
+    const base: any[] = queue.data?.items ?? [];
+    if (!disagree) return base;
+    return [...base].sort((a, b) => Number(!!cmpBy[b.show_id]?.anyDisagree) - Number(!!cmpBy[a.show_id]?.anyDisagree));
+  }, [queue.data, disagree, cmpBy]);
   const item = items[idx];
+  const ai = disagree && item ? cmpBy[item.show_id] : null;
   const [topics, setTopics] = useState<string[]>([]);
   const [vibes, setVibes] = useState<string[]>([]);
   const [style, setStyle] = useState('');
@@ -69,6 +79,11 @@ export default function AdminLabels() {
         <Button size="sm" disabled={!name.trim()} onClick={() => { try { localStorage.setItem('podbae.labeler', name.trim()); } catch { /* private mode */ } setLabeler(name.trim()); setIdx(0); }}>
           {labeler ? 'Switch labeler' : 'Start labelling'}</Button>
         {labeler && <span className="text-sm">Labelling as <b>{labeler}</b> · {queue.data?.done ?? 0} of {queue.data?.total ?? 0} done</span>}
+        {labeler && (
+          <label className="ml-auto flex items-center gap-2 text-sm" data-testid="labels-filter-disagree">
+            <input type="checkbox" checked={disagree} onChange={(e) => { setDisagree(e.target.checked); setIdx(0); }} />
+            Rules vs AI disagree first (shows both answers; labels are no longer blind)
+          </label>)}
       </Card>
 
       {!labeler ? <p className="text-sm text-muted-foreground">Enter your name to begin.</p> : queue.isLoading ? <Spinner /> : queue.error ? (
@@ -85,6 +100,16 @@ export default function AdminLabels() {
               <button key={it.show_id} onClick={() => setIdx(i)} title={it.title}
                 className={`h-6 w-6 rounded text-[10px] font-semibold ${i === idx ? 'bg-primary text-primary-foreground' : it.label ? 'bg-green-200 text-green-900 dark:bg-green-900/50 dark:text-green-200' : 'bg-muted'}`}>{i + 1}</button>))}</div>
             <h2 className="text-xl font-bold">{item.title}</h2>
+            {ai && (
+              <div data-testid="labels-rules-vs-ai" className="grid gap-1 rounded-md bg-secondary/50 p-2 text-xs sm:grid-cols-3">
+                {[['Style', ai.style?.rule ?? '–', ai.style?.ai ?? '– (not refined)', ai.style?.disagree],
+                  ['Topics', (ai.topics?.rule ?? []).join(', ') || '–', ai.topics?.ai ? `+ ${(ai.topics.aiAdded ?? []).join(', ') || 'none'}` : '– (not refined)', ai.topics?.disagree],
+                  ['Guest-friendly', `${ai.guest?.rule ?? '–'} (${ai.guest?.ruleShare ?? '–'})`, ai.guest?.ai == null ? '– (not refined)' : `${ai.guest.ai} (${ai.guest.aiShare})`, ai.guest?.disagree]]
+                  .map(([k, r, a, d]: any) => (
+                    <div key={k}><div className="font-semibold">{k} {d && <Badge tone="pink">disagree</Badge>}</div>
+                      <div>Rules: <b>{r}</b></div><div>AI: <b>{a}</b></div></div>))}
+                <p className="text-muted-foreground sm:col-span-3">Label what YOU see in the show text. Your label is the ground truth; neither answer is.</p>
+              </div>)}
             {item.categories?.length > 0 && <div className="flex flex-wrap gap-1">{item.categories.map((c: string) => <Badge key={c} tone="gray">{c}</Badge>)}</div>}
             <p className="whitespace-pre-line text-sm">{item.description || <i className="text-muted-foreground">No description</i>}</p>
             <div>

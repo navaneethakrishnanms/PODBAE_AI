@@ -17,7 +17,10 @@ import threading
 GLINER_MODEL = os.environ.get("SPONSOR_NER_MODEL", "urchade/gliner_small-v2.1")
 LABELS = ["brand", "company", "product"]
 GENERIC = re.compile(r"^(our|the|my|your|this|today'?s?|these|those|a|an|all|you|listeners?|patrons?|supporters?|sponsors?|"
-                     r"members?|friends?|fans?|community|show|podcast|episode|team|network|support|people|everyone)\b", re.I)
+                     r"members?|friends?|fans?|community|show|podcast|episode|team|network|support|people|everyone|"
+                     # imperative words that start ad copy ("Use code SHOW", "Get 20% off") are never brand names
+                     r"use|get|visit|go|head|try|download|save|shop|enter|apply|click|sign|join|check|order|grab|text|call|"
+                     r"start|claim|receive|learn|find|book|buy|subscribe|follow|listen|watch|code|promo|discount|offer|free)\b", re.I)
 _lock = threading.Lock()
 _model = None
 _status: dict = {"loaded": False, "method": "rules", "error": None}
@@ -60,7 +63,8 @@ RULE_NAME = re.compile(r"((?:[A-Z][\w&'.+-]*|[A-Z0-9]{2,})(?:\s+(?:[A-Z][\w&'.+-
 
 
 def rule_names(window: str) -> list[str]:
-    m = RULE_NAME.search(window.strip()[:80])
+    window = re.split(r"[.!?,;:](?:\s|$)", window.strip())[0]     # a name never spans a sentence boundary
+    m = RULE_NAME.search(window[:80])
     if not m or m.start() > 12:
         return []
     name = re.sub(r"\s+(of|and|&)$", "", m.group(1)).strip(" .,'")
@@ -86,7 +90,8 @@ def names(windows: list[str], threshold: float = 0.45) -> list[list[str]]:
                         seen.add(t.lower())
                         keep.append(t)
                 out.append(keep)
-    return out
+    # the model occasionally misses an obvious capitalised name right after the cue: fall back to the rule per window
+    return [o or rule_names(w) for o, w in zip(out, windows)]
 
 
 STOP = {"I", "We", "You", "He", "She", "They", "It", "The", "A", "An", "This", "That", "These", "Those", "Our", "My", "Your", "Their", "In",

@@ -25,6 +25,7 @@ class OpportunityRun(Base):
     n_qualified: Mapped[int] = mapped_column(Integer, default=0)
     duration_ms: Mapped[int] = mapped_column(Integer, default=0)
     result_hash: Mapped[str] = mapped_column(String(64), default="")   # determinism check: hash of (target, fit, conf) list
+    stats: Mapped[dict] = mapped_column(JSON, default=dict)             # fit / confidence histograms + factor status of ALL scored
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
     __table_args__ = (Index("ix_orun_member", "member_show_id", "created_at"),)
 

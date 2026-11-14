@@ -44,8 +44,11 @@ def test_pipeline_makes_no_llm_calls_and_ledger_has_zero_llm_entries(db, server,
 
 
 def test_refine_seam_is_disabled():
+    """Phase 4 registers refiners on this seam (style, guests, topics); with the kill switch (LLM_PROVIDER=mock in tests)
+    the seam stays disabled, exactly as in Phase 1-3."""
+    import app.llm_refine.layer1  # noqa: F401  (registers the Phase 4 refiners)
     from app.intel.understanding.refine import REFINERS, refine_enabled
-    assert REFINERS == {} and refine_enabled() is False
+    assert set(REFINERS) <= {"conversational_style", "guests_present", "topics"} and refine_enabled() is False
 
 
 # ───────────────────────── failure reasons ─────────────────────────

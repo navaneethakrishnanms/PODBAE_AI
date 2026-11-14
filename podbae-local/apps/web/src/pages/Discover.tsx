@@ -5,6 +5,7 @@ import { Link } from 'wouter';
 import { PublicLayout } from '../components/Layout';
 import { Badge, Button, Card, Dialog, Empty, Input, Spinner } from '../components/ui';
 import { api } from '../lib/api';
+import { SponsorsSeen } from '../components/SponsorCard';
 import { FieldRow, GROUPS } from './Intelligence';
 
 /** Real, ingested shows (RSS) from the intelligence service. Demo rows above stay flagged "demo". */
@@ -13,6 +14,7 @@ function IngestedShows({ q, category }: { q: string; category: string }) {
   const { data, isLoading } = useQuery({ queryKey: ['intel-shows', qs], queryFn: () => api.get(`/api/intel/shows?${qs}`) });
   const [open, setOpen] = useState<string | null>(null);
   const profile = useQuery({ queryKey: ['intel-public', open], enabled: !!open, queryFn: () => api.get(`/api/intel/shows/${open}/profile`) });
+  const sponsors = useQuery({ queryKey: ['intel-public-sponsors', open], enabled: !!open, queryFn: () => api.get(`/api/intel/shows/${open}/sponsors`) });
   if (isLoading) return <Spinner />;
   if (data?.ai_down) return <p className="mt-10 text-sm text-muted-foreground">Real ingested shows are unavailable while the AI service is down.</p>;
   if (!data?.shows?.length) return null;
@@ -34,6 +36,7 @@ function IngestedShows({ q, category }: { q: string; category: string }) {
       <Dialog open={!!open} onOpenChange={(o) => !o && setOpen(null)} title={profile.data?.title ?? 'Show intelligence'}>
         {profile.isLoading ? <Spinner /> : profile.data?.fields ? (
           <div className="max-h-[60vh] overflow-y-auto pr-1">
+            <div className="mb-3"><SponsorsSeen data={sponsors.data} /></div>
             {GROUPS.map(([g, label]) => {
               const rows = Object.entries(profile.data.fields).filter(([, f]: any) => f.group === g);
               return rows.length ? <div key={g} className="mb-3"><h4 className="text-sm font-semibold">{label}</h4>{rows.map(([k, f]) => <FieldRow key={k} name={k} f={f} />)}</div> : null;

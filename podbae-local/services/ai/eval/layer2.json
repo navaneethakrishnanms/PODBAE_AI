@@ -1,0 +1,483 @@
+{
+ "generated_at": "2026-11-14T05:26:26.079220Z",
+ "corpus": {
+  "shows": 303,
+  "events_by_class": {
+   "affiliate": 1342,
+   "declared_sponsorship": 4486,
+   "likely_sponsorship": 5567,
+   "network_disclosure": 12953,
+   "organic_mention": 21975,
+   "podcast_promo": 774,
+   "self_promotion": 12372,
+   "uncertain": 406
+  },
+  "shows_by_class": {
+   "self_promotion": 176,
+   "network_disclosure": 71,
+   "organic_mention": 220,
+   "affiliate": 73,
+   "declared_sponsorship": 79,
+   "podcast_promo": 20,
+   "uncertain": 34,
+   "likely_sponsorship": 76
+  },
+  "coverage_sponsorship_history": {
+   "shows": 111,
+   "share": 0.366
+  },
+  "network_disclosure_only": {
+   "shows": 30,
+   "share": 0.099,
+   "note": "ads exist (ad-choices / hosting boilerplate) but no brand is visible in the text"
+  },
+  "brands": {
+   "total": 988,
+   "by_status": {
+    "inactive": 728,
+    "active": 260
+   },
+   "active_on_2plus_shows": 57,
+   "by_identity": {
+    "domain": 570,
+    "name_only": 418
+   },
+   "by_category_method": {
+    "inferred": 979,
+    "override": 9
+   }
+  },
+  "top_brands": [
+   {
+    "id": "brd_c7d1330c9624",
+    "name": "HelloFresh",
+    "domain": "hellofresh.com",
+    "shows": 12,
+    "events": 54,
+    "status": "inactive",
+    "categories": [
+     "Food & meal kits"
+    ]
+   },
+   {
+    "id": "brd_989291331e8f",
+    "name": "BetterHelp",
+    "domain": "betterhelp.com",
+    "shows": 11,
+    "events": 391,
+    "status": "active",
+    "categories": [
+     "Mental health & therapy"
+    ]
+   },
+   {
+    "id": "brd_73de8bcaac3b",
+    "name": "Quince",
+    "domain": "quince.com",
+    "shows": 10,
+    "events": 211,
+    "status": "active",
+    "categories": [
+     "Home & lifestyle"
+    ]
+   },
+   {
+    "id": "brd_dbace973b995",
+    "name": "Shopify",
+    "domain": "shopify.com",
+    "shows": 7,
+    "events": 125,
+    "status": "active",
+    "categories": [
+     "Business software & services"
+    ]
+   },
+   {
+    "id": "brd_b924e788acde",
+    "name": "Factor",
+    "domain": "factormeals.com",
+    "shows": 7,
+    "events": 69,
+    "status": "active",
+    "categories": [
+     "Food & meal kits"
+    ]
+   },
+   {
+    "id": "brd_97603fb1a1c6",
+    "name": "Uncommongoods",
+    "domain": "uncommongoods.com",
+    "shows": 6,
+    "events": 419,
+    "status": "active",
+    "categories": [
+     "Fashion",
+     "Home & lifestyle"
+    ]
+   },
+   {
+    "id": "brd_44b8d5f5d4ca",
+    "name": "Zocdoc",
+    "domain": "zocdoc.com",
+    "shows": 6,
+    "events": 143,
+    "status": "active",
+    "categories": [
+     "Mental health & therapy",
+     "Telehealth & pharmacy"
+    ]
+   },
+   {
+    "id": "brd_07609ceea5e0",
+    "name": "Auraframes",
+    "domain": "auraframes.com",
+    "shows": 5,
+    "events": 26,
+    "status": "active",
+    "categories": [
+     "Home & lifestyle",
+     "Fashion"
+    ]
+   },
+   {
+    "id": "brd_c6b14eb05cf0",
+    "name": "Rocket Money",
+    "domain": "rocketmoney.com",
+    "shows": 5,
+    "events": 20,
+    "status": "active",
+    "categories": [
+     "Finance"
+    ]
+   },
+   {
+    "id": "brd_2744066fdebb",
+    "name": "Buyraycon",
+    "domain": "buyraycon.com",
+    "shows": 4,
+    "events": 51,
+    "status": "active",
+    "categories": [
+     "Consumer tech & gadgets"
+    ]
+   },
+   {
+    "id": "brd_730d9afc1c64",
+    "name": "Aquatru",
+    "domain": "aquatru.com",
+    "shows": 4,
+    "events": 29,
+    "status": "active",
+    "categories": [
+     "Health & nutrition supplements"
+    ]
+   },
+   {
+    "id": "brd_cbd47c42786e",
+    "name": "AG1",
+    "domain": "drinkag1.com",
+    "shows": 4,
+    "events": 17,
+    "status": "active",
+    "categories": [
+     "Health & nutrition supplements"
+    ]
+   },
+   {
+    "id": "brd_257098f056d0",
+    "name": "Greenchef",
+    "domain": "greenchef.com",
+    "shows": 4,
+    "events": 15,
+    "status": "active",
+    "categories": [
+     "Health & nutrition supplements",
+     "Food & meal kits"
+    ]
+   },
+   {
+    "id": "brd_1c130777b371",
+    "name": "Chime",
+    "domain": "chime.com",
+    "shows": 3,
+    "events": 204,
+    "status": "active",
+    "categories": [
+     "Fashion",
+     "Travel & auto"
+    ]
+   },
+   {
+    "id": "brd_b9c8c3cc3cf4",
+    "name": "Functionhealth",
+    "domain": "functionhealth.com",
+    "shows": 3,
+    "events": 51,
+    "status": "active",
+    "categories": [
+     "Telehealth & pharmacy"
+    ]
+   },
+   {
+    "id": "brd_60f098e895b4",
+    "name": "Mint Mobile",
+    "domain": "mintmobile.com",
+    "shows": 3,
+    "events": 47,
+    "status": "active",
+    "categories": [
+     "Consumer tech & gadgets"
+    ]
+   },
+   {
+    "id": "brd_de6d9ae2b4ca",
+    "name": "Hungryroot",
+    "domain": "hungryroot.com",
+    "shows": 3,
+    "events": 31,
+    "status": "active",
+    "categories": [
+     "Food & meal kits",
+     "Health & nutrition supplements"
+    ]
+   },
+   {
+    "id": "brd_088a905701cd",
+    "name": "Zbiotics",
+    "domain": "zbiotics.com",
+    "shows": 3,
+    "events": 31,
+    "status": "active",
+    "categories": [
+     "Health & nutrition supplements"
+    ]
+   },
+   {
+    "id": "brd_370224a15909",
+    "name": "Masterclass",
+    "domain": "masterclass.com",
+    "shows": 3,
+    "events": 27,
+    "status": "inactive",
+    "categories": [
+     "Education & courses"
+    ]
+   },
+   {
+    "id": "brd_0ba791bbda1b",
+    "name": "Cozyearth",
+    "domain": "cozyearth.com",
+    "shows": 3,
+    "events": 25,
+    "status": "active",
+    "categories": [
+     "Home & lifestyle"
+    ]
+   },
+   {
+    "id": "brd_02e000bd432a",
+    "name": "Skylightframe",
+    "domain": "skylightframe.com",
+    "shows": 3,
+    "events": 23,
+    "status": "inactive",
+    "categories": [
+     "Home & lifestyle",
+     "Travel & auto"
+    ]
+   },
+   {
+    "id": "brd_25dc8b221e86",
+    "name": "Manscaped",
+    "domain": "manscaped.com",
+    "shows": 3,
+    "events": 22,
+    "status": "inactive",
+    "categories": [
+     "Fashion"
+    ]
+   },
+   {
+    "id": "brd_5dd7af5308c7",
+    "name": "Zenni",
+    "domain": "zenni.com",
+    "shows": 3,
+    "events": 16,
+    "status": "active",
+    "categories": [
+     "Media & entertainment",
+     "Kids & family products"
+    ]
+   },
+   {
+    "id": "brd_ad779290548e",
+    "name": "Magicspoon",
+    "domain": "magicspoon.com",
+    "shows": 3,
+    "events": 14,
+    "status": "active",
+    "categories": [
+     "Health & nutrition supplements",
+     "Fashion"
+    ]
+   },
+   {
+    "id": "brd_33d490dfb496",
+    "name": "Ridge",
+    "domain": "ridge.com",
+    "shows": 3,
+    "events": 13,
+    "status": "active",
+    "categories": [
+     "Travel & auto"
+    ]
+   }
+  ],
+  "events_per_month": {
+   "2024-11": 201,
+   "2024-12": 200,
+   "2025-01": 221,
+   "2025-02": 185,
+   "2025-03": 203,
+   "2025-04": 174,
+   "2025-05": 162,
+   "2025-06": 234,
+   "2025-07": 223,
+   "2025-08": 226,
+   "2025-09": 264,
+   "2025-10": 275,
+   "2025-11": 264,
+   "2025-12": 333,
+   "2026-01": 242,
+   "2026-02": 213,
+   "2026-03": 216,
+   "2026-04": 241,
+   "2026-05": 321,
+   "2026-06": 264,
+   "2026-07": 299,
+   "2026-08": 365,
+   "2026-09": 466,
+   "2026-10": 552,
+   "2026-11": 213
+  },
+  "last_scan": {
+   "at": "2026-11-14T05:25:43.334093Z",
+   "method": "gliner:urchade/gliner_small-v2.1@0.2.16",
+   "episodes": 35877,
+   "transcripts": 422,
+   "events": 59875,
+   "seconds": 322.1,
+   "detector_version": "sponsor-rules-v1"
+  },
+  "ner": {
+   "loaded": false,
+   "method": "rules",
+   "error": null
+  },
+  "verification": {
+   "auto": 59875
+  }
+ },
+ "privacy": {
+  "snippets": 59875,
+  "with_email": 0,
+  "contact_lines_removed": 6328
+ },
+ "review": {
+  "per_class": {
+   "declared_sponsorship": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "likely_sponsorship": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "affiliate": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "podcast_promo": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "self_promotion": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "network_disclosure": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "organic_mention": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   },
+   "uncertain": {
+    "reviewed": 0,
+    "correct": 0,
+    "precision": null
+   }
+  },
+  "reviewers": [],
+  "reviewed_events": 0,
+  "agreement": [],
+  "note": "No human reviews yet: per-class precision is UNMEASURED."
+ },
+ "sponsor_opportunities": {
+  "shows": 303,
+  "with_1_plus": 282,
+  "with_3_plus": 249,
+  "no_match": 21,
+  "qualified_median": 6,
+  "qualified_by_readiness": {
+   "potential_lead": 1458,
+   "discovery_lead": 760
+  },
+  "qualified_by_confidence": {
+   "Low": 1109,
+   "High": 273,
+   "Medium": 836
+  },
+  "gate_rejections": {
+   "inactive_brand": 31609,
+   "insufficient_evidence": 931,
+   "already_sponsors_member": 63
+  },
+  "faithfulness_problems": 0,
+  "latency_ms": {
+   "p50": 73,
+   "p95": 176
+  },
+  "scoring_version": "sponsor-draft-v1"
+ },
+ "merge_eval": {
+  "cases": 13,
+  "brand_bearing_cases": 11,
+  "pairs": 55,
+  "true_merges": 3,
+  "false_merges": 0,
+  "missed_merges": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "became_brand_but_should_not": [],
+  "should_be_brand_but_is_not": [],
+  "cases_covered": [
+   "same domain via www. / shop. subdomains",
+   "name next to its domain (alias)",
+   "different domain, similar name",
+   "two name-only spellings (never merged)",
+   "tenant link platform (two advertisers on onelink.me)",
+   "regulatory gambling disclaimer",
+   "denylisted platform",
+   "product brand with a seeded parent"
+  ]
+ }
+}

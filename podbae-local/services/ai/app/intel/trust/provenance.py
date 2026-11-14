@@ -127,9 +127,23 @@ def freshness(row: Provenance, at: datetime | None = None) -> str:
     return "fresh" if row.expires_at > at else "stale"
 
 
-def live_rows(s: Session, entity_type: str, entity_id: str, field: str | None = None) -> list[Provenance]:
+def llm_rows_visible() -> bool:
+    """Phase 4 kill switch: LLM-written rows (method='llm') are invisible to every reader unless the LLM is active."""
+    from ...llm_refine import llm_active
+    return llm_active()
+
+
+def pick_key(r: Provenance) -> tuple:
+    """Winner order: tier first (verified > creator_provided > estimated > inferred, so an LLM value can never beat
+    verified / creator data), then - within a tier - an active LLM refinement over the rule value it refined, then newest."""
+    return (TIER_RANK[r.data_tier], 0 if r.method == "llm" else 1, -(r.fetched_at.timestamp()), -r.confidence)
+
+
+def live_rows(s: Session, entity_type: str, entity_id: str, field: str | None = None, *, include_llm: bool | None = None) -> list[Provenance]:
     q = select(Provenance).where(Provenance.entity_type == entity_type, Provenance.entity_id == entity_id,
                                  Provenance.superseded_by.is_(None))
+    if not (llm_rows_visible() if include_llm is None else include_llm):
+        q = q.where(Provenance.method != "llm")
     if field:
         q = q.where(Provenance.field == field)
     return list(s.scalars(q))
@@ -139,7 +153,7 @@ def resolve(s: Session, rows: list[Provenance], *, log_conflict: bool = True) ->
     """Pick the display row; return (winner, alternatives). Conflicts are recorded, not hidden."""
     if not rows:
         return None, []
-    ordered = sorted(rows, key=lambda r: (TIER_RANK[r.data_tier], -(r.fetched_at.timestamp()), -r.confidence))
+    ordered = sorted(rows, key=pick_key)
     winner, others = ordered[0], ordered[1:]
     differing = [r for r in others if not _same(r.value_json, winner.value_json)]
     if differing and log_conflict:

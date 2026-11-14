@@ -133,11 +133,13 @@ memberRouter.get('/api/member/matches', A, h(async (req, res) => {
   const type = req.query.type as string | undefined;
   const r = await rankedMatches(req.user!.id, req.user!.tier, { type, unswiped: req.query.unswiped === '1' });
   const base = { ...r, tier: req.user!.tier, matchesPerDay: tierConfig(req.user!.tier).matchesPerDay };
-  if (config.engine === 'legacy' || req.query.unswiped === '1' || (type && type !== 'podcast')) return res.json({ ...base, engine: config.engine });
-  // Layer 4: podcast partners come from the Opportunity Engine; the legacy tag-overlap 'podcast' rows are not shown.
-  const opportunities = await getOpportunities(req.user!);
-  const matches = r.matches.filter((m: any) => m.target_type !== 'podcast');
-  res.json({ ...base, matches, engine: 'opportunity-engine', opportunities });
+  if (config.engine === 'legacy' || req.query.unswiped === '1' || (type && !['podcast', 'sponsor'].includes(type))) return res.json({ ...base, engine: config.engine });
+  // Layer 4 engine: podcast partners AND sponsors (Layer 2 evidence) come from the Opportunity Engine; the legacy
+  // tag-overlap 'podcast' and 'sponsor' rows are not shown (they remain behind ENGINE=legacy).
+  const opportunities = !type || type === 'podcast' ? await getOpportunities(req.user!) : undefined;
+  const sponsorOpportunities = !type || type === 'sponsor' ? await getOpportunities(req.user!, { kind: 'sponsor' }) : undefined;
+  const matches = r.matches.filter((m: any) => m.target_type !== 'podcast' && m.target_type !== 'sponsor');
+  res.json({ ...base, matches, engine: 'opportunity-engine', opportunities, sponsorOpportunities });
 }));
 memberRouter.get('/api/matches', A, h(async (req, res) => {
   const r = await rankedMatches(req.user!.id, req.user!.tier, { type: req.query.type as string | undefined });
@@ -265,8 +267,9 @@ memberRouter.get('/api/predictions', A, h(async (req, res) => {
   if (config.engine === 'legacy') return res.json({ predictions: rows, lockedRevenue, forecast, forecastLocked: !cfg.forecasting, engine: 'legacy' });
   // Layer 4: the podcast-partner (cross-promo / guest swap / feed swap) predictions come from the Opportunity Engine.
   const partnerOpportunities = await getOpportunities(req.user!);
-  res.json({ predictions: rows.filter((p) => p.type !== 'podcast_swap'), lockedRevenue, forecast, forecastLocked: !cfg.forecasting,
-    engine: 'opportunity-engine', partnerOpportunities });
+  const sponsorOpportunities = await getOpportunities(req.user!, { kind: 'sponsor' });
+  res.json({ predictions: rows.filter((p) => p.type !== 'podcast_swap' && p.type !== 'sponsor_opportunity'), lockedRevenue: 0, forecast,
+    forecastLocked: !cfg.forecasting, engine: 'opportunity-engine', partnerOpportunities, sponsorOpportunities });
 }));
 memberRouter.post('/api/predictions/:id/action', A, h(async (req, res) => {
   const { action } = parse(z.object({ action: z.enum(['save', 'dismiss', 'act']) }), req.body);

@@ -38,13 +38,13 @@ const ADVERTISERS = [
   { email: 'brand@podbae.local', org: 'Demo Brew Co', type: 'Local Business', budget: 300, loc: 'New York, NY', cat: [COMEDY, ARTS],
     vibe: ['Casual', 'Energetic'], tone: ['Playful', 'Warm'], values: ['local', 'sustainable'], goals: ['brand awareness'], camp: ['Morning Roast Spots', 300, 600] },
   { email: 'fit@demo.podbae.local', org: 'Demo FitGear', type: 'Emerging Brand', budget: 500, loc: 'Houston, TX', cat: [COMEDY],
-    vibe: ['Energetic', 'Inspirational'], tone: ['Direct'], values: ['health'], goals: ['sales'], camp: ['Season Kickoff Gear', 500, 1500] },
+    vibe: ['Energetic', 'Inspirational'], tone: ['Direct'], values: ['health'], goals: ['sales'], camp: ['Season Kickoff Gear', 500, 1500], website: 'drinkag1.com' },
   { email: 'edu@demo.podbae.local', org: 'Demo LearnLab', type: 'Agency', budget: 800, loc: 'Los Angeles, CA', cat: [ARTS],
-    vibe: ['Educational', 'Professional'], tone: ['Calm', 'Direct'], values: ['education'], goals: ['lead gen'], camp: ['Back-to-School', 800, 2000] },
+    vibe: ['Educational', 'Professional'], tone: ['Calm', 'Direct'], values: ['education'], goals: ['lead gen'], camp: ['Back-to-School', 800, 2000], website: 'shopify.com' },
   { email: 'shop@demo.podbae.local', org: 'Demo Corner Shop', type: 'Local Business', budget: 150, loc: 'Chicago, IL', cat: [NEWS, COMEDY],
     vibe: ['Casual', 'Relaxed'], tone: ['Warm'], values: ['community'], goals: ['local reach'], camp: ['Neighborhood Night', 150, 300] },
   { email: 'ngo@demo.podbae.local', org: 'Demo Open Voices', type: 'Nonprofit', budget: 200, loc: 'Atlanta, GA', cat: [NEWS, ARTS],
-    vibe: ['Wellness-Focused', 'Uplifting'], tone: ['Warm', 'Calm'], values: ['mental health'], goals: ['donations'], camp: ['Mind Matters Month', 200, 800] },
+    vibe: ['Wellness-Focused', 'Uplifting'], tone: ['Warm', 'Calm'], values: ['mental health'], goals: ['donations'], camp: ['Mind Matters Month', 200, 800], website: 'betterhelp.com' },
 ];
 
 const VENUES = [
@@ -96,7 +96,7 @@ export async function seedDatabase(): Promise<{ skipped: boolean }> {
     const [adv] = await db.insert(s.advertisers).values({
       userId: u.id, orgName: a.org, orgType: a.type, description: `${a.org} (fake demo brand).`, budgetMin: a.budget, audience: 'Demo audience',
       vibeTags: a.vibe, toneTags: a.tone, brandValues: a.values, categories: a.cat, goals: a.goals, location: a.loc,
-      contactName: 'Demo Contact', contactEmail: a.email, demo: true,
+      contactName: 'Demo Contact', contactEmail: a.email, website: (a as { website?: string }).website ?? null, demo: true,
     }).returning();
     await db.insert(s.campaigns).values({
       advertiserId: adv.id, name: a.camp[0] as string, description: 'Host-read sponsorship spots (fake).', budgetMin: a.camp[1] as number,

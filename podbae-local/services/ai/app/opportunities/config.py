@@ -17,7 +17,10 @@ FACTORS = ["topic_alignment", "content_similarity", "vibe_compatibility", "forma
 # factors that need data no public source provides: they switch on automatically when both shows have it
 AUTO_DISABLED = {"audience_size_parity", "geo_overlap"}
 EVENT_TYPES = ("impression", "open", "save", "unsave", "dismiss", "contact", "reply", "meeting", "partnership", "invite")
-DISMISS_REASONS = ("not_my_vibe", "wrong_topic", "too_big", "too_small", "already_know_them", "other")
+DISMISS_REASONS = ("not_my_vibe", "wrong_topic", "too_big", "too_small", "already_know_them", "other",
+                   # sponsor opportunities
+                   "not_my_audience", "category_conflict", "already_contacted")
+SPONSOR_DISMISS_REASONS = ("not_my_audience", "category_conflict", "too_big", "already_contacted", "other")
 OPP_TYPES = ("cross_promo", "guest_swap", "feed_swap")
 
 

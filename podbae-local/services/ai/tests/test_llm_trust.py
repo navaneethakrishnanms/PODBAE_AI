@@ -163,7 +163,7 @@ def test_prompt_injection_transcript_does_not_change_behaviour_or_schema(db, ser
         assert out["mode"] in ("llm", "cache")
         fields = {x.field for x in s.scalars(select(Provenance).where(Provenance.entity_id == sid, Provenance.data_tier == "inferred"))}
         assert fields <= LLM_FIELDS | PIPELINE_FIELDS                  # only known fields, nothing injected
-        vibe = next(r for r in live_rows(s, "show", sid, "vibe") if r.method == "llm").value_json
+        vibe = next(r for r in live_rows(s, "show", sid, "vibe", include_llm=True) if r.method == "llm").value_json
         assert set(vibe) == set(Extraction.model_validate(valid_payload()).vibe)       # exactly the 12 vocabulary terms
         assert not any(k in fields for k in ("admin", "median_age", "listeners"))
     # same show without the injection text produces identical structure AND identical vibe scores:

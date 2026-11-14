@@ -74,6 +74,7 @@ def create_all() -> None:
     """Dev/test convenience. Real deployments use `alembic upgrade head`."""
     from ..opportunities import models as _opp_models  # noqa: F401  (registers the Layer 4 tables on the same Base)
     from ..sponsors import models as _sp_models  # noqa: F401  (Layer 2 sponsor tables)
+    from ..llm_refine import models as _llm_models  # noqa: F401  (Phase 4 LLM cache + call log)
     from .models import Base
 
     Base.metadata.create_all(get_engine())

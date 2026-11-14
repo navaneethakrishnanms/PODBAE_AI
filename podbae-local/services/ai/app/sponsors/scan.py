@@ -60,6 +60,8 @@ def scan_show(s, show: Show, method: str) -> Counter:
                 keep.add(k)
                 counts[d.cls] += 1
                 if k in existing:
+                    ev = existing[k]          # refresh derived text (e.g. after a redaction rule change); keep any human verdict
+                    ev.snippet, ev.url = d.snippet[:300], d.url
                     continue
                 s.add(SponsorshipEvent(key=k, show_id=show.id, episode_id=e.id, episode_date=e.published_at, source=source, cls=d.cls,
                                        rule=d.rule[:60], snippet=d.snippet[:300], url=d.url, domain=d.domain,

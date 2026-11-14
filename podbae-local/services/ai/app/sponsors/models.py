@@ -32,6 +32,12 @@ class Brand(Base):
     n_shows: Mapped[int] = mapped_column(Integer, default=0)
     n_events: Mapped[int] = mapped_column(Integer, default=0)
     merged_into: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    # Phase 4: LLM suggestions, stored NEXT TO the rule values; applied only while the LLM is active (manual edits always win)
+    llm_categories: Mapped[list | None] = mapped_column(JSON, nullable=True)     # [{id,label,sensitive,quote,method:'llm',...}]
+    llm_categories_version: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    name_suggestion: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    name_suggestion_status: Mapped[str | None] = mapped_column(String(20), nullable=True)  # auto_applied | pending | approved | rejected
+    name_suggestion_support: Mapped[int] = mapped_column(Integer, default=0)       # snippets containing the exact string
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=now, onupdate=now)
     __table_args__ = (Index("ix_brand_name_key", "name_key"),)
@@ -70,6 +76,14 @@ class SponsorshipEvent(Base):
     verification_status: Mapped[str] = mapped_column(String(20), default="auto")
     reviewed_class: Mapped[str | None] = mapped_column(String(30), nullable=True)
     sample_bucket: Mapped[int] = mapped_column(Integer, default=0)        # deterministic 0-99, for the stratified review sample
+    # Phase 4 LLM second opinion (kept next to the rule class; used only while the LLM is active; humans still decide)
+    llm_cls: Mapped[str | None] = mapped_column(String(30), nullable=True)      # effective class the LLM verdict maps to
+    llm_raw_cls: Mapped[str | None] = mapped_column(String(30), nullable=True)  # what the model said (before the declared->likely cap)
+    llm_reason: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    llm_quote: Mapped[str | None] = mapped_column(String(300), nullable=True)   # verbatim from the snippet / context sent
+    llm_task: Mapped[str | None] = mapped_column(String(30), nullable=True)     # uncertain_classify | organic_audit
+    llm_version: Mapped[str | None] = mapped_column(String(120), nullable=True) # model/prompt_version
+    llm_flag: Mapped[bool] = mapped_column(Boolean, default=False)              # promoted by the LLM -> review first
     created_at: Mapped[datetime] = mapped_column(DateTime, default=now)
     __table_args__ = (Index("ix_spev_show", "show_id"), Index("ix_spev_brand", "brand_id", "cls"), Index("ix_spev_cls", "cls"),
                       Index("ix_spev_episode", "episode_id"))

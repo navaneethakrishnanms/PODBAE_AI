@@ -32,6 +32,8 @@ FIELDS: list[tuple[str, str, int, str]] = [
     ("creator.goals", "creator", 4, "Creator goals"), ("creator.collaboration_openness", "creator", 3, "Collaboration openness"),
     ("creator.blocked_categories", "creator", 2, "Blocked categories"),
     ("creator.blocked_brand_safety_flags", "creator", 1, "Blocked brand-safety flags"),
+    ("creator.blocked_brands", "creator", 1, "Blocked brands"), ("creator.blocked_brand_categories", "creator", 1, "Blocked brand categories"),
+    ("creator.exclusive_categories", "creator", 1, "Exclusive sponsor categories"),
 ]
 TOTAL_WEIGHT = sum(w for _, _, w, _ in FIELDS)
 TIER_LABEL = {"verified": "Verified", "creator_provided": "Creator-provided", "estimated": "Estimated", "inferred": "AI-inferred"}

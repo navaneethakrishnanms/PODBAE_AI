@@ -14,7 +14,8 @@ from ..intel.db import session_scope
 from ..intel.models import Job
 from ..intel.understanding.signals import taxonomy
 from . import engine, pairlabels
-from .config import DISMISS_REASONS, EVENT_TYPES, OPP_TYPES, get_config
+from ..sponsors.resolve import seeds as sponsor_seeds
+from .config import DISMISS_REASONS, EVENT_TYPES, OPP_TYPES, SPONSOR_DISMISS_REASONS, get_config
 from .features import EMAIL_RX
 from .metrics import engine_metrics, showcase_show
 
@@ -93,6 +94,9 @@ def options() -> JSONResponse:
     return safe({"goals": GOAL_OPTIONS, "collaboration_openness": ["open", "selective", "closed"], "brand_safety_flags": BRAND_SAFETY_FLAGS,
                  "category_groups": CATEGORY_GROUPS, "topics": [{"id": k, "label": v["label"], "group": v["group"]} for k, v in taxonomy().items()],
                  "dismiss_reasons": list(DISMISS_REASONS), "event_types": list(EVENT_TYPES), "types": list(OPP_TYPES),
+                 "sponsor_dismiss_reasons": list(SPONSOR_DISMISS_REASONS),
+                 "brand_categories": [{"id": k, "label": v["label"], "sensitive": bool(v.get("sensitive"))}
+                                      for k, v in sponsor_seeds()["categories"].items()],
                  "scoring_version": cfg["scoring_version"], "status": cfg["status"]})
 
 

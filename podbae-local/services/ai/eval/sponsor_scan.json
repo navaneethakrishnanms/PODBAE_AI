@@ -1,0 +1,37 @@
+{
+ "shows": 303,
+ "episodes": 35877,
+ "transcripts": 422,
+ "events": 59875,
+ "by_class": {
+  "self_promotion": 12372,
+  "network_disclosure": 12953,
+  "organic_mention": 21975,
+  "affiliate": 1342,
+  "declared_sponsorship": 4486,
+  "podcast_promo": 774,
+  "uncertain": 406,
+  "likely_sponsorship": 5567
+ },
+ "method": "gliner:urchade/gliner_small-v2.1@0.2.16",
+ "ner": {
+  "loaded": true,
+  "method": "gliner:urchade/gliner_small-v2.1@0.2.16",
+  "error": null,
+  "device": "cuda:0"
+ },
+ "brands": {
+  "brands": 1008,
+  "by_status": {
+   "inactive": 728,
+   "active": 260,
+   "unknown": 20
+  },
+  "removed_stale_brands": 20
+ },
+ "categories": {
+  "inferred": 979,
+  "override": 9
+ },
+ "seconds": 322.1
+}

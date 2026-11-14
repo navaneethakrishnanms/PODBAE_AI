@@ -1,4 +1,4 @@
-import { AdvertiserRegisterSchema, LoginSchema, RegisterSchema } from '@podbae/contracts';
+import { AdvertiserRegisterSchema, LoginSchema, RegisterSchema, websiteDomain } from '@podbae/contracts';
 import bcrypt from 'bcryptjs';
 import { Router } from 'express';
 import { z } from 'zod';
@@ -81,10 +81,10 @@ authRouter.post('/api/advertiser/register', h(async (req, res) => {
      RETURNING ${USER_COLS}`, [b.email.toLowerCase(), hash, b.contactName ?? b.orgName]);
   const adv = await q1(
     `INSERT INTO advertisers (user_id, org_name, org_type, budget_min, audience, vibe_tags, brand_values,
-       categories, goals, contact_name, contact_email, location)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
+       categories, goals, contact_name, contact_email, location, website)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`,
     [user.id, b.orgName, b.orgType, b.budgetMin, b.audience ?? null, b.vibeTags, b.brandValues,
-     b.categories, b.goals, b.contactName ?? null, b.email.toLowerCase(), b.location ?? null]);
+     b.categories, b.goals, b.contactName ?? null, b.email.toLowerCase(), b.location ?? null, websiteDomain(b.website)]);
   await q(`INSERT INTO data_sources (entity_type, entity_id, source, ref) VALUES ('advertiser',$1,'manual','user-submitted')`, [adv.id]);
   await startSession(req, user.id);
   res.status(201).json({ user, advertiser: adv });

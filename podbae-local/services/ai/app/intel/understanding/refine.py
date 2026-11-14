@@ -52,5 +52,7 @@ def register_refiner(field_name: str) -> Callable[[Refiner], Refiner]:
 
 
 def refine_enabled() -> bool:
-    """True only if the flag is on AND at least one refiner exists. Phase 1: always False."""
-    return bool(get_settings().llm_refine_enabled and REFINERS)
+    """True only if the LLM is active (INTEL_LLM_REFINE=true AND a real LLM_PROVIDER) AND refiners are registered
+    (Phase 4: app/llm/layer1.py registers conversational_style, guests_present, topics)."""
+    from ...llm_refine import llm_active
+    return bool(get_settings().llm_refine_enabled and llm_active() and REFINERS)

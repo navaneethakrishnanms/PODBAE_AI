@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.intel.models import Base  # noqa: E402
 from app.opportunities import models as _opp_models  # noqa: E402,F401
 from app.sponsors import models as _sp_models  # noqa: E402,F401
+from app.llm_refine import models as _llm_models  # noqa: E402,F401
 
 config = context.config
 target_metadata = Base.metadata

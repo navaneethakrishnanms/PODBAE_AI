@@ -1,4 +1,4 @@
-import { CATEGORIES, MIN_CAMPAIGN_BUDGET, ORG_TYPES, VIBE_TAGS } from '@podbae/contracts';
+import { CATEGORIES, MIN_CAMPAIGN_BUDGET, ORG_TYPES, VIBE_TAGS, websiteDomain } from '@podbae/contracts';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { PublicLayout } from '../components/Layout';
@@ -16,19 +16,19 @@ export default function AdvertiserSubmit() {
   const [step, setStep] = useState(0);
   const [f, setF] = useState({
     orgType: '' as string, orgName: '', budgetMin: 150, audience: '', vibeTags: [] as string[], brandValues: [] as string[],
-    categories: [] as string[], goals: [] as string[], contactName: '', email: '', password: '', location: '',
+    categories: [] as string[], goals: [] as string[], contactName: '', email: '', password: '', location: '', website: '',
   });
   const [busy, setBusy] = useState(false);
 
   const valid = [
     !!f.orgType, f.budgetMin >= MIN_CAMPAIGN_BUDGET, true, f.categories.length > 0, f.goals.length > 0,
-    !!(f.orgName && f.email && f.password.length >= 8),
+    !!(f.orgName && f.email && f.password.length >= 8) && (!f.website.trim() || websiteDomain(f.website) !== null),
   ][step];
 
   async function finish() {
     setBusy(true);
     try {
-      await api.post('/api/advertiser/register', f);
+      await api.post('/api/advertiser/register', { ...f, website: f.website.trim() || undefined });
       await refresh();
       nav('/dashboard/campaign-builder');
     } catch (err: any) { toast(err.message); } finally { setBusy(false); }
@@ -68,6 +68,12 @@ export default function AdvertiserSubmit() {
               <Field label="Organization name"><Input value={f.orgName} onChange={(e) => setF({ ...f, orgName: e.target.value })} /></Field>
               <Field label="Contact name"><Input value={f.contactName} onChange={(e) => setF({ ...f, contactName: e.target.value })} /></Field>
               <Field label="Location"><Input value={f.location} onChange={(e) => setF({ ...f, location: e.target.value })} placeholder="City, ST" /></Field>
+              <Field label="Company website" hint="(optional)">
+                <Input data-testid="advertiser-website" value={f.website} onChange={(e) => setF({ ...f, website: e.target.value })} placeholder="https://yourbrand.com" />
+                {f.website.trim() && (websiteDomain(f.website)
+                  ? <p className="mt-1 text-xs text-muted-foreground">We match your brand to podcasts by this domain only: <b>{websiteDomain(f.website)}</b></p>
+                  : <p className="mt-1 text-xs text-destructive">Enter a valid website, e.g. https://example.com</p>)}
+              </Field>
               <Field label="Email"><Input type="email" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} /></Field>
               <Field label="Password" hint="(min 8)"><Input type="password" value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} /></Field>
             </>

@@ -45,18 +45,50 @@ def seeds() -> dict:
             "categories": c.get("categories") or {}, "categories_version": c.get("version")}
 
 
+def _llm_on() -> bool:
+    from ..llm_refine import llm_active
+    return llm_active()
+
+
 def history_filter():
-    """SQL filter: events that count as sponsorship history."""
-    return or_(SponsorshipEvent.cls.in_(("declared_sponsorship", "likely_sponsorship")) & (SponsorshipEvent.verification_status != "reviewed_rejected"),
-               (SponsorshipEvent.verification_status == "reviewed_ok") & SponsorshipEvent.reviewed_class.in_(("declared_sponsorship", "likely_sponsorship")))
+    """SQL filter: events that count as sponsorship history. Phase 4: while the LLM is active, an UNREVIEWED event the LLM
+    promoted (llm_cls = likely_sponsorship, or declared only when a rule already found an explicit sponsor phrase) counts too.
+    Human verdicts always win; with the LLM switched off this is exactly the Phase 3 filter."""
+    H = ("declared_sponsorship", "likely_sponsorship")
+    base = or_(SponsorshipEvent.cls.in_(H) & (SponsorshipEvent.verification_status != "reviewed_rejected"),
+               (SponsorshipEvent.verification_status == "reviewed_ok") & SponsorshipEvent.reviewed_class.in_(H))
+    if not _llm_on():
+        return base
+    return or_(base, (SponsorshipEvent.verification_status == "auto") & SponsorshipEvent.llm_cls.in_(H))
 
 
 def effective_class(e: SponsorshipEvent) -> str | None:
+    """Human verdict > LLM second opinion (only while the LLM is active, only on unreviewed events) > rule class."""
     if e.verification_status == "reviewed_rejected":
         return None
     if e.verification_status == "reviewed_ok" and e.reviewed_class:
         return e.reviewed_class
+    if e.verification_status == "auto" and getattr(e, "llm_cls", None) and _llm_on():
+        return e.llm_cls
     return e.cls
+
+
+def effective_categories(b) -> list[dict]:
+    """Manual / override categories always win; else the LLM's evidence-quoted categories while the LLM is active; else
+    the Phase 3 inferred (e5) categories."""
+    if b.category_method in ("manual", "override"):
+        return list(b.categories or [])
+    if b.llm_categories and _llm_on():
+        return list(b.llm_categories)
+    return list(b.categories or [])
+
+
+def display_name(b) -> str:
+    """A cleaned name ("Uncommon Goods" for "Uncommongoods"): a human-approved suggestion always applies; an LLM suggestion
+    found verbatim in >= 2 snippets applies automatically while the LLM is active; otherwise the stored name."""
+    if b.name_suggestion and (b.name_suggestion_status == "approved" or (b.name_suggestion_status == "auto_applied" and _llm_on())):
+        return b.name_suggestion
+    return b.name
 
 
 def _brand_for_domain(s: Session, domain: str, cache: dict) -> Brand:
@@ -122,7 +154,26 @@ def resolve(s: Session) -> dict:
         if cb is not None and pb is not None and cb.id != pb.id:
             cb.parent_brand_id = pb.id
     s.flush()
-    return refresh_stats(s)
+    out = refresh_stats(s)
+    out["removed_stale_brands"] = prune_stale(s)
+    return out
+
+
+def prune_stale(s: Session) -> int:
+    """Auto-created brands left with no evidence after a re-scan (e.g. a rule fix) are deleted. Manual / registered /
+    manually categorised brands are always kept."""
+    from .models import BrandRegistration
+    used = {b for (b,) in s.execute(select(SponsorshipEvent.brand_id).where(SponsorshipEvent.brand_id.is_not(None)).distinct())}
+    registered = {b for (b,) in s.execute(select(BrandRegistration.brand_id).distinct())}
+    n = 0
+    for b in list(s.scalars(select(Brand).where(Brand.identity != "manual", Brand.category_method != "manual", Brand.merged_into.is_(None)))):
+        if b.id in used or b.id in registered or s.scalar(select(Brand.id).where(Brand.parent_brand_id == b.id).limit(1)):
+            continue
+        s.query(BrandDomain).filter(BrandDomain.brand_id == b.id).delete()
+        s.delete(b)
+        n += 1
+    s.flush()
+    return n
 
 
 def refresh_stats(s: Session) -> dict:
@@ -171,8 +222,13 @@ def categorize(s: Session, *, max_snippets: int = 6) -> dict:
         v = v / (np.sqrt((v * v).sum()) or 1.0)
         sims = mm(qmat, v)
         rel = sims - sims.mean()
-        order = np.argsort(-rel)
-        top = [int(order[0])] + [int(j) for j in order[1:3] if rel[j] >= rel[order[0]] - 0.01]
+        text = " ".join(texts + [b.primary_domain or ""]).lower()
+        # a SENSITIVE category is only assigned with a keyword in the brand's own ad text (embeddings alone mislabelled e.g. a
+        # budgeting app as gambling); otherwise it is skipped in favour of the next non-sensitive category
+        ok = [j for j in np.argsort(-rel) if not cats[ids[int(j)]].get("sensitive") or _sensitive_hit(ids[int(j)], text)]
+        if not ok:
+            continue
+        top = [int(ok[0])] + [int(j) for j in ok[1:2] if rel[j] >= rel[ok[0]] - 0.005]
         groups = Counter(g for e in ev for g in (_groups(s, e.show_id) or []))
         b.categories = [{"id": ids[j], "label": cats[ids[j]]["label"], "score": round(float(rel[j]), 4), "method": "model", "tier": "inferred",
                          "confidence": 0.35, "sensitive": bool(cats[ids[j]].get("sensitive")), "evidence_event_ids": [e.id for e in ev[:3]],
@@ -181,6 +237,25 @@ def categorize(s: Session, *, max_snippets: int = 6) -> dict:
         done["inferred"] += 1
     s.flush()
     return dict(done)
+
+
+SENSITIVE_LEXICON = {
+    "alcohol": r"\b(beer|wine|whisk(?:e)?y|vodka|gin|rum|tequila|spirits|cocktail|brew(?:ery|ing)|liquor|bourbon|sake)\b",
+    "cannabis": r"\b(thc|cbd|cannabis|marijuana|hemp|weed|dispensar\w*|delta[- ]?[89])\b",
+    "gambling_betting": r"\b(bet|bets|betting|sportsbook|casino|wager\w*|parlay|odds|gambl\w*|poker|prizepicks|fanduel|draftkings|kalshi)\b",
+    "crypto_trading": r"\b(crypto\w*|bitcoin|ethereum|blockchain|coinbase|trading|trade|exchange|kalshi|prediction market)\b",
+    "weight_loss": r"\b(weight[- ]loss|lose weight|glp-?1|ozempic|semaglutide|tirzepatide|appetite)\b",
+    "firearms": r"\b(guns?|firearms?|ammo|ammunition|rifles?|pistols?|holsters?|shooting range)\b",
+    "political": r"\b(campaign for|vote for|candidate|super pac|political action|paid for by)\b",
+    "adult": r"\b(sex|sexual|vibrator|erectile|ed meds|libido|adult toys?|intimacy)\b",
+    "dating": r"\b(dating|matchmaking|singles|find love|hinge|tinder|bumble)\b",
+}
+
+
+def _sensitive_hit(cat: str, text: str) -> bool:
+    import re as _re
+    rx = SENSITIVE_LEXICON.get(cat)
+    return bool(rx and _re.search(rx, text, _re.I))
 
 
 _gcache: dict[str, list] = {}

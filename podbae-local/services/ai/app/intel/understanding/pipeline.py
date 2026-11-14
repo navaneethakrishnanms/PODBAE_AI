@@ -34,7 +34,8 @@ def _fact(s: Session, sid: str, f: str) -> Any:
     rows = live_rows(s, "show", sid, f)
     if not rows:
         return None
-    rows.sort(key=lambda r: ({"verified": 0, "creator_provided": 1, "estimated": 2, "inferred": 3}[r.data_tier], -r.fetched_at.timestamp()))
+    from ..trust.provenance import pick_key
+    rows.sort(key=pick_key)
     return rows[0].value_json
 
 
@@ -178,8 +179,15 @@ def understand_show(s: Session, show_id: str) -> dict:
                model_version=ms.STYLE_VERSION)
         res["style_vector"] = cal.write_style_vector(s, show_id, feat, cal.style_mean(s))
 
-    if refine_enabled():   # Phase 1: never true (flag off, no refiners registered)
-        res["refined"] = []
+    if refine_enabled():   # Phase 4: LLM refiners, only where the rules above are weak; rule values stay alongside
+        from ...llm_refine.client import Paused
+        from ...llm_refine.layer1 import refine_show
+        try:
+            res["refined"] = refine_show(s, show_id)
+        except Paused:      # provider rate-limited: keep the rule values now; the llm_refine job resumes later
+            res["refined"] = {"paused": True}
+        except Exception as exc:  # noqa: BLE001 - an LLM problem never breaks ingestion
+            res["refined"] = {"error": type(exc).__name__}
     # Phase 2 close-out: declared contact / booking / guest routes (no e-mails; no fetching) for Layer 4 readiness
     from ..contact_routes import record_routes
     res["contact_routes"] = len(record_routes(s, show_id))

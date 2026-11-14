@@ -5,6 +5,19 @@ import bcrypt from 'bcryptjs';
 import { q, q1 } from '../db/client.js';
 import { HttpError } from '../lib.js';
 import { intel } from './intel.js';
+import { syncAdvertisers } from './opportunities.js';
+
+/** Phase 4: three DEMO advertisers (demo=true, fake orgs) carry the website of a brand seen in the store, so the Verified
+ *  sponsor path (registered advertiser matched by registrable domain) can be demonstrated. Real advertisers are never touched. */
+export const DEMO_ADVERTISER_WEBSITES: Record<string, string> = {
+  'fit@demo.podbae.local': 'drinkag1.com', 'edu@demo.podbae.local': 'shopify.com', 'ngo@demo.podbae.local': 'betterhelp.com',
+};
+
+export async function ensureDemoAdvertiserWebsites() {
+  for (const [email, site] of Object.entries(DEMO_ADVERTISER_WEBSITES))
+    await q('UPDATE advertisers SET website = $1 WHERE demo = true AND contact_email = $2 AND website IS NULL', [site, email]);
+  return syncAdvertisers();
+}
 
 type Openness = 'open' | 'selective' | 'closed' | null;
 // cycle over the shows most similar to the demo show: Verified (open/selective), Potential lead (no openness), gated (closed)
@@ -139,10 +152,16 @@ export async function demoSetup(opts: { showId?: string } = {}) {
       break;
     }
   }
-  // 4. (re)generate for everyone involved
+  // 4. demo advertisers' websites -> brand registrations (domain only), BEFORE sponsor generation so Verified can appear
+  let advertisers: any = null;
+  try { advertisers = await ensureDemoAdvertiserWebsites(); } catch { advertisers = { error: 'sync failed' }; }
+  // 5. (re)generate for everyone involved
   const targets = [demo.show_id, ...ids, ...(showcase ? [showcase.show_id] : []), ...(noMatch ? [noMatch.show_id] : [])];
-  for (const sid of targets) await ok('/opportunities/generate', { json: { member_show_id: sid, force: true } });
+  for (const sid of targets) {
+    await ok('/opportunities/generate', { json: { member_show_id: sid, force: true } });
+    await ok('/sponsor-opportunities/generate', { json: { member_show_id: sid, force: true } });   // Layer 2 sponsor cards
+  }
   await q('DELETE FROM opportunity_cache');
   return { demo_podcaster: { email: 'podcaster@podbae.local', show: demo.title, show_id: demo.show_id }, members, commit_showcase: showcase, no_match: noMatch,
-    generated_for: targets.length, password: 'demo123 (all demo accounts)' };
+    generated_for: targets.length, advertisers, password: 'demo123 (all demo accounts)' };
 }

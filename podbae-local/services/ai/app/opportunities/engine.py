@@ -166,37 +166,75 @@ def fingerprint(s: Session, member_id: str, cfg: dict | None = None) -> str:
 
 
 # ───────────────────────── persist ─────────────────────────
-def persist(s: Session, res: dict, cfg: dict, fp: str, duration_ms: int) -> OpportunityRun:
+def kind_filter(kind: str):
+    """partner and sponsor opportunities share the table; the type separates them."""
+    return Opportunity.type == "sponsor" if kind == "sponsor" else Opportunity.type != "sponsor"
+
+
+def run_stats(scored: list[dict]) -> dict:
+    """Compact distribution of EVERY scored candidate (qualified or not): what the admin metrics need, without storing a
+    full row per below-threshold candidate (that used ~8 KB x 200 candidates x every member x every run)."""
+    fit_hist, conf_hist = [0] * 10, [0] * 10
+    fac: dict[str, dict[str, int]] = {}
+    for r in scored:
+        fit_hist[min(9, int(r["fit"] // 10))] += 1
+        conf_hist[min(9, int(r["confidence"]["value"] * 10))] += 1
+        for f in r["factors"]:
+            d = fac.setdefault(f["name"], {})
+            d[f["status"]] = d.get(f["status"], 0) + 1
+    return {"n_scored": len(scored), "fit_hist": fit_hist, "confidence_hist": conf_hist, "factor_status": fac}
+
+
+def _has_events(s: Session, opp_id: str) -> bool:
+    return bool(s.scalar(select(OpportunityEvent.id).where(OpportunityEvent.opportunity_id == opp_id).limit(1)))
+
+
+def persist(s: Session, res: dict, cfg: dict, fp: str, duration_ms: int, kind: str = "partner") -> OpportunityRun:
+    """Stores ONLY qualified opportunities in full (what members can see, explain and act on). Below-threshold candidates
+    are summarised in run.stats. Rows that drop out are deleted unless an event references them (then kept as history)."""
     sv, as_of = cfg["scoring_version"], res["as_of"]
     member = res["member_show_id"]
-    run = OpportunityRun(member_show_id=member, scoring_version=sv, config_hash=config_hash(cfg), inputs_fingerprint=fp, as_of=as_of,
-                         n_candidates=res["candidates"], n_rejected=len(res["rejections"]), n_scored=len(res["scored"]),
-                         n_qualified=len(res["qualified"]), duration_ms=duration_ms, result_hash=res["result_hash"])
+    run = OpportunityRun(member_show_id=member, kind=kind, scoring_version=sv, config_hash=config_hash(cfg), inputs_fingerprint=fp,
+                         as_of=as_of, n_candidates=res["candidates"], n_rejected=len(res["rejections"]), n_scored=len(res["scored"]),
+                         n_qualified=len(res["qualified"]), duration_ms=duration_ms, result_hash=res["result_hash"],
+                         stats={**run_stats(res["scored"]), "gate_counts": res["gate_counts"]})
     s.add(run)
     s.flush()
+    old_runs = [r.id for r in s.scalars(select(OpportunityRun).where(OpportunityRun.member_show_id == member, OpportunityRun.kind == kind,
+                                                                     OpportunityRun.id != run.id))]
+    if old_runs:                      # only the latest run's gate rejections are kept (counts stay in each run's stats)
+        s.query(OpportunityRejection).filter(OpportunityRejection.run_id.in_(old_runs)).delete(synchronize_session=False)
     for rj in res["rejections"]:
         s.add(OpportunityRejection(run_id=run.id, member_show_id=member, candidate_show_id=rj["candidate_show_id"], reason=rj["reason"],
                                    detail=rj["detail"]))
     existing = {o.target_show_id: o for o in s.scalars(select(Opportunity).where(Opportunity.member_show_id == member,
-                                                                                  Opportunity.status == "active"))}
+                                                                                  Opportunity.status == "active", kind_filter(kind)))}
     expires = as_of + timedelta(days=float(cfg["ranking"]["expiry_days"]))
-    for r in res["scored"]:
+
+    def retire(o: Opportunity, status: str) -> None:
+        if _has_events(s, o.id):
+            o.status = status
+        else:
+            s.delete(o)
+    for r in res["qualified"]:
         o = existing.pop(r["target_show_id"], None)
         if o is not None and o.scoring_version == sv and o.inputs_hash == r["inputs_hash"]:
-            o.run_id, o.expires_at, o.rank, o.qualified = run.id, expires, r["rank"], r["qualified"]
+            o.run_id, o.expires_at, o.rank, o.qualified = run.id, expires, r["rank"], True
             continue
         if o is not None:
-            o.status = "superseded"
+            retire(o, "superseded")
         s.add(Opportunity(
             member_show_id=member, type=r["type"], target_show_id=r["target_show_id"], fit=r["fit"],
             breakdown_json={"factors": r["factors"], "target": r["target"], "type_reason": r["type_reason"], "readiness": r["readiness"],
-                            "candidate_sources": r["candidate_sources"], "gate": r["gate"], "confidence_detail": r["confidence"]},
+                            "candidate_sources": r["candidate_sources"], "gate": r["gate"], "confidence_detail": r["confidence"],
+                            **({"evidence": r["evidence"]} if r.get("evidence") else {}),
+                            **({"contact_status": r["contact_status"]} if r.get("contact_status") else {})},
             confidence=r["confidence"]["value"], confidence_level=r["confidence"]["level"], readiness=r["readiness"]["level"],
             conversion_status=CONVERSION["status"], why_now_json=r["why_now"], evidence_ids=r["evidence_ids"],
             explanation_json=r["explanation"], scoring_version=sv, feature_snapshot_json=r["snapshot"], inputs_hash=r["inputs_hash"],
-            qualified=r["qualified"], rank=r["rank"], status="active", run_id=run.id, expires_at=expires, created_at=as_of))
+            qualified=True, rank=r["rank"], status="active", run_id=run.id, expires_at=expires, created_at=as_of))
     for o in existing.values():
-        o.status = "withdrawn"     # no longer a candidate / now gated out (e.g. dismissed, blocked)
+        retire(o, "withdrawn")     # below threshold now / gated out (dismissed, blocked) / no longer a candidate
     s.flush()
     return run
 
@@ -213,7 +251,7 @@ def generate(member_show_id: str, *, as_of: datetime | None = None, cfg: dict | 
         corpus = Corpus.load(s, at)
         sd, _eng = seen_days(s, member, at, cfg)
         res = compute(s, corpus, member, cfg, load_history(s, member, cfg), sd)
-        run = persist(s, res, cfg, fp, int((time.perf_counter() - t0) * 1000))
+        run = persist(s, res, cfg, fp, int((time.perf_counter() - t0) * 1000), kind="partner")
         audit(s, "engine", "opportunities_generated", "show", member,
               {"run_id": run.id, "qualified": run.n_qualified, "scored": run.n_scored, "rejected": run.n_rejected, "scoring_version": run.scoring_version})
         return {"run_id": run.id, "member_show_id": member, "scoring_version": run.scoring_version, "candidates": run.n_candidates,
@@ -273,7 +311,9 @@ def view(o: Opportunity, seen: dict[str, int] | None = None, today: set[str] | N
                        "disabled_factors": cd.get("disabled_factors", []), "formula": cd.get("formula"),
                        "adjustments": cd.get("adjustments", [])},
         "readiness": _readiness_view(o, b), "conversion": dict(CONVERSION),
-        "why_now": o.why_now_json or [], "evidence": {"shared_topics": [t["name"] for t in shared][:5], "episode_ids": o.evidence_ids or []},
+        "why_now": o.why_now_json or [],
+        "evidence": b.get("evidence") or {"shared_topics": [t["name"] for t in shared][:5], "episode_ids": o.evidence_ids or []},
+        **({"contact_status": b["contact_status"]} if b.get("contact_status") else {}),
         "explanation": {"text": (o.explanation_json or {}).get("text"), "parts": (o.explanation_json or {}).get("parts", []),
                         "method": (o.explanation_json or {}).get("method", "template")},
         "breakdown": {"factors": factors, "used": st["used"], "missing": st["missing"], "disabled": st["disabled"]},
@@ -301,8 +341,12 @@ def _readiness_view(o: Opportunity, b: dict) -> dict:
 
 
 def list_for_member(s: Session, member_show_id: str, *, user_id: str | None = None, limit: int = 50,
-                    as_of: datetime | None = None, auto_generate: bool = True) -> dict:
-    cfg = get_config()
+                    as_of: datetime | None = None, auto_generate: bool = True, kind: str = "partner", cfg: dict | None = None,
+                    enqueue_fn=None, fingerprint_fn=None, state_fn=None, generating_message: str = "Finding partners for your show\u2026") -> dict:
+    """Shared read side for every opportunity kind. kind='sponsor' passes its own enqueue / fingerprint / no-match-state hooks."""
+    cfg = cfg or get_config()
+    enqueue_fn = enqueue_fn or enqueue_generate
+    fingerprint_fn = fingerprint_fn or (lambda s_, m_: fingerprint(s_, m_, cfg))
     at = as_of or now()
     member = resolve_root(s, member_show_id)
     if s.get(Show, member) is None:
@@ -310,26 +354,27 @@ def list_for_member(s: Session, member_show_id: str, *, user_id: str | None = No
     sv = cfg["scoring_version"]
     base = {"member_show_id": member, "scoring_version": sv, "status": cfg["status"], "fit_note": FIT_NOTE,
             "thresholds": {"min_fit": cfg["ranking"]["min_fit"], "min_confidence": cfg["ranking"]["min_confidence"]}}
-    run = s.scalar(select(OpportunityRun).where(OpportunityRun.member_show_id == member, OpportunityRun.scoring_version == sv)
+    run = s.scalar(select(OpportunityRun).where(OpportunityRun.member_show_id == member, OpportunityRun.scoring_version == sv,
+                                                OpportunityRun.kind == kind)
                    .order_by(OpportunityRun.created_at.desc(), OpportunityRun.id.desc()).limit(1))
     job = None
     if run is None:
         if auto_generate:
-            job = enqueue_generate(s, member)
-        return {**base, "state": "generating", "items": [], "message": "Finding partners for your show…", "suggestions": [],
+            job = enqueue_fn(s, member)
+        return {**base, "kind": kind, "state": "generating", "items": [], "message": generating_message, "suggestions": [],
                 "job": {"id": job.id, "status": job.status} if job else None, "generated_at": None, "stale": False,
                 "shown_today_target_ids": [], "total_qualified": 0}
-    stale = fingerprint(s, member, cfg) != run.inputs_fingerprint
+    stale = fingerprint_fn(s, member) != run.inputs_fingerprint
     for o in s.scalars(select(Opportunity).where(Opportunity.member_show_id == member, Opportunity.status == "active",
-                                                 Opportunity.expires_at <= at)):
+                                                 Opportunity.expires_at <= at, kind_filter(kind))):
         o.status = "expired"
     rows = list(s.scalars(select(Opportunity).where(Opportunity.member_show_id == member, Opportunity.status == "active",
-                                                    Opportunity.qualified.is_(True), Opportunity.scoring_version == sv)
+                                                    Opportunity.qualified.is_(True), Opportunity.scoring_version == sv, kind_filter(kind))
                           .order_by(Opportunity.rank, Opportunity.target_show_id)))
     expired_all = not rows and s.scalar(select(func.count()).select_from(Opportunity).where(
         Opportunity.member_show_id == member, Opportunity.status == "expired", Opportunity.run_id == run.id))
     if (stale or expired_all) and auto_generate:
-        job = enqueue_generate(s, member)
+        job = enqueue_fn(s, member)
     history = load_history(s, member, cfg)
     cool = cfg["gates"].get("cooldown_days") or {}
     suppressed = {t for t, evs in history.items() for typ, ts in evs if typ in cool and (at - ts).total_seconds() / 86400 < float(cool[typ])}
@@ -343,11 +388,13 @@ def list_for_member(s: Session, member_show_id: str, *, user_id: str | None = No
     visible = [o for o in rows if o.target_show_id not in suppressed and (o.target_show_id not in seen_supp or o.target_show_id in today)]
     saved = saved_targets(s, member)
     items = [view(o, sd, today, saved) for o in visible[: int(limit)]]
+    from ..llm_refine.phraser import attach      # Phase 4: cached AI phrasing if any (no provider call here); template otherwise
+    items = attach(s, items)
     m = _member_features(s, member, at)
     gate_counts = dict(s.execute(select(OpportunityRejection.reason, func.count()).where(OpportunityRejection.run_id == run.id)
                                  .group_by(OpportunityRejection.reason)).all())
-    st = ranking.state([{"x": 1}] * len(visible), m, gate_counts, cfg)
-    return {**base, **st, "items": items, "total_qualified": len(visible), "generated_at": _iso(run.created_at), "run_id": run.id,
+    st = (state_fn or ranking.state)([{"x": 1}] * len(visible), m, gate_counts, cfg)
+    return {**base, **st, "kind": kind, "items": items, "total_qualified": len(visible), "generated_at": _iso(run.created_at), "run_id": run.id,
             "stale": stale, "job": {"id": job.id, "status": job.status} if job else None,
             "suppressed": {"dismissed_or_contacted": len(suppressed & {o.target_show_id for o in rows}),
                            "seen_too_often": len(seen_supp & {o.target_show_id for o in rows} - today)},
@@ -397,4 +444,10 @@ def record_events(s: Session, events: list[dict]) -> list[dict]:
         s.add(e)
         s.flush()
         out.append({"id": e.id, "type": typ, "deduplicated": False})
+    shown = sorted({ev["opportunity_id"] for ev in events if ev.get("type") == "impression"})
+    if shown:   # Phase 4: phrase (lazily, budgeted, in a job) only the cards the app actually SHOWED
+        from ..llm_refine import phraser
+        if phraser.enabled():
+            from ..llm_refine.jobs import enqueue_phrasing
+            enqueue_phrasing(s, shown)
     return out

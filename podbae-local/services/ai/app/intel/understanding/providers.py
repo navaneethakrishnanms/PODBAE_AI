@@ -99,6 +99,9 @@ def get_provider() -> Provider:
         return OpenAIProvider(cfg.openai_key, cfg.openai_model)
     if p == "anthropic" and cfg.anthropic_key:
         return AnthropicProvider(cfg.anthropic_key, cfg.anthropic_model)
+    if p == "ollama":   # Phase 4 (app/llm/ollama.py): local daemon, local or cloud model
+        from ...llm_refine.ollama import OllamaProvider
+        return OllamaProvider()
     return MockProvider()
 
 

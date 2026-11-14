@@ -270,15 +270,12 @@ FACTOR_FUNCS: dict[str, Callable[..., FactorResult]] = {
 }
 
 
-def score_pair(m: ShowFeatures, c: ShowFeatures, corpus: Corpus, cfg: dict) -> tuple[float, list[dict]]:
-    """Fit 0-100 = 100 * sum(w_i * v_i) / sum(w_i) over USED factors only (missing/disabled excluded, weights renormalised)."""
-    fcfg = cfg["factors"]
+def combine_rows(results: list[tuple[FactorResult, float]]) -> tuple[float, list[dict]]:
+    """THE Fit formula, shared by every opportunity kind (partners, sponsors):
+    Fit 0-100 = 100 * sum(w_i * v_i) / sum(w_i) over USED factors only (missing/disabled excluded, weights renormalised)."""
     rows: list[dict] = []
     num = den = 0.0
-    for name, fn in FACTOR_FUNCS.items():
-        fc = fcfg[name]
-        w = float(fc["weight"])
-        r = fn(m, c, corpus, fc, float(cfg["confidence"]["embedding_confidence"])) if name == "content_similarity" else fn(m, c, corpus, fc)
+    for r, w in results:
         d = r.as_dict(w)
         if r.status == "used" and w > 0:
             num += w * float(r.value)
@@ -289,3 +286,14 @@ def score_pair(m: ShowFeatures, c: ShowFeatures, corpus: Corpus, cfg: dict) -> t
         d["effective_weight"] = round(d["weight"] / den, 4) if d["status"] == "used" and den else 0.0
         d["contribution"] = round(100.0 * d["effective_weight"] * d["value"], 2) if d["status"] == "used" else 0.0
     return fit, rows
+
+
+def score_pair(m: ShowFeatures, c: ShowFeatures, corpus: Corpus, cfg: dict) -> tuple[float, list[dict]]:
+    """Podcast-partner Fit: the partner factors, combined by combine_rows()."""
+    fcfg = cfg["factors"]
+    results = []
+    for name, fn in FACTOR_FUNCS.items():
+        fc = fcfg[name]
+        r = fn(m, c, corpus, fc, float(cfg["confidence"]["embedding_confidence"])) if name == "content_similarity" else fn(m, c, corpus, fc)
+        results.append((r, float(fc["weight"])))
+    return combine_rows(results)
